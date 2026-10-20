@@ -211,14 +211,14 @@
               <div class="forensic-verdict-title">Forensic Audit Verdict</div>
               <div class="forensic-verdict-badge" id="forensicVerdictBadge">
                 <span id="forensicVerdictIcon">🛡️</span>
-                <span id="forensicVerdictText">AUTHENTIC</span>
+                <span id="forensicVerdictText">NO MANIPULATION DETECTED</span>
               </div>
               <div>
-                <span class="ci-pill" id="forensicCiPill">95% CI: [47.1% – 48.0%]</span>
+                <span class="ci-pill" id="forensicCiPill">Window Dispersion: [47.1% – 48.0%]</span>
               </div>
             </div>
             <div style="text-align: right;">
-              <div class="forensic-verdict-title">Calibrated Fake Score</div>
+              <div class="forensic-verdict-title">Model Manipulation Score</div>
               <div style="font-family: var(--font-mono); font-size: 1.25rem; font-weight: 800; color: #f1f5f9;" id="forensicProbVal">47.5%</div>
               <span id="forensicConfidenceLevel" style="font-size: 0.75rem; color: #34d399; font-weight: 600;">High Confidence</span>
             </div>
@@ -227,7 +227,7 @@
           <!-- Forensic Evidence & Physical Attribution Box -->
           <div id="forensicEvidenceBox" class="forensic-evidence-box">
             <div class="evidence-title">
-              <span>🧬 Forensic Evidence Attribution</span>
+              <span>🧬 Forensic Observations & Telemetry</span>
               <span id="evidenceStrengthBadge" style="font-size: 0.7rem; font-family: var(--font-mono); background: rgba(255,255,255,0.08); padding: 1px 6px; border-radius: 4px; color: #94a3b8;">Physical Anomaly Analysis</span>
             </div>
             <div id="forensicEvidenceText" class="evidence-text">
@@ -238,14 +238,14 @@
           <!-- Forensic Quality & Biometric Stats Grid -->
           <div class="forensic-stat-grid">
             <div class="forensic-stat-card">
-              <span class="forensic-stat-label">Kinematic Motion Energy</span>
+              <span class="forensic-stat-label">2D Frame Differential Energy</span>
               <span class="forensic-stat-val" id="forensicKinEnergy">9.08</span>
-              <span class="forensic-stat-sub">Frame differential activity</span>
+              <span class="forensic-stat-sub">Inter-frame pixel variation</span>
             </div>
             <div class="forensic-stat-card">
-              <span class="forensic-stat-label">Temporal Stability Index</span>
+              <span class="forensic-stat-label">Window Score Consistency</span>
               <span class="forensic-stat-val" id="forensicTempStability">99.8%</span>
-              <span class="forensic-stat-sub">Cross-window consistency</span>
+              <span class="forensic-stat-sub">Cross-window dispersion metric</span>
             </div>
             <div class="forensic-stat-card">
               <span class="forensic-stat-label">Windows Evaluated</span>
@@ -257,8 +257,8 @@
           <!-- 2D Spatial Saliency Anomaly Heatmap -->
           <div class="forensic-saliency-box">
             <div class="saliency-header">
-              <span class="saliency-title">🧬 Spatial Laplacian Saliency Map</span>
-              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">112×112 Anomaly Filter</span>
+              <span class="saliency-title">🧬 Spatial Laplacian Gradient Map</span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">112×112 Spatial Frequency Filter</span>
             </div>
             <div class="saliency-display">
               <img id="forensicSaliencyImg" class="saliency-img" alt="Spatial Saliency Heatmap" src="" style="display: none;">
@@ -266,12 +266,12 @@
               <div class="saliency-legend">
                 <div class="saliency-gradient-bar"></div>
                 <div class="saliency-labels">
-                  <span>Authentic (0.0)</span>
-                  <span>Mid Anomaly (0.5)</span>
-                  <span>Severe Seam (1.0)</span>
+                  <span>Low Variation (0.0)</span>
+                  <span>Moderate Gradient (0.5)</span>
+                  <span>Peak Local Gradient (1.0)</span>
                 </div>
                 <div class="saliency-desc">
-                  High-frequency spatial gradient activations reveal blending boundaries and facial warping discontinuities across tracked frames.
+                  High-frequency spatial gradient variance highlights sharp transitions (natural facial edges, hair, lighting, compression blocks, or blending boundaries). Does not uniquely isolate synthetic seams.
                 </div>
               </div>
             </div>

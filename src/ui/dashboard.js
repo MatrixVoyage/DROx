@@ -675,11 +675,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (forensicVerdictBadge) {
       forensicVerdictBadge.className = `forensic-verdict-badge ${isFake ? "fake" : "real"}`;
       if (forensicVerdictIcon) forensicVerdictIcon.textContent = isFake ? "🚨" : "🛡️";
-      if (forensicVerdictText) forensicVerdictText.textContent = isFake ? "DEEPFAKE DETECTED" : "AUTHENTIC VIDEO";
+      if (forensicVerdictText) forensicVerdictText.textContent = isFake ? "MANIPULATION DETECTED" : "NO MANIPULATION DETECTED";
     }
 
     if (forensicCiPill) {
-      forensicCiPill.textContent = `95% CI: [${ciLow}% – ${ciHigh}%]`;
+      forensicCiPill.textContent = (ciLow === ciHigh) ? `Window Score: ${ciLow}%` : `Window Dispersion: [${ciLow}% – ${ciHigh}%]`;
     }
 
     if (forensicProbVal) {
@@ -701,12 +701,12 @@ document.addEventListener("DOMContentLoaded", () => {
       forensicEvidenceBox.className = `forensic-evidence-box ${isFake ? "fake" : "real"}`;
     }
     if (evidenceStrengthBadge) {
-      evidenceStrengthBadge.textContent = isFake ? "🚨 STRONG EVIDENCE OF SYNTHESIS" : "🛡️ CONSISTENT BIOMETRIC INTEGRITY";
+      evidenceStrengthBadge.textContent = isFake ? "🚨 ELEVATED ANOMALY INDICATORS" : "🛡️ NOMINAL BASELINE";
       evidenceStrengthBadge.style.color = isFake ? "#f87171" : "#34d399";
       evidenceStrengthBadge.style.background = isFake ? "rgba(239, 68, 68, 0.15)" : "rgba(52, 211, 153, 0.15)";
     }
     if (forensicEvidenceText) {
-      forensicEvidenceText.textContent = data.forensic_explanation || (isFake ? "Synthetic manipulation cues detected across evaluated temporal frames." : "No manipulation detected; biometric integrity confirmed.");
+      forensicEvidenceText.textContent = data.forensic_explanation || (isFake ? "Elevated manipulation indicators observed across temporal windows." : "No significant manipulation indicators detected within validated scope.");
     }
 
     // Forensic Quality & Biometric Stats
@@ -792,11 +792,11 @@ document.addEventListener("DOMContentLoaded", () => {
                 <span class="window-time-badge">${startTime}s – ${endTime}s</span>
               </div>
               <div style="font-size: 0.72rem; color: #94a3b8;">
-                ${w.frame_count} frames • Face Track Conf: ${faceConf}% • Kinematic Energy: ${kin}
+                ${w.frame_count} frames • Face Track Conf: ${faceConf}% • Frame Differential: ${kin}
               </div>
             </div>
             <div class="window-metrics">
-              <span class="window-score-pill ${pillClass}">${wIsFake ? "MANIPULATION" : "NATURAL"} (${wScorePct}%)</span>
+              <span class="window-score-pill ${pillClass}">${wIsFake ? "ELEVATED ANOMALY" : "NOMINAL"} (${wScorePct}%)</span>
               <span style="font-size: 0.68rem; font-family: var(--font-mono); color: var(--text-muted);">${w.processing_time_ms ? Number(w.processing_time_ms).toFixed(0) + " ms" : ""}</span>
             </div>
           `;

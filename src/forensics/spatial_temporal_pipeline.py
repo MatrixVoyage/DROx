@@ -179,7 +179,13 @@ class SpatialTemporalForensicEngine:
         self,
         crops_bgr: List[np.ndarray],
     ) -> np.ndarray:
-        """Computes a high-contrast spatial saliency / anomaly activation map across face crops."""
+        """Computes spatial high-frequency Laplacian gradient variance across face crops.
+        
+        Isolates sharp spatial intensity transitions across normalized 112x112 crops.
+        Note: High-frequency Laplacian responses reflect local spatial variance (edges, hair,
+        lighting contrast, compression boundaries, or blending seams); they do not uniquely
+        or exclusively establish synthetic face manipulation.
+        """
         if not crops_bgr:
             return np.zeros((self.config.target_face_size, self.config.target_face_size), dtype=np.float32)
 
@@ -196,7 +202,12 @@ class SpatialTemporalForensicEngine:
         return norm_energy.astype(np.float32)
 
     def _compute_kinematic_energy(self, crops_bgr: List[np.ndarray]) -> float:
-        """Computes frame-to-frame motion differential energy in face track."""
+        """Computes mean 2D inter-frame pixel differential energy across face track crops.
+        
+        Evaluates mean absolute difference between consecutive grayscale frames in [0, 255]
+        pixel intensity space. Quantifies inter-frame pixel-level motion variation; does not
+        measure 3D physical muscle mechanics or skeletal joint coordinates.
+        """
         if len(crops_bgr) < 2:
             return 0.0
 
@@ -377,12 +388,15 @@ class SpatialTemporalForensicEngine:
             p_max = float(np.max(probs))
             video_prob = float(0.60 * p_mean + 0.40 * p_max)
             
-            # 95% Confidence interval estimation across temporal windows
+            # Temporal window score dispersion (empirical min, max, and inter-window standard error)
+            # Note: This reflects score dispersion across observed temporal windows, not a binomial ground-truth CI.
             if len(probs) > 1:
-                se = float(np.std(probs, ddof=1) / np.sqrt(len(probs)))
-                ci_low = max(0.0, video_prob - 1.96 * se)
-                ci_high = min(1.0, video_prob + 1.96 * se)
+                disp_std = float(np.std(probs, ddof=1))
+                se = float(disp_std / np.sqrt(len(probs)))
+                ci_low = max(0.0, float(np.min(probs)))
+                ci_high = min(1.0, float(np.max(probs)))
             else:
+                disp_std = 0.0
                 ci_low = max(0.0, video_prob - 0.05)
                 ci_high = min(1.0, video_prob + 0.05)
         else:
@@ -416,26 +430,30 @@ class SpatialTemporalForensicEngine:
         # Temporal anomaly score sequence
         temporal_series = [wa.calibrated_fake_probability for wa in window_analyses]
 
-        # Construct legitimate and strong forensic evidence narrative
+        # Construct legitimate, scientifically balanced forensic evidence narrative
         fake_windows = [wa for wa in window_analyses if wa.calibrated_fake_probability >= decision_threshold]
         peak_wa = max(window_analyses, key=lambda wa: wa.calibrated_fake_probability) if window_analyses else None
 
         if not face_detected_any:
-            explanation = "Operating envelope rejection: No unambiguous human facial structure tracked across observation windows. Evidence is inadequate for accredited forensic determination."
-        elif verdict == "DEEPFAKE":
-            peak_str = f"Peak manipulation probability of {peak_wa.calibrated_fake_probability * 100:.1f}% reached in Window #{peak_wa.window_id} ({peak_wa.start_sec:.1f}s-{peak_wa.end_sec:.1f}s)." if peak_wa else ""
             explanation = (
-                f"Synthetic manipulation detected: {len(fake_windows)} of {len(window_analyses)} temporal windows exhibit manipulation cues "
-                f"exceeding decision threshold (threshold = {decision_threshold:.2f}). {peak_str} "
-                f"Multi-scale spatial Laplacian anomaly filtering reveals elevated high-frequency boundary energy along facial contours, "
-                f"and kinematic differential activity ({avg_kin:.2f}) indicates non-rigid inter-frame manipulation artifacts."
+                "Operating envelope rejection: No unambiguous human facial structure tracked across observation windows. "
+                "Evidence is inadequate for accredited forensic determination (REJECT != FAKE)."
+            )
+        elif verdict == "DEEPFAKE":
+            peak_str = f"Peak window score of {peak_wa.calibrated_fake_probability * 100:.1f}% observed in Window #{peak_wa.window_id} ({peak_wa.start_sec:.1f}s-{peak_wa.end_sec:.1f}s)." if peak_wa else ""
+            explanation = (
+                f"Elevated manipulation indicators: {len(fake_windows)} of {len(window_analyses)} temporal windows exceed "
+                f"the active decision threshold (threshold = {decision_threshold:.2f}, model score: {video_prob * 100:.1f}%). {peak_str} "
+                f"Spatial Laplacian gradient variance reflects localized high-frequency transitions, "
+                f"and 2D inter-frame pixel differential energy ({avg_kin:.2f}) indicates non-nominal frame-to-frame pixel variation. "
+                f"Alternative confounders such as sensor noise, sharp lighting shifts, camera shake, and compression macroblocking must be considered."
             )
         else:
             explanation = (
-                f"Authentic video presentation confirmed: All evaluated temporal windows remain consistently below the manipulation threshold "
-                f"(threshold = {decision_threshold:.2f}, overall fake score: {video_prob * 100:.1f}%). "
-                f"Spatial gradient transitions remain smooth and continuous without boundary blending seam discontinuities, "
-                f"and temporal stability aligns with authentic camera-captured human physiology."
+                f"No significant manipulation indicators detected: All evaluated temporal windows remain below the active threshold "
+                f"(threshold = {decision_threshold:.2f}, model score: {video_prob * 100:.1f}%). "
+                f"Spatial gradient transitions and 2D frame differential energy ({avg_kin:.2f}) remain within nominal baseline ranges across observed frames. "
+                f"Note: Absence of detectable indicators within the validated scope does not guarantee authenticity against unseen synthesis methods or out-of-distribution recording conditions."
             )
 
         # Potential confounding warnings
