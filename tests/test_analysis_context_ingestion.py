@@ -147,3 +147,60 @@ def test_schema_serialization():
     assert d["findings"][0]["modality_group"] == "FACIAL_KINEMATICS"
     assert isinstance(d["findings"][0]["numeric_value"], float)
     assert d["reproducibility_metadata"]["tensor_sample"] == [1.0, 2.0]
+
+
+def test_rejects_nonpositive_sample_count():
+    """Verify that sample count validation rejects nonpositive values (P0 audit requirement)."""
+    from src.forensics.context import validate_sample_count
+    with pytest.raises(ValueError, match="sample_count must be >= 1"):
+        validate_sample_count(0)
+    with pytest.raises(ValueError, match="sample_count must be >= 1"):
+        validate_sample_count(-4)
+
+
+def test_landmark_sequence_validation():
+    """Verify LandmarkSequence validates coordinate, validity mask, and timestamp alignment."""
+    from src.forensics.context import LandmarkSequence, validate_landmark_sequence
+
+    points = np.zeros((10, 5, 3), dtype=np.float32)
+    valid_mask = np.ones(10, dtype=bool)
+    timestamps = np.linspace(0.0, 0.36, 10)
+
+    seq = LandmarkSequence(points=points, valid_frames=valid_mask, timestamps=timestamps)
+    validate_landmark_sequence(seq)  # Should pass
+
+    # Mismatched points length
+    with pytest.raises(ValueError, match="Points and timestamps must align"):
+        validate_landmark_sequence(LandmarkSequence(points=points[:8], valid_frames=valid_mask, timestamps=timestamps))
+
+    # Mismatched valid_frames length
+    with pytest.raises(ValueError, match="Validity mask and timestamps must align"):
+        validate_landmark_sequence(LandmarkSequence(points=points, valid_frames=valid_mask[:5], timestamps=timestamps))
+
+
+def test_quality_assessment_and_sampled_frame_contracts():
+    """Verify SampledFrame and QualityAssessment dataclasses maintain invariant typing."""
+    from src.forensics.context import SampledFrame, QualityAssessment
+
+    frame = SampledFrame(
+        requested_index=4,
+        decoded_index=4,
+        pts_seconds=0.16,
+        pts_is_exact=True,
+        image=np.zeros((100, 100, 3), dtype=np.uint8),
+        decode_status="OK",
+    )
+    assert frame.requested_index == 4
+    assert frame.pts_is_exact is True
+
+    qa = QualityAssessment(
+        flags=("VIDEO_COMPRESSION",),
+        face_coverage=0.95,
+        timestamp_coverage=1.0,
+        decode_failure_count=0,
+        usable_for_spatial=True,
+        usable_for_temporal=True,
+        reasons=(),
+    )
+    assert qa.usable_for_spatial is True
+    assert qa.face_coverage == 0.95

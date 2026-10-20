@@ -615,6 +615,32 @@ async def forensic_audit_video(
                 pass
 
 
+# Secure Forensic Artifact Serving with Path Containment
+ARTIFACT_ROOT = (Path(__file__).resolve().parent.parent.parent / "reports" / "artifacts").resolve()
+ARTIFACT_ROOT.mkdir(parents=True, exist_ok=True)
+
+
+def resolve_artifact(filename: str) -> Path:
+    """Safely resolves an artifact filename strictly within ARTIFACT_ROOT, guarding against traversal."""
+    if not filename or Path(filename).name != filename:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Artifact not found")
+    candidate = (ARTIFACT_ROOT / filename).resolve()
+    try:
+        candidate.relative_to(ARTIFACT_ROOT)
+    except ValueError:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Artifact not found")
+    if not candidate.is_file():
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Artifact not found")
+    return candidate
+
+
+@app.get("/artifacts/forensics/{filename}", summary="Securely serve forensic visual artifact")
+async def get_forensic_artifact(filename: str):
+    """Serve visual forensic artifacts (heatmaps, saliency overlays, trajectory plots) with path containment."""
+    path = resolve_artifact(filename)
+    return FileResponse(str(path))
+
+
 # Static UI Mount
 ui_dir = Path(__file__).resolve().parent.parent / "ui"
 if ui_dir.is_dir():

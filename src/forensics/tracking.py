@@ -11,7 +11,7 @@ import numpy as np
 import cv2
 import torch
 
-from src.forensics.context import FrameReference, FaceTrack, TemporalWindow
+from src.forensics.context import FrameReference, FaceTrack, TemporalWindow, resolve_torch_device
 
 
 def compute_iou(box_a: List[float], box_b: List[float]) -> float:
@@ -53,6 +53,7 @@ class FaceTracker:
         target_crop_size: int = 112,
         margin_ratio: float = 0.20,
         min_track_length: int = 4,
+        max_gap: int = 2,
         device: str = "cpu",
     ):
         self.min_iou_match = min_iou_match
@@ -60,7 +61,12 @@ class FaceTracker:
         self.target_crop_size = target_crop_size
         self.margin_ratio = margin_ratio
         self.min_track_length = min_track_length
-        self.device = device
+        self.max_gap = max_gap
+        # Explicit PyTorch device resolution
+        if isinstance(device, str):
+            self.device = resolve_torch_device(prefer_cuda=(device.lower().startswith("cuda")))
+        else:
+            self.device = device
         self._init_detector()
 
     def _init_detector(self) -> None:
@@ -139,7 +145,7 @@ class FaceTracker:
         return cv2.resize(crop, (self.target_crop_size, self.target_crop_size), interpolation=cv2.INTER_LINEAR)
 
     def track_faces(self, frames: List[FrameReference]) -> List[FaceTrack]:
-        """Tracks multiple faces across a sequence of frames."""
+        """Tracks multiple faces across a sequence of frames with 1-to-1 matching and track expiry."""
         if not frames:
             return []
 
@@ -149,6 +155,7 @@ class FaceTracker:
 
         # Active tracks: track_id -> dict with accumulated states
         active_tracks: Dict[int, Dict[str, Any]] = {}
+        completed_tracks: Dict[int, Dict[str, Any]] = {}
         next_track_id = 0
 
         for f_idx, f_ref in enumerate(frames):
@@ -175,7 +182,7 @@ class FaceTracker:
                     cost_matrix.append(row)
 
                 cost_arr = np.array(cost_matrix)
-                # Greedy assignment by best score
+                # One-to-one assignment by best score
                 while cost_arr.size > 0 and cost_arr.max() > 0.0:
                     t_idx, d_idx = np.unravel_index(np.argmax(cost_arr), cost_arr.shape)
                     t_id = track_ids[t_idx]
@@ -184,6 +191,7 @@ class FaceTracker:
                         unmatched_tracks.remove(t_id)
                     if d_idx in unmatched_detections:
                         unmatched_detections.remove(d_idx)
+                    # Enforce strict 1-to-1 assignment per frame
                     cost_arr[t_idx, :] = -999.0
                     cost_arr[:, d_idx] = -999.0
 
@@ -196,19 +204,28 @@ class FaceTracker:
                 active_tracks[t_id]["boxes"].append(box)
                 active_tracks[t_id]["crops"].append(crop)
                 active_tracks[t_id]["confidences"].append(conf)
+                active_tracks[t_id]["valid_flags"].append(True)
                 active_tracks[t_id]["missed"] = 0
 
-            # Handle unmatched tracks (temporary occlusion: repeat last box)
+            # Handle unmatched tracks with expiry after max_gap frames
+            expired_ids = []
             for t_id in unmatched_tracks:
                 active_tracks[t_id]["missed"] += 1
-                if active_tracks[t_id]["missed"] <= 2:
+                if active_tracks[t_id]["missed"] <= self.max_gap:
                     last_box = active_tracks[t_id]["boxes"][-1]
                     crop = self.extract_crop(frame_img, last_box)
                     active_tracks[t_id]["frame_indices"].append(f_ref.original_frame_idx or f_idx)
                     active_tracks[t_id]["timestamps"].append(f_ref.pts_sec)
                     active_tracks[t_id]["boxes"].append(last_box)
                     active_tracks[t_id]["crops"].append(crop)
-                    active_tracks[t_id]["confidences"].append(0.30)  # Lower confidence on occlusion hold
+                    active_tracks[t_id]["confidences"].append(0.30)
+                    active_tracks[t_id]["valid_flags"].append(False)  # Occlusion hold: mark invalid
+                else:
+                    expired_ids.append(t_id)
+
+            # Expire tracks exceeding max_gap into completed_tracks
+            for t_id in expired_ids:
+                completed_tracks[t_id] = active_tracks.pop(t_id)
 
             # Start new tracks for unmatched detections
             for d_idx in unmatched_detections:
@@ -220,17 +237,21 @@ class FaceTracker:
                     "boxes": [box],
                     "crops": [crop],
                     "confidences": [conf],
+                    "valid_flags": [True],
                     "missed": 0,
                 }
                 next_track_id += 1
 
+        # Merge active and completed tracks
+        all_tracks = {**completed_tracks, **active_tracks}
+
         # Format output FaceTrack objects
         result_tracks: List[FaceTrack] = []
-        for t_id, data in active_tracks.items():
+        for t_id, data in all_tracks.items():
             if len(data["crops"]) >= self.min_track_length:
-                # Compute facial landmarks approximation across track crops
                 crops_arr = np.stack(data["crops"])
                 landmarks_3d = self._extract_track_landmarks(crops_arr)
+                valid_mask = np.array(data["valid_flags"], dtype=bool)
                 result_tracks.append(FaceTrack(
                     track_id=t_id,
                     frame_indices=data["frame_indices"],
@@ -239,7 +260,7 @@ class FaceTracker:
                     face_crops=data["crops"],
                     detection_confidences=data["confidences"],
                     landmarks_3d=landmarks_3d,
-                    validity_mask=np.ones(len(data["crops"]), dtype=bool),
+                    validity_mask=valid_mask,
                 ))
 
         # Sort by total crop count (longest track first)

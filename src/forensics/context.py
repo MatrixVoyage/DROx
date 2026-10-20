@@ -7,9 +7,62 @@ from dataclasses import dataclass, field
 from pathlib import Path
 import shutil
 import subprocess
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
 import cv2
 import numpy as np
+import torch
+
+
+def validate_sample_count(sample_count: int) -> None:
+    """Validates that requested sample count is positive and non-zero."""
+    if sample_count < 1:
+        raise ValueError("sample_count must be >= 1")
+
+
+def resolve_torch_device(prefer_cuda: bool = True) -> torch.device:
+    """Selects explicit PyTorch device rather than OpenCV CUDA backend."""
+    if prefer_cuda and torch.cuda.is_available():
+        return torch.device("cuda:0")
+    return torch.device("cpu")
+
+
+@dataclass(frozen=True)
+class SampledFrame:
+    """Safe data contract for frame sampling preserving index and exactness lineage."""
+    requested_index: Optional[int]
+    decoded_index: Optional[int]
+    pts_seconds: Optional[float]
+    pts_is_exact: bool
+    image: np.ndarray
+    decode_status: str
+
+
+@dataclass
+class LandmarkSequence:
+    """Temporal facial landmark sequence with explicit frame validity mask."""
+    points: np.ndarray        # (T, N, 3); invalid entries masked or NaN
+    valid_frames: np.ndarray  # (T,) boolean mask
+    timestamps: np.ndarray    # (T,) float seconds
+
+
+def validate_landmark_sequence(seq: LandmarkSequence) -> None:
+    """Validates alignment of landmark coordinates, boolean validity mask, and timestamps."""
+    if len(seq.points) != len(seq.timestamps):
+        raise ValueError("Points and timestamps must align")
+    if len(seq.valid_frames) != len(seq.timestamps):
+        raise ValueError("Validity mask and timestamps must align")
+
+
+@dataclass(frozen=True)
+class QualityAssessment:
+    """Computed quality gating metrics for spatial and temporal analysis eligibility."""
+    flags: Tuple[str, ...]
+    face_coverage: float
+    timestamp_coverage: float
+    decode_failure_count: int
+    usable_for_spatial: bool
+    usable_for_temporal: bool
+    reasons: Tuple[str, ...]
 
 
 @dataclass
@@ -211,6 +264,9 @@ class AnalysisContext:
         p = Path(video_path)
         if not p.is_file():
             raise FileNotFoundError(f"Video file not found: {p}")
+
+        validate_sample_count(spatial_sample_count)
+        validate_sample_count(temporal_window_length)
 
         # 1. Chunked 64 KB SHA-256 Calculation (guards RAM)
         hasher = hashlib.sha256()

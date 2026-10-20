@@ -58,6 +58,50 @@ class ModuleExecutionStatus(str, Enum):
     SKIPPED_CONFOUNDED = "SKIPPED_CONFOUNDED"
     FAILED = "FAILED"
     UNCALIBRATED = "UNCALIBRATED"
+    INSUFFICIENT_COVERAGE = "INSUFFICIENT_COVERAGE"
+
+
+class ConfoundCode(str, Enum):
+    VIDEO_COMPRESSION = "video_compression"
+    MOTION_BLUR = "motion_blur"
+    RAPID_MOTION = "rapid_motion"
+    TRACKING_INSTABILITY = "tracking_instability"
+    LOW_RESOLUTION = "low_resolution"
+    EXTREME_LIGHTING = "extreme_lighting"
+
+
+@dataclass(frozen=True)
+class EvidenceDependency:
+    """Tracks module dependency to prevent correlated signals from being counted as independent."""
+    finding_id: str
+    modality: str
+    dependency_group: str     # e.g., SPATIAL_TEXTURE, COMPRESSION_SENSITIVE, TRACKING_DERIVED, LANDMARK_KINEMATICS, MODEL_EXPLANATION
+    calibration_id: Optional[str] = None
+    quality_flags: tuple[str, ...] = field(default_factory=tuple)
+
+
+@dataclass(frozen=True)
+class PluginResult:
+    """Standardized result returned by all forensic model adapters and signal extractors."""
+    plugin_name: str
+    plugin_version: str
+    status: str
+    findings: tuple[Any, ...] = field(default_factory=tuple)
+    coverage: float = 0.0
+    calibration_id: Optional[str] = None
+    error_code: Optional[str] = None
+
+
+class ForensicPlugin:
+    """Standard plugin interface for emerging detector models and forensic extractors."""
+    name: str = "base_plugin"
+    version: str = "1.0.0"
+
+    def can_analyze(self, ctx: Any) -> ModuleExecutionStatus:
+        raise NotImplementedError
+
+    def analyze(self, ctx: Any) -> PluginResult:
+        raise NotImplementedError
 
 
 @dataclass

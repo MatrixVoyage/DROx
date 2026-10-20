@@ -59,6 +59,37 @@ DEFAULT_PLATT_WEIGHT = 1.2036
 DEFAULT_PLATT_BIAS = -1.0837
 
 
+def select_target_score(
+    logits: torch.Tensor,
+    target_class_idx: int = 1,
+    binary_mode: str = "single_logit_positive",
+) -> torch.Tensor:
+    """Selects target class score with explicit model output semantics validation."""
+    if logits.ndim == 1:
+        if binary_mode == "single_logit_positive" and target_class_idx == 1:
+            return logits.sum()
+        if binary_mode == "single_logit_positive" and target_class_idx == 0:
+            return (-logits).sum()
+        raise ValueError(f"Unsupported single-logit class configuration: {binary_mode}, target={target_class_idx}")
+    if logits.ndim != 2:
+        raise ValueError(f"Unexpected logits shape: {tuple(logits.shape)}")
+    if not (0 <= target_class_idx < logits.shape[1]):
+        raise ValueError(f"target_class_idx {target_class_idx} is outside model output range [0, {logits.shape[1]})")
+    return logits[:, target_class_idx].sum()
+
+
+def has_sufficient_negative_coverage(
+    module_statuses: Dict[str, Any],
+    required_modules: List[str],
+) -> bool:
+    """Verifies that all required forensic modules completed with valid calibration and coverage."""
+    for name in required_modules:
+        status = module_statuses.get(name)
+        if status != "COMPLETED" and getattr(status, "value", str(status)) != "COMPLETED":
+            return False
+    return True
+
+
 class SpatialTemporalForensicEngine:
     """Unified Forensic Engine performing multi-scale spatiotemporal deepfake detection."""
 
