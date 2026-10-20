@@ -338,6 +338,14 @@ document.addEventListener("DOMContentLoaded", () => {
       if (engineBadge) {
         engineBadge.textContent = engineTitles[selected] || selected;
       }
+      // Auto-set operating threshold for calibrated models
+      if (selected === "m22-ensemble") {
+        thresholdSlider.value = "0.92";
+        thresholdVal.textContent = "0.92";
+      } else {
+        thresholdSlider.value = "0.50";
+        thresholdVal.textContent = "0.50";
+      }
       loadModelInfo(selected);
     });
   }
@@ -490,7 +498,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const val = parseFloat(e.target.value);
     thresholdVal.textContent = val.toFixed(2);
     if (lastAuditData) {
-      renderForensicAudit(lastAuditData, val);
+      renderForensicAudit(lastAuditData, val, lastPredictionData, engineSelect ? engineSelect.value : null);
     }
     if (lastPredictionData) {
       applyThresholdAndRenderVerdict(lastPredictionData, val);
@@ -499,13 +507,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (resetThresholdBtn) {
     resetThresholdBtn.addEventListener("click", () => {
-      thresholdSlider.value = "0.50";
-      thresholdVal.textContent = "0.50";
+      const isM22 = engineSelect && engineSelect.value === "m22-ensemble";
+      const defaultVal = isM22 ? "0.92" : "0.50";
+      const defaultNum = parseFloat(defaultVal);
+      thresholdSlider.value = defaultVal;
+      thresholdVal.textContent = defaultVal;
       if (lastAuditData) {
-        renderForensicAudit(lastAuditData, 0.50);
+        renderForensicAudit(lastAuditData, defaultNum, lastPredictionData, engineSelect ? engineSelect.value : null);
       }
       if (lastPredictionData) {
-        applyThresholdAndRenderVerdict(lastPredictionData, 0.50);
+        applyThresholdAndRenderVerdict(lastPredictionData, defaultNum);
       }
     });
   }
@@ -565,45 +576,59 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   }
 
-  // 5. Submit Video for Forensic Analysis & Binary Attribution
-  analyzeBtn.addEventListener("click", () => {
+  // 5. Submit Video for Selected Engine Analysis & Forensic Evidence
+  analyzeBtn.addEventListener("click", async () => {
     if (!selectedFile) return;
 
+    const selectedEngine = engineSelect ? engineSelect.value : "v5-family-invariant";
     analyzeBtn.disabled = true;
-    analyzeBtn.textContent = "Analyzing Video (Forensic Laplacian & Multi-Window)...";
+    analyzeBtn.textContent = `Analyzing with ${selectedEngine}...`;
     if (compareBtn) compareBtn.disabled = true;
 
     const currentThreshold = parseFloat(thresholdSlider.value);
-    const formData = new FormData();
-    formData.append("file", selectedFile);
-    formData.append("threshold", currentThreshold);
-    formData.append("windows", "4");
-    formData.append("frames_per_window", "16");
 
-    fetch("/api/v1/forensic-audit", {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) => {
-        if (!res.ok) {
-          return res.json().then((err) => {
-            throw new Error(err.detail || "Forensic analysis failed");
-          });
-        }
-        return res.json();
-      })
-      .then((data) => {
-        lastAuditData = data;
-        renderForensicAudit(data, currentThreshold);
-      })
-      .catch((err) => {
-        alert(`Analysis Error: ${err.message}`);
-      })
-      .finally(() => {
-        analyzeBtn.disabled = false;
-        analyzeBtn.textContent = `Analyze ${selectedFile.name}`;
-        if (compareBtn) compareBtn.disabled = false;
-      });
+    try {
+      // 1. Fetch prediction from the user-selected engine
+      const predFormData = new FormData();
+      predFormData.append("file", selectedFile);
+      predFormData.append("threshold", currentThreshold);
+      predFormData.append("engine", selectedEngine);
+      predFormData.append("calibrated", "true");
+
+      const predPromise = fetch("/api/v1/predict", { method: "POST", body: predFormData })
+        .then((res) => (res.ok ? res.json() : null))
+        .catch(() => null);
+
+      // 2. Fetch forensic audit (saliency heatmap, temporal windows, differential energy)
+      const auditFormData = new FormData();
+      auditFormData.append("file", selectedFile);
+      auditFormData.append("threshold", currentThreshold);
+      auditFormData.append("windows", "4");
+      auditFormData.append("frames_per_window", "16");
+
+      const auditPromise = fetch("/api/v1/forensic-audit", { method: "POST", body: auditFormData })
+        .then((res) => (res.ok ? res.json() : null))
+        .catch(() => null);
+
+      const [predData, auditData] = await Promise.all([predPromise, auditPromise]);
+
+      if (auditData) {
+        lastAuditData = auditData;
+        lastPredictionData = predData;
+        renderForensicAudit(auditData, currentThreshold, predData, selectedEngine);
+      } else if (predData) {
+        lastPredictionData = predData;
+        renderPrediction(predData, currentThreshold);
+      } else {
+        throw new Error("Analysis failed: backend service did not return results");
+      }
+    } catch (err) {
+      alert(`Analysis Error: ${err.message}`);
+    } finally {
+      analyzeBtn.disabled = false;
+      analyzeBtn.textContent = `Analyze ${selectedFile.name}`;
+      if (compareBtn) compareBtn.disabled = false;
+    }
   });
 
   // 5b. Submit Video for Multi-Engine Comparison
@@ -647,7 +672,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function renderForensicAudit(data, threshold = null) {
+  function renderForensicAudit(data, threshold = null, predData = null, engineName = null) {
     if (!data) return;
 
     if (singleEngineContainer) singleEngineContainer.style.display = "none";
@@ -658,15 +683,23 @@ document.addEventListener("DOMContentLoaded", () => {
     if (videoMetaBox && targetFileName) {
       targetFileName.textContent = data.video_filename || (selectedFile ? selectedFile.name : "video.mp4");
       if (activeEngineLabel) {
-        activeEngineLabel.textContent = "Forensic Multi-Scale Saliency Engine";
+        const engDisplay = engineName || (predData ? predData.engine : null);
+        activeEngineLabel.textContent = engDisplay ? `${engDisplay} (Forensic Evidence Mode)` : "Forensic Multi-Scale Saliency Engine";
       }
       videoMetaBox.style.display = "flex";
     }
 
     // Verdict & CI
     const effThreshold = threshold !== null ? Number(threshold) : parseFloat(thresholdSlider.value || 0.50);
-    const prob = Number(data.video_fake_probability ?? 0);
-    const isFake = prob >= effThreshold;
+
+    // If prediction data from selected engine is available, use its authoritative probability and verdict
+    let prob = Number(data.video_fake_probability ?? 0);
+    let isFake = prob >= effThreshold;
+    if (predData && predData.probability !== undefined) {
+      prob = Number(predData.probability);
+      isFake = predData.decision ? (predData.decision === "FAKE") : (prob >= effThreshold);
+    }
+
     const probPct = (prob * 100).toFixed(1);
     const ci = data.confidence_interval || [prob, prob];
     const ciLow = (Number(ci[0] ?? prob) * 100).toFixed(1);

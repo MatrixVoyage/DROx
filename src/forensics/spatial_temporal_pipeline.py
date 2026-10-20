@@ -461,9 +461,36 @@ class SpatialTemporalForensicEngine:
         # Temporal anomaly score sequence
         temporal_series = [wa.calibrated_fake_probability for wa in window_analyses]
 
-        # Construct legitimate, scientifically balanced forensic evidence narrative
+        # Construct dynamic, content-aware forensic evidence narrative
         fake_windows = [wa for wa in window_analyses if wa.calibrated_fake_probability >= decision_threshold]
         peak_wa = max(window_analyses, key=lambda wa: wa.calibrated_fake_probability) if window_analyses else None
+
+        # 1. Kinematic differential characterization
+        if avg_kin > 16.0:
+            kin_desc = f"Elevated 2D frame differential energy ({avg_kin:.2f}) indicates significant pixel-level motion and rapid texture transitions."
+        elif avg_kin >= 6.0:
+            kin_desc = f"Moderate 2D frame differential energy ({avg_kin:.2f}) aligns with natural head rotation and conversational motion."
+        else:
+            kin_desc = f"Low 2D frame differential energy ({avg_kin:.2f}) reflects minimal non-rigid deformation and stable facial positioning."
+
+        # 2. Spatial gradient concentration analysis
+        h_sal, w_sal = avg_saliency.shape
+        inner_sal = float(avg_saliency[h_sal//4:3*h_sal//4, w_sal//4:3*w_sal//4].mean())
+        outer_mask = np.ones_like(avg_saliency, dtype=bool)
+        outer_mask[h_sal//4:3*h_sal//4, w_sal//4:3*w_sal//4] = False
+        outer_sal = float(avg_saliency[outer_mask].mean())
+        if outer_sal > inner_sal * 1.15:
+            sal_desc = "High-frequency Laplacian gradients concentrate along outer face boundaries, characteristic of blending border transitions."
+        else:
+            sal_desc = "High-frequency Laplacian gradients concentrate around inner facial landmarks (eyes, nose, mouth)."
+
+        # 3. Confounder context
+        confound_notes = []
+        if meta.get("bitrate_kbps", 5000.0) < 600.0:
+            confound_notes.append(f"Low container bitrate ({meta.get('bitrate_kbps', 0):.0f} kbps) introduces compression macroblocking.")
+        if meta.get("is_vfr", False):
+            confound_notes.append("Variable frame rate (VFR) container introduces temporal packet jitter.")
+        confound_str = " ".join(confound_notes) if confound_notes else "No dominant video compression or VFR container confounders observed."
 
         if not face_detected_any:
             explanation = (
@@ -471,19 +498,17 @@ class SpatialTemporalForensicEngine:
                 "Evidence is inadequate for accredited forensic determination (REJECT != FAKE)."
             )
         elif verdict == "DEEPFAKE":
-            peak_str = f"Peak window score of {peak_wa.calibrated_fake_probability * 100:.1f}% observed in Window #{peak_wa.window_id} ({peak_wa.start_sec:.1f}s-{peak_wa.end_sec:.1f}s)." if peak_wa else ""
-            explanation = (
-                f"Elevated manipulation indicators: {len(fake_windows)} of {len(window_analyses)} temporal windows exceed "
-                f"the active decision threshold (threshold = {decision_threshold:.2f}, model score: {video_prob * 100:.1f}%). {peak_str} "
-                f"Spatial Laplacian gradient variance reflects localized high-frequency transitions, "
-                f"and 2D inter-frame pixel differential energy ({avg_kin:.2f}) indicates non-nominal frame-to-frame pixel variation. "
-                f"Alternative confounders such as sensor noise, sharp lighting shifts, camera shake, and compression macroblocking must be considered."
-            )
+            if len(fake_windows) == len(window_analyses):
+                win_desc = f"Persistent manipulation indicators across all {len(window_analyses)} temporal windows (model score: {video_prob * 100:.1f}%, threshold = {decision_threshold:.2f})."
+            else:
+                peak_info = f"peak of {peak_wa.calibrated_fake_probability * 100:.1f}% in Window #{peak_wa.window_id} ({peak_wa.start_sec:.1f}s-{peak_wa.end_sec:.1f}s)" if peak_wa else ""
+                win_desc = f"Localized manipulation indicators: {len(fake_windows)} of {len(window_analyses)} temporal windows exceed threshold ({peak_info}, overall score: {video_prob * 100:.1f}% vs threshold = {decision_threshold:.2f})."
+            explanation = f"{win_desc} {sal_desc} {kin_desc} {confound_str}"
         else:
             explanation = (
-                f"No significant manipulation indicators detected: All evaluated temporal windows remain below the active threshold "
-                f"(threshold = {decision_threshold:.2f}, model score: {video_prob * 100:.1f}%). "
-                f"Spatial gradient transitions and 2D frame differential energy ({avg_kin:.2f}) remain within nominal baseline ranges across observed frames. "
+                f"No significant manipulation indicators detected: Evaluated temporal windows remain below active threshold "
+                f"(threshold = {decision_threshold:.2f}, overall score: {video_prob * 100:.1f}%). "
+                f"{sal_desc} {kin_desc} {confound_str} "
                 f"Note: Absence of detectable indicators within the validated scope does not guarantee authenticity against unseen synthesis methods or out-of-distribution recording conditions."
             )
 

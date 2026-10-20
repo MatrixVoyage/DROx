@@ -490,9 +490,13 @@ async def compare_video(
             pred_m18 = get_predictor("m18-dual-stream")
             pred_m22 = get_predictor("m22-ensemble")
 
+        # For M22 ensemble, its calibrated operating policy is tau_95 (0.9191).
+        # Use 0.9191 unless a custom threshold overriding the standard 0.5 default is specified.
+        thresh_m22 = 0.9191 if (threshold is None or abs(float(threshold) - 0.50) < 1e-4) else float(threshold)
+
         res_m13 = pred_m13.predict_video(video_path=tmp_path, threshold=threshold, video_id=safe_stem, calibrated=bool(calibrated))
         res_m18 = pred_m18.predict_video(video_path=tmp_path, threshold=threshold, video_id=safe_stem, calibrated=bool(calibrated))
-        res_m22 = pred_m22.predict_video(video_path=tmp_path, threshold=threshold, video_id=safe_stem, calibrated=bool(calibrated))
+        res_m22 = pred_m22.predict_video(video_path=tmp_path, threshold=thresh_m22, video_id=safe_stem, calibrated=bool(calibrated))
 
         p_m13 = float(res_m13.probability)
         p_m18 = float(res_m18.probability)
