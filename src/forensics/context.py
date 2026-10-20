@@ -84,7 +84,7 @@ class ForensicAnalysisConfig:
     target_face_size: int = 112
     min_track_length: int = 4
     pyramidal_alpha: float = 0.50
-    confidence_threshold: float = 0.8821
+    confidence_threshold: float = 0.50
     use_platt_scaling: bool = True
     frames_per_window: int = 16
     window_duration_sec: float = 2.0
@@ -134,6 +134,7 @@ class ForensicVideoReport:
     temporal_anomaly_series: List[float]
     kinematic_residual_energy: float
     provenance: ForensicProvenanceAudit
+    forensic_explanation: str = ""
     warnings: List[str] = field(default_factory=list)
 
     def to_dict(self) -> Dict[str, Any]:

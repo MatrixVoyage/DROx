@@ -558,6 +558,7 @@ async def compare_video(
 @app.post("/api/v1/forensic-audit", summary="Run Spatiotemporal Forensic Audit & Saliency Analysis")
 async def forensic_audit_video(
     file: UploadFile = File(..., description="Video file (MP4, AVI, MOV, MKV)"),
+    threshold: Optional[float] = Form(0.5, description="Decision threshold"),
     windows: Optional[int] = Form(4, description="Maximum temporal windows to evaluate"),
     window_duration: Optional[float] = Form(2.0, description="Duration in seconds per window"),
     frames_per_window: Optional[int] = Form(16, description="Frames sampled per window"),
@@ -590,10 +591,12 @@ async def forensic_audit_video(
             max_windows=int(windows or 4),
             window_duration_sec=float(window_duration or 2.0),
             frames_per_window=int(frames_per_window or 16),
+            confidence_threshold=float(threshold if threshold is not None else 0.50),
         )
-        report = engine.analyze_video(tmp_path, config=cfg)
+        report = engine.analyze_video(tmp_path, config=cfg, threshold=threshold)
         rep_dict = report.to_dict()
         rep_dict["video_filename"] = filename
+        rep_dict["decision_threshold"] = float(threshold if threshold is not None else 0.50)
         rep_dict["saliency_heatmap_base64"] = saliency_to_base64_heatmap(report.overall_spatial_saliency)
         return rep_dict
     except HTTPException:

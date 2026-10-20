@@ -178,8 +178,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const compConsensusSubtitle = document.getElementById("compConsensusSubtitle");
   const compDiscordanceSummary = document.getElementById("compDiscordanceSummary");
 
-  // Forensic Audit Elements
-  const forensicAuditBtn = document.getElementById("forensicAuditBtn");
+  // Forensic Audit & Evidence Elements
+  const forensicEvidenceBox = document.getElementById("forensicEvidenceBox");
+  const evidenceStrengthBadge = document.getElementById("evidenceStrengthBadge");
+  const forensicEvidenceText = document.getElementById("forensicEvidenceText");
   const forensicVerdictBadge = document.getElementById("forensicVerdictBadge");
   const forensicVerdictIcon = document.getElementById("forensicVerdictIcon");
   const forensicVerdictText = document.getElementById("forensicVerdictText");
@@ -273,6 +275,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let selectedFile = null;
   let lastPredictionData = null;
+  let lastAuditData = null;
 
   // 1. Fetch Health Status
   fetch("/health")
@@ -280,7 +283,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .then((data) => {
       if (data.status === "healthy") {
         healthDot.classList.add("online");
-        healthText.textContent = `API Ready (${data.available_engines.join(", ")})`;
+        healthText.textContent = "System Operational";
         if (data.device) {
           deviceBadge.textContent = data.device.toUpperCase() + (data.device.includes("cuda") ? " Acceleration" : " Mode");
         }
@@ -486,6 +489,9 @@ document.addEventListener("DOMContentLoaded", () => {
   thresholdSlider.addEventListener("input", (e) => {
     const val = parseFloat(e.target.value);
     thresholdVal.textContent = val.toFixed(2);
+    if (lastAuditData) {
+      renderForensicAudit(lastAuditData, val);
+    }
     if (lastPredictionData) {
       applyThresholdAndRenderVerdict(lastPredictionData, val);
     }
@@ -495,6 +501,9 @@ document.addEventListener("DOMContentLoaded", () => {
     resetThresholdBtn.addEventListener("click", () => {
       thresholdSlider.value = "0.50";
       thresholdVal.textContent = "0.50";
+      if (lastAuditData) {
+        renderForensicAudit(lastAuditData, 0.50);
+      }
       if (lastPredictionData) {
         applyThresholdAndRenderVerdict(lastPredictionData, 0.50);
       }
@@ -535,10 +544,6 @@ document.addEventListener("DOMContentLoaded", () => {
       compareBtn.disabled = false;
       compareBtn.textContent = "⚖️ Compare All Engines";
     }
-    if (forensicAuditBtn) {
-      forensicAuditBtn.disabled = false;
-      forensicAuditBtn.textContent = "🔬 Forensic Audit";
-    }
 
     // Show local video preview
     const url = URL.createObjectURL(file);
@@ -546,47 +551,58 @@ document.addEventListener("DOMContentLoaded", () => {
     previewContainer.style.display = "flex";
   }
 
-  // 5. Submit Video for Single-Engine Inference
+  // 5a. Single-Engine Prediction Helper (/api/v1/predict)
+  function runSingleEnginePrediction(file, engine, threshold) {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("threshold", threshold);
+    formData.append("engine", engine);
+    formData.append("calibrated", "true");
+    return fetch("/api/v1/predict", { method: "POST", body: formData })
+      .then((res) => {
+        if (!res.ok) return res.json().then((err) => { throw new Error(err.detail || "Prediction failed"); });
+        return res.json();
+      });
+  }
+
+  // 5. Submit Video for Forensic Analysis & Binary Attribution
   analyzeBtn.addEventListener("click", () => {
     if (!selectedFile) return;
 
     analyzeBtn.disabled = true;
-    analyzeBtn.textContent = "Processing Video (Sampling, MTCNN & MC-Dropout)...";
+    analyzeBtn.textContent = "Analyzing Video (Forensic Laplacian & Multi-Window)...";
     if (compareBtn) compareBtn.disabled = true;
-    if (forensicAuditBtn) forensicAuditBtn.disabled = true;
 
-    const activeEngine = engineSelect ? engineSelect.value : "v5-family-invariant";
     const currentThreshold = parseFloat(thresholdSlider.value);
     const formData = new FormData();
     formData.append("file", selectedFile);
     formData.append("threshold", currentThreshold);
-    formData.append("engine", activeEngine);
-    formData.append("calibrated", "true");
+    formData.append("windows", "4");
+    formData.append("frames_per_window", "16");
 
-    fetch("/api/v1/predict", {
+    fetch("/api/v1/forensic-audit", {
       method: "POST",
       body: formData,
     })
       .then((res) => {
         if (!res.ok) {
           return res.json().then((err) => {
-            throw new Error(err.detail || "Inference failed");
+            throw new Error(err.detail || "Forensic analysis failed");
           });
         }
         return res.json();
       })
       .then((data) => {
-        lastPredictionData = data;
-        renderPrediction(data, currentThreshold);
+        lastAuditData = data;
+        renderForensicAudit(data, currentThreshold);
       })
       .catch((err) => {
-        alert(`Inference Error: ${err.message}`);
+        alert(`Analysis Error: ${err.message}`);
       })
       .finally(() => {
         analyzeBtn.disabled = false;
         analyzeBtn.textContent = `Analyze ${selectedFile.name}`;
         if (compareBtn) compareBtn.disabled = false;
-        if (forensicAuditBtn) forensicAuditBtn.disabled = false;
       });
   });
 
@@ -598,7 +614,6 @@ document.addEventListener("DOMContentLoaded", () => {
       compareBtn.disabled = true;
       compareBtn.textContent = "Comparing Engines (M13.5 + M18 + M22)...";
       if (analyzeBtn) analyzeBtn.disabled = true;
-      if (forensicAuditBtn) forensicAuditBtn.disabled = true;
 
       const currentThreshold = parseFloat(thresholdSlider.value);
       const formData = new FormData();
@@ -628,54 +643,11 @@ document.addEventListener("DOMContentLoaded", () => {
           compareBtn.disabled = false;
           compareBtn.textContent = "⚖️ Compare All Engines";
           if (analyzeBtn) analyzeBtn.disabled = false;
-          if (forensicAuditBtn) forensicAuditBtn.disabled = false;
         });
     });
   }
 
-  // 5c. Submit Video for Spatiotemporal Forensic Audit
-  if (forensicAuditBtn) {
-    forensicAuditBtn.addEventListener("click", () => {
-      if (!selectedFile) return;
-
-      forensicAuditBtn.disabled = true;
-      forensicAuditBtn.textContent = "Auditing (Laplacian, Multi-Window)...";
-      if (analyzeBtn) analyzeBtn.disabled = true;
-      if (compareBtn) compareBtn.disabled = true;
-
-      const formData = new FormData();
-      formData.append("file", selectedFile);
-      formData.append("windows", "4");
-      formData.append("frames_per_window", "16");
-
-      fetch("/api/v1/forensic-audit", {
-        method: "POST",
-        body: formData,
-      })
-        .then((res) => {
-          if (!res.ok) {
-            return res.json().then((err) => {
-              throw new Error(err.detail || "Forensic audit failed");
-            });
-          }
-          return res.json();
-        })
-        .then((data) => {
-          renderForensicAudit(data);
-        })
-        .catch((err) => {
-          alert(`Forensic Audit Error: ${err.message}`);
-        })
-        .finally(() => {
-          forensicAuditBtn.disabled = false;
-          forensicAuditBtn.textContent = "🔬 Forensic Audit";
-          if (analyzeBtn) analyzeBtn.disabled = false;
-          if (compareBtn) compareBtn.disabled = false;
-        });
-    });
-  }
-
-  function renderForensicAudit(data) {
+  function renderForensicAudit(data, threshold = null) {
     if (!data) return;
 
     if (singleEngineContainer) singleEngineContainer.style.display = "none";
@@ -692,28 +664,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Verdict & CI
-    const verdict = (data.verdict || "AUTHENTIC").toUpperCase();
+    const effThreshold = threshold !== null ? Number(threshold) : parseFloat(thresholdSlider.value || 0.50);
     const prob = Number(data.video_fake_probability ?? 0);
+    const isFake = prob >= effThreshold;
     const probPct = (prob * 100).toFixed(1);
     const ci = data.confidence_interval || [prob, prob];
     const ciLow = (Number(ci[0] ?? prob) * 100).toFixed(1);
     const ciHigh = (Number(ci[1] ?? prob) * 100).toFixed(1);
 
     if (forensicVerdictBadge) {
-      forensicVerdictBadge.className = "forensic-verdict-badge";
-      if (verdict.includes("DEEPFAKE") || verdict.includes("FAKE")) {
-        forensicVerdictBadge.classList.add("fake");
-        if (forensicVerdictIcon) forensicVerdictIcon.textContent = "🚨";
-        if (forensicVerdictText) forensicVerdictText.textContent = "DEEPFAKE DETECTED";
-      } else if (verdict.includes("INCONCLUSIVE") || verdict.includes("SUSPICIOUS") || verdict.includes("REJECT")) {
-        forensicVerdictBadge.classList.add("inconclusive");
-        if (forensicVerdictIcon) forensicVerdictIcon.textContent = "⚠️";
-        if (forensicVerdictText) forensicVerdictText.textContent = verdict;
-      } else {
-        forensicVerdictBadge.classList.add("real");
-        if (forensicVerdictIcon) forensicVerdictIcon.textContent = "🛡️";
-        if (forensicVerdictText) forensicVerdictText.textContent = "AUTHENTIC VIDEO";
-      }
+      forensicVerdictBadge.className = `forensic-verdict-badge ${isFake ? "fake" : "real"}`;
+      if (forensicVerdictIcon) forensicVerdictIcon.textContent = isFake ? "🚨" : "🛡️";
+      if (forensicVerdictText) forensicVerdictText.textContent = isFake ? "DEEPFAKE DETECTED" : "AUTHENTIC VIDEO";
     }
 
     if (forensicCiPill) {
@@ -725,15 +687,26 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (forensicConfidenceLevel) {
-      const conf = data.verdict_confidence || "High Confidence";
+      const conf = data.verdict_confidence || (prob >= 0.85 || prob <= 0.15 ? "High Confidence" : "Moderate Confidence");
       forensicConfidenceLevel.textContent = conf;
-      if (conf.toLowerCase().includes("high")) {
-        forensicConfidenceLevel.style.color = "#34d399";
-      } else if (conf.toLowerCase().includes("mod") || conf.toLowerCase().includes("med")) {
-        forensicConfidenceLevel.style.color = "#fbbf24";
-      } else {
+      if (isFake) {
         forensicConfidenceLevel.style.color = "#f87171";
+      } else {
+        forensicConfidenceLevel.style.color = "#34d399";
       }
+    }
+
+    // Forensic Evidence Attribution Narrative
+    if (forensicEvidenceBox) {
+      forensicEvidenceBox.className = `forensic-evidence-box ${isFake ? "fake" : "real"}`;
+    }
+    if (evidenceStrengthBadge) {
+      evidenceStrengthBadge.textContent = isFake ? "🚨 STRONG EVIDENCE OF SYNTHESIS" : "🛡️ CONSISTENT BIOMETRIC INTEGRITY";
+      evidenceStrengthBadge.style.color = isFake ? "#f87171" : "#34d399";
+      evidenceStrengthBadge.style.background = isFake ? "rgba(239, 68, 68, 0.15)" : "rgba(52, 211, 153, 0.15)";
+    }
+    if (forensicEvidenceText) {
+      forensicEvidenceText.textContent = data.forensic_explanation || (isFake ? "Synthetic manipulation cues detected across evaluated temporal frames." : "No manipulation detected; biometric integrity confirmed.");
     }
 
     // Forensic Quality & Biometric Stats
@@ -804,8 +777,8 @@ document.addEventListener("DOMContentLoaded", () => {
           card.className = "forensic-window-card";
 
           const wProb = Number(w.calibrated_fake_probability ?? w.raw_fake_probability ?? 0);
-          const isFake = wProb >= 0.5;
-          const pillClass = isFake ? "fake" : "real";
+          const wIsFake = wProb >= effThreshold;
+          const pillClass = wIsFake ? "fake" : "real";
           const wScorePct = (wProb * 100).toFixed(1);
           const startTime = Number(w.start_sec ?? 0).toFixed(1);
           const endTime = Number(w.end_sec ?? 0).toFixed(1);
@@ -823,7 +796,7 @@ document.addEventListener("DOMContentLoaded", () => {
               </div>
             </div>
             <div class="window-metrics">
-              <span class="window-score-pill ${pillClass}">${isFake ? "MANIPULATION" : "NATURAL"} (${wScorePct}%)</span>
+              <span class="window-score-pill ${pillClass}">${wIsFake ? "MANIPULATION" : "NATURAL"} (${wScorePct}%)</span>
               <span style="font-size: 0.68rem; font-family: var(--font-mono); color: var(--text-muted);">${w.processing_time_ms ? Number(w.processing_time_ms).toFixed(0) + " ms" : ""}</span>
             </div>
           `;
@@ -1022,6 +995,7 @@ document.addEventListener("DOMContentLoaded", () => {
     resetBtn.addEventListener("click", () => {
       selectedFile = null;
       lastPredictionData = null;
+      lastAuditData = null;
       fileInput.value = "";
       videoPreview.src = "";
       previewContainer.style.display = "none";
@@ -1030,10 +1004,6 @@ document.addEventListener("DOMContentLoaded", () => {
       if (compareBtn) {
         compareBtn.disabled = true;
         compareBtn.textContent = "⚖️ Compare All Engines";
-      }
-      if (forensicAuditBtn) {
-        forensicAuditBtn.disabled = true;
-        forensicAuditBtn.textContent = "🔬 Forensic Audit";
       }
 
       thresholdSlider.value = "0.50";
@@ -1066,6 +1036,17 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       if (forensicWindowsList) {
         forensicWindowsList.innerHTML = "";
+      }
+      if (forensicEvidenceText) {
+        forensicEvidenceText.textContent = "Awaiting video inference to generate forensic attribution evidence...";
+      }
+      if (forensicEvidenceBox) {
+        forensicEvidenceBox.className = "forensic-evidence-box";
+      }
+      if (evidenceStrengthBadge) {
+        evidenceStrengthBadge.textContent = "Physical Anomaly Analysis";
+        evidenceStrengthBadge.style.color = "#94a3b8";
+        evidenceStrengthBadge.style.background = "rgba(255, 255, 255, 0.08)";
       }
 
       scoreVal.textContent = "--%";

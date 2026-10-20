@@ -29,9 +29,6 @@
         <span class="status-dot" id="healthDot"></span>
         <span id="healthText">Checking backend status...</span>
       </div>
-      <div>
-        <span style="font-family: var(--font-mono); color: var(--text-muted);">M7 Service v1.0.0</span>
-      </div>
     </div>
   </header>
   <main>
@@ -99,7 +96,6 @@
         <div style="display: flex; gap: 0.6rem; margin-top: 1.25rem; flex-wrap: wrap;">
           <button class="btn-primary" id="analyzeBtn" style="flex: 1; min-width: 140px;" disabled>Select Video to Analyze</button>
           <button type="button" id="compareBtn" style="background: linear-gradient(135deg, #1f6feb 0%, #8957e5 100%); color: #ffffff; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; padding: 0.65rem 0.9rem; font-weight: 600; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; white-space: nowrap; transition: opacity 0.2s;" disabled title="Compare Champion M13.5 vs Baseline M18 vs Fused M22 Ensemble">⚖️ Compare All</button>
-          <button type="button" id="forensicAuditBtn" class="btn-forensic" disabled title="Run Multi-Window Spatiotemporal Forensic Audit & 2D Saliency Heatmap">🔬 Forensic Audit</button>
         </div>
       </div>
 
@@ -225,6 +221,17 @@
               <div class="forensic-verdict-title">Calibrated Fake Score</div>
               <div style="font-family: var(--font-mono); font-size: 1.25rem; font-weight: 800; color: #f1f5f9;" id="forensicProbVal">47.5%</div>
               <span id="forensicConfidenceLevel" style="font-size: 0.75rem; color: #34d399; font-weight: 600;">High Confidence</span>
+            </div>
+          </div>
+
+          <!-- Forensic Evidence & Physical Attribution Box -->
+          <div id="forensicEvidenceBox" class="forensic-evidence-box">
+            <div class="evidence-title">
+              <span>🧬 Forensic Evidence Attribution</span>
+              <span id="evidenceStrengthBadge" style="font-size: 0.7rem; font-family: var(--font-mono); background: rgba(255,255,255,0.08); padding: 1px 6px; border-radius: 4px; color: #94a3b8;">Physical Anomaly Analysis</span>
+            </div>
+            <div id="forensicEvidenceText" class="evidence-text">
+              Awaiting video inference to generate forensic attribution evidence...
             </div>
           </div>
 

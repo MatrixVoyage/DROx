@@ -28,7 +28,7 @@ def test_dashboard_index_endpoint(client):
     assert "v3-robust (M12)" in html
     assert "prepLatencyBar" in html
     assert "provArch" in html
-    assert "forensicAuditBtn" in html
+    assert "forensicEvidenceBox" in html
     assert "forensicAuditContainer" in html
     assert "forensicSaliencyImg" in html
 
@@ -41,7 +41,6 @@ def test_dashboard_static_css(client):
     assert "--state-warning" in resp.text
     assert ".verdict-box.reject" in resp.text
     assert ".diagnostic-container" in resp.text
-    assert ".btn-forensic" in resp.text
     assert ".forensic-saliency-box" in resp.text
     assert ".forensic-window-card" in resp.text
 
@@ -54,7 +53,7 @@ def test_dashboard_static_js(client):
     assert "renderPrediction" in resp.text
     assert "REJECT ≠ FAKE" in resp.text
     assert "diagOodBadge" in resp.text
-    assert "forensicAuditBtn" in resp.text
+    assert "forensicEvidenceBox" in resp.text
     assert "api/v1/forensic-audit" in resp.text
     assert "renderForensicAudit" in resp.text
 

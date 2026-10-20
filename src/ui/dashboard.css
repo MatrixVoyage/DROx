@@ -1067,6 +1067,44 @@ input[type="range"]:hover {
   margin-top: 0.35rem;
 }
 
+.forensic-evidence-box {
+  background: rgba(14, 20, 34, 0.85);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  border-left: 4px solid var(--accent-primary);
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  line-height: 1.5;
+  transition: all 0.2s ease;
+}
+
+.forensic-evidence-box.fake {
+  border-left-color: #f87171;
+  border-color: rgba(239, 68, 68, 0.35);
+  background: rgba(239, 68, 68, 0.08);
+}
+
+.forensic-evidence-box.real {
+  border-left-color: #34d399;
+  border-color: rgba(52, 211, 153, 0.35);
+  background: rgba(16, 185, 129, 0.08);
+}
+
+.evidence-title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #f1f5f9;
+  margin-bottom: 0.35rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.evidence-text {
+  font-size: 0.82rem;
+  color: #cbd5e1;
+  line-height: 1.55;
+}
+
 .forensic-stat-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
