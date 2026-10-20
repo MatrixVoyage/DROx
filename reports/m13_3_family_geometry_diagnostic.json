@@ -1,0 +1,311 @@
+{
+  "timestamp": "2026-09-25T17:51:40Z",
+  "m12_checkpoint_sha256": "c8265f634880c56929e5d82be8e4fc808fc7776d0750fca86c74e18a983cda56",
+  "m13_2b_checkpoint_sha256": "d681386102f1d562b15ee9b7fb68eef7e4e08c1c41a8c22db6e1654c11e67611",
+  "sample_counts": {
+    "Clean Real": 58,
+    "Deepfakes": 58,
+    "FaceSwap": 58,
+    "NeuralTextures": 58,
+    "Face2Face": 58,
+    "Celeb-DF": 74
+  },
+  "m13_2b": {
+    "temporal_centroid_cosine_matrix": {
+      "Clean Real": {
+        "Clean Real": 1.0,
+        "Deepfakes": -0.5588,
+        "FaceSwap": 0.1316,
+        "NeuralTextures": 0.3558,
+        "Face2Face": 0.8449,
+        "Celeb-DF": 0.8321
+      },
+      "Deepfakes": {
+        "Clean Real": -0.5588,
+        "Deepfakes": 1.0,
+        "FaceSwap": 0.02,
+        "NeuralTextures": 0.414,
+        "Face2Face": -0.1345,
+        "Celeb-DF": -0.3385
+      },
+      "FaceSwap": {
+        "Clean Real": 0.1316,
+        "Deepfakes": 0.02,
+        "FaceSwap": 1.0,
+        "NeuralTextures": 0.389,
+        "Face2Face": 0.3152,
+        "Celeb-DF": 0.4703
+      },
+      "NeuralTextures": {
+        "Clean Real": 0.3558,
+        "Deepfakes": 0.414,
+        "FaceSwap": 0.389,
+        "NeuralTextures": 1.0,
+        "Face2Face": 0.799,
+        "Celeb-DF": 0.6425
+      },
+      "Face2Face": {
+        "Clean Real": 0.8449,
+        "Deepfakes": -0.1345,
+        "FaceSwap": 0.3152,
+        "NeuralTextures": 0.799,
+        "Face2Face": 1.0,
+        "Celeb-DF": 0.9023
+      },
+      "Celeb-DF": {
+        "Clean Real": 0.8321,
+        "Deepfakes": -0.3385,
+        "FaceSwap": 0.4703,
+        "NeuralTextures": 0.6425,
+        "Face2Face": 0.9023,
+        "Celeb-DF": 1.0
+      }
+    },
+    "mid_level_centroid_cosine_matrix": {
+      "Clean Real": {
+        "Clean Real": 1.0,
+        "Deepfakes": 0.7217,
+        "FaceSwap": 0.8956,
+        "NeuralTextures": 0.8089,
+        "Face2Face": 0.9207,
+        "Celeb-DF": 0.2476
+      },
+      "Deepfakes": {
+        "Clean Real": 0.7217,
+        "Deepfakes": 1.0,
+        "FaceSwap": 0.8578,
+        "NeuralTextures": 0.9629,
+        "Face2Face": 0.8728,
+        "Celeb-DF": 0.2694
+      },
+      "FaceSwap": {
+        "Clean Real": 0.8956,
+        "Deepfakes": 0.8578,
+        "FaceSwap": 1.0,
+        "NeuralTextures": 0.9013,
+        "Face2Face": 0.9451,
+        "Celeb-DF": 0.1719
+      },
+      "NeuralTextures": {
+        "Clean Real": 0.8089,
+        "Deepfakes": 0.9629,
+        "FaceSwap": 0.9013,
+        "NeuralTextures": 1.0,
+        "Face2Face": 0.9357,
+        "Celeb-DF": 0.2495
+      },
+      "Face2Face": {
+        "Clean Real": 0.9207,
+        "Deepfakes": 0.8728,
+        "FaceSwap": 0.9451,
+        "NeuralTextures": 0.9357,
+        "Face2Face": 1.0,
+        "Celeb-DF": 0.2432
+      },
+      "Celeb-DF": {
+        "Clean Real": 0.2476,
+        "Deepfakes": 0.2694,
+        "FaceSwap": 0.1719,
+        "NeuralTextures": 0.2495,
+        "Face2Face": 0.2432,
+        "Celeb-DF": 1.0
+      }
+    },
+    "single_family_linear_probes": {
+      "Deepfakes": {
+        "roc_auc": 0.9879,
+        "pr_auc": 0.9884,
+        "balanced_accuracy": 0.9205
+      },
+      "FaceSwap": {
+        "roc_auc": 0.9727,
+        "pr_auc": 0.9758,
+        "balanced_accuracy": 0.9038
+      },
+      "NeuralTextures": {
+        "roc_auc": 0.9048,
+        "pr_auc": 0.902,
+        "balanced_accuracy": 0.85
+      },
+      "Face2Face": {
+        "roc_auc": 0.8234,
+        "pr_auc": 0.8209,
+        "balanced_accuracy": 0.7659
+      },
+      "Celeb-DF": {
+        "roc_auc": 0.9722,
+        "pr_auc": 0.9746,
+        "balanced_accuracy": 0.9277
+      }
+    },
+    "cross_family_transfer_matrix": {
+      "Deepfakes": {
+        "Deepfakes": 1.0,
+        "FaceSwap": 0.975,
+        "NeuralTextures": 0.9468,
+        "Face2Face": 0.794
+      },
+      "FaceSwap": {
+        "Deepfakes": 0.9364,
+        "FaceSwap": 0.9979,
+        "NeuralTextures": 0.8377,
+        "Face2Face": 0.7714
+      },
+      "NeuralTextures": {
+        "Deepfakes": 0.9944,
+        "FaceSwap": 0.967,
+        "NeuralTextures": 0.9774,
+        "Face2Face": 0.871
+      },
+      "Face2Face": {
+        "Deepfakes": 0.9352,
+        "FaceSwap": 0.9471,
+        "NeuralTextures": 0.808,
+        "Face2Face": 0.9349
+      }
+    }
+  },
+  "m12_baseline": {
+    "temporal_centroid_cosine_matrix": {
+      "Clean Real": {
+        "Clean Real": 1.0,
+        "Deepfakes": -0.4221,
+        "FaceSwap": 0.2137,
+        "NeuralTextures": 0.0294,
+        "Face2Face": 0.9528,
+        "Celeb-DF": 0.8857
+      },
+      "Deepfakes": {
+        "Clean Real": -0.4221,
+        "Deepfakes": 1.0,
+        "FaceSwap": 0.7947,
+        "NeuralTextures": 0.893,
+        "Face2Face": -0.1299,
+        "Celeb-DF": 0.0228
+      },
+      "FaceSwap": {
+        "Clean Real": 0.2137,
+        "Deepfakes": 0.7947,
+        "FaceSwap": 1.0,
+        "NeuralTextures": 0.9823,
+        "Face2Face": 0.4973,
+        "Celeb-DF": 0.6162
+      },
+      "NeuralTextures": {
+        "Clean Real": 0.0294,
+        "Deepfakes": 0.893,
+        "FaceSwap": 0.9823,
+        "NeuralTextures": 1.0,
+        "Face2Face": 0.3295,
+        "Celeb-DF": 0.4661
+      },
+      "Face2Face": {
+        "Clean Real": 0.9528,
+        "Deepfakes": -0.1299,
+        "FaceSwap": 0.4973,
+        "NeuralTextures": 0.3295,
+        "Face2Face": 1.0,
+        "Celeb-DF": 0.9798
+      },
+      "Celeb-DF": {
+        "Clean Real": 0.8857,
+        "Deepfakes": 0.0228,
+        "FaceSwap": 0.6162,
+        "NeuralTextures": 0.4661,
+        "Face2Face": 0.9798,
+        "Celeb-DF": 1.0
+      }
+    },
+    "single_family_linear_probes": {
+      "Deepfakes": {
+        "roc_auc": 0.9606,
+        "pr_auc": 0.9523,
+        "balanced_accuracy": 0.9288
+      },
+      "FaceSwap": {
+        "roc_auc": 0.9141,
+        "pr_auc": 0.9244,
+        "balanced_accuracy": 0.8879
+      },
+      "NeuralTextures": {
+        "roc_auc": 0.9495,
+        "pr_auc": 0.9595,
+        "balanced_accuracy": 0.8523
+      },
+      "Face2Face": {
+        "roc_auc": 0.8096,
+        "pr_auc": 0.8501,
+        "balanced_accuracy": 0.7409
+      },
+      "Celeb-DF": {
+        "roc_auc": 0.9845,
+        "pr_auc": 0.9851,
+        "balanced_accuracy": 0.9435
+      }
+    },
+    "cross_family_transfer_matrix": {
+      "Deepfakes": {
+        "Deepfakes": 0.9938,
+        "FaceSwap": 0.9206,
+        "NeuralTextures": 0.9319,
+        "Face2Face": 0.7729
+      },
+      "FaceSwap": {
+        "Deepfakes": 0.9845,
+        "FaceSwap": 0.9658,
+        "NeuralTextures": 0.9429,
+        "Face2Face": 0.7833
+      },
+      "NeuralTextures": {
+        "Deepfakes": 0.9524,
+        "FaceSwap": 0.8668,
+        "NeuralTextures": 0.9729,
+        "Face2Face": 0.8356
+      },
+      "Face2Face": {
+        "Deepfakes": 0.9637,
+        "FaceSwap": 0.8716,
+        "NeuralTextures": 0.9765,
+        "Face2Face": 0.9078
+      }
+    }
+  },
+  "spatial_residual_metrics": {
+    "Clean Real": {
+      "dct_high_freq_ratio_mean": 0.0027,
+      "dct_high_freq_ratio_std": 0.004,
+      "interior_boundary_gradient_ratio_mean": 1.1757,
+      "interior_boundary_gradient_ratio_std": 0.4383
+    },
+    "Deepfakes": {
+      "dct_high_freq_ratio_mean": 0.0026,
+      "dct_high_freq_ratio_std": 0.0031,
+      "interior_boundary_gradient_ratio_mean": 1.1063,
+      "interior_boundary_gradient_ratio_std": 0.3568
+    },
+    "FaceSwap": {
+      "dct_high_freq_ratio_mean": 0.0033,
+      "dct_high_freq_ratio_std": 0.0036,
+      "interior_boundary_gradient_ratio_mean": 1.1924,
+      "interior_boundary_gradient_ratio_std": 0.4576
+    },
+    "NeuralTextures": {
+      "dct_high_freq_ratio_mean": 0.0022,
+      "dct_high_freq_ratio_std": 0.0025,
+      "interior_boundary_gradient_ratio_mean": 1.1979,
+      "interior_boundary_gradient_ratio_std": 0.3717
+    },
+    "Face2Face": {
+      "dct_high_freq_ratio_mean": 0.0031,
+      "dct_high_freq_ratio_std": 0.0036,
+      "interior_boundary_gradient_ratio_mean": 1.1191,
+      "interior_boundary_gradient_ratio_std": 0.3374
+    },
+    "Celeb-DF": {
+      "dct_high_freq_ratio_mean": 0.0004,
+      "dct_high_freq_ratio_std": 0.0004,
+      "interior_boundary_gradient_ratio_mean": 1.2911,
+      "interior_boundary_gradient_ratio_std": 0.4507
+    }
+  }
+}

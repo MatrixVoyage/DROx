@@ -1,0 +1,68 @@
+[
+  {
+    "configuration": "M10",
+    "coverage": 1.0,
+    "overall_selective_accuracy": 0.6583,
+    "in_domain_accuracy": 0.7,
+    "cross_dataset_accuracy": 0.6,
+    "unseen_manipulation_accuracy": 0.9333,
+    "degradation_accuracy": 0.4,
+    "clean_real_frr": 0.0,
+    "synthetic_ood_trr": 0.0
+  },
+  {
+    "configuration": "M12 full",
+    "coverage": 1.0,
+    "overall_selective_accuracy": 0.4917,
+    "in_domain_accuracy": 0.7667,
+    "cross_dataset_accuracy": 0.5,
+    "unseen_manipulation_accuracy": 0.2333,
+    "degradation_accuracy": 0.4667,
+    "clean_real_frr": 0.0,
+    "synthetic_ood_trr": 0.0
+  },
+  {
+    "configuration": "M12 + quality rejection",
+    "coverage": 0.8,
+    "overall_selective_accuracy": 0.4917,
+    "in_domain_accuracy": 0.7667,
+    "cross_dataset_accuracy": 0.5,
+    "unseen_manipulation_accuracy": 0.2333,
+    "degradation_accuracy": 0.4667,
+    "clean_real_frr": 0.0,
+    "synthetic_ood_trr": 1.0
+  },
+  {
+    "configuration": "M12 + OOD",
+    "coverage": 1.0,
+    "overall_selective_accuracy": 0.4917,
+    "in_domain_accuracy": 0.7667,
+    "cross_dataset_accuracy": 0.5,
+    "unseen_manipulation_accuracy": 0.2333,
+    "degradation_accuracy": 0.4667,
+    "clean_real_frr": 0.0,
+    "synthetic_ood_trr": 0.0
+  },
+  {
+    "configuration": "M12 + MC Dropout",
+    "coverage": 1.0,
+    "overall_selective_accuracy": 0.4917,
+    "in_domain_accuracy": 0.7667,
+    "cross_dataset_accuracy": 0.5,
+    "unseen_manipulation_accuracy": 0.2333,
+    "degradation_accuracy": 0.4667,
+    "clean_real_frr": 0.0,
+    "synthetic_ood_trr": 0.0
+  },
+  {
+    "configuration": "M12 + all",
+    "coverage": 0.8,
+    "overall_selective_accuracy": 0.4917,
+    "in_domain_accuracy": 0.7667,
+    "cross_dataset_accuracy": 0.5,
+    "unseen_manipulation_accuracy": 0.2333,
+    "degradation_accuracy": 0.4667,
+    "clean_real_frr": 0.0,
+    "synthetic_ood_trr": 1.0
+  }
+]

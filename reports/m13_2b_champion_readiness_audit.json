@@ -1,0 +1,364 @@
+{
+  "timestamp": "2026-09-24T20:47:03Z",
+  "champion_model": "M13.2b-Stage5",
+  "baseline_model": "Frozen M12 Baseline (v3-robust)",
+  "lineage": {
+    "total_samples": 5253,
+    "split_counts": {
+      "test": 2008,
+      "train": 1990,
+      "val": 1255
+    },
+    "unique_groups_total": 859,
+    "train_groups": 401,
+    "val_groups": 185,
+    "test_groups": 273,
+    "group_leakage": {
+      "train_val_overlap": 0,
+      "train_test_overlap": 0,
+      "val_test_overlap": 0
+    },
+    "face2face": {
+      "total": 298,
+      "splits": {
+        "test": 298
+      },
+      "train_leakage": 0,
+      "val_leakage": 0,
+      "zero_leakage_verified": true
+    },
+    "train_manipulations": {
+      "original": 404,
+      "Deepfakes": 404,
+      "FaceSwap": 404,
+      "NeuralTextures": 404,
+      "pristine": 235,
+      "deepfake": 139
+    },
+    "val_manipulations": {
+      "original": 298,
+      "Deepfakes": 298,
+      "FaceSwap": 298,
+      "NeuralTextures": 298,
+      "pristine": 45,
+      "deepfake": 18
+    },
+    "lineage_audit_passed": true
+  },
+  "checkpoint": {
+    "m12_frozen_hash": "c8265f634880c56929e5d82be8e4fc808fc7776d0750fca86c74e18a983cda56",
+    "m12_integrity_verified": true,
+    "m13_2b_checkpoint_path": "G:\\MyProjects\\DeepFake Video Detection\\checkpoints\\m13_2b_stage5\\best.pth",
+    "m13_2b_sha256": "d681386102f1d562b15ee9b7fb68eef7e4e08c1c41a8c22db6e1654c11e67611",
+    "training_epoch": 8,
+    "best_val_auc": 0.9396098665029922,
+    "ablation_identifier": "m13_2b_stage5",
+    "parameter_counts": {
+      "base_detector_params": 28289150,
+      "auxiliary_head_params": 659461,
+      "mid_level_head_params": 14849,
+      "total_parameters": 28963460,
+      "overhead_vs_m12": "2.38%"
+    }
+  },
+  "calibration": {
+    "fitted_temperature": 2.3222,
+    "ood_threshold_99th": 3.0,
+    "validation_samples": 1255,
+    "validation_clean_reals": 343
+  },
+  "benchmark_metrics": {
+    "frozen_m12": {
+      "f2f_auc": 0.778,
+      "f2f_prauc": 0.6845,
+      "f2f_detection_rate_tau_0_5": 0.1552,
+      "f2f_mean_prob": 0.1534,
+      "f2f_median_prob": 0.0008,
+      "optimal_threshold": 0.0007,
+      "optimal_f1": 0.6606,
+      "optimal_f2f_recall": 0.6207,
+      "optimal_cr_specificity": 0.8469,
+      "clean_real_specificity": 0.9796,
+      "clean_real_frr": 0.0204,
+      "seen_auc": 0.9519,
+      "seen_f1": 0.7904,
+      "cross_dataset_auc": 0.729,
+      "cross_dataset_f1": 0.383,
+      "degraded_auc": 0.5044,
+      "ece": 0.2176,
+      "brier_score": 0.2101
+    },
+    "m13_2b_stage5": {
+      "f2f_auc": 0.7787,
+      "f2f_prauc": 0.6864,
+      "f2f_detection_rate_tau_0_5": 0.5,
+      "f2f_mean_prob": 0.5121,
+      "f2f_median_prob": 0.585,
+      "optimal_threshold": 0.0442,
+      "optimal_f1": 0.6667,
+      "optimal_f2f_recall": 0.7069,
+      "optimal_cr_specificity": 0.7551,
+      "clean_real_specificity": 0.9082,
+      "clean_real_frr": 0.0918,
+      "seen_auc": 0.9482,
+      "seen_f1": 0.9298,
+      "cross_dataset_auc": 0.7605,
+      "cross_dataset_f1": 0.5045,
+      "degraded_auc": 0.6439,
+      "ece": 0.0749,
+      "brier_score": 0.0754
+    }
+  },
+  "face2face_50pct_failure_analysis": {
+    "total_face2face_samples": 58,
+    "detected_count": 29,
+    "missed_count": 29,
+    "detected_probs": {
+      "mean": 0.9575,
+      "median": 0.9964,
+      "min": 0.6858,
+      "max": 1.0
+    },
+    "missed_probs": {
+      "mean": 0.0667,
+      "median": 0.01,
+      "min": 0.002,
+      "max": 0.4842,
+      "near_threshold_0_4_to_0_5": 2,
+      "marginal_0_3_to_0_4": 0,
+      "confident_real_below_0_2": 27
+    },
+    "head_contributions_detected": {
+      "mean_p_prim": 0.9417,
+      "mean_p_aux": 0.9732,
+      "mean_p_mid": 0.615
+    },
+    "head_contributions_missed": {
+      "mean_p_prim": 0.0928,
+      "mean_p_aux": 0.0406,
+      "mean_p_mid": 0.2896
+    },
+    "aux_family_predictions": {
+      "detected_families": {
+        "3": 24,
+        "2": 3,
+        "1": 2
+      },
+      "missed_families": {
+        "0": 29
+      },
+      "family_names": {
+        "0": "Real",
+        "1": "Deepfakes",
+        "2": "FaceSwap",
+        "3": "NeuralTextures",
+        "4": "FaceShifter"
+      }
+    },
+    "representation_geometry": {
+      "detected_sim_to_clean_real": 0.2938,
+      "missed_sim_to_clean_real": 0.9079,
+      "detected_sim_to_seen_fake": 0.6679,
+      "missed_sim_to_seen_fake": 0.0002
+    },
+    "frequency_and_dynamics": {
+      "detected_mean_laplacian_var": 12263.03,
+      "missed_mean_laplacian_var": 12647.12,
+      "detected_mean_fft_high_freq": 0.4011,
+      "missed_mean_fft_high_freq": 0.4131,
+      "detected_mean_frame_diff": 0.2592,
+      "missed_mean_frame_diff": 0.2795
+    }
+  },
+  "clean_real_false_positives": {
+    "count": 9,
+    "samples": [
+      {
+        "video_id": "orig_043",
+        "p_fused": 0.9988,
+        "p_prim": 0.9976,
+        "p_aux": 1.0,
+        "p_mid": 0.661,
+        "predicted_family": 3,
+        "aux_probs": [
+          0.0,
+          0.0118,
+          0.007,
+          0.9812,
+          0.0
+        ]
+      },
+      {
+        "video_id": "orig_168",
+        "p_fused": 0.9384,
+        "p_prim": 0.8859,
+        "p_aux": 0.991,
+        "p_mid": 0.8772,
+        "predicted_family": 3,
+        "aux_probs": [
+          0.009,
+          0.003,
+          0.0006,
+          0.9874,
+          0.0
+        ]
+      },
+      {
+        "video_id": "orig_227",
+        "p_fused": 0.9994,
+        "p_prim": 0.999,
+        "p_aux": 0.9999,
+        "p_mid": 0.6184,
+        "predicted_family": 3,
+        "aux_probs": [
+          0.0001,
+          0.0029,
+          0.0609,
+          0.9359,
+          0.0001
+        ]
+      },
+      {
+        "video_id": "orig_344",
+        "p_fused": 0.9789,
+        "p_prim": 0.9743,
+        "p_aux": 0.9835,
+        "p_mid": 0.2169,
+        "predicted_family": 2,
+        "aux_probs": [
+          0.0165,
+          0.0026,
+          0.8954,
+          0.0848,
+          0.0006
+        ]
+      },
+      {
+        "video_id": "orig_524",
+        "p_fused": 0.9981,
+        "p_prim": 0.9962,
+        "p_aux": 0.9999,
+        "p_mid": 0.8953,
+        "predicted_family": 3,
+        "aux_probs": [
+          0.0001,
+          0.0016,
+          0.0001,
+          0.9982,
+          0.0
+        ]
+      },
+      {
+        "video_id": "orig_634",
+        "p_fused": 0.5443,
+        "p_prim": 0.5963,
+        "p_aux": 0.4924,
+        "p_mid": 0.2384,
+        "predicted_family": 0,
+        "aux_probs": [
+          0.5076,
+          0.0077,
+          0.1349,
+          0.3498,
+          0.0
+        ]
+      },
+      {
+        "video_id": "id6_0002",
+        "p_fused": 0.9984,
+        "p_prim": 0.997,
+        "p_aux": 0.9997,
+        "p_mid": 0.4478,
+        "predicted_family": 3,
+        "aux_probs": [
+          0.0003,
+          0.0008,
+          0.0004,
+          0.9973,
+          0.0012
+        ]
+      },
+      {
+        "video_id": "00259",
+        "p_fused": 0.9972,
+        "p_prim": 0.9944,
+        "p_aux": 0.9999,
+        "p_mid": 0.2051,
+        "predicted_family": 3,
+        "aux_probs": [
+          0.0001,
+          0.0022,
+          0.0001,
+          0.9977,
+          0.0
+        ]
+      },
+      {
+        "video_id": "00279",
+        "p_fused": 0.9999,
+        "p_prim": 0.9998,
+        "p_aux": 1.0,
+        "p_mid": 0.7192,
+        "predicted_family": 4,
+        "aux_probs": [
+          0.0,
+          0.0,
+          0.0,
+          0.0052,
+          0.9948
+        ]
+      }
+    ]
+  },
+  "rejection_policy": {
+    "coverage": 0.8094,
+    "selective_accuracy": 0.7095,
+    "overall_rejection_rate": 0.1906,
+    "clean_real_frr": 0.0,
+    "synthetic_ood_trr": 1.0,
+    "face2face_rejection_rate": 0.0517,
+    "slice_breakdown": {
+      "Clean Real": {
+        "total": 98,
+        "rejected": 0,
+        "rejection_rate": 0.0,
+        "accepted_accuracy": 0.9082
+      },
+      "In-Domain Seen Fake": {
+        "total": 174,
+        "rejected": 62,
+        "rejection_rate": 0.3563,
+        "accepted_accuracy": 0.8839
+      },
+      "Celeb-DF Cross-Dataset": {
+        "total": 74,
+        "rejected": 12,
+        "rejection_rate": 0.1622,
+        "accepted_accuracy": 0.2581
+      },
+      "Held-Out Face2Face": {
+        "total": 58,
+        "rejected": 3,
+        "rejection_rate": 0.0517,
+        "accepted_accuracy": 0.5091
+      },
+      "Synthetic Non-Face OOD": {
+        "total": 58,
+        "rejected": 58,
+        "rejection_rate": 1.0
+      }
+    }
+  },
+  "calibrated_latency_and_vram": {
+    "p50_latency_ms": 209.92,
+    "p95_latency_ms": 230.68,
+    "peak_vram_mb": 826.48,
+    "num_runs": 30,
+    "sla_500ms_compliant": true
+  },
+  "readiness_verdict": {
+    "status": "RESEARCH_CHAMPION_ONLY__NOT_PRODUCTION_READY",
+    "primary_blocker": "50.00% Face2Face detection rate at tau=0.5; ROC-AUC (0.7789) shows no ranking gain over M12 (0.7780)",
+    "secondary_concern": "Clean Real specificity degraded from 97.96% (M12) to 90.82% (M13.2b), causing 9 false alarms"
+  }
+}

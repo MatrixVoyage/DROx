@@ -1,0 +1,643 @@
+{
+  "milestone": "14",
+  "phase": "D",
+  "title": "Controlled Robustness Stress Testing (One-Factor-At-A-Time)",
+  "timestamp": "2026-09-26T20:45:41.327037+00:00",
+  "model_under_test": "v5-family-invariant",
+  "frozen_checkpoint": "G:\\MyProjects\\DeepFake Video Detection\\checkpoints\\m13_3_f2f_seed42\\best.pth",
+  "total_benchmark_queries": 404,
+  "authentic_reals": 98,
+  "deepfake_swaps": 306,
+  "pristine_reference": {
+    "roc_auc": 0.8795684940642925,
+    "pr_auc": 0.9532876315108075,
+    "detection_rate_tau_0_5": 0.6209150326797386,
+    "detection_rate_tau_0_126": 0.6503267973856209,
+    "clean_specificity_tau_0_5": 0.9387755102040817,
+    "clean_false_alarms": 6
+  },
+  "perturbation_conditions_evaluated": 23,
+  "ofat_results": [
+    {
+      "condition_id": "compression_jpeg_q80",
+      "description": "Mild JPEG Compression (Q=80)",
+      "roc_auc": 0.727390956382553,
+      "pr_auc": 0.9076156765848921,
+      "delta_roc_auc": -0.15217753768173947,
+      "delta_pr_auc": -0.04567195492591547,
+      "detection_rate_tau_0_5": 0.18627450980392157,
+      "delta_detection_rate_tau_0_5": -0.434640522875817,
+      "detection_rate_tau_0_126": 0.24509803921568626,
+      "delta_detection_rate_tau_0_126": -0.40522875816993464,
+      "clean_specificity_tau_0_5": 1.0,
+      "clean_false_alarms_tau_0_5": 0,
+      "delta_clean_far_tau_0_5": -0.061224489795918366,
+      "prediction_flips": {
+        "real_to_fake_flips": 0,
+        "fake_to_real_flips": 133,
+        "total_flips_tau_0_5": 133,
+        "flip_rate_pct": 32.92079207920792
+      },
+      "probability_drift": {
+        "mean_drift": -0.3093733489513397,
+        "median_drift": -0.013048171065747738,
+        "mean_abs_drift": 0.31099188327789307
+      },
+      "elapsed_seconds": 23.93
+    },
+    {
+      "condition_id": "compression_jpeg_q50",
+      "description": "Moderate JPEG Compression (Q=50)",
+      "roc_auc": 0.6149459783913566,
+      "pr_auc": 0.8580468296528602,
+      "delta_roc_auc": -0.26462251567293593,
+      "delta_pr_auc": -0.09524080185794737,
+      "detection_rate_tau_0_5": 0.05228758169934641,
+      "delta_detection_rate_tau_0_5": -0.5686274509803921,
+      "detection_rate_tau_0_126": 0.06209150326797386,
+      "delta_detection_rate_tau_0_126": -0.5882352941176471,
+      "clean_specificity_tau_0_5": 1.0,
+      "clean_false_alarms_tau_0_5": 0,
+      "delta_clean_far_tau_0_5": -0.061224489795918366,
+      "prediction_flips": {
+        "real_to_fake_flips": 0,
+        "fake_to_real_flips": 174,
+        "total_flips_tau_0_5": 174,
+        "flip_rate_pct": 43.06930693069307
+      },
+      "probability_drift": {
+        "mean_drift": -0.4170825183391571,
+        "median_drift": -0.05853687971830368,
+        "mean_abs_drift": 0.4172535240650177
+      },
+      "elapsed_seconds": 13.8
+    },
+    {
+      "condition_id": "compression_jpeg_q25",
+      "description": "Severe JPEG Compression (Q=25)",
+      "roc_auc": 0.5873349339735894,
+      "pr_auc": 0.8381728641693571,
+      "delta_roc_auc": -0.2922335600907031,
+      "delta_pr_auc": -0.11511476734145043,
+      "detection_rate_tau_0_5": 0.00980392156862745,
+      "delta_detection_rate_tau_0_5": -0.6111111111111112,
+      "detection_rate_tau_0_126": 0.0196078431372549,
+      "delta_detection_rate_tau_0_126": -0.630718954248366,
+      "clean_specificity_tau_0_5": 1.0,
+      "clean_false_alarms_tau_0_5": 0,
+      "delta_clean_far_tau_0_5": -0.061224489795918366,
+      "prediction_flips": {
+        "real_to_fake_flips": 0,
+        "fake_to_real_flips": 187,
+        "total_flips_tau_0_5": 187,
+        "flip_rate_pct": 46.28712871287129
+      },
+      "probability_drift": {
+        "mean_drift": -0.44573861360549927,
+        "median_drift": -0.12437024712562561,
+        "mean_abs_drift": 0.4459458589553833
+      },
+      "elapsed_seconds": 24.55
+    },
+    {
+      "condition_id": "compression_crf_28",
+      "description": "Simulated H.264 Web Distribution (CRF 28)",
+      "roc_auc": 0.6768040549553155,
+      "pr_auc": 0.8867189582850932,
+      "delta_roc_auc": -0.202764439108977,
+      "delta_pr_auc": -0.06656867322571436,
+      "detection_rate_tau_0_5": 0.11437908496732026,
+      "delta_detection_rate_tau_0_5": -0.5065359477124183,
+      "detection_rate_tau_0_126": 0.1503267973856209,
+      "delta_detection_rate_tau_0_126": -0.5,
+      "clean_specificity_tau_0_5": 1.0,
+      "clean_false_alarms_tau_0_5": 0,
+      "delta_clean_far_tau_0_5": -0.061224489795918366,
+      "prediction_flips": {
+        "real_to_fake_flips": 0,
+        "fake_to_real_flips": 155,
+        "total_flips_tau_0_5": 155,
+        "flip_rate_pct": 38.366336633663366
+      },
+      "probability_drift": {
+        "mean_drift": -0.3684968054294586,
+        "median_drift": -0.024061128497123718,
+        "mean_abs_drift": 0.36873936653137207
+      },
+      "elapsed_seconds": 28.98
+    },
+    {
+      "condition_id": "compression_crf_35",
+      "description": "Simulated H.264 Social Streaming (CRF 35)",
+      "roc_auc": 0.606109110310791,
+      "pr_auc": 0.8522874550313609,
+      "delta_roc_auc": -0.27345938375350154,
+      "delta_pr_auc": -0.10100017647944659,
+      "detection_rate_tau_0_5": 0.029411764705882353,
+      "delta_detection_rate_tau_0_5": -0.5915032679738562,
+      "detection_rate_tau_0_126": 0.042483660130718956,
+      "delta_detection_rate_tau_0_126": -0.607843137254902,
+      "clean_specificity_tau_0_5": 1.0,
+      "clean_false_alarms_tau_0_5": 0,
+      "delta_clean_far_tau_0_5": -0.061224489795918366,
+      "prediction_flips": {
+        "real_to_fake_flips": 0,
+        "fake_to_real_flips": 181,
+        "total_flips_tau_0_5": 181,
+        "flip_rate_pct": 44.801980198019805
+      },
+      "probability_drift": {
+        "mean_drift": -0.43291765451431274,
+        "median_drift": -0.09140580892562866,
+        "mean_abs_drift": 0.433101624250412
+      },
+      "elapsed_seconds": 18.2
+    },
+    {
+      "condition_id": "compression_crf_42",
+      "description": "Simulated H.264 Heavy Transcoding (CRF 42)",
+      "roc_auc": 0.5721288515406162,
+      "pr_auc": 0.8232666061451723,
+      "delta_roc_auc": -0.3074396425236763,
+      "delta_pr_auc": -0.1300210253656352,
+      "detection_rate_tau_0_5": 0.0032679738562091504,
+      "delta_detection_rate_tau_0_5": -0.6176470588235294,
+      "detection_rate_tau_0_126": 0.016339869281045753,
+      "delta_detection_rate_tau_0_126": -0.6339869281045751,
+      "clean_specificity_tau_0_5": 1.0,
+      "clean_false_alarms_tau_0_5": 0,
+      "delta_clean_far_tau_0_5": -0.061224489795918366,
+      "prediction_flips": {
+        "real_to_fake_flips": 0,
+        "fake_to_real_flips": 189,
+        "total_flips_tau_0_5": 189,
+        "flip_rate_pct": 46.78217821782179
+      },
+      "probability_drift": {
+        "mean_drift": -0.4492191672325134,
+        "median_drift": -0.19124482572078705,
+        "mean_abs_drift": 0.4495113790035248
+      },
+      "elapsed_seconds": 15.62
+    },
+    {
+      "condition_id": "resize_down_0_75x",
+      "description": "Mild Downsampling (0.75x)",
+      "roc_auc": 0.825530212084834,
+      "pr_auc": 0.9103429119789719,
+      "delta_roc_auc": -0.05403828197945848,
+      "delta_pr_auc": -0.04294471953183565,
+      "detection_rate_tau_0_5": 0.8202614379084967,
+      "delta_detection_rate_tau_0_5": 0.19934640522875813,
+      "detection_rate_tau_0_126": 0.8464052287581699,
+      "delta_detection_rate_tau_0_126": 0.196078431372549,
+      "clean_specificity_tau_0_5": 0.7040816326530612,
+      "clean_false_alarms_tau_0_5": 29,
+      "delta_clean_far_tau_0_5": 0.2346938775510204,
+      "prediction_flips": {
+        "real_to_fake_flips": 23,
+        "fake_to_real_flips": 0,
+        "total_flips_tau_0_5": 23,
+        "flip_rate_pct": 5.693069306930694
+      },
+      "probability_drift": {
+        "mean_drift": 0.2064855545759201,
+        "median_drift": 0.0062791090458631516,
+        "mean_abs_drift": 0.20883171260356903
+      },
+      "elapsed_seconds": 12.61
+    },
+    {
+      "condition_id": "resize_down_0_50x",
+      "description": "Moderate Downsampling (0.50x)",
+      "roc_auc": 0.8012204881952782,
+      "pr_auc": 0.9077732294566356,
+      "delta_roc_auc": -0.07834800586901425,
+      "delta_pr_auc": -0.0455144020541719,
+      "detection_rate_tau_0_5": 0.7875816993464052,
+      "delta_detection_rate_tau_0_5": 0.16666666666666663,
+      "detection_rate_tau_0_126": 0.8398692810457516,
+      "delta_detection_rate_tau_0_126": 0.1895424836601307,
+      "clean_specificity_tau_0_5": 0.6734693877551021,
+      "clean_false_alarms_tau_0_5": 32,
+      "delta_clean_far_tau_0_5": 0.26530612244897955,
+      "prediction_flips": {
+        "real_to_fake_flips": 26,
+        "fake_to_real_flips": 8,
+        "total_flips_tau_0_5": 34,
+        "flip_rate_pct": 8.415841584158416
+      },
+      "probability_drift": {
+        "mean_drift": 0.18528196215629578,
+        "median_drift": 0.005193180404603481,
+        "mean_abs_drift": 0.2317201942205429
+      },
+      "elapsed_seconds": 19.41
+    },
+    {
+      "condition_id": "resize_down_0_25x",
+      "description": "Severe Downsampling (0.25x)",
+      "roc_auc": 0.6748366013071896,
+      "pr_auc": 0.8433119744110276,
+      "delta_roc_auc": -0.2047318927571029,
+      "delta_pr_auc": -0.10997565709977997,
+      "detection_rate_tau_0_5": 0.10130718954248366,
+      "delta_detection_rate_tau_0_5": -0.5196078431372549,
+      "detection_rate_tau_0_126": 0.21895424836601307,
+      "delta_detection_rate_tau_0_126": -0.43137254901960786,
+      "clean_specificity_tau_0_5": 0.9693877551020408,
+      "clean_false_alarms_tau_0_5": 3,
+      "delta_clean_far_tau_0_5": -0.030612244897959183,
+      "prediction_flips": {
+        "real_to_fake_flips": 2,
+        "fake_to_real_flips": 165,
+        "total_flips_tau_0_5": 167,
+        "flip_rate_pct": 41.336633663366335
+      },
+      "probability_drift": {
+        "mean_drift": -0.3454878330230713,
+        "median_drift": -0.02822282910346985,
+        "mean_abs_drift": 0.4001142978668213
+      },
+      "elapsed_seconds": 18.28
+    },
+    {
+      "condition_id": "temporal_stride_2",
+      "description": "Temporal Subsampling (Stride Delta_t=2)",
+      "roc_auc": 0.8578764839269041,
+      "pr_auc": 0.9551714207587256,
+      "delta_roc_auc": -0.021692010137388418,
+      "delta_pr_auc": 0.0018837892479180995,
+      "detection_rate_tau_0_5": 0.6013071895424836,
+      "delta_detection_rate_tau_0_5": -0.019607843137254943,
+      "detection_rate_tau_0_126": 0.6535947712418301,
+      "delta_detection_rate_tau_0_126": 0.0032679738562091387,
+      "clean_specificity_tau_0_5": 0.9489795918367347,
+      "clean_false_alarms_tau_0_5": 5,
+      "delta_clean_far_tau_0_5": -0.010204081632653059,
+      "prediction_flips": {
+        "real_to_fake_flips": 0,
+        "fake_to_real_flips": 13,
+        "total_flips_tau_0_5": 13,
+        "flip_rate_pct": 3.217821782178218
+      },
+      "probability_drift": {
+        "mean_drift": -0.009868347086012363,
+        "median_drift": 1.849699765443802e-05,
+        "mean_abs_drift": 0.06254234910011292
+      },
+      "elapsed_seconds": 16.82
+    },
+    {
+      "condition_id": "temporal_stride_4",
+      "description": "Temporal Subsampling (Stride Delta_t=4)",
+      "roc_auc": 0.8254968654128317,
+      "pr_auc": 0.9437626584274668,
+      "delta_roc_auc": -0.05407162865146076,
+      "delta_pr_auc": -0.00952497308334077,
+      "detection_rate_tau_0_5": 0.5849673202614379,
+      "delta_detection_rate_tau_0_5": -0.03594771241830064,
+      "detection_rate_tau_0_126": 0.6405228758169934,
+      "delta_detection_rate_tau_0_126": -0.009803921568627527,
+      "clean_specificity_tau_0_5": 0.9285714285714286,
+      "clean_false_alarms_tau_0_5": 7,
+      "delta_clean_far_tau_0_5": 0.010204081632653059,
+      "prediction_flips": {
+        "real_to_fake_flips": 4,
+        "fake_to_real_flips": 23,
+        "total_flips_tau_0_5": 27,
+        "flip_rate_pct": 6.683168316831684
+      },
+      "probability_drift": {
+        "mean_drift": -0.015148894861340523,
+        "median_drift": 6.123445928096771e-05,
+        "mean_abs_drift": 0.10639467090368271
+      },
+      "elapsed_seconds": 17.76
+    },
+    {
+      "condition_id": "photo_bright_up",
+      "description": "Photometric: Increased Brightness (+20%)",
+      "roc_auc": 0.8207616379885287,
+      "pr_auc": 0.943404205801999,
+      "delta_roc_auc": -0.05880685607576375,
+      "delta_pr_auc": -0.009883425708808513,
+      "detection_rate_tau_0_5": 0.43137254901960786,
+      "delta_detection_rate_tau_0_5": -0.1895424836601307,
+      "detection_rate_tau_0_126": 0.4803921568627451,
+      "delta_detection_rate_tau_0_126": -0.16993464052287582,
+      "clean_specificity_tau_0_5": 0.9795918367346939,
+      "clean_false_alarms_tau_0_5": 2,
+      "delta_clean_far_tau_0_5": -0.04081632653061225,
+      "prediction_flips": {
+        "real_to_fake_flips": 0,
+        "fake_to_real_flips": 58,
+        "total_flips_tau_0_5": 58,
+        "flip_rate_pct": 14.356435643564355
+      },
+      "probability_drift": {
+        "mean_drift": -0.13823162019252777,
+        "median_drift": -0.002854391001164913,
+        "mean_abs_drift": 0.1390857845544815
+      },
+      "elapsed_seconds": 25.43
+    },
+    {
+      "condition_id": "photo_bright_down",
+      "description": "Photometric: Reduced Brightness (-20%)",
+      "roc_auc": 0.8437041483259972,
+      "pr_auc": 0.9095842883021065,
+      "delta_roc_auc": -0.03586434573829533,
+      "delta_pr_auc": -0.04370334320870106,
+      "detection_rate_tau_0_5": 0.7287581699346405,
+      "delta_detection_rate_tau_0_5": 0.10784313725490191,
+      "detection_rate_tau_0_126": 0.803921568627451,
+      "delta_detection_rate_tau_0_126": 0.15359477124183007,
+      "clean_specificity_tau_0_5": 0.8367346938775511,
+      "clean_false_alarms_tau_0_5": 16,
+      "delta_clean_far_tau_0_5": 0.1020408163265306,
+      "prediction_flips": {
+        "real_to_fake_flips": 10,
+        "fake_to_real_flips": 3,
+        "total_flips_tau_0_5": 13,
+        "flip_rate_pct": 3.217821782178218
+      },
+      "probability_drift": {
+        "mean_drift": 0.1141989454627037,
+        "median_drift": 0.0016808165237307549,
+        "mean_abs_drift": 0.12349279969930649
+      },
+      "elapsed_seconds": 23.73
+    },
+    {
+      "condition_id": "photo_contrast_up",
+      "description": "Photometric: Contrast Shift (+20 px)",
+      "roc_auc": 0.8603774843270641,
+      "pr_auc": 0.9546621843609869,
+      "delta_roc_auc": -0.019191009737228426,
+      "delta_pr_auc": 0.0013745528501794002,
+      "detection_rate_tau_0_5": 0.5392156862745098,
+      "delta_detection_rate_tau_0_5": -0.0816993464052288,
+      "detection_rate_tau_0_126": 0.5751633986928104,
+      "delta_detection_rate_tau_0_126": -0.07516339869281052,
+      "clean_specificity_tau_0_5": 0.9489795918367347,
+      "clean_false_alarms_tau_0_5": 5,
+      "delta_clean_far_tau_0_5": -0.010204081632653059,
+      "prediction_flips": {
+        "real_to_fake_flips": 0,
+        "fake_to_real_flips": 25,
+        "total_flips_tau_0_5": 25,
+        "flip_rate_pct": 6.188118811881188
+      },
+      "probability_drift": {
+        "mean_drift": -0.06052516773343086,
+        "median_drift": -0.0008705500513315201,
+        "mean_abs_drift": 0.06215418502688408
+      },
+      "elapsed_seconds": 22.72
+    },
+    {
+      "condition_id": "photo_contrast_down",
+      "description": "Photometric: Contrast Shift (-20 px)",
+      "roc_auc": 0.8516740029345071,
+      "pr_auc": 0.9182351593888498,
+      "delta_roc_auc": -0.02789449112978537,
+      "delta_pr_auc": -0.03505247212195772,
+      "detection_rate_tau_0_5": 0.7058823529411765,
+      "delta_detection_rate_tau_0_5": 0.08496732026143794,
+      "detection_rate_tau_0_126": 0.7777777777777778,
+      "delta_detection_rate_tau_0_126": 0.12745098039215685,
+      "clean_specificity_tau_0_5": 0.8571428571428572,
+      "clean_false_alarms_tau_0_5": 14,
+      "delta_clean_far_tau_0_5": 0.08163265306122448,
+      "prediction_flips": {
+        "real_to_fake_flips": 8,
+        "fake_to_real_flips": 0,
+        "total_flips_tau_0_5": 8,
+        "flip_rate_pct": 1.9801980198019802
+      },
+      "probability_drift": {
+        "mean_drift": 0.0956750437617302,
+        "median_drift": 0.001967132091522217,
+        "mean_abs_drift": 0.09712604433298111
+      },
+      "elapsed_seconds": 25.22
+    },
+    {
+      "condition_id": "blur_sigma_1_0",
+      "description": "Mild Gaussian Blur (sigma=1.0)",
+      "roc_auc": 0.6417233560090704,
+      "pr_auc": 0.8079314683450205,
+      "delta_roc_auc": -0.23784513805522212,
+      "delta_pr_auc": -0.14535616316578703,
+      "detection_rate_tau_0_5": 0.9509803921568627,
+      "delta_detection_rate_tau_0_5": 0.3300653594771241,
+      "detection_rate_tau_0_126": 0.9738562091503268,
+      "delta_detection_rate_tau_0_126": 0.32352941176470584,
+      "clean_specificity_tau_0_5": 0.18367346938775508,
+      "clean_false_alarms_tau_0_5": 80,
+      "delta_clean_far_tau_0_5": 0.7551020408163266,
+      "prediction_flips": {
+        "real_to_fake_flips": 74,
+        "fake_to_real_flips": 3,
+        "total_flips_tau_0_5": 77,
+        "flip_rate_pct": 19.05940594059406
+      },
+      "probability_drift": {
+        "mean_drift": 0.40604496002197266,
+        "median_drift": 0.13180506229400635,
+        "mean_abs_drift": 0.4284649193286896
+      },
+      "elapsed_seconds": 25.01
+    },
+    {
+      "condition_id": "blur_sigma_2_0",
+      "description": "Moderate Gaussian Blur (sigma=2.0)",
+      "roc_auc": 0.5663932239562492,
+      "pr_auc": 0.7826434646576491,
+      "delta_roc_auc": -0.31317527010804325,
+      "delta_pr_auc": -0.17064416685315842,
+      "detection_rate_tau_0_5": 0.5228758169934641,
+      "delta_detection_rate_tau_0_5": -0.0980392156862745,
+      "detection_rate_tau_0_126": 0.761437908496732,
+      "delta_detection_rate_tau_0_126": 0.11111111111111105,
+      "clean_specificity_tau_0_5": 0.5306122448979591,
+      "clean_false_alarms_tau_0_5": 46,
+      "delta_clean_far_tau_0_5": 0.40816326530612246,
+      "prediction_flips": {
+        "real_to_fake_flips": 44,
+        "fake_to_real_flips": 75,
+        "total_flips_tau_0_5": 119,
+        "flip_rate_pct": 29.455445544554454
+      },
+      "probability_drift": {
+        "mean_drift": 0.028806103393435478,
+        "median_drift": 0.01352696679532528,
+        "mean_abs_drift": 0.39671337604522705
+      },
+      "elapsed_seconds": 23.25
+    },
+    {
+      "condition_id": "blur_sigma_3_0",
+      "description": "Severe Gaussian Blur (sigma=3.0)",
+      "roc_auc": 0.5088035214085634,
+      "pr_auc": 0.7742164746826677,
+      "delta_roc_auc": -0.37076497265572905,
+      "delta_pr_auc": -0.1790711568281398,
+      "detection_rate_tau_0_5": 0.026143790849673203,
+      "delta_detection_rate_tau_0_5": -0.5947712418300654,
+      "detection_rate_tau_0_126": 0.16993464052287582,
+      "delta_detection_rate_tau_0_126": -0.4803921568627451,
+      "clean_specificity_tau_0_5": 0.9795918367346939,
+      "clean_false_alarms_tau_0_5": 2,
+      "delta_clean_far_tau_0_5": -0.04081632653061225,
+      "prediction_flips": {
+        "real_to_fake_flips": 2,
+        "fake_to_real_flips": 183,
+        "total_flips_tau_0_5": 185,
+        "flip_rate_pct": 45.79207920792079
+      },
+      "probability_drift": {
+        "mean_drift": -0.3888053596019745,
+        "median_drift": -0.09365078061819077,
+        "mean_abs_drift": 0.4327482581138611
+      },
+      "elapsed_seconds": 23.02
+    },
+    {
+      "condition_id": "noise_sigma_10",
+      "description": "Mild Gaussian Noise (sigma=10)",
+      "roc_auc": 0.5594904628518075,
+      "pr_auc": 0.7851277193605147,
+      "delta_roc_auc": -0.320078031212485,
+      "delta_pr_auc": -0.1681599121502928,
+      "detection_rate_tau_0_5": 0.0,
+      "delta_detection_rate_tau_0_5": -0.6209150326797386,
+      "detection_rate_tau_0_126": 0.0,
+      "delta_detection_rate_tau_0_126": -0.6503267973856209,
+      "clean_specificity_tau_0_5": 1.0,
+      "clean_false_alarms_tau_0_5": 0,
+      "delta_clean_far_tau_0_5": -0.061224489795918366,
+      "prediction_flips": {
+        "real_to_fake_flips": 0,
+        "fake_to_real_flips": 190,
+        "total_flips_tau_0_5": 190,
+        "flip_rate_pct": 47.02970297029702
+      },
+      "probability_drift": {
+        "mean_drift": -0.4548223614692688,
+        "median_drift": -0.1993710696697235,
+        "mean_abs_drift": 0.4552850127220154
+      },
+      "elapsed_seconds": 28.83
+    },
+    {
+      "condition_id": "noise_sigma_25",
+      "description": "Moderate Gaussian Noise (sigma=25)",
+      "roc_auc": 0.5711951447245565,
+      "pr_auc": 0.7923630305788621,
+      "delta_roc_auc": -0.30837334933973604,
+      "delta_pr_auc": -0.16092460093194538,
+      "detection_rate_tau_0_5": 0.0,
+      "delta_detection_rate_tau_0_5": -0.6209150326797386,
+      "detection_rate_tau_0_126": 0.0,
+      "delta_detection_rate_tau_0_126": -0.6503267973856209,
+      "clean_specificity_tau_0_5": 1.0,
+      "clean_false_alarms_tau_0_5": 0,
+      "delta_clean_far_tau_0_5": -0.061224489795918366,
+      "prediction_flips": {
+        "real_to_fake_flips": 0,
+        "fake_to_real_flips": 190,
+        "total_flips_tau_0_5": 190,
+        "flip_rate_pct": 47.02970297029702
+      },
+      "probability_drift": {
+        "mean_drift": -0.4523051679134369,
+        "median_drift": -0.19571292400360107,
+        "mean_abs_drift": 0.45430171489715576
+      },
+      "elapsed_seconds": 17.36
+    },
+    {
+      "condition_id": "crop_tight_1_0x",
+      "description": "Tight Face Crop (0.85x Zoom)",
+      "roc_auc": 0.8162931839402428,
+      "pr_auc": 0.8944953057273493,
+      "delta_roc_auc": -0.06327531012404974,
+      "delta_pr_auc": -0.05879232578345828,
+      "detection_rate_tau_0_5": 0.9183006535947712,
+      "delta_detection_rate_tau_0_5": 0.2973856209150326,
+      "detection_rate_tau_0_126": 0.9411764705882353,
+      "delta_detection_rate_tau_0_126": 0.29084967320261434,
+      "clean_specificity_tau_0_5": 0.5,
+      "clean_false_alarms_tau_0_5": 49,
+      "delta_clean_far_tau_0_5": 0.4387755102040816,
+      "prediction_flips": {
+        "real_to_fake_flips": 43,
+        "fake_to_real_flips": 0,
+        "total_flips_tau_0_5": 43,
+        "flip_rate_pct": 10.643564356435643
+      },
+      "probability_drift": {
+        "mean_drift": 0.3275572955608368,
+        "median_drift": 0.029781848192214966,
+        "mean_abs_drift": 0.3290569484233856
+      },
+      "elapsed_seconds": 5.91
+    },
+    {
+      "condition_id": "crop_loose_1_3x",
+      "description": "Loose Face Crop (1.15x Context)",
+      "roc_auc": 0.8795684940642925,
+      "pr_auc": 0.9532876315108075,
+      "delta_roc_auc": 0.0,
+      "delta_pr_auc": 0.0,
+      "detection_rate_tau_0_5": 0.6209150326797386,
+      "delta_detection_rate_tau_0_5": 0.0,
+      "detection_rate_tau_0_126": 0.6503267973856209,
+      "delta_detection_rate_tau_0_126": 0.0,
+      "clean_specificity_tau_0_5": 0.9387755102040817,
+      "clean_false_alarms_tau_0_5": 6,
+      "delta_clean_far_tau_0_5": 0.0,
+      "prediction_flips": {
+        "real_to_fake_flips": 0,
+        "fake_to_real_flips": 0,
+        "total_flips_tau_0_5": 0,
+        "flip_rate_pct": 0.0
+      },
+      "probability_drift": {
+        "mean_drift": 0.0,
+        "median_drift": 0.0,
+        "mean_abs_drift": 0.0
+      },
+      "elapsed_seconds": 5.9
+    },
+    {
+      "condition_id": "crop_jitter_5pct",
+      "description": "Bounding Box Translation Jitter (5%)",
+      "roc_auc": 0.8347338935574229,
+      "pr_auc": 0.9241766534719837,
+      "delta_roc_auc": -0.044834600506869604,
+      "delta_pr_auc": -0.029110978038823787,
+      "detection_rate_tau_0_5": 0.9052287581699346,
+      "delta_detection_rate_tau_0_5": 0.28431372549019607,
+      "detection_rate_tau_0_126": 0.9084967320261438,
+      "delta_detection_rate_tau_0_126": 0.25816993464052285,
+      "clean_specificity_tau_0_5": 0.6020408163265306,
+      "clean_false_alarms_tau_0_5": 39,
+      "delta_clean_far_tau_0_5": 0.336734693877551,
+      "prediction_flips": {
+        "real_to_fake_flips": 33,
+        "fake_to_real_flips": 0,
+        "total_flips_tau_0_5": 33,
+        "flip_rate_pct": 8.16831683168317
+      },
+      "probability_drift": {
+        "mean_drift": 0.28825274109840393,
+        "median_drift": 0.017964743077754974,
+        "mean_abs_drift": 0.28886422514915466
+      },
+      "elapsed_seconds": 5.93
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "milestone": "Milestone 7 — Final Audit Report",
+  "audit_timestamp": "2026-09-21T02:25:35+05:30",
+  "audit_type": "Audit-Only Pass (Zero Retraining / Zero Model Modification)",
+  "hardware": {
+    "gpu": "NVIDIA GeForce RTX 3050 Laptop GPU",
+    "vram_total_mb": 6143.5,
+    "cuda_version": "12.4",
+    "torch_version": "2.6.0+cu124"
+  },
+  "gate_statuses": {
+    "G1_inference_correctness": {
+      "status": "PASS",
+      "determinism_diff": 0.0,
+      "real_video": "Datasets/FaceForensics++_C23/original/004.mp4",
+      "manipulated_video": "Datasets/FaceForensics++_C23/Deepfakes/004_982.mp4"
+    },
+    "G2_model_export": {
+      "status": "PASS",
+      "torchscript_max_abs_diff": 0.0,
+      "onnx_max_abs_diff": 1.1920928955078125e-07,
+      "onnx_sequence_invariant": "Fixed T=16 (LSTM invariant), dynamic batch B>=1"
+    },
+    "G3_cli": {
+      "status": "PASS",
+      "subcommands_verified": ["predict", "export", "benchmark-latency", "serve"],
+      "physical_run_output": "reports/gate3_cli_predict_output.json"
+    },
+    "G4_rest_api": {
+      "status": "PASS",
+      "endpoints": ["/health", "/api/v1/model-info", "/api/v1/predict"],
+      "physical_video_upload_status": 200
+    },
+    "G5_dashboard": {
+      "status": "PASS",
+      "ui_components": ["src/ui/index.html", "src/ui/dashboard.css", "src/ui/dashboard.js"],
+      "accessibility_compliance": "Real/fake status indicated by text and icons, not color alone",
+      "limitations_callout_present": true
+    },
+    "G6_performance": {
+      "status": "PASS",
+      "model_forward_mean_ms": 31.27,
+      "model_throughput_fps": 511.7,
+      "end_to_end_mean_ms": 2232.51,
+      "peak_vram_mb": 373.02,
+      "classification": "Interactive Video Clip Inference (Real-Time Streaming Deferred)"
+    },
+    "G7_container": {
+      "status": "PENDING — DOCKER DAEMON OFFLINE",
+      "packaging_complete": true,
+      "daemon_inspection": "Docker CLI 28.4.0 detected, daemon pipe unreachable"
+    },
+    "G8_regression": {
+      "status": "PASS WITH CORRECTION",
+      "tests_collected": 165,
+      "tests_passed": 165,
+      "pass_rate_pct": 100.0,
+      "baseline_test_count": 143,
+      "m7_new_test_count": 22,
+      "discrepancy_explanation": "In M6 prior to M6.1, baseline was 142 tests. In M6.1, test_build_ffpp_manifest was added (increasing baseline to 143, as recorded in reports/m6_final_audit.md). Subsequent prompt templates retained the legacy 142 figure. M7 authored 22 tests (143 + 22 = 165). Discrepancy is fully reconciled."
+    }
+  },
+  "research_freeze": {
+    "checkpoint": "checkpoints/ffpp_c23_baseline_soft_lstm/best.pth",
+    "sha256": "9d22df92bdab20a35e1311d627d9fa487c757b7afb32a249ebbf7f95bf3b7e6a",
+    "verified_bitwise_unchanged": true
+  },
+  "overall_milestone_status": "IMPLEMENTATION VERIFIED (7/8 GATES PASS, GATE 7 PENDING HOST DOCKER DAEMON STARTUP, GATE 8 RECONCILED)"
+}

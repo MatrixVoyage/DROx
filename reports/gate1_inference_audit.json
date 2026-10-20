@@ -1,0 +1,184 @@
+{
+  "gate": "Gate 1 \u2014 Inference Correctness",
+  "status": "PASS",
+  "checkpoint": "G:\\MyProjects\\DeepFake Video Detection\\checkpoints\\ffpp_c23_baseline_soft_lstm\\best.pth",
+  "device": "cuda",
+  "physical_validation": {
+    "real_video": {
+      "video_path": "G:\\MyProjects\\DeepFake Video Detection\\Datasets\\FaceForensics++_C23\\original\\004.mp4",
+      "verdict": "Deepfake",
+      "probability": 0.7297,
+      "raw_logit": 0.993,
+      "confidence": 0.7297,
+      "threshold": 0.5,
+      "frames_analyzed": 16,
+      "faces_detected": 16,
+      "device": "cuda",
+      "model_version": "best.pth",
+      "latency_ms": {
+        "preprocessing_ms": 2500.43,
+        "model_forward_ms": 68.02,
+        "total_ms": 2568.94
+      },
+      "error": null,
+      "metadata": {
+        "video_id": "004",
+        "group_id": "004",
+        "split": "unassigned",
+        "status": "success",
+        "frame_indices": [
+          14,
+          35,
+          36,
+          44,
+          71,
+          86,
+          98,
+          150,
+          162,
+          165,
+          173,
+          199,
+          208,
+          252,
+          253,
+          297
+        ],
+        "counters": {
+          "detected_frames": 16,
+          "previous_bbox_frames": 0,
+          "center_crop_frames": 0,
+          "failed_frames": 0,
+          "valid_frames": 16
+        },
+        "metrics": {
+          "fallback_ratio": 0.0,
+          "failure_ratio": 0.0
+        },
+        "error_code": null,
+        "error_message": null
+      }
+    },
+    "fake_video": {
+      "video_path": "G:\\MyProjects\\DeepFake Video Detection\\Datasets\\FaceForensics++_C23\\Deepfakes\\004_982.mp4",
+      "verdict": "Deepfake",
+      "probability": 0.7411,
+      "raw_logit": 1.0517,
+      "confidence": 0.7411,
+      "threshold": 0.5,
+      "frames_analyzed": 16,
+      "faces_detected": 16,
+      "device": "cuda",
+      "model_version": "best.pth",
+      "latency_ms": {
+        "preprocessing_ms": 2039.4,
+        "model_forward_ms": 24.2,
+        "total_ms": 2064.15
+      },
+      "error": null,
+      "metadata": {
+        "video_id": "004_982",
+        "group_id": "004_982",
+        "split": "unassigned",
+        "status": "success",
+        "frame_indices": [
+          40,
+          60,
+          62,
+          68,
+          92,
+          96,
+          98,
+          99,
+          125,
+          147,
+          167,
+          171,
+          180,
+          185,
+          188,
+          212
+        ],
+        "counters": {
+          "detected_frames": 16,
+          "previous_bbox_frames": 0,
+          "center_crop_frames": 0,
+          "failed_frames": 0,
+          "valid_frames": 16
+        },
+        "metrics": {
+          "fallback_ratio": 0.0,
+          "failure_ratio": 0.0
+        },
+        "error_code": null,
+        "error_message": null
+      }
+    },
+    "repeated_fake_video": {
+      "video_path": "G:\\MyProjects\\DeepFake Video Detection\\Datasets\\FaceForensics++_C23\\Deepfakes\\004_982.mp4",
+      "verdict": "Deepfake",
+      "probability": 0.7411,
+      "raw_logit": 1.0517,
+      "confidence": 0.7411,
+      "threshold": 0.5,
+      "frames_analyzed": 16,
+      "faces_detected": 16,
+      "device": "cuda",
+      "model_version": "best.pth",
+      "latency_ms": {
+        "preprocessing_ms": 1955.28,
+        "model_forward_ms": 24.05,
+        "total_ms": 1979.78
+      },
+      "error": null,
+      "metadata": {
+        "video_id": "004_982",
+        "group_id": "004_982",
+        "split": "unassigned",
+        "status": "success",
+        "frame_indices": [
+          40,
+          60,
+          62,
+          68,
+          92,
+          96,
+          98,
+          99,
+          125,
+          147,
+          167,
+          171,
+          180,
+          185,
+          188,
+          212
+        ],
+        "counters": {
+          "detected_frames": 16,
+          "previous_bbox_frames": 0,
+          "center_crop_frames": 0,
+          "failed_frames": 0,
+          "valid_frames": 16
+        },
+        "metrics": {
+          "fallback_ratio": 0.0,
+          "failure_ratio": 0.0
+        },
+        "error_code": null,
+        "error_message": null
+      }
+    }
+  },
+  "determinism_verified": true,
+  "contract_verified": {
+    "expected_tensor_shape": [
+      16,
+      3,
+      112,
+      112
+    ],
+    "dtype": "torch.float32",
+    "finite": true
+  }
+}

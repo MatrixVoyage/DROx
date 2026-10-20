@@ -1,0 +1,173 @@
+{
+  "milestone": "13.2c",
+  "name": "Identity/Manipulation Disentanglement Negative Experimental Baseline Freeze",
+  "frozen_at": "2026-09-25T03:32:00Z",
+  "status": "REJECTED_AS_GENERALIZATION_SOLUTION",
+  "scientific_verdict": {
+    "verdict": "REJECTED",
+    "primary_finding": "Explicit identity/manipulation subspace disentanglement does not produce statistically significant ranking improvements on held-out Face2Face reenactments beyond M13.2b-Stage5.",
+    "causal_disconfirmation": "Shuffled-group negative control (random group assignments) performed identically to true group supervision (ROC-AUC: 0.7797 vs 0.7723; detection rate: 53.45% vs 53.45%), proving that identity contrastive loss provides no causal domain-invariance to unseen facial manipulations.",
+    "generalization_penalty": "All disentangled models suffered severe cross-dataset collapse on Celeb-DF v2 (ROC-AUC collapsed from 0.7599 down to 0.6597-0.6878), and TrueGroup suffered severe clean real specificity degradation (FRR spiked from 9.18% to 15.31%).",
+    "representation_leakage": "Post-hoc linear probes show extensive manipulation signal leaking into z_id (AUC 0.7570-0.8343), and identity similarity DeltaSim remaining higher in z_manip than in z_id (+0.41 to +0.47 vs +0.12 to +0.22)."
+  },
+  "fingerprints": {
+    "frozen_m12_baseline": {
+      "path": "checkpoints/m12_full/best.pth",
+      "sha256": "c8265f634880c56929e5d82be8e4fc808fc7776d0750fca86c74e18a983cda56"
+    },
+    "champion_m13_2b_stage5": {
+      "path": "checkpoints/m13_2b_stage5/best.pth",
+      "sha256": "d681386102f1d562b15ee9b7fb68eef7e4e08c1c41a8c22db6e1654c11e67611"
+    },
+    "m13_2c_proj_only": {
+      "path": "checkpoints/m13_2c_proj_only/best.pth",
+      "sha256": "bc36f4daba27ed1f784526a23784b9773ebe8ac93b19e61eaf19d77ef7c5d3be"
+    },
+    "m13_2c_orth_only": {
+      "path": "checkpoints/m13_2c_orth_only/best.pth",
+      "sha256": "26957f4946d77a571b3a0ad6af0dad7874b0738c1fe57fcad362aab1a32b1993"
+    },
+    "m13_2c_contrast_only": {
+      "path": "checkpoints/m13_2c_contrast_only/best.pth",
+      "sha256": "7f0e8286967f2f7d0a4f0596141945425bdff62e3f0a65d9d012c79eceb8b215"
+    },
+    "m13_2c_true_group": {
+      "path": "checkpoints/m13_2c_true_group/best.pth",
+      "sha256": "b33798a432c56df79be1b5854a924a85735655a206bf2b403d7f72ee634e2f76"
+    },
+    "m13_2c_shuffled_group": {
+      "path": "checkpoints/m13_2c_shuffled/best.pth",
+      "sha256": "6e200dfccc13b81588c1918ef98634ab22d0d7ff6325dc91fa04674fb73b6084"
+    }
+  },
+  "benchmark_summary_560_queries": {
+    "sample_counts": {
+      "total": 560,
+      "clean_real": 98,
+      "seen_fake": 144,
+      "celeb_df": 88,
+      "held_out_face2face": 116,
+      "degraded_jpeg": 98,
+      "synthetic_ood": 16
+    },
+    "f2f_sample_counts_tau_0_5": {
+      "frozen_m12": "9/58 (15.52%)",
+      "m13_2b_stage5": "29/58 (50.00%)",
+      "m13_2c_proj_only": "30/58 (51.72%)",
+      "m13_2c_orth_only": "26/58 (44.83%)",
+      "m13_2c_contrast_only": "28/58 (48.28%)",
+      "m13_2c_true_group": "31/58 (53.45%)",
+      "m13_2c_shuffled_group": "31/58 (53.45%)"
+    },
+    "face2face_roc_auc": {
+      "frozen_m12": 0.7780,
+      "m13_2b_stage5": 0.7789,
+      "m13_2c_proj_only": 0.7843,
+      "m13_2c_orth_only": 0.7674,
+      "m13_2c_contrast_only": 0.7738,
+      "m13_2c_true_group": 0.7723,
+      "m13_2c_shuffled_group": 0.7797
+    },
+    "face2face_pr_auc": {
+      "frozen_m12": 0.6845,
+      "m13_2b_stage5": 0.6821,
+      "m13_2c_proj_only": 0.7051,
+      "m13_2c_orth_only": 0.7128,
+      "m13_2c_contrast_only": 0.7244,
+      "m13_2c_true_group": 0.7088,
+      "m13_2c_shuffled_group": 0.7124
+    },
+    "clean_real_specificity": {
+      "frozen_m12": 0.9796,
+      "m13_2b_stage5": 0.9082,
+      "m13_2c_proj_only": 0.8980,
+      "m13_2c_orth_only": 0.9082,
+      "m13_2c_contrast_only": 0.9082,
+      "m13_2c_true_group": 0.8469,
+      "m13_2c_shuffled_group": 0.8980
+    },
+    "celeb_df_roc_auc": {
+      "frozen_m12": 0.7290,
+      "m13_2b_stage5": 0.7599,
+      "m13_2c_proj_only": 0.6597,
+      "m13_2c_orth_only": 0.6878,
+      "m13_2c_contrast_only": 0.6760,
+      "m13_2c_true_group": 0.6731,
+      "m13_2c_shuffled_group": 0.7005
+    }
+  },
+  "paired_bootstrap_vs_m13_2b": {
+    "m13_2c_proj_only": {
+      "delta_roc_auc": 0.0044,
+      "ci_95": [-0.0410, 0.0516],
+      "p_value": 0.8780,
+      "statistically_significant": false
+    },
+    "m13_2c_orth_only": {
+      "delta_roc_auc": -0.0124,
+      "ci_95": [-0.0708, 0.0416],
+      "p_value": 0.6920,
+      "statistically_significant": false
+    },
+    "m13_2c_contrast_only": {
+      "delta_roc_auc": -0.0062,
+      "ci_95": [-0.0625, 0.0484],
+      "p_value": 0.8280,
+      "statistically_significant": false
+    },
+    "m13_2c_true_group": {
+      "delta_roc_auc": -0.0074,
+      "ci_95": [-0.0601, 0.0417],
+      "p_value": 0.7900,
+      "statistically_significant": false
+    },
+    "m13_2c_shuffled_group": {
+      "delta_roc_auc": -0.0000,
+      "ci_95": [-0.0514, 0.0503],
+      "p_value": 0.9820,
+      "statistically_significant": false
+    }
+  },
+  "post_hoc_leakage_probes": {
+    "m13_2c_proj_only": {
+      "z_id_identity_delta_sim": 0.1200,
+      "z_manip_id_leak_delta_sim": 0.4545,
+      "z_id_1nn_id_match": 0.0770,
+      "z_manip_1nn_id_match_leak": 0.0540,
+      "z_manip_manip_probe_auc": 0.7830,
+      "z_id_manip_leak_probe_auc": 0.8343
+    },
+    "m13_2c_orth_only": {
+      "z_id_identity_delta_sim": 0.2199,
+      "z_manip_id_leak_delta_sim": 0.4115,
+      "z_id_1nn_id_match": 0.0850,
+      "z_manip_1nn_id_match_leak": 0.0740,
+      "z_manip_manip_probe_auc": 0.7942,
+      "z_id_manip_leak_probe_auc": 0.8202
+    },
+    "m13_2c_contrast_only": {
+      "z_id_identity_delta_sim": 0.1940,
+      "z_manip_id_leak_delta_sim": 0.4174,
+      "z_id_1nn_id_match": 0.0690,
+      "z_manip_1nn_id_match_leak": 0.0720,
+      "z_manip_manip_probe_auc": 0.7925,
+      "z_id_manip_leak_probe_auc": 0.7570
+    },
+    "m13_2c_true_group": {
+      "z_id_identity_delta_sim": 0.1821,
+      "z_manip_id_leak_delta_sim": 0.4772,
+      "z_id_1nn_id_match": 0.0720,
+      "z_manip_1nn_id_match_leak": 0.0590,
+      "z_manip_manip_probe_auc": 0.7445,
+      "z_id_manip_leak_probe_auc": 0.7831
+    },
+    "m13_2c_shuffled_group": {
+      "z_id_identity_delta_sim": 0.0039,
+      "z_manip_id_leak_delta_sim": 0.4617,
+      "z_id_1nn_id_match": 0.0620,
+      "z_manip_1nn_id_match_leak": 0.0490,
+      "z_manip_manip_probe_auc": 0.8073,
+      "z_id_manip_leak_probe_auc": 0.7923
+    }
+  }
+}

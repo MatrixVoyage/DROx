@@ -1,0 +1,22 @@
+{
+  "calibration_version": "m12_full_validation",
+  "calibration_dataset": "M12 Full Validation Split (mixed FF++ and Celeb-DF)",
+  "calibration_samples": 1255,
+  "temperature": 1.6369,
+  "pre_calibration_metrics": {
+    "ece": 0.2157,
+    "brier": 0.2184,
+    "nll": 2.1002
+  },
+  "post_calibration_metrics": {
+    "ece": 0.2078,
+    "brier": 0.2132,
+    "nll": 1.298
+  },
+  "classification_threshold": 0.5,
+  "max_uncertainty_variance": 0.04,
+  "ood_distance_threshold": 3.0,
+  "val_distance_p95": 1.2075,
+  "val_distance_p99": 1.2627,
+  "calibrated_at": "2026-09-24 01:26:17"
+}

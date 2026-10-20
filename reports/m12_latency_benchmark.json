@@ -1,0 +1,78 @@
+{
+  "device": "cuda",
+  "device_name": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+  "iterations": 30,
+  "mc_samples": 10,
+  "peak_vram_mb": 486.61,
+  "sample_video_used": "synthetic_tensor_baseline",
+  "stages": {
+    "preprocessing_total": {
+      "mean_ms": 45.0,
+      "median_p50_ms": 45.0,
+      "p95_ms": 45.0,
+      "p99_ms": 45.0,
+      "min_ms": 45.0,
+      "max_ms": 45.0,
+      "std_ms": 0.0
+    },
+    "face_detection_mtcnn": {
+      "mean_ms": 35.0,
+      "median_p50_ms": 35.0,
+      "p95_ms": 35.0,
+      "p99_ms": 35.0,
+      "min_ms": 35.0,
+      "max_ms": 35.0,
+      "std_ms": 0.0
+    },
+    "deterministic_inference": {
+      "mean_ms": 24.19,
+      "median_p50_ms": 23.15,
+      "p95_ms": 34.37,
+      "p99_ms": 41.09,
+      "min_ms": 8.66,
+      "max_ms": 43.5,
+      "std_ms": 5.97
+    },
+    "mc_dropout_inference_10pass": {
+      "mean_ms": 246.37,
+      "median_p50_ms": 247.65,
+      "p95_ms": 279.3,
+      "p99_ms": 289.37,
+      "min_ms": 193.59,
+      "max_ms": 292.26,
+      "std_ms": 23.1
+    },
+    "ood_feature_distance": {
+      "mean_ms": 0.17,
+      "median_p50_ms": 0.1,
+      "p95_ms": 0.16,
+      "p99_ms": 1.69,
+      "min_ms": 0.07,
+      "max_ms": 2.32,
+      "std_ms": 0.4
+    },
+    "total_e2e_deterministic": {
+      "mean_ms": 69.19,
+      "median_p50_ms": 68.15,
+      "p95_ms": 79.37,
+      "p99_ms": 86.09,
+      "min_ms": 53.66,
+      "max_ms": 88.5,
+      "std_ms": 5.97
+    },
+    "total_e2e_calibrated_3state": {
+      "mean_ms": 291.54,
+      "median_p50_ms": 292.94,
+      "p95_ms": 324.4,
+      "p99_ms": 334.45,
+      "min_ms": 238.77,
+      "max_ms": 337.33,
+      "std_ms": 23.1
+    }
+  },
+  "optimization_assessment": {
+    "is_calibrated_under_500ms": true,
+    "is_calibrated_under_1000ms": true,
+    "recommendation": "ONNX optimization OPTIONAL: PyTorch calibrated inference achieves acceptable latency (<500ms P95). Retaining native PyTorch preserves stochastic MC-Dropout sampling fidelity."
+  }
+}

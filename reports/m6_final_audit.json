@@ -1,0 +1,234 @@
+{
+  "audit_status": "PASS WITH CLARIFICATIONS",
+  "dataset_availability": {
+    "faceforensics_c23": {
+      "physical_available": true,
+      "physical_count": 7000,
+      "disk_path": "Datasets/FaceForensics++_C23",
+      "canonical_manifest_count": 5000,
+      "subset_used_count": 160
+    },
+    "celeb_df_v2": {
+      "physical_available": true,
+      "physical_count": 6529,
+      "disk_path": "Datasets/Celeb-DF-v2",
+      "canonical_manifest_count": 6529,
+      "subset_evaluated_count": 8
+    },
+    "dfdc": {
+      "physical_available": false,
+      "status": "PENDING — DATA ACCESS UNAVAILABLE",
+      "synthetic_substitution_attempted": false,
+      "unauthorized_scrape_attempted": false
+    }
+  },
+  "manifest_verification": {
+    "ffpp_canonical": {
+      "path": "manifests/ffpp_c23.csv",
+      "rows": 5000,
+      "columns_verified": true,
+      "split_integrity_verified": true
+    },
+    "ffpp_m6_subset": {
+      "path": "manifests/ffpp_c23_m6_subset.csv",
+      "rows": 160,
+      "split_distribution": {
+        "train": {"total": 100, "fake": 80, "real": 20},
+        "val": {"total": 30, "fake": 24, "real": 6},
+        "test": {"total": 30, "fake": 24, "real": 6}
+      },
+      "split_integrity_verified": true
+    },
+    "celebdf_canonical": {
+      "path": "manifests/celebdf_v2.csv",
+      "rows": 6529,
+      "split_integrity_verified": true
+    },
+    "celebdf_gate3_subset": {
+      "path": "manifests/celebdf_gate3_subset.csv",
+      "rows": 8,
+      "split_distribution": {
+        "test": {"total": 8, "fake": 4, "real": 4}
+      }
+    }
+  },
+  "split_and_group_verification": {
+    "mutual_pair_logic": "group_id = min(s, t)",
+    "mutual_pair_verified": true,
+    "canonical_group_intersections": {
+      "train_val": 0,
+      "train_test": 0,
+      "val_test": 0
+    },
+    "subset_group_intersections": {
+      "train_val": 0,
+      "train_test": 0,
+      "val_test": 0
+    },
+    "leakage_detected": false
+  },
+  "training_protocol_verification": {
+    "model_architecture": "ResNeXt-50 (layer2 freeze) + Soft Attention + 1-layer LSTM (2048) + Binary Head",
+    "optimizer": "Adam (lr=0.001, betas=[0.9, 0.999], weight_decay=1e-5)",
+    "scheduler": "ReduceLROnPlateau (mode=max, factor=0.1, patience=5)",
+    "loss": "BCEWithLogitsLoss",
+    "batch_size": 4,
+    "grad_accum_steps": 2,
+    "effective_batch_size": 8,
+    "amp_enabled": true,
+    "epochs_trained": 12,
+    "early_stopping_triggered": true,
+    "early_stopping_patience": 5,
+    "monitor_metric": "val_auc",
+    "best_epoch": 7,
+    "best_metric": 0.6388888888888888,
+    "test_set_touched_during_training": false
+  },
+  "checkpoint_verification": {
+    "checkpoint_path": "checkpoints/ffpp_c23_baseline_soft_lstm/best.pth",
+    "checkpoint_epoch": 7,
+    "selection_policy": "Strictly validation-only on val_auc",
+    "is_best_criteria_verified": true
+  },
+  "ffpp_test_metric_reproduction": {
+    "evaluation_scale": "30-video physical validation subset",
+    "reported_metrics": {
+      "accuracy": 0.8,
+      "precision": 0.8,
+      "recall": 1.0,
+      "f1": 0.888888888888889,
+      "roc_auc": 0.39583333333333337,
+      "eer": 0.6666666666666666
+    },
+    "reproduced_metrics": {
+      "accuracy": 0.8,
+      "precision": 0.8,
+      "recall": 1.0,
+      "f1": 0.888888888888889,
+      "roc_auc": 0.39583333333333337,
+      "eer": 0.6666666666666666
+    },
+    "discrepancy": false
+  },
+  "confusion_matrix_verification": {
+    "reported": {
+      "tp": 24,
+      "fp": 6,
+      "tn": 0,
+      "fn": 0
+    },
+    "reproduced": {
+      "tp": 24,
+      "fp": 6,
+      "tn": 0,
+      "fn": 0
+    },
+    "all_samples_predicted_class_1": true,
+    "mathematical_consistency": {
+      "accuracy_formula": "(24 + 0) / 30 = 0.8000",
+      "precision_formula": "24 / (24 + 6) = 0.8000",
+      "recall_formula": "24 / (24 + 0) = 1.0000",
+      "f1_formula": "2 * (0.8 * 1.0) / (0.8 + 1.0) = 0.8889",
+      "verified": true
+    }
+  },
+  "auc_verification": {
+    "roc_auc": 0.39583333333333337,
+    "positive_class": 1,
+    "probability_orientation": "Correct (torch.sigmoid(logit))",
+    "real_prob_mean": 0.8534497618675232,
+    "fake_prob_mean": 0.8408370018005371,
+    "total_pairs": 144,
+    "concordant_pairs_fake_gt_real": 57,
+    "discordant_pairs_real_gt_fake": 87,
+    "tied_pairs": 0,
+    "mann_whitney_u": 57.0,
+    "auc_calculation": "57.0 / 144 = 0.395833",
+    "root_cause": "Under 12-epoch training on 100 samples with 80% fake prevalence, the model has positive bias. While all samples are classified fake (yielding 80% accuracy), real test samples slightly outranked fake test samples in continuous probability, producing an inverted ranking AUC of 0.3958 on this small 30-sample subset. This is mathematically exact and not a code bug."
+  },
+  "eer_verification": {
+    "eer": 0.6666666666666666,
+    "method": "ROC curve zero-crossing interpolation (fpr - fnr)",
+    "verified": true
+  },
+  "celebdf_cross_dataset_verification": {
+    "scale": 8,
+    "labels": {"real": 4, "fake": 4},
+    "inference_mode": "torch.inference_mode()",
+    "optimizer_step": false,
+    "adaptation": false,
+    "reported": {
+      "accuracy": 0.5,
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1": 0.6666666666666666,
+      "roc_auc": 0.4375,
+      "eer": 0.5,
+      "confusion_matrix": {"tp": 4, "fp": 4, "tn": 0, "fn": 0}
+    },
+    "reproduced": {
+      "accuracy": 0.5,
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1": 0.6666666666666666,
+      "roc_auc": 0.4375,
+      "eer": 0.5,
+      "confusion_matrix": {"tp": 4, "fp": 4, "tn": 0, "fn": 0}
+    },
+    "discrepancy": false
+  },
+  "delta_auc_eer_verification": {
+    "vs_indomain_val": {
+      "indomain_val_auc": 0.6388888888888888,
+      "indomain_val_eer": 0.33333333333333337,
+      "delta_auc": -0.20138888888888884,
+      "delta_eer": 0.16666666666666663,
+      "status": "Matches cross_eval_celebdf.json"
+    },
+    "vs_indomain_test": {
+      "indomain_test_auc": 0.39583333333333337,
+      "indomain_test_eer": 0.6666666666666666,
+      "delta_auc": 0.04166666666666663,
+      "delta_eer": -0.16666666666666663,
+      "status": "Recomputed strictly vs test subset"
+    }
+  },
+  "subset_vs_full_benchmark_classification": {
+    "classification": "Reduced physical subset experiment / Real-data pipeline validation",
+    "full_benchmark_claimed": false,
+    "terminology_enforced": "30-video physical validation subset (160 physical videos trained/val/test subset)"
+  },
+  "provenance_verification": {
+    "git_commit": "unknown (workspace not initialized as git repo)",
+    "python_version": "3.11.9",
+    "pytorch_version": "2.6.0+cu124",
+    "cuda_version": "12.4",
+    "gpu": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+    "random_seed": 42,
+    "timestamp": "2026-09-21T00:33:50.690216"
+  },
+  "reproducibility_result": {
+    "rerun_without_retraining": "PASS",
+    "exact_metric_match": true
+  },
+  "test_suite_result": {
+    "command": "pytest tests/ -q",
+    "passed": 143,
+    "failed": 0,
+    "warnings": 2,
+    "total": 143,
+    "pass_rate": "100%"
+  },
+  "corrections_made": [
+    "Clarified benchmark_report.md to explicitly designate results as a '30-Video Physical Validation Subset', preventing confusion with full benchmark.",
+    "Disentangled Delta AUC vs Validation (stored in checkpoint as -0.2014) from Delta AUC vs Test (+0.0417) with explicit table notes.",
+    "Added separate literature columns and explicit [Ref] tags for Lal et al. (2025)."
+  ],
+  "remaining_limitations": [
+    "The baseline model was trained on a 100-video subset (80 fake, 20 real) for only 12 epochs due to initial validation gate constraints, leading to positive class bias (all test samples predicted as fake).",
+    "Test evaluation was conducted on 30 physical videos (6 real, 24 fake); full benchmark evaluation across 1,000 test videos remains an extended training goal.",
+    "Celeb-DF test evaluation used an 8-video subset (4 real, 4 fake) rather than the complete 518 official test videos."
+  ],
+  "dfdc_status": "PENDING — DATA ACCESS UNAVAILABLE",
+  "recommended_m7_handoff_status": "READY"
+}

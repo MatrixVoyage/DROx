@@ -1,0 +1,63 @@
+{
+  "timestamp": "2026-10-05T07:25:19.823338+00:00",
+  "track": "Track A (Sensor/Residual Representation)",
+  "checkpoint": "G:\\MyProjects\\DeepFake Video Detection\\checkpoints\\m17_track_a_seed42\\best.pth",
+  "temperature": 3.2253900076335094,
+  "gates": {
+    "gate1_unseen_ood_celebdf": {
+      "metric": "Delta AUC on Celeb-DF v2 vs v5 Champion",
+      "auc_cand": 0.8303061224489797,
+      "auc_v5": 0.7806547619047619,
+      "delta_auc": 0.049651360544217815,
+      "ci_lower": 0.0022067263554573615,
+      "ci_upper": 0.09394729423467155,
+      "threshold": "> 0.0",
+      "passed": true
+    },
+    "gate2_clean_real_specificity": {
+      "metric": "Clean Real Specificity",
+      "ffpp_clean_spec": 0.9310344827586207,
+      "celeb_clean_spec": 0.9257142857142857,
+      "threshold": "FF++ >= 93.0% and Celeb-DF >= 95.0%",
+      "passed": false
+    },
+    "gate3_compression_stress": {
+      "metric": "JPEG Q=50 Stress Test ROC-AUC",
+      "q50_auc": 0.625075560660098,
+      "threshold": ">= 0.6500",
+      "passed": false
+    },
+    "gate4_cross_family": {
+      "metric": "4-Family Evaluation (F2F, NT, FS, DF)",
+      "family_metrics": {
+        "Face2Face": {
+          "auc": 0.7351367419738408,
+          "det_rate": 0.3620689655172414
+        },
+        "NeuralTextures": {
+          "auc": 0.8772294887039239,
+          "det_rate": 0.7586206896551724
+        },
+        "FaceSwap": {
+          "auc": 0.933858501783591,
+          "det_rate": 0.7758620689655172
+        },
+        "Deepfakes": {
+          "auc": 0.9560047562425684,
+          "det_rate": 0.9827586206896551
+        }
+      },
+      "macro_auc": 0.8755573721759811,
+      "threshold": "Macro AUC >= 0.9000",
+      "passed": false
+    },
+    "gate5_hardware": {
+      "metric": "P50 Latency and Peak VRAM on RTX 3050",
+      "p50_latency_ms": 14.692949996970128,
+      "peak_vram_gb": 0.5443782806396484,
+      "threshold": "Latency <= 35.0ms, VRAM <= 5.2GB",
+      "passed": true
+    }
+  },
+  "verdict": "RETAIN_M13_5_CONTROL"
+}

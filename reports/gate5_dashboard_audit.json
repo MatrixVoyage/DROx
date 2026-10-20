@@ -1,0 +1,57 @@
+{
+  "gate": "Gate 5 — Technical Dashboard",
+  "status": "PASS",
+  "timestamp": "2026-09-21T02:06:40+05:30",
+  "ui_files": {
+    "html": "src/ui/index.html",
+    "css": "src/ui/dashboard.css",
+    "javascript": "src/ui/dashboard.js"
+  },
+  "verified_features": {
+    "verdict_card": {
+      "verified": true,
+      "states": ["AWAITING INPUT", "REAL / AUTHENTIC", "DEEPFAKE DETECTED"],
+      "rule_18_compliance": "Real/fake status is encoded with explicit text and icons, never by color alone."
+    },
+    "model_score": {
+      "verified": true,
+      "displays": ["probability_percent", "probability_float", "raw_logit", "decision_confidence"]
+    },
+    "threshold_control": {
+      "verified": true,
+      "type": "range slider [0.05 - 0.95]",
+      "default_threshold": 0.50
+    },
+    "frame_and_face_diagnostics": {
+      "verified": true,
+      "metrics": ["sampled_frames (16)", "detected_faces", "fallback_ratio_pct"]
+    },
+    "latency_waterfall": {
+      "verified": true,
+      "breakdown": ["preprocessing_ms (MTCNN)", "model_forward_ms (ResNeXt+LSTM)", "total_e2e_ms"]
+    },
+    "model_provenance": {
+      "verified": true,
+      "fields": [
+        "architecture",
+        "backbone",
+        "attention_module",
+        "temporal_module",
+        "input_resolution",
+        "sequence_length",
+        "training_dataset",
+        "reference_paper"
+      ]
+    },
+    "research_limitations_banner": {
+      "verified": true,
+      "text": "Explicit callout explaining 16-frame sampling, MTCNN face dependence, probabilistic interpretation, and domain-shift cross-dataset constraints."
+    }
+  },
+  "unit_tests": {
+    "test_file": "tests/test_dashboard.py",
+    "tests_collected": 3,
+    "tests_passed": 3,
+    "tests_failed": 0
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "device": "cuda",
+  "model_version": "best.pth",
+  "batch_size": 1,
+  "num_frames": 16,
+  "num_runs": 50,
+  "warmup_runs": 10,
+  "model_only": {
+    "mean_ms": 31.27,
+    "median_ms": 30.75,
+    "p95_ms": 32.99,
+    "p99_ms": 33.54,
+    "fps": 511.7
+  },
+  "end_to_end": {
+    "video_path": "G:\\MyProjects\\DeepFake Video Detection\\Datasets\\FaceForensics++_C23\\original\\004.mp4",
+    "num_runs": 5,
+    "mean_preprocessing_ms": 2204.71,
+    "mean_model_forward_ms": 27.37,
+    "mean_total_ms": 2232.51
+  },
+  "vram_usage_mb": {
+    "allocated_mb": 231.49,
+    "reserved_mb": 642.0,
+    "max_allocated_mb": 373.02
+  },
+  "interactive_inference_classification": {
+    "status": "Interactive Inference Verified",
+    "real_time_streaming_claim": "Deferred / Not Claimed. End-to-end latency is dominated by MTCNN face detection. System is validated for interactive clip evaluation."
+  }
+}

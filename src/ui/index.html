@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Deepfake Video Detection — Technical Dashboard</title>
+  <link rel="stylesheet" href="/static/threeui.css">
+  <link rel="stylesheet" href="/static/dashboard.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ThreeUI PredictiveArcCanvas Background (Scene Component) -->
+  <div class="shader-frame">
+    <div class="threeui-background predictive-arc predictive-arc--dark" id="predictiveArcHost" data-mode="dark">
+      <canvas id="predictiveArcCanvas" style="filter: hue-rotate(0deg) saturate(1);"></canvas>
+    </div>
+  </div>
+
+  <header>
+    <div class="header-title">
+      <h1>Deepfake Video Detection</h1>
+      <span class="header-badge" id="deviceBadge">CUDA Active</span>
+    </div>
+    <div class="system-status">
+      <div>
+        <span class="status-dot" id="healthDot"></span>
+        <span id="healthText">Checking backend status...</span>
+      </div>
+      <div>
+        <span style="font-family: var(--font-mono); color: var(--text-muted);">M7 Service v1.0.0</span>
+      </div>
+    </div>
+  </header>
+  <main>
+    <!-- Research Limitations Callout Banner (Hidden as per user preference) -->
+    <div class="limitations-banner" role="alert" style="display: none !important;" aria-hidden="true">
+      <div class="limitations-icon">⚠</div>
+      <div class="limitations-content">
+        <h4>Consolidated Research & Operational Limitations (Milestone 13.5)</h4>
+        <p>
+          <strong>1. Facial Reenactment Boundary:</strong> Subtle expression manipulations (Face2Face) operate inside the natural human facial subspace without boundary seams, yielding ~38%–43% sensitivity compared to 89%–100% on Deepfakes and NeuralTextures.<br>
+          <strong>2. Handcrafted Branch Gating:</strong> Standalone frequency and texture branches produce elevated false alarms (28%–47% on clean reals); their noisy anomaly signals are gated/suppressed by the multi-domain fusion head.<br>
+          <strong>3. Threshold Sensitivity Trade-Off:</strong> Standard threshold (τ=0.50) achieves 93.88% clean specificity; high-sensitivity operating point (τ*=0.0200) increases Face2Face recall to 43.10% while accepting a 6.12% false alarm rate.<br>
+          <strong>4. Cross-Domain Generalization:</strong> Cross-domain transfer (Celeb-DF v2 ~0.796 AUC) exhibits domain-shift degradation relative to in-domain seen synthesis (>0.98 AUC).<br>
+          <strong>5. Probabilistic Confidence Semantics:</strong> Model scores reflect statistical confidence within the validated distribution, not objective physical proof or sole legal evidence.
+        </p>
+      </div>
+    </div>
+
+    <div class="dashboard-grid">
+      <!-- Left Column: Video Input & Controls -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2 class="panel-title">Video Input & Inspection</h2>
+        </div>
+
+        <div class="dropzone" id="dropzone" role="button" tabindex="0" aria-label="Upload video file for deepfake detection">
+          <div class="dropzone-icon">📹</div>
+          <p class="dropzone-text">Drag and drop MP4 / AVI video here, or <span class="dropzone-browse">browse</span></p>
+          <input type="file" id="fileInput" accept="video/mp4,video/avi,video/quicktime,video/x-matroska" style="display: none;">
+        </div>
+
+        <div class="preview-container" id="previewContainer" style="display: none;">
+          <video id="videoPreview" controls muted></video>
+        </div>
+
+        <div class="controls-group" style="margin-top: 1.25rem;">
+          <div class="slider-label">
+            <span>Detection Engine</span>
+            <span class="engine-badge" id="engineBadge" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent-primary);">v5-family-invariant (M13.4 LOFO-F2F Champion)</span>
+          </div>
+          <select id="engineSelect" style="width: 100%; background: #161b22; color: #e6edf3; border: 1px solid #30363d; border-radius: 6px; padding: 7px 10px; font-family: var(--font-sans); font-size: 0.85rem; margin-top: 0.35rem; cursor: pointer;">
+            <option value="v5-family-invariant" selected>v5-family-invariant (Active Production Champion — Multi-Domain Fusion & Calibrated Gating)</option>
+            <option value="m22-ensemble">m22-ensemble (Highest-Accuracy Decision Fusion Ensemble — 81.2% F2F, 82.1% Celeb-DF)</option>
+            <option value="m18-dual-stream">m18-dual-stream (Reenactment Baseline — 3D Differential Kinematics)</option>
+            <option value="m17-sensor-residuals">m17-sensor-residuals (Sensor Noise Baseline — SRM + Bayar Residuals)</option>
+            <option value="v4-generalization">v4-generalization (M13.2b Stage-5 — Mid-Level Spatial Hook + Aux Head)</option>
+            <option value="v3-robust">v3-robust (M12 Invariant Champion — Robust Augmentation + Transformer)</option>
+            <option value="v2-evolved">v2-evolved (M10 Candidate — EfficientNet-B0 + Temporal Transformer)</option>
+            <option value="v1-baseline">v1-baseline (M7 Frozen — ResNeXt-50 + Soft Attention + LSTM)</option>
+          </select>
+        </div>
+
+        <div class="controls-group" style="margin-top: 1rem;">
+          <div class="slider-label">
+            <span>Decision Threshold</span>
+            <span class="slider-val" id="thresholdVal">0.50</span>
+          </div>
+          <input type="range" id="thresholdSlider" min="0.05" max="0.95" step="0.05" value="0.50" aria-label="Decision threshold slider">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.35rem;">
+            <small style="color: var(--text-muted); font-size: 0.72rem;">Standard: 0.50. Score ≥ threshold → DEEPFAKE</small>
+            <button type="button" id="resetThresholdBtn" style="background: none; border: none; color: var(--accent-primary); font-size: 0.72rem; cursor: pointer; text-decoration: underline;">Reset to 0.50</button>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 0.6rem; margin-top: 1.25rem; flex-wrap: wrap;">
+          <button class="btn-primary" id="analyzeBtn" style="flex: 1; min-width: 140px;" disabled>Select Video to Analyze</button>
+          <button type="button" id="compareBtn" style="background: linear-gradient(135deg, #1f6feb 0%, #8957e5 100%); color: #ffffff; border: 1px solid rgba(255,255,255,0.15); border-radius: 6px; padding: 0.65rem 0.9rem; font-weight: 600; font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; gap: 0.4rem; white-space: nowrap; transition: opacity 0.2s;" disabled title="Compare Champion M13.5 vs Baseline M18 vs Fused M22 Ensemble">⚖️ Compare All</button>
+          <button type="button" id="forensicAuditBtn" class="btn-forensic" disabled title="Run Multi-Window Spatiotemporal Forensic Audit & 2D Saliency Heatmap">🔬 Forensic Audit</button>
+        </div>
+      </div>
+
+      <!-- Right Column: Results & Diagnosis -->
+      <div class="panel">
+        <div class="panel-header">
+          <h2 class="panel-title">Inference Results & Diagnostics</h2>
+        </div>
+
+        <!-- Video Target Banner -->
+        <div class="video-meta-box" id="videoMetaBox" style="display: none; background: rgba(56, 139, 253, 0.1); border: 1px solid rgba(56, 139, 253, 0.3); border-radius: 6px; padding: 0.6rem 0.85rem; margin-bottom: 1rem; justify-content: space-between; align-items: center;">
+          <div style="display: flex; align-items: center; gap: 0.5rem;">
+            <span style="font-size: 1.1rem;">📹</span>
+            <span id="targetFileName" style="font-family: var(--font-mono); font-size: 0.9rem; font-weight: 600; color: #58a6ff;">video.mp4</span>
+          </div>
+          <span id="activeEngineLabel" style="font-size: 0.75rem; background: #21262d; padding: 2px 8px; border-radius: 12px; color: #8b949e; font-family: var(--font-mono);">v3-robust</span>
+        </div>
+
+        <!-- Operating Envelope Rejection Alert Banner (Only shown if REJECT) -->
+        <div id="rejectAlertBanner" class="reject-alert-banner" style="display: none;">
+          <div class="reject-alert-icon">⚠️</div>
+          <div>
+            <div class="reject-alert-title" id="rejectAlertTitle">OPERATING ENVELOPE REJECTION (REJECT ≠ FAKE)</div>
+            <div class="reject-alert-desc" id="rejectAlertDesc">
+              This video falls outside the model's validated operating envelope or exhibits elevated predictive uncertainty. 
+              <strong>Rejection does not mean the video is fake</strong>; rather, evidence is insufficient for an accredited decision.
+            </div>
+          </div>
+        </div>
+
+        <!-- Milestone 23: Multi-Engine Comparison Container -->
+        <div id="comparisonContainer" class="comparison-container" style="display: none;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+            <div style="font-size: 0.95rem; font-weight: 700; color: #a78bfa;">Cross-Engine Forensic Attribution Analysis</div>
+            <span style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-muted);">M13.5 vs M18 vs M22</span>
+          </div>
+
+          <!-- Consensus Banner -->
+          <div id="compConsensusBanner" class="consensus-banner fake">
+            <span id="compConsensusIcon" style="font-size: 1.3rem;">⚠️</span>
+            <div>
+              <div id="compConsensusTitle" style="font-size: 0.95rem;">CONSENSUS: CONCORDANT DEEPFAKE</div>
+              <div id="compConsensusSubtitle" style="font-size: 0.75rem; font-weight: 400; opacity: 0.85;">All models unanimously confirm manipulation cues</div>
+            </div>
+          </div>
+
+          <!-- Discordance Analysis Narrative -->
+          <div class="discordance-box" id="compDiscordanceBox">
+            <div style="font-weight: 600; color: #e6edf3; margin-bottom: 0.25rem;">Domain Attribution Insight:</div>
+            <div id="compDiscordanceSummary">Disagreement analysis between spatial artifacts and kinematic motion streams.</div>
+          </div>
+
+          <!-- 3-Column Comparative Grid -->
+          <div class="comparison-grid">
+            <!-- Card 1: Champion M13.5 -->
+            <div class="engine-card champion">
+              <div>
+                <div class="engine-card-title" style="color: #38bdf8;">Champion M13.5</div>
+                <div class="engine-card-subtitle">Static Frequency & Local Texture Multi-Domain Fusion</div>
+                <div id="cardVerdictM13" class="engine-verdict-badge fake">FAKE (p = 0.88)</div>
+                <div class="metric-track" style="margin-bottom: 0.5rem;">
+                  <div class="metric-fill" id="cardFillM13" style="width: 88%;"></div>
+                </div>
+              </div>
+              <div class="engine-metric-list">
+                <div>• Static Freq: <span id="cardFreqM13">--</span></div>
+                <div>• Static Texture: <span id="cardTextureM13">--</span></div>
+                <div>• Architecture: <span style="color: #94a3b8;">EfficientNet-B0 + TempTrans</span></div>
+              </div>
+            </div>
+
+            <!-- Card 2: Baseline M18 -->
+            <div class="engine-card">
+              <div>
+                <div class="engine-card-title" style="color: #a78bfa;">Baseline M18</div>
+                <div class="engine-card-subtitle">3D Differential Kinematics & Dynamic Gating</div>
+                <div id="cardVerdictM18" class="engine-verdict-badge real">REAL (p = 0.35)</div>
+                <div class="metric-track" style="margin-bottom: 0.5rem;">
+                  <div class="metric-fill" id="cardFillM18" style="width: 35%;"></div>
+                </div>
+              </div>
+              <div class="engine-metric-list">
+                <div>• Kinematic Motion: <span id="cardKinM18">--</span></div>
+                <div>• Gating Alpha: <span id="cardGateM18">--</span></div>
+                <div>• Stream: <span style="color: #94a3b8;">Dual-Stream Differential</span></div>
+              </div>
+            </div>
+
+            <!-- Card 3: Fused M22 Ensemble -->
+            <div class="engine-card ensemble">
+              <div>
+                <div class="engine-card-title" style="color: #c084fc;">Fused M22 Ensemble</div>
+                <div class="engine-card-subtitle">Validation Log-Odds Platt Evidence Fusion</div>
+                <div id="cardVerdictM22" class="engine-verdict-badge fake">FAKE (p = 0.94)</div>
+                <div class="metric-track" style="margin-bottom: 0.5rem;">
+                  <div class="metric-fill" id="cardFillM22" style="width: 94%;"></div>
+                </div>
+              </div>
+              <div class="engine-metric-list">
+                <div>• Fused Log-Odds: <span id="cardLogitM22">--</span></div>
+                <div>• Operating Policy: <span style="color: #e2e8f0;">&tau;<sub>95</sub>* = 0.9191</span></div>
+                <div>• Record: <span style="color: #34d399;">81.2% F2F / 82.1% Celeb-DF</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Milestone 24: Spatiotemporal Forensic Audit Container -->
+        <div id="forensicAuditContainer" class="forensic-container" style="display: none;">
+          <!-- Verdict Card with CI -->
+          <div class="forensic-verdict-card">
+            <div>
+              <div class="forensic-verdict-title">Forensic Audit Verdict</div>
+              <div class="forensic-verdict-badge" id="forensicVerdictBadge">
+                <span id="forensicVerdictIcon">🛡️</span>
+                <span id="forensicVerdictText">AUTHENTIC</span>
+              </div>
+              <div>
+                <span class="ci-pill" id="forensicCiPill">95% CI: [47.1% – 48.0%]</span>
+              </div>
+            </div>
+            <div style="text-align: right;">
+              <div class="forensic-verdict-title">Calibrated Fake Score</div>
+              <div style="font-family: var(--font-mono); font-size: 1.25rem; font-weight: 800; color: #f1f5f9;" id="forensicProbVal">47.5%</div>
+              <span id="forensicConfidenceLevel" style="font-size: 0.75rem; color: #34d399; font-weight: 600;">High Confidence</span>
+            </div>
+          </div>
+
+          <!-- Forensic Quality & Biometric Stats Grid -->
+          <div class="forensic-stat-grid">
+            <div class="forensic-stat-card">
+              <span class="forensic-stat-label">Kinematic Motion Energy</span>
+              <span class="forensic-stat-val" id="forensicKinEnergy">9.08</span>
+              <span class="forensic-stat-sub">Frame differential activity</span>
+            </div>
+            <div class="forensic-stat-card">
+              <span class="forensic-stat-label">Temporal Stability Index</span>
+              <span class="forensic-stat-val" id="forensicTempStability">99.8%</span>
+              <span class="forensic-stat-sub">Cross-window consistency</span>
+            </div>
+            <div class="forensic-stat-card">
+              <span class="forensic-stat-label">Windows Evaluated</span>
+              <span class="forensic-stat-val" id="forensicWindowsCount">2 Windows</span>
+              <span class="forensic-stat-sub" id="forensicTotalFrames">16 total frames</span>
+            </div>
+          </div>
+
+          <!-- 2D Spatial Saliency Anomaly Heatmap -->
+          <div class="forensic-saliency-box">
+            <div class="saliency-header">
+              <span class="saliency-title">🧬 Spatial Laplacian Saliency Map</span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);">112×112 Anomaly Filter</span>
+            </div>
+            <div class="saliency-display">
+              <img id="forensicSaliencyImg" class="saliency-img" alt="Spatial Saliency Heatmap" src="" style="display: none;">
+              <div id="forensicSaliencyPlaceholder" style="width: 140px; height: 140px; border-radius: 6px; background: #0c111c; border: 1px dashed rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: var(--text-muted); text-align: center; padding: 0.5rem;">Awaiting Saliency Map</div>
+              <div class="saliency-legend">
+                <div class="saliency-gradient-bar"></div>
+                <div class="saliency-labels">
+                  <span>Authentic (0.0)</span>
+                  <span>Mid Anomaly (0.5)</span>
+                  <span>Severe Seam (1.0)</span>
+                </div>
+                <div class="saliency-desc">
+                  High-frequency spatial gradient activations reveal blending boundaries and facial warping discontinuities across tracked frames.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Confound Warnings (if any) -->
+          <div id="forensicWarningsBox" class="forensic-warning-box" style="display: none;">
+            <strong>⚠️ Video Forensic Caveats:</strong>
+            <ul id="forensicWarningsList" style="margin-left: 1.2rem; margin-top: 0.25rem;"></ul>
+          </div>
+
+          <!-- Temporal Windows Timeline Breakdown -->
+          <div>
+            <div style="font-size: 0.85rem; font-weight: 700; color: #e2e8f0; margin-bottom: 0.5rem;">Temporal Window Sequence Decomposition</div>
+            <div id="forensicWindowsList" class="forensic-windows-container">
+              <!-- Window cards injected dynamically via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- Single Engine Results Container -->
+        <div id="singleEngineContainer">
+        <!-- Verdict Card -->
+        <div class="verdict-box" id="verdictBox">
+          <div>
+            <div class="verdict-title">Model Decision</div>
+            <div class="verdict-text" id="verdictText">AWAITING INPUT</div>
+          </div>
+          <div style="text-align: right;">
+            <div class="verdict-title" id="verdictConfidence">Model Score: --</div>
+          </div>
+        </div>
+
+        <!-- Decision Explanation Box -->
+        <div id="decisionReason" style="display: none; font-size: 0.8rem; margin-top: -0.75rem; margin-bottom: 1rem; padding: 0.45rem 0.75rem; border-radius: 6px; background: rgba(22, 27, 34, 0.8); border: 1px solid var(--border-default); line-height: 1.4;">
+          <span id="decisionExplanation"></span>
+        </div>
+
+        <!-- Uncertainty & Safety Diagnostics Container -->
+        <div class="diagnostic-container" id="diagnosticContainer" style="display: none;">
+          <div class="diagnostic-header">
+            <span class="diagnostic-title">Safety & Uncertainty Verification</span>
+            <span id="policyVersionBadge" style="font-size: 0.72rem; font-family: var(--font-mono); color: var(--text-muted);">M12.4 Calibrated</span>
+          </div>
+          <div class="diagnostic-row">
+            <span>Distribution Envelope</span>
+            <span id="diagOodBadge" class="diag-badge ok">Within Validated Range</span>
+          </div>
+          <div class="diagnostic-row">
+            <span>Epistemic Uncertainty</span>
+            <span id="diagUncBadge" class="diag-badge ok">Low Model Variance</span>
+          </div>
+          <div class="diagnostic-row">
+            <span>Face Detection Quality</span>
+            <span id="diagQualityBadge" class="diag-badge ok">Valid Face Sequence</span>
+          </div>
+          
+          <button type="button" class="tech-details-toggle" id="techDetailsToggle">Show Technical Metrics ▼</button>
+          <div class="tech-details-content" id="techDetailsContent" style="display: none;">
+            <div>• Decision Score (P_cal): <span id="techConfidenceVal">--</span></div>
+            <div>• Calibrated P(Fake): <span id="techProbVal">--</span></div>
+            <div>• MC-Dropout Variance: <span id="techVarVal">--</span> (Threshold: 0.0400)</div>
+            <div>• Predictive Entropy: <span id="techEntropyVal">--</span> bits</div>
+            <div>• OOD Feature Distance: <span id="techOodVal">--</span> (Threshold: 3.18, Diagnostic Only)</div>
+            <div>• Detected Face Frames: <span id="techFacesVal">--</span></div>
+            <div id="techBranchContainer" style="margin-top: 0.5rem; padding-top: 0.4rem; border-top: 1px dashed #30363d; display: none;">
+              <div style="font-weight: 600; color: var(--accent-primary); margin-bottom: 0.2rem;">Multi-Domain Branch Diagnostic Scores (Non-Attributional):</div>
+              <div>• Fused Primary Output: <span id="techBranchFused">--</span></div>
+              <div>• Temporal Trunk Composite: <span id="techBranchComp">--</span></div>
+              <div>• Frequency Residual Branch: <span id="techBranchFreq">--</span></div>
+              <div>• Local Texture Patch Branch: <span id="techBranchTexture">--</span></div>
+              <div>• Auxiliary Family Classification: <span id="techBranchAux">--</span></div>
+              <div id="techBranchKinRow" style="display: none;">• Kinematic Differential (M18): <span id="techBranchKinematic">--</span></div>
+              <div id="techGateRow" style="display: none;">• Dynamic Gating &alpha;: <span id="techGateVal">--</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Score Bar -->
+        <div class="metric-bar-group">
+          <div class="metric-bar-header">
+            <span style="font-size: 0.8rem; color: var(--text-muted);">Deepfake Probability P(Fake)</span>
+            <span style="font-family: var(--font-mono); font-weight: 600;" id="scoreVal">--%</span>
+          </div>
+          <div class="metric-track">
+            <div class="metric-fill" id="scoreFill"></div>
+          </div>
+        </div>
+
+        <!-- Analyze Another Video Button -->
+        <button id="resetBtn" style="display: none; width: 100%; padding: 0.75rem 1.25rem; margin-bottom: 1.25rem; background-color: #238636; color: #ffffff; border: 1px solid rgba(240, 246, 252, 0.1); border-radius: 6px; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: background-color 0.2s;">
+          🔄 Analyze Another Video
+        </button>
+
+        <!-- Statistics Grid -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">Decision Policy</div>
+            <div class="stat-val" id="rawLogitVal" style="font-size: 1rem;">Calibrated</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Sampled Frames</div>
+            <div class="stat-val" id="framesVal">--</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Detected Faces</div>
+            <div class="stat-val" id="facesVal">--</div>
+          </div>
+        </div>
+
+        <!-- Latency Waterfall -->
+        <div class="latency-waterfall">
+          <div style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.75rem;">Latency Breakdown</div>
+          <div class="latency-row">
+            <span class="latency-name">Preprocessing (MTCNN)</span>
+            <div class="latency-bar-container">
+              <div class="latency-bar" id="prepLatencyBar" style="width: 0%;"></div>
+            </div>
+            <span class="latency-value" id="prepLatencyVal">-- ms</span>
+          </div>
+          <div class="latency-row">
+            <span class="latency-name">Model Inference</span>
+            <div class="latency-bar-container">
+              <div class="latency-bar" id="modelLatencyBar" style="width: 0%; background-color: var(--accent-primary);"></div>
+            </div>
+            <span class="latency-value" id="modelLatencyVal">-- ms</span>
+          </div>
+          <div class="latency-row" style="margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--border-default);">
+            <span class="latency-name" style="font-weight: 600; color: var(--text-primary);">Total E2E Latency</span>
+            <div class="latency-bar-container" style="background: transparent;"></div>
+            <span class="latency-value" id="totalLatencyVal" style="font-weight: 600;">-- ms</span>
+          </div>
+        </div>
+        </div><!-- end singleEngineContainer -->
+
+        <!-- Model Provenance -->
+        <div style="margin-top: 1rem;">
+          <div style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Model Provenance & Spec</div>
+          <table class="provenance-table">
+            <tbody>
+              <tr>
+                <td>Model Version</td>
+                <td id="provEngine">v3-robust (M12)</td>
+              </tr>
+              <tr>
+                <td>Architecture</td>
+                <td id="provArch">EfficientNet-B0 + Temporal Transformer</td>
+              </tr>
+              <tr>
+                <td>Backbone</td>
+                <td id="provBackbone">efficientnet_b0</td>
+              </tr>
+              <tr>
+                <td>Calibration Provenance</td>
+                <td id="provCalibration">M12 Validation (1,255 embeddings)</td>
+              </tr>
+              <tr>
+                <td>Training Dataset</td>
+                <td id="provDataset">FaceForensics++ C23 + Celeb-DF v2</td>
+              </tr>
+              <tr>
+                <td>Reference Paper</td>
+                <td id="provPaper">Lal et al., 2025 (IJCNN) / M12 Robust</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    Deepfake Video Detection Platform
+  </footer>
+
+  <script src="/static/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{lccc}
+\toprule
+Benchmark & Metric & Point Estimate & 95\% Bootstrap CI \\
+\midrule
+FF++ C23 & Accuracy & 0.8000 & [0.7720, 0.8280] \\
+FF++ C23 & ROC-AUC & 0.4729 & [0.4258, 0.5283] \\
+FF++ C23 & F1 & 0.8889 & [0.8713, 0.9059] \\
+\midrule
+Celeb-DF v2 & Accuracy & 0.6564 & [0.6158, 0.6950] \\
+Celeb-DF v2 & ROC-AUC & 0.5249 & [0.4703, 0.5764] \\
+Celeb-DF v2 & F1 & 0.7925 & [0.7622, 0.8200] \\
+\bottomrule
+\end{tabular}
+\caption{Video-level non-parametric bootstrap confidence intervals ($B=1000$ iterations, seed=42).}
+\label{tab:confidence_intervals}
+\end{table}

@@ -1,0 +1,111 @@
+{
+  "gate": "GATE 2 \u2014 MANIPULATION FAMILY GENERALIZATION",
+  "timestamp": "2026-09-21 16:21:03",
+  "pristine_reference_count": 150,
+  "families": {
+    "Deepfakes": {
+      "fake_sample_count": 150,
+      "pristine_sample_count": 150,
+      "total_evaluated": 300,
+      "metrics": {
+        "loss": null,
+        "accuracy": 0.5,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6666666666666666,
+        "roc_auc": 0.4446888888888889,
+        "eer": 0.5266666666666666,
+        "confusion_matrix": {
+          "tp": 150,
+          "fp": 150,
+          "tn": 0,
+          "fn": 0
+        },
+        "num_samples": 300
+      },
+      "fake_score_distribution": {
+        "mean_probability": 0.8038,
+        "std_probability": 0.0968,
+        "median_probability": 0.7607
+      }
+    },
+    "Face2Face": {
+      "fake_sample_count": 150,
+      "pristine_sample_count": 150,
+      "total_evaluated": 300,
+      "metrics": {
+        "loss": null,
+        "accuracy": 0.5,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6666666666666666,
+        "roc_auc": 0.5121111111111112,
+        "eer": 0.5,
+        "confusion_matrix": {
+          "tp": 150,
+          "fp": 150,
+          "tn": 0,
+          "fn": 0
+        },
+        "num_samples": 300
+      },
+      "fake_score_distribution": {
+        "mean_probability": 0.8217,
+        "std_probability": 0.0941,
+        "median_probability": 0.8647
+      }
+    },
+    "FaceSwap": {
+      "fake_sample_count": 150,
+      "pristine_sample_count": 150,
+      "total_evaluated": 300,
+      "metrics": {
+        "loss": null,
+        "accuracy": 0.5,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6666666666666666,
+        "roc_auc": 0.4709777777777778,
+        "eer": 0.5266666666666666,
+        "confusion_matrix": {
+          "tp": 150,
+          "fp": 150,
+          "tn": 0,
+          "fn": 0
+        },
+        "num_samples": 300
+      },
+      "fake_score_distribution": {
+        "mean_probability": 0.8089,
+        "std_probability": 0.0945,
+        "median_probability": 0.7755
+      }
+    },
+    "NeuralTextures": {
+      "fake_sample_count": 150,
+      "pristine_sample_count": 150,
+      "total_evaluated": 300,
+      "metrics": {
+        "loss": null,
+        "accuracy": 0.5,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6666666666666666,
+        "roc_auc": 0.4638,
+        "eer": 0.5133333333333333,
+        "confusion_matrix": {
+          "tp": 150,
+          "fp": 150,
+          "tn": 0,
+          "fn": 0
+        },
+        "num_samples": 300
+      },
+      "fake_score_distribution": {
+        "mean_probability": 0.8113,
+        "std_probability": 0.0962,
+        "median_probability": 0.8107
+      }
+    }
+  }
+}

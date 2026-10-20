@@ -1,0 +1,178 @@
+{
+  "metadata": {
+    "milestone": "M9",
+    "gate": "G1",
+    "timestamp_utc": "2026-09-21T11:56:06.143259+00:00",
+    "checkpoint": "checkpoints\\ffpp_c23_baseline_soft_lstm\\best.pth",
+    "checkpoint_sha256": "9d22df92bdab20a35e1311d627d9fa487c757b7afb32a249ebbf7f95bf3b7e6a",
+    "dataset": "FaceForensics++ C23 & Celeb-DF v2",
+    "split": "test",
+    "num_videos": 1268,
+    "seed": 42,
+    "software": {
+      "python": "3.11.9",
+      "torch": "2.6.0+cu124",
+      "cuda": "12.4"
+    },
+    "parent_artifact": null,
+    "status": "PASS"
+  },
+  "cache_validation": {
+    "cache_file": "runs\\m8_predictions_cache.jsonl",
+    "ffpp_c23_test_videos": 750,
+    "celebdf_v2_test_videos": 518,
+    "ffpp_c23_val_videos": 150,
+    "total_records": 1418,
+    "duplicates_detected": 0,
+    "status": "VALID"
+  },
+  "baseline_evaluation_conditions": {
+    "checkpoint": "checkpoints\\ffpp_c23_baseline_soft_lstm\\best.pth",
+    "sequence_length_T": 16,
+    "frame_sampling": "uniform",
+    "face_detector": "MTCNN",
+    "face_selection": "largest",
+    "margin_ratio": 0.2,
+    "image_size": [
+      112,
+      112
+    ],
+    "normalization": "imagenet",
+    "decision_threshold": 0.5
+  },
+  "reproduced_benchmarks": {
+    "ffpp_c23_test": {
+      "num_videos": 750,
+      "real_count": 150,
+      "fake_count": 600,
+      "metrics": {
+        "loss": null,
+        "accuracy": 0.8,
+        "precision": 0.8,
+        "recall": 1.0,
+        "f1": 0.888888888888889,
+        "roc_auc": 0.4734166666666667,
+        "eer": 0.5133333333333333,
+        "confusion_matrix": {
+          "tp": 600,
+          "fp": 150,
+          "tn": 0,
+          "fn": 0
+        },
+        "num_samples": 750
+      },
+      "score_stats": {
+        "mean": 0.8131,
+        "std": 0.0955,
+        "median": 0.8139,
+        "min": 0.681,
+        "max": 0.9145
+      }
+    },
+    "celebdf_v2_test": {
+      "num_videos": 518,
+      "real_count": 178,
+      "fake_count": 340,
+      "metrics": {
+        "loss": null,
+        "accuracy": 0.6563706563706564,
+        "precision": 0.6563706563706564,
+        "recall": 1.0,
+        "f1": 0.7925407925407926,
+        "roc_auc": 0.5243555849306014,
+        "eer": 0.5029411764705882,
+        "confusion_matrix": {
+          "tp": 340,
+          "fp": 178,
+          "tn": 0,
+          "fn": 0
+        },
+        "num_samples": 518
+      },
+      "score_stats": {
+        "mean": 0.8103,
+        "std": 0.0966,
+        "median": 0.798,
+        "min": 0.681,
+        "max": 0.9145
+      }
+    }
+  },
+  "physical_verification_subset": {
+    "sample_count": 10,
+    "all_within_tolerance": true,
+    "tolerance": 0.0001,
+    "samples": [
+      {
+        "video_id": "orig_004",
+        "cached_prob": 0.7297,
+        "physical_prob": 0.7297,
+        "diff": 0.0,
+        "passed": true
+      },
+      {
+        "video_id": "orig_007",
+        "cached_prob": 0.7191,
+        "physical_prob": 0.7191,
+        "diff": 0.0,
+        "passed": true
+      },
+      {
+        "video_id": "orig_008",
+        "cached_prob": 0.9141,
+        "physical_prob": 0.9141,
+        "diff": 0.0,
+        "passed": true
+      },
+      {
+        "video_id": "orig_009",
+        "cached_prob": 0.7367,
+        "physical_prob": 0.7367,
+        "diff": 0.0,
+        "passed": true
+      },
+      {
+        "video_id": "orig_013",
+        "cached_prob": 0.7949,
+        "physical_prob": 0.7949,
+        "diff": 0.0,
+        "passed": true
+      },
+      {
+        "video_id": "df_004_982",
+        "cached_prob": 0.7411,
+        "physical_prob": 0.7411,
+        "diff": 0.0,
+        "passed": true
+      },
+      {
+        "video_id": "df_007_132",
+        "cached_prob": 0.7136,
+        "physical_prob": 0.7136,
+        "diff": 0.0,
+        "passed": true
+      },
+      {
+        "video_id": "df_008_990",
+        "cached_prob": 0.9143,
+        "physical_prob": 0.9143,
+        "diff": 0.0,
+        "passed": true
+      },
+      {
+        "video_id": "df_009_027",
+        "cached_prob": 0.6854,
+        "physical_prob": 0.6854,
+        "diff": 0.0,
+        "passed": true
+      },
+      {
+        "video_id": "df_013_883",
+        "cached_prob": 0.8116,
+        "physical_prob": 0.8116,
+        "diff": 0.0,
+        "passed": true
+      }
+    ]
+  }
+}

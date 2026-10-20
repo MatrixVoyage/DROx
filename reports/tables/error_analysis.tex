@@ -1,0 +1,14 @@
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{lcccccc}
+\toprule
+Policy & Threshold & N & TP & FP & TN & FN \\
+\midrule
+Baseline & $\theta=0.5000$ & 750 & 600 & 150 & 0 & 0 \\
+Youden's J & $\theta=0.8915$ & 750 & 258 & 71 & 79 & 342 \\
+Max $F_1$ & $\theta=0.0100$ & 750 & 600 & 150 & 0 & 0 \\
+\bottomrule
+\end{tabular}
+\caption{Error matrices under distinct decision threshold policies on FF++ C23 test split.}
+\label{tab:error_analysis}
+\end{table}

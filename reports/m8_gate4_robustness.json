@@ -1,0 +1,320 @@
+{
+  "gate": "GATE 4 \u2014 VIDEO ROBUSTNESS",
+  "timestamp": "2026-09-21 16:23:43",
+  "sample_count": 30,
+  "temporal_policy_note": "Model architecture has fixed T=16 contract. Evaluating variable sequence lengths directly through temporal LSTM would violate checkpoint contract. Temporal variations are captured via frame sampling.",
+  "perturbations": {
+    "Baseline (Clean)": {
+      "description": "Unperturbed 112x112 baseline",
+      "sample_count": 30,
+      "metrics": {
+        "loss": null,
+        "accuracy": 0.5,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6666666666666666,
+        "roc_auc": 0.38666666666666666,
+        "eer": 0.6666666666666667,
+        "confusion_matrix": {
+          "tp": 15,
+          "fp": 15,
+          "tn": 0,
+          "fn": 0
+        },
+        "num_samples": 30
+      },
+      "delta_auc_vs_baseline": 0.0,
+      "delta_acc_vs_baseline": 0.0,
+      "score_stats": {
+        "mean_probability": 0.7625,
+        "std_probability": 0.0837
+      }
+    },
+    "Spatial 56x56": {
+      "description": "Downsample 56x56 -> Upsample 112x112",
+      "sample_count": 30,
+      "metrics": {
+        "loss": null,
+        "accuracy": 0.5,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6666666666666666,
+        "roc_auc": 0.45777777777777784,
+        "eer": 0.5333333333333333,
+        "confusion_matrix": {
+          "tp": 15,
+          "fp": 15,
+          "tn": 0,
+          "fn": 0
+        },
+        "num_samples": 30
+      },
+      "delta_auc_vs_baseline": 0.0711,
+      "delta_acc_vs_baseline": 0.0,
+      "score_stats": {
+        "mean_probability": 0.7541,
+        "std_probability": 0.0827
+      }
+    },
+    "Spatial 28x28": {
+      "description": "Downsample 28x28 -> Upsample 112x112",
+      "sample_count": 30,
+      "metrics": {
+        "loss": null,
+        "accuracy": 0.5,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6666666666666666,
+        "roc_auc": 0.5288888888888889,
+        "eer": 0.5333333333333333,
+        "confusion_matrix": {
+          "tp": 15,
+          "fp": 15,
+          "tn": 0,
+          "fn": 0
+        },
+        "num_samples": 30
+      },
+      "delta_auc_vs_baseline": 0.1422,
+      "delta_acc_vs_baseline": 0.0,
+      "score_stats": {
+        "mean_probability": 0.7595,
+        "std_probability": 0.0905
+      }
+    },
+    "Gaussian Blur s=0.5": {
+      "description": "Gaussian blur sigma=0.5",
+      "sample_count": 30,
+      "metrics": {
+        "loss": null,
+        "accuracy": 0.5,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6666666666666666,
+        "roc_auc": 0.37333333333333335,
+        "eer": 0.6666666666666667,
+        "confusion_matrix": {
+          "tp": 15,
+          "fp": 15,
+          "tn": 0,
+          "fn": 0
+        },
+        "num_samples": 30
+      },
+      "delta_auc_vs_baseline": -0.0133,
+      "delta_acc_vs_baseline": 0.0,
+      "score_stats": {
+        "mean_probability": 0.7634,
+        "std_probability": 0.0846
+      }
+    },
+    "Gaussian Blur s=1.0": {
+      "description": "Gaussian blur sigma=1.0",
+      "sample_count": 30,
+      "metrics": {
+        "loss": null,
+        "accuracy": 0.5,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6666666666666666,
+        "roc_auc": 0.4444444444444444,
+        "eer": 0.6,
+        "confusion_matrix": {
+          "tp": 15,
+          "fp": 15,
+          "tn": 0,
+          "fn": 0
+        },
+        "num_samples": 30
+      },
+      "delta_auc_vs_baseline": 0.0578,
+      "delta_acc_vs_baseline": 0.0,
+      "score_stats": {
+        "mean_probability": 0.758,
+        "std_probability": 0.0878
+      }
+    },
+    "Gaussian Blur s=1.5": {
+      "description": "Gaussian blur sigma=1.5",
+      "sample_count": 30,
+      "metrics": {
+        "loss": null,
+        "accuracy": 0.5,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6666666666666666,
+        "roc_auc": 0.4444444444444445,
+        "eer": 0.5333333333333333,
+        "confusion_matrix": {
+          "tp": 15,
+          "fp": 15,
+          "tn": 0,
+          "fn": 0
+        },
+        "num_samples": 30
+      },
+      "delta_auc_vs_baseline": 0.0578,
+      "delta_acc_vs_baseline": 0.0,
+      "score_stats": {
+        "mean_probability": 0.7533,
+        "std_probability": 0.0914
+      }
+    },
+    "Gaussian Noise s=0.05": {
+      "description": "Additive noise std=0.05",
+      "sample_count": 30,
+      "metrics": {
+        "loss": null,
+        "accuracy": 0.5,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6666666666666666,
+        "roc_auc": 0.3822222222222222,
+        "eer": 0.6,
+        "confusion_matrix": {
+          "tp": 15,
+          "fp": 15,
+          "tn": 0,
+          "fn": 0
+        },
+        "num_samples": 30
+      },
+      "delta_auc_vs_baseline": -0.0044,
+      "delta_acc_vs_baseline": 0.0,
+      "score_stats": {
+        "mean_probability": 0.7342,
+        "std_probability": 0.066
+      }
+    },
+    "Gaussian Noise s=0.10": {
+      "description": "Additive noise std=0.10",
+      "sample_count": 30,
+      "metrics": {
+        "loss": null,
+        "accuracy": 0.5,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6666666666666666,
+        "roc_auc": 0.4933333333333333,
+        "eer": 0.4666666666666667,
+        "confusion_matrix": {
+          "tp": 15,
+          "fp": 15,
+          "tn": 0,
+          "fn": 0
+        },
+        "num_samples": 30
+      },
+      "delta_auc_vs_baseline": 0.1067,
+      "delta_acc_vs_baseline": 0.0,
+      "score_stats": {
+        "mean_probability": 0.7211,
+        "std_probability": 0.0552
+      }
+    },
+    "Contrast Red. f=0.50": {
+      "description": "50% Contrast reduction",
+      "sample_count": 30,
+      "metrics": {
+        "loss": null,
+        "accuracy": 0.5,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6666666666666666,
+        "roc_auc": 0.5111111111111111,
+        "eer": 0.4666666666666667,
+        "confusion_matrix": {
+          "tp": 15,
+          "fp": 15,
+          "tn": 0,
+          "fn": 0
+        },
+        "num_samples": 30
+      },
+      "delta_auc_vs_baseline": 0.1244,
+      "delta_acc_vs_baseline": 0.0,
+      "score_stats": {
+        "mean_probability": 0.8562,
+        "std_probability": 0.0888
+      }
+    },
+    "Contrast Red. f=0.25": {
+      "description": "75% Contrast reduction",
+      "sample_count": 30,
+      "metrics": {
+        "loss": null,
+        "accuracy": 0.5,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6666666666666666,
+        "roc_auc": 0.5644444444444444,
+        "eer": 0.4,
+        "confusion_matrix": {
+          "tp": 15,
+          "fp": 15,
+          "tn": 0,
+          "fn": 0
+        },
+        "num_samples": 30
+      },
+      "delta_auc_vs_baseline": 0.1778,
+      "delta_acc_vs_baseline": 0.0,
+      "score_stats": {
+        "mean_probability": 0.892,
+        "std_probability": 0.0649
+      }
+    },
+    "JPEG Quality 30": {
+      "description": "Simulated block compression Q=30",
+      "sample_count": 30,
+      "metrics": {
+        "loss": null,
+        "accuracy": 0.5,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6666666666666666,
+        "roc_auc": 0.3422222222222222,
+        "eer": 0.6,
+        "confusion_matrix": {
+          "tp": 15,
+          "fp": 15,
+          "tn": 0,
+          "fn": 0
+        },
+        "num_samples": 30
+      },
+      "delta_auc_vs_baseline": -0.0444,
+      "delta_acc_vs_baseline": 0.0,
+      "score_stats": {
+        "mean_probability": 0.7341,
+        "std_probability": 0.0586
+      }
+    },
+    "JPEG Quality 10": {
+      "description": "Simulated block compression Q=10",
+      "sample_count": 30,
+      "metrics": {
+        "loss": null,
+        "accuracy": 0.5,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6666666666666666,
+        "roc_auc": 0.38222222222222224,
+        "eer": 0.6,
+        "confusion_matrix": {
+          "tp": 15,
+          "fp": 15,
+          "tn": 0,
+          "fn": 0
+        },
+        "num_samples": 30
+      },
+      "delta_auc_vs_baseline": -0.0044,
+      "delta_acc_vs_baseline": 0.0,
+      "score_stats": {
+        "mean_probability": 0.7218,
+        "std_probability": 0.0556
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "gate": "Gate 8 — Regression Testing & Research Freeze Audit",
+  "status": "PASS WITH CORRECTION",
+  "timestamp": "2026-09-21T02:25:20+05:30",
+  "test_suite_execution": {
+    "command": "pytest tests/ -v",
+    "total_collected": 165,
+    "total_passed": 165,
+    "total_failed": 0,
+    "total_skipped": 0,
+    "pass_rate_pct": 100.0,
+    "duration_seconds": 204.96
+  },
+  "test_count_reconciliation": {
+    "status": "RECONCILED",
+    "pre_existing_m1_m6_test_count": 143,
+    "m7_newly_added_test_count": 22,
+    "total_test_count": 165,
+    "m7_test_file_breakdown": {
+      "tests/test_inference.py": 4,
+      "tests/test_export.py": 3,
+      "tests/test_cli_m7.py": 6,
+      "tests/test_api.py": 4,
+      "tests/test_dashboard.py": 3,
+      "tests/test_profiler.py": 2
+    },
+    "explanation_of_discrepancy": "Prior to M6.1 FF++ mutual pair isolation, tests/test_ffpp_adapter.py contained 3 unit tests yielding a 142-test total. In M6.1, 'test_build_ffpp_manifest' was added to verify mutual pair group isolation, increasing the baseline count to 143 (accurately documented in reports/m6_final_audit.md). However, subsequent user prompt templates retained the legacy '142/142 tests currently pass' text. During M7 Gate 8 reporting, the legacy 142 figure was mistakenly cited, producing an apparent 142 + 23 = 165 split. The audited physical reality is exactly 143 pre-existing tests + 22 newly authored M7 tests = 165 total tests, all passing."
+  },
+  "research_freeze_verification": {
+    "checkpoint_path": "checkpoints/ffpp_c23_baseline_soft_lstm/best.pth",
+    "sha256_hash": "9d22df92bdab20a35e1311d627d9fa487c757b7afb32a249ebbf7f95bf3b7e6a",
+    "status": "VERIFIED UNCHANGED — BITWISE IDENTICAL TO PRE-M7 STATE",
+    "retraining_detected": false,
+    "fine_tuning_detected": false,
+    "overwriting_detected": false
+  }
+}

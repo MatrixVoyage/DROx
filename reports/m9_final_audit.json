@@ -1,0 +1,70 @@
+{
+  "milestone": "Milestone 9: Scientific Diagnosis, Ablation & Publication Validation",
+  "timestamp_utc": "2026-09-21T11:56:08.880241+00:00",
+  "critical_distinction": "All gates PASS indicates that the scientific evaluation procedure and its required validation gates passed with 100% compliance. The empirical results themselves diagnose substantial discrimination limitations, particularly near-chance ROC-AUC values and theta=0.50 all-fake decision behavior.",
+  "checkpoint_integrity": {
+    "pre_hash": "9d22df92bdab20a35e1311d627d9fa487c757b7afb32a249ebbf7f95bf3b7e6a",
+    "post_hash": "9d22df92bdab20a35e1311d627d9fa487c757b7afb32a249ebbf7f95bf3b7e6a",
+    "expected_hash": "9d22df92bdab20a35e1311d627d9fa487c757b7afb32a249ebbf7f95bf3b7e6a",
+    "bitwise_verified_untouched": true,
+    "zero_retraining_verified": true
+  },
+  "gates": [
+    {
+      "gate": "G1",
+      "purpose": "Reproduce M8 baseline",
+      "status": "PASS",
+      "scientific_interpretation": "M8 benchmark results were reproduced within the predefined numerical tolerance and the physical verification subset was consistent with cached inference.",
+      "evidence": "reports/m9_gate1_reproduction.json"
+    },
+    {
+      "gate": "G2",
+      "purpose": "Score/distribution diagnosis",
+      "status": "PASS",
+      "scientific_interpretation": "Score distributions showed substantial overlap between pristine and manipulated samples; statistical tests did not establish meaningful distribution separation on the evaluated populations.",
+      "evidence": "reports/m9_gate2_score_distribution.json"
+    },
+    {
+      "gate": "G3",
+      "purpose": "Preprocessing OFAT",
+      "status": "PASS",
+      "scientific_interpretation": "OFAT preprocessing changes produced measurable score/AUC variation on the diagnostic subset, while theta=0.50 binary decisions remained unchanged.",
+      "evidence": "reports/m9_gate3_preprocessing_ablation.json"
+    },
+    {
+      "gate": "G4",
+      "purpose": "Temporal sampling",
+      "status": "PASS",
+      "scientific_interpretation": "Valid T=16 sampling strategies were evaluated; T!=16 was correctly excluded under the frozen sequence-length contract.",
+      "evidence": "reports/m9_gate4_temporal_ablation.json"
+    },
+    {
+      "gate": "G5",
+      "purpose": "Attention attribution/intervention",
+      "status": "PASS",
+      "scientific_interpretation": "Attention statistics were characterized and an inference-only uniform-pooling intervention was evaluated without modifying checkpoint weights.",
+      "evidence": "reports/m9_gate5_attention_ablation.json"
+    },
+    {
+      "gate": "G6",
+      "purpose": "Structured error diagnosis",
+      "status": "PASS",
+      "scientific_interpretation": "Errors were characterized by dataset, threshold, manipulation family, and detector metadata using explicitly non-causal analysis.",
+      "evidence": "reports/m9_gate6_error_diagnosis.json"
+    },
+    {
+      "gate": "G7",
+      "purpose": "Statistical uncertainty",
+      "status": "PASS",
+      "scientific_interpretation": "Video-level bootstrap uncertainty and paired McNemar analyses were computed under fixed reproducibility settings.",
+      "evidence": "reports/m9_gate7_statistics.json"
+    },
+    {
+      "gate": "G8",
+      "purpose": "Publication + integrity audit",
+      "status": "PASS",
+      "scientific_interpretation": "Publication artifacts, provenance, numerical consistency, claim audit, regression tests, and checkpoint integrity were verified.",
+      "evidence": "reports/m9_publication_report.md"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "milestone": "Milestone 8: Robustness, Generalization & Benchmark Expansion",
+  "execution_date": "2026-09-21 16:24:05",
+  "checkpoint_integrity": {
+    "initial_hash": "9d22df92bdab20a35e1311d627d9fa487c757b7afb32a249ebbf7f95bf3b7e6a",
+    "final_hash": "9d22df92bdab20a35e1311d627d9fa487c757b7afb32a249ebbf7f95bf3b7e6a",
+    "hash_match": true,
+    "zero_retraining_verified": true
+  },
+  "gates": [
+    {
+      "gate": "G1",
+      "status": "PASS",
+      "validation": "FF++ (750) + Celeb-DF (518)",
+      "evidence": "reports/m8_gate1_full_benchmark.json"
+    },
+    {
+      "gate": "G2",
+      "status": "PASS",
+      "validation": "4 manipulation families evaluated",
+      "evidence": "reports/m8_gate2_manipulation_breakdown.json"
+    },
+    {
+      "gate": "G3",
+      "status": "PASS",
+      "validation": "Validation-fitted temperature & optimal thresholds",
+      "evidence": "reports/m8_gate3_calibration.json"
+    },
+    {
+      "gate": "G4",
+      "status": "PASS",
+      "validation": "Physical perturbation degradation matrix",
+      "evidence": "reports/m8_gate4_robustness.json"
+    },
+    {
+      "gate": "G5",
+      "status": "PASS",
+      "validation": "Physical FP/FN categorization & MTCNN correlation",
+      "evidence": "reports/m8_gate5_error_analysis.json"
+    },
+    {
+      "gate": "G6",
+      "status": "PASS",
+      "validation": "4x4 spatial attention extraction & overlays",
+      "evidence": "reports/m8_gate6_attention_attribution.json"
+    },
+    {
+      "gate": "G7",
+      "status": "PENDING",
+      "validation": "Physical DFDC availability check",
+      "evidence": "reports/m8_gate7_dfdc_status.json"
+    },
+    {
+      "gate": "G8",
+      "status": "PASS",
+      "validation": "Consolidated report, LaTeX snippet, audit",
+      "evidence": "reports/m8_benchmark_report.md"
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "gate": "GATE 6 \u2014 ATTENTION ATTRIBUTION",
+  "timestamp": "2026-09-21 16:24:04",
+  "attention_shape": [
+    16,
+    4,
+    4
+  ],
+  "extraction_method": "Soft spatial attention 1x1 convolution bottleneck introspection",
+  "scientific_disclaimer": "Attention weights reflect intermediate spatiotemporal feature weighting within the ResNeXt-50 to LSTM bottleneck; they do not represent verified pixel-level manipulation masks.",
+  "cases": {
+    "true_negative_real": {
+      "video_id": "orig_045",
+      "manipulation_type": "original",
+      "ground_truth": 0,
+      "probability": 0.681,
+      "mean_entropy": 0.0264,
+      "mean_max_weight": 0.991,
+      "mean_top4_mass": 1.0,
+      "most_frequent_peak": [
+        0,
+        1
+      ],
+      "visualization_path": "reports\\figures\\attribution\\true_negative_real_attribution.png"
+    },
+    "true_positive_fake": {
+      "video_id": "f2f_194_235",
+      "manipulation_type": "Face2Face",
+      "ground_truth": 1,
+      "probability": 0.9145,
+      "mean_entropy": 1.6385,
+      "mean_max_weight": 0.3161,
+      "mean_top4_mass": 0.7231,
+      "most_frequent_peak": [
+        3,
+        0
+      ],
+      "visualization_path": "reports\\figures\\attribution\\true_positive_fake_attribution.png"
+    },
+    "false_positive_case": {
+      "video_id": "orig_421",
+      "manipulation_type": "original",
+      "ground_truth": 0,
+      "probability": 0.9144,
+      "mean_entropy": 1.0304,
+      "mean_max_weight": 0.554,
+      "mean_top4_mass": 0.9786,
+      "most_frequent_peak": [
+        3,
+        0
+      ],
+      "visualization_path": "reports\\figures\\attribution\\false_positive_case_attribution.png"
+    },
+    "false_negative_case": {
+      "video_id": "df_044_945",
+      "manipulation_type": "Deepfakes",
+      "ground_truth": 1,
+      "probability": 0.681,
+      "mean_entropy": 0.0428,
+      "mean_max_weight": 0.973,
+      "mean_top4_mass": 1.0,
+      "most_frequent_peak": [
+        0,
+        1
+      ],
+      "visualization_path": "reports\\figures\\attribution\\false_negative_case_attribution.png"
+    }
+  }
+}

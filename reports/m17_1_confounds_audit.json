@@ -1,0 +1,517 @@
+{
+  "Celeb-DF-v2": {
+    "num_reals": 178,
+    "num_fakes": 340,
+    "metrics": {
+      "width": {
+        "real_mean": 822.9550561797753,
+        "real_std": 112.59656630687265,
+        "real_median": 856.0,
+        "fake_mean": 804.0823529411765,
+        "fake_std": 155.67233399334083,
+        "fake_median": 850.0,
+        "ks_stat": 0.21976206212822208,
+        "ks_pval": 1.941866761470844e-05,
+        "mwu_stat": 30200.0,
+        "mwu_pval": 0.9705403086261715,
+        "divergent": true
+      },
+      "height": {
+        "real_mean": 481.685393258427,
+        "real_std": 18.517890229537837,
+        "real_median": 478.0,
+        "fake_mean": 485.4117647058824,
+        "fake_std": 16.48763823392762,
+        "fake_median": 491.0,
+        "ks_stat": 0.10859220092531395,
+        "ks_pval": 0.11590964470947329,
+        "mwu_stat": 27458.5,
+        "mwu_pval": 0.0667337256241925,
+        "divergent": false
+      },
+      "aspect_ratio": {
+        "real_mean": 1.7115292134831461,
+        "real_std": 0.23945770037768235,
+        "real_median": 1.7908,
+        "fake_mean": 1.6594820588235293,
+        "fake_std": 0.32570888833868206,
+        "fake_median": 1.7908,
+        "ks_stat": 0.2322207534699273,
+        "ks_pval": 5.009482679148705e-06,
+        "mwu_stat": 26214.0,
+        "mwu_pval": 0.012088823494103618,
+        "divergent": true
+      },
+      "fps": {
+        "real_mean": 29.995337078651687,
+        "real_std": 0.03377301755930663,
+        "real_median": 30.0,
+        "fake_mean": 29.98458823529412,
+        "fake_std": 0.10478047574279194,
+        "fake_median": 30.0,
+        "ks_stat": 0.020588235294117647,
+        "ks_pval": 0.9999999946611937,
+        "mwu_stat": 30483.5,
+        "mwu_pval": 0.6236523825587648,
+        "divergent": false
+      },
+      "bitrate_kbps": {
+        "real_mean": 1101.5876404494381,
+        "real_std": 561.240124723857,
+        "real_median": 980.3,
+        "fake_mean": 928.0447058823528,
+        "fake_std": 370.1196878772126,
+        "fake_median": 858.6,
+        "ks_stat": 0.20082617316589557,
+        "ks_pval": 0.00013024467750518063,
+        "mwu_stat": 37033.5,
+        "mwu_pval": 2.834379146539992e-05,
+        "divergent": true
+      },
+      "duration_sec": {
+        "real_mean": 13.171741573033708,
+        "real_std": 2.8500238123511026,
+        "real_median": 13.665,
+        "fake_mean": 12.547794117647058,
+        "fake_std": 2.9424369879745416,
+        "fake_median": 12.17,
+        "ks_stat": 0.132088565763384,
+        "ks_pval": 0.03020687630199748,
+        "mwu_stat": 33862.0,
+        "mwu_pval": 0.026000716628489677,
+        "divergent": true
+      },
+      "file_size_mb": {
+        "real_mean": 1.7529325842696628,
+        "real_std": 0.8365173967143068,
+        "real_median": 1.593,
+        "fake_mean": 1.419123529411765,
+        "fake_std": 0.7006774302138415,
+        "fake_median": 1.326,
+        "ks_stat": 0.20155320555188366,
+        "ks_pval": 0.00012114704524021912,
+        "mwu_stat": 37852.5,
+        "mwu_pval": 2.6974368202971027e-06,
+        "divergent": true
+      }
+    },
+    "codecs_real": {
+      "FMP4": 178
+    },
+    "codecs_fake": {
+      "FMP4": 340
+    }
+  },
+  "FF++_Face2Face": {
+    "num_reals": 298,
+    "num_fakes": 298,
+    "metrics": {
+      "width": {
+        "real_mean": 1011.1208053691275,
+        "real_std": 407.0227375663375,
+        "real_median": 854.0,
+        "fake_mean": 1004.8859060402684,
+        "fake_std": 411.0377361503629,
+        "fake_median": 832.0,
+        "ks_stat": 0.12080536912751678,
+        "ks_pval": 0.02575449969770279,
+        "mwu_stat": 46603.0,
+        "mwu_pval": 0.2808275850561881,
+        "divergent": true
+      },
+      "height": {
+        "real_mean": 621.738255033557,
+        "real_std": 188.86719512825093,
+        "real_median": 480.0,
+        "fake_mean": 621.738255033557,
+        "fake_std": 188.86719512825093,
+        "fake_median": 480.0,
+        "ks_stat": 0.0,
+        "ks_pval": 1.0,
+        "mwu_stat": 44402.0,
+        "mwu_pval": 1.0,
+        "divergent": false
+      },
+      "aspect_ratio": {
+        "real_mean": 1.5856543624161072,
+        "real_std": 0.2169493438178202,
+        "real_median": 1.7778,
+        "fake_mean": 1.5727936241610738,
+        "fake_std": 0.22020186268166814,
+        "fake_median": 1.7333,
+        "ks_stat": 0.12751677852348994,
+        "ks_pval": 0.015646293382961675,
+        "mwu_stat": 51118.5,
+        "mwu_pval": 0.0007655997302395477,
+        "divergent": true
+      },
+      "fps": {
+        "real_mean": 27.56040268456376,
+        "real_std": 4.23449114700772,
+        "real_median": 25.0,
+        "fake_mean": 27.56040268456376,
+        "fake_std": 4.23449114700772,
+        "fake_median": 25.0,
+        "ks_stat": 0.0,
+        "ks_pval": 1.0,
+        "mwu_stat": 44402.0,
+        "mwu_pval": 1.0,
+        "divergent": false
+      },
+      "bitrate_kbps": {
+        "real_mean": 831.7120805369128,
+        "real_std": 723.1037920071602,
+        "real_median": 583.85,
+        "fake_mean": 835.1352348993288,
+        "fake_std": 731.7742122986758,
+        "fake_median": 576.0,
+        "ks_stat": 0.026845637583892617,
+        "ks_pval": 0.9999272432825719,
+        "mwu_stat": 44635.0,
+        "mwu_pval": 0.9119224133601065,
+        "divergent": false
+      },
+      "duration_sec": {
+        "real_mean": 19.318791946308725,
+        "real_std": 8.937756194310094,
+        "real_median": 17.005,
+        "fake_mean": 19.318791946308725,
+        "fake_std": 8.937756194310094,
+        "fake_median": 17.005,
+        "ks_stat": 0.0,
+        "ks_pval": 1.0,
+        "mwu_stat": 44402.0,
+        "mwu_pval": 1.0,
+        "divergent": false
+      },
+      "file_size_mb": {
+        "real_mean": 1.8198859060402686,
+        "real_std": 1.5512750591465783,
+        "real_median": 1.2715,
+        "fake_mean": 1.8788993288590605,
+        "fake_std": 1.8865167975528905,
+        "fake_median": 1.348,
+        "ks_stat": 0.05704697986577181,
+        "ks_pval": 0.7182131074292863,
+        "mwu_stat": 44637.0,
+        "mwu_pval": 0.9111678264214946,
+        "divergent": false
+      }
+    },
+    "codecs_real": {
+      "h264": 298
+    },
+    "codecs_fake": {
+      "h264": 298
+    }
+  },
+  "FF++_FaceSwap": {
+    "num_reals": 298,
+    "num_fakes": 298,
+    "metrics": {
+      "width": {
+        "real_mean": 1011.1208053691275,
+        "real_std": 407.0227375663375,
+        "real_median": 854.0,
+        "fake_mean": 1011.1208053691275,
+        "fake_std": 407.0227375663375,
+        "fake_median": 854.0,
+        "ks_stat": 0.0,
+        "ks_pval": 1.0,
+        "mwu_stat": 44402.0,
+        "mwu_pval": 1.0,
+        "divergent": false
+      },
+      "height": {
+        "real_mean": 621.738255033557,
+        "real_std": 188.86719512825093,
+        "real_median": 480.0,
+        "fake_mean": 621.738255033557,
+        "fake_std": 188.86719512825093,
+        "fake_median": 480.0,
+        "ks_stat": 0.0,
+        "ks_pval": 1.0,
+        "mwu_stat": 44402.0,
+        "mwu_pval": 1.0,
+        "divergent": false
+      },
+      "aspect_ratio": {
+        "real_mean": 1.5856543624161072,
+        "real_std": 0.2169493438178202,
+        "real_median": 1.7778,
+        "fake_mean": 1.5856543624161072,
+        "fake_std": 0.2169493438178202,
+        "fake_median": 1.7778,
+        "ks_stat": 0.0,
+        "ks_pval": 1.0,
+        "mwu_stat": 44402.0,
+        "mwu_pval": 1.0,
+        "divergent": false
+      },
+      "fps": {
+        "real_mean": 27.56040268456376,
+        "real_std": 4.23449114700772,
+        "real_median": 25.0,
+        "fake_mean": 27.56040268456376,
+        "fake_std": 4.23449114700772,
+        "fake_median": 25.0,
+        "ks_stat": 0.0,
+        "ks_pval": 1.0,
+        "mwu_stat": 44402.0,
+        "mwu_pval": 1.0,
+        "divergent": false
+      },
+      "bitrate_kbps": {
+        "real_mean": 831.7120805369128,
+        "real_std": 723.1037920071602,
+        "real_median": 583.85,
+        "fake_mean": 880.0342281879196,
+        "fake_std": 757.8679930804664,
+        "fake_median": 616.8,
+        "ks_stat": 0.06375838926174497,
+        "ks_pval": 0.5806657981612027,
+        "mwu_stat": 41841.5,
+        "mwu_pval": 0.22324530171281032,
+        "divergent": false
+      },
+      "duration_sec": {
+        "real_mean": 19.318791946308725,
+        "real_std": 8.937756194310094,
+        "real_median": 17.005,
+        "fake_mean": 14.936040268456377,
+        "fake_std": 4.520828503802655,
+        "fake_median": 13.735,
+        "ks_stat": 0.2550335570469799,
+        "ks_pval": 6.370461751045779e-09,
+        "mwu_stat": 58930.5,
+        "mwu_pval": 4.780396491991042e-12,
+        "divergent": true
+      },
+      "file_size_mb": {
+        "real_mean": 1.8198859060402686,
+        "real_std": 1.5512750591465783,
+        "real_median": 1.2715,
+        "fake_mean": 1.5253691275167787,
+        "fake_std": 1.3194952479575135,
+        "fake_median": 1.1244999999999998,
+        "ks_stat": 0.11073825503355705,
+        "ks_pval": 0.051685690854688424,
+        "mwu_stat": 50204.5,
+        "mwu_pval": 0.0057738163524680445,
+        "divergent": false
+      }
+    },
+    "codecs_real": {
+      "h264": 298
+    },
+    "codecs_fake": {
+      "h264": 298
+    }
+  },
+  "FF++_Deepfakes": {
+    "num_reals": 298,
+    "num_fakes": 298,
+    "metrics": {
+      "width": {
+        "real_mean": 1011.1208053691275,
+        "real_std": 407.0227375663375,
+        "real_median": 854.0,
+        "fake_mean": 1011.1208053691275,
+        "fake_std": 407.0227375663375,
+        "fake_median": 854.0,
+        "ks_stat": 0.0,
+        "ks_pval": 1.0,
+        "mwu_stat": 44402.0,
+        "mwu_pval": 1.0,
+        "divergent": false
+      },
+      "height": {
+        "real_mean": 621.738255033557,
+        "real_std": 188.86719512825093,
+        "real_median": 480.0,
+        "fake_mean": 621.738255033557,
+        "fake_std": 188.86719512825093,
+        "fake_median": 480.0,
+        "ks_stat": 0.0,
+        "ks_pval": 1.0,
+        "mwu_stat": 44402.0,
+        "mwu_pval": 1.0,
+        "divergent": false
+      },
+      "aspect_ratio": {
+        "real_mean": 1.5856543624161072,
+        "real_std": 0.2169493438178202,
+        "real_median": 1.7778,
+        "fake_mean": 1.5856543624161072,
+        "fake_std": 0.2169493438178202,
+        "fake_median": 1.7778,
+        "ks_stat": 0.0,
+        "ks_pval": 1.0,
+        "mwu_stat": 44402.0,
+        "mwu_pval": 1.0,
+        "divergent": false
+      },
+      "fps": {
+        "real_mean": 27.56040268456376,
+        "real_std": 4.23449114700772,
+        "real_median": 25.0,
+        "fake_mean": 27.56040268456376,
+        "fake_std": 4.23449114700772,
+        "fake_median": 25.0,
+        "ks_stat": 0.0,
+        "ks_pval": 1.0,
+        "mwu_stat": 44402.0,
+        "mwu_pval": 1.0,
+        "divergent": false
+      },
+      "bitrate_kbps": {
+        "real_mean": 831.7120805369128,
+        "real_std": 723.1037920071602,
+        "real_median": 583.85,
+        "fake_mean": 856.3499999999999,
+        "fake_std": 760.7194287064117,
+        "fake_median": 598.2,
+        "ks_stat": 0.03355704697986577,
+        "ks_pval": 0.9961948501419005,
+        "mwu_stat": 43690.0,
+        "mwu_pval": 0.7349843327070666,
+        "divergent": false
+      },
+      "duration_sec": {
+        "real_mean": 19.318791946308725,
+        "real_std": 8.937756194310094,
+        "real_median": 17.005,
+        "fake_mean": 19.316644295302012,
+        "fake_std": 8.937127866997209,
+        "fake_median": 17.005,
+        "ks_stat": 0.003355704697986577,
+        "ks_pval": 1.0,
+        "mwu_stat": 44421.5,
+        "mwu_pval": 0.9927876125975983,
+        "divergent": false
+      },
+      "file_size_mb": {
+        "real_mean": 1.8198859060402686,
+        "real_std": 1.5512750591465783,
+        "real_median": 1.2715,
+        "fake_mean": 1.8738892617449663,
+        "fake_std": 1.6368568211171404,
+        "fake_median": 1.3045,
+        "ks_stat": 0.02348993288590604,
+        "ks_pval": 0.9999976589546477,
+        "mwu_stat": 43774.5,
+        "mwu_pval": 0.765473189324556,
+        "divergent": false
+      }
+    },
+    "codecs_real": {
+      "h264": 298
+    },
+    "codecs_fake": {
+      "h264": 298
+    }
+  },
+  "FF++_NeuralTextures": {
+    "num_reals": 298,
+    "num_fakes": 298,
+    "metrics": {
+      "width": {
+        "real_mean": 1011.1208053691275,
+        "real_std": 407.0227375663375,
+        "real_median": 854.0,
+        "fake_mean": 1004.8859060402684,
+        "fake_std": 411.0377361503629,
+        "fake_median": 832.0,
+        "ks_stat": 0.12080536912751678,
+        "ks_pval": 0.02575449969770279,
+        "mwu_stat": 46603.0,
+        "mwu_pval": 0.2808275850561881,
+        "divergent": true
+      },
+      "height": {
+        "real_mean": 621.738255033557,
+        "real_std": 188.86719512825093,
+        "real_median": 480.0,
+        "fake_mean": 621.738255033557,
+        "fake_std": 188.86719512825093,
+        "fake_median": 480.0,
+        "ks_stat": 0.0,
+        "ks_pval": 1.0,
+        "mwu_stat": 44402.0,
+        "mwu_pval": 1.0,
+        "divergent": false
+      },
+      "aspect_ratio": {
+        "real_mean": 1.5856543624161072,
+        "real_std": 0.2169493438178202,
+        "real_median": 1.7778,
+        "fake_mean": 1.5727936241610738,
+        "fake_std": 0.22020186268166814,
+        "fake_median": 1.7333,
+        "ks_stat": 0.12751677852348994,
+        "ks_pval": 0.015646293382961675,
+        "mwu_stat": 51118.5,
+        "mwu_pval": 0.0007655997302395477,
+        "divergent": true
+      },
+      "fps": {
+        "real_mean": 27.56040268456376,
+        "real_std": 4.23449114700772,
+        "real_median": 25.0,
+        "fake_mean": 27.56040268456376,
+        "fake_std": 4.23449114700772,
+        "fake_median": 25.0,
+        "ks_stat": 0.0,
+        "ks_pval": 1.0,
+        "mwu_stat": 44402.0,
+        "mwu_pval": 1.0,
+        "divergent": false
+      },
+      "bitrate_kbps": {
+        "real_mean": 831.7120805369128,
+        "real_std": 723.1037920071602,
+        "real_median": 583.85,
+        "fake_mean": 816.0708053691276,
+        "fake_std": 717.3322295634655,
+        "fake_median": 564.05,
+        "ks_stat": 0.0436241610738255,
+        "ks_pval": 0.9399093681836403,
+        "mwu_stat": 45516.5,
+        "mwu_pval": 0.5961147652940613,
+        "divergent": false
+      },
+      "duration_sec": {
+        "real_mean": 19.318791946308725,
+        "real_std": 8.937756194310094,
+        "real_median": 17.005,
+        "fake_mean": 14.936040268456377,
+        "fake_std": 4.520828503802655,
+        "fake_median": 13.735,
+        "ks_stat": 0.2550335570469799,
+        "ks_pval": 6.370461751045779e-09,
+        "mwu_stat": 58930.5,
+        "mwu_pval": 4.780396491991042e-12,
+        "divergent": true
+      },
+      "file_size_mb": {
+        "real_mean": 1.8198859060402686,
+        "real_std": 1.5512750591465783,
+        "real_median": 1.2715,
+        "fake_mean": 1.415221476510067,
+        "fake_std": 1.251922062381287,
+        "fake_median": 1.04,
+        "ks_stat": 0.174496644295302,
+        "ks_pval": 0.00022221766266816823,
+        "mwu_stat": 53379.5,
+        "mwu_pval": 1.9468907476512288e-05,
+        "divergent": true
+      }
+    },
+    "codecs_real": {
+      "h264": 298
+    },
+    "codecs_fake": {
+      "h264": 298
+    }
+  }
+}

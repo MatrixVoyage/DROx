@@ -1,0 +1,285 @@
+{
+  "milestone": "14",
+  "phase": "E",
+  "title": "Formal Statistical Uncertainty Quantification & Paired Hypothesis Testing",
+  "timestamp": "2026-09-26T20:48:37.254084+00:00",
+  "bootstrap_protocol": {
+    "n_bootstraps": 1000,
+    "statistical_rng_seed": 42,
+    "resampling_unit": "video/sample",
+    "confidence_level": 0.95,
+    "correction_method": "Holm-Bonferroni step-down"
+  },
+  "per_family_statistical_comparisons": {
+    "Deepfakes": {
+      "sample_count": 58,
+      "v5_auc": {
+        "estimate": 0.983814215341309,
+        "ci_95": [
+          0.957694405237866,
+          0.9981331539827066
+        ]
+      },
+      "m13_auc": {
+        "estimate": 0.9681562280084448,
+        "ci_95": [
+          0.9370268062612828,
+          0.9912004717871844
+        ]
+      },
+      "paired_delta_auc": {
+        "delta": 0.015657987332864165,
+        "ci_95": [
+          0.0017237012407655935,
+          0.03466570044101189
+        ],
+        "two_sided_p_value": 0.032
+      },
+      "v5_detection_rate_tau_0_5": {
+        "detected": 55,
+        "rate": 0.9482758620689655,
+        "wilson_ci_95": [
+          0.8586059880915734,
+          0.9822538653405896
+        ]
+      },
+      "v5_detection_rate_tau_0_126": {
+        "detected": 56,
+        "rate": 0.9655172413793104,
+        "wilson_ci_95": [
+          0.8827085453568732,
+          0.9904920716688347
+        ]
+      },
+      "m13_detection_rate_tau_0_5": {
+        "detected": 57,
+        "rate": 0.9827586206896551,
+        "wilson_ci_95": [
+          0.9085914190653199,
+          0.9969499615539326
+        ]
+      },
+      "multiple_testing_correction": {
+        "rank": 1,
+        "raw_p_value": 0.032,
+        "threshold_alpha": 0.0125,
+        "statistically_significant": false
+      }
+    },
+    "FaceSwap": {
+      "sample_count": 58,
+      "v5_auc": {
+        "estimate": 0.9396551724137931,
+        "ci_95": [
+          0.8885708311998636,
+          0.9842839505942427
+        ]
+      },
+      "m13_auc": {
+        "estimate": 0.9444933145672062,
+        "ci_95": [
+          0.9041400181684834,
+          0.9778453270208968
+        ]
+      },
+      "paired_delta_auc": {
+        "delta": -0.00483814215341305,
+        "ci_95": [
+          -0.03527089355728347,
+          0.022533678731124353
+        ],
+        "two_sided_p_value": 0.846
+      },
+      "v5_detection_rate_tau_0_5": {
+        "detected": 47,
+        "rate": 0.8103448275862069,
+        "wilson_ci_95": [
+          0.6914762612950077,
+          0.8906574833887974
+        ]
+      },
+      "v5_detection_rate_tau_0_126": {
+        "detected": 49,
+        "rate": 0.8448275862068966,
+        "wilson_ci_95": [
+          0.730660191401075,
+          0.9161550804698196
+        ]
+      },
+      "m13_detection_rate_tau_0_5": {
+        "detected": 53,
+        "rate": 0.9137931034482759,
+        "wilson_ci_95": [
+          0.8135637093712647,
+          0.962614616873809
+        ]
+      },
+      "multiple_testing_correction": {
+        "rank": 4,
+        "raw_p_value": 0.846,
+        "threshold_alpha": 0.05,
+        "statistically_significant": false
+      }
+    },
+    "NeuralTextures": {
+      "sample_count": 58,
+      "v5_auc": {
+        "estimate": 0.9338494018296974,
+        "ci_95": [
+          0.8833155624571566,
+          0.9728035947536189
+        ]
+      },
+      "m13_auc": {
+        "estimate": 0.9283075299085151,
+        "ci_95": [
+          0.8787736182958276,
+          0.9670551242638052
+        ]
+      },
+      "paired_delta_auc": {
+        "delta": 0.005541871921182384,
+        "ci_95": [
+          -0.010126539142986392,
+          0.020162711266812624
+        ],
+        "two_sided_p_value": 0.47
+      },
+      "v5_detection_rate_tau_0_5": {
+        "detected": 45,
+        "rate": 0.7758620689655172,
+        "wilson_ci_95": [
+          0.653388823610813,
+          0.8640633938859026
+        ]
+      },
+      "v5_detection_rate_tau_0_126": {
+        "detected": 47,
+        "rate": 0.8103448275862069,
+        "wilson_ci_95": [
+          0.6914762612950077,
+          0.8906574833887974
+        ]
+      },
+      "m13_detection_rate_tau_0_5": {
+        "detected": 49,
+        "rate": 0.8448275862068966,
+        "wilson_ci_95": [
+          0.730660191401075,
+          0.9161550804698196
+        ]
+      },
+      "multiple_testing_correction": {
+        "rank": 2,
+        "raw_p_value": 0.47,
+        "threshold_alpha": 0.016666666666666666,
+        "statistically_significant": false
+      }
+    },
+    "Face2Face": {
+      "sample_count": 58,
+      "v5_auc": {
+        "estimate": 0.7897607318789585,
+        "ci_95": [
+          0.7115893227978259,
+          0.8668136813681369
+        ]
+      },
+      "m13_auc": {
+        "estimate": 0.7790288529204785,
+        "ci_95": [
+          0.7029247551118804,
+          0.8564384508626302
+        ]
+      },
+      "paired_delta_auc": {
+        "delta": 0.010731878958479935,
+        "ci_95": [
+          -0.030965534053405387,
+          0.04937368970456313
+        ],
+        "two_sided_p_value": 0.58
+      },
+      "v5_detection_rate_tau_0_5": {
+        "detected": 22,
+        "rate": 0.3793103448275862,
+        "wilson_ci_95": [
+          0.2656427267728758,
+          0.5079719280723111
+        ]
+      },
+      "v5_detection_rate_tau_0_126": {
+        "detected": 25,
+        "rate": 0.43103448275862066,
+        "wilson_ci_95": [
+          0.31181799132544846,
+          0.5588189543003725
+        ]
+      },
+      "m13_detection_rate_tau_0_5": {
+        "detected": 30,
+        "rate": 0.5172413793103449,
+        "wilson_ci_95": [
+          0.3916226178340948,
+          0.6407181457594501
+        ]
+      },
+      "multiple_testing_correction": {
+        "rank": 3,
+        "raw_p_value": 0.58,
+        "threshold_alpha": 0.025,
+        "statistically_significant": false
+      }
+    }
+  },
+  "external_celeb_df_statistical_comparisons": {
+    "total_benchmark_queries": 518,
+    "v5_auc": {
+      "estimate": 0.7824355584930601,
+      "ci_95": [
+        0.7420104183664339,
+        0.8184254798338906
+      ]
+    },
+    "m13_auc": {
+      "estimate": 0.7977941176470588,
+      "ci_95": [
+        0.760150659892728,
+        0.8357032059983978
+      ]
+    },
+    "paired_delta_auc": {
+      "delta": -0.015358559153998641,
+      "ci_95": [
+        -0.046266404402570196,
+        0.017432381081234568
+      ],
+      "two_sided_p_value": 0.388,
+      "statistically_significant": false
+    },
+    "v5_detection_rate_tau_0_5": {
+      "detected": 88,
+      "rate": 0.25882352941176473,
+      "wilson_ci_95": [
+        0.21514490932778718,
+        0.3078910835903257
+      ]
+    },
+    "v5_detection_rate_tau_0_126": {
+      "detected": 98,
+      "rate": 0.28823529411764703,
+      "wilson_ci_95": [
+        0.24266752640359912,
+        0.33853480884157305
+      ]
+    },
+    "m13_detection_rate_tau_0_5": {
+      "detected": 153,
+      "rate": 0.45,
+      "wilson_ci_95": [
+        0.39797128447570856,
+        0.5031459335682906
+      ]
+    }
+  }
+}

@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  deepfake-inference:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: deepfake-detector:m7-latest
+    container_name: deepfake_detector_service
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - DEEPFAKE_CHECKPOINT_PATH=/app/checkpoints/ffpp_c23_baseline_soft_lstm/best.pth
+      - DEEPFAKE_DEVICE=cuda
+      - PYTHONUNBUFFERED=1
+    volumes:
+      # Mount checkpoint directory read-only
+      - ./checkpoints:/app/checkpoints:ro
+      # Optional mount for test videos or reports
+      - ./reports:/app/reports
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+        limits:
+          memory: 8G
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s

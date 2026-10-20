@@ -1,0 +1,1266 @@
+{
+  "title": "Milestone 8 Consolidated Benchmark & Robustness Report",
+  "timestamp": "2026-09-21 16:24:05",
+  "hardware": {
+    "hostname": "ByteKnight",
+    "os": "Windows 10",
+    "python_version": "3.11.9",
+    "pytorch_version": "2.6.0+cu124",
+    "cuda_available": true,
+    "cuda_version": "12.4",
+    "gpu_name": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+    "gpu_vram_gb": 6.0
+  },
+  "checkpoint_integrity": {
+    "expected_hash": "9d22df92bdab20a35e1311d627d9fa487c757b7afb32a249ebbf7f95bf3b7e6a",
+    "post_execution_hash": "9d22df92bdab20a35e1311d627d9fa487c757b7afb32a249ebbf7f95bf3b7e6a",
+    "verified_frozen": true
+  },
+  "gate1_full_benchmarks": {
+    "ffpp_c23": {
+      "benchmark_name": "FaceForensics++ C23 (Canonical Test)",
+      "total_requested": 750,
+      "successfully_evaluated": 750,
+      "missing_count": 0,
+      "preprocessing_failures": 0,
+      "failed_count": 0,
+      "real_count": 150,
+      "fake_count": 600,
+      "metrics": {
+        "loss": null,
+        "accuracy": 0.8,
+        "precision": 0.8,
+        "recall": 1.0,
+        "f1": 0.888888888888889,
+        "roc_auc": 0.4734166666666667,
+        "eer": 0.5133333333333333,
+        "confusion_matrix": {
+          "tp": 600,
+          "fp": 150,
+          "tn": 0,
+          "fn": 0
+        },
+        "num_samples": 750
+      },
+      "score_distribution": {
+        "mean_probability": 0.8131,
+        "std_probability": 0.0955,
+        "min_probability": 0.681,
+        "max_probability": 0.9145,
+        "median_probability": 0.8139
+      }
+    },
+    "celeb_df_v2": {
+      "benchmark_name": "Celeb-DF v2 (Official Test)",
+      "total_requested": 518,
+      "successfully_evaluated": 518,
+      "missing_count": 0,
+      "preprocessing_failures": 0,
+      "failed_count": 0,
+      "real_count": 178,
+      "fake_count": 340,
+      "metrics": {
+        "loss": null,
+        "accuracy": 0.6563706563706564,
+        "precision": 0.6563706563706564,
+        "recall": 1.0,
+        "f1": 0.7925407925407926,
+        "roc_auc": 0.5243555849306014,
+        "eer": 0.5029411764705882,
+        "confusion_matrix": {
+          "tp": 340,
+          "fp": 178,
+          "tn": 0,
+          "fn": 0
+        },
+        "num_samples": 518
+      },
+      "score_distribution": {
+        "mean_probability": 0.8103,
+        "std_probability": 0.0966,
+        "min_probability": 0.681,
+        "max_probability": 0.9145,
+        "median_probability": 0.798
+      }
+    }
+  },
+  "gate2_manipulations": {
+    "Deepfakes": {
+      "fake_sample_count": 150,
+      "pristine_sample_count": 150,
+      "total_evaluated": 300,
+      "metrics": {
+        "loss": null,
+        "accuracy": 0.5,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6666666666666666,
+        "roc_auc": 0.4446888888888889,
+        "eer": 0.5266666666666666,
+        "confusion_matrix": {
+          "tp": 150,
+          "fp": 150,
+          "tn": 0,
+          "fn": 0
+        },
+        "num_samples": 300
+      },
+      "fake_score_distribution": {
+        "mean_probability": 0.8038,
+        "std_probability": 0.0968,
+        "median_probability": 0.7607
+      }
+    },
+    "Face2Face": {
+      "fake_sample_count": 150,
+      "pristine_sample_count": 150,
+      "total_evaluated": 300,
+      "metrics": {
+        "loss": null,
+        "accuracy": 0.5,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6666666666666666,
+        "roc_auc": 0.5121111111111112,
+        "eer": 0.5,
+        "confusion_matrix": {
+          "tp": 150,
+          "fp": 150,
+          "tn": 0,
+          "fn": 0
+        },
+        "num_samples": 300
+      },
+      "fake_score_distribution": {
+        "mean_probability": 0.8217,
+        "std_probability": 0.0941,
+        "median_probability": 0.8647
+      }
+    },
+    "FaceSwap": {
+      "fake_sample_count": 150,
+      "pristine_sample_count": 150,
+      "total_evaluated": 300,
+      "metrics": {
+        "loss": null,
+        "accuracy": 0.5,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6666666666666666,
+        "roc_auc": 0.4709777777777778,
+        "eer": 0.5266666666666666,
+        "confusion_matrix": {
+          "tp": 150,
+          "fp": 150,
+          "tn": 0,
+          "fn": 0
+        },
+        "num_samples": 300
+      },
+      "fake_score_distribution": {
+        "mean_probability": 0.8089,
+        "std_probability": 0.0945,
+        "median_probability": 0.7755
+      }
+    },
+    "NeuralTextures": {
+      "fake_sample_count": 150,
+      "pristine_sample_count": 150,
+      "total_evaluated": 300,
+      "metrics": {
+        "loss": null,
+        "accuracy": 0.5,
+        "precision": 0.5,
+        "recall": 1.0,
+        "f1": 0.6666666666666666,
+        "roc_auc": 0.4638,
+        "eer": 0.5133333333333333,
+        "confusion_matrix": {
+          "tp": 150,
+          "fp": 150,
+          "tn": 0,
+          "fn": 0
+        },
+        "num_samples": 300
+      },
+      "fake_score_distribution": {
+        "mean_probability": 0.8113,
+        "std_probability": 0.0962,
+        "median_probability": 0.8107
+      }
+    }
+  },
+  "gate3_calibration": {
+    "gate": "GATE 3 \u2014 PROBABILITY CALIBRATION & THRESHOLD POLICY",
+    "timestamp": "2026-09-21 16:21:04",
+    "validation_fitting": {
+      "validation_sample_count": 150,
+      "fitted_temperature": 1.148,
+      "youden_threshold": 0.8915,
+      "youden_j": 0.0667,
+      "f1_threshold": 0.01,
+      "f1_score": 0.8889,
+      "validation_ece_before": 0.1081,
+      "validation_ece_after": 0.102,
+      "validation_nll_before": 0.5327,
+      "validation_nll_after": 0.5243
+    },
+    "ffpp_c23_test": {
+      "sample_count": 750,
+      "uncalibrated_calibration": {
+        "ece": 0.1072,
+        "mce": 0.1245,
+        "nll": 0.5459,
+        "brier_score": 0.1719,
+        "n_bins": 10,
+        "bin_accuracies": [
+          0.0,
+          0.0,
+          0.0,
+          0.7875,
+          0.8287,
+          0.7297,
+          0.84,
+          0.7778,
+          0.7882,
+          0.0
+        ],
+        "bin_confidences": [
+          0.525,
+          0.575,
+          0.625,
+          0.6906,
+          0.7203,
+          0.7698,
+          0.8263,
+          0.8789,
+          0.9127,
+          0.975
+        ],
+        "bin_counts": [
+          0,
+          0,
+          0,
+          80,
+          251,
+          37,
+          25,
+          36,
+          321,
+          0
+        ]
+      },
+      "calibrated_calibration": {
+        "ece": 0.106,
+        "mce": 0.1483,
+        "nll": 0.5363,
+        "brier_score": 0.1716,
+        "n_bins": 10,
+        "bin_accuracies": [
+          0.0,
+          0.0,
+          0.0,
+          0.83,
+          0.789,
+          0.7037,
+          0.8148,
+          0.7882,
+          0.0,
+          0.0
+        ],
+        "bin_confidences": [
+          0.525,
+          0.575,
+          0.625,
+          0.6817,
+          0.7144,
+          0.774,
+          0.8266,
+          0.884,
+          0.925,
+          0.975
+        ],
+        "bin_counts": [
+          0,
+          0,
+          0,
+          247,
+          109,
+          27,
+          27,
+          340,
+          0,
+          0
+        ]
+      },
+      "policies": {
+        "threshold_0.50_baseline": {
+          "loss": null,
+          "accuracy": 0.8,
+          "precision": 0.8,
+          "recall": 1.0,
+          "f1": 0.888888888888889,
+          "roc_auc": 0.4734166666666667,
+          "eer": 0.5133333333333333,
+          "confusion_matrix": {
+            "tp": 600,
+            "fp": 150,
+            "tn": 0,
+            "fn": 0
+          },
+          "num_samples": 750,
+          "threshold": 0.5
+        },
+        "threshold_youden_0.8915": {
+          "loss": null,
+          "accuracy": 0.4493333333333333,
+          "precision": 0.78419452887538,
+          "recall": 0.43,
+          "f1": 0.5554359526372444,
+          "roc_auc": 0.4734166666666667,
+          "eer": 0.5133333333333333,
+          "confusion_matrix": {
+            "tp": 258,
+            "fp": 71,
+            "tn": 79,
+            "fn": 342
+          },
+          "num_samples": 750,
+          "threshold": 0.8915
+        },
+        "threshold_f1max_0.01": {
+          "loss": null,
+          "accuracy": 0.8,
+          "precision": 0.8,
+          "recall": 1.0,
+          "f1": 0.888888888888889,
+          "roc_auc": 0.4734166666666667,
+          "eer": 0.5133333333333333,
+          "confusion_matrix": {
+            "tp": 600,
+            "fp": 150,
+            "tn": 0,
+            "fn": 0
+          },
+          "num_samples": 750,
+          "threshold": 0.01
+        },
+        "calibrated_prob_threshold_0.50": {
+          "loss": null,
+          "accuracy": 0.8,
+          "precision": 0.8,
+          "recall": 1.0,
+          "f1": 0.888888888888889,
+          "roc_auc": 0.4734166666666667,
+          "eer": 0.5133333333333333,
+          "confusion_matrix": {
+            "tp": 600,
+            "fp": 150,
+            "tn": 0,
+            "fn": 0
+          },
+          "num_samples": 750,
+          "threshold": 0.5
+        }
+      }
+    },
+    "celeb_df_v2_test": {
+      "sample_count": 518,
+      "uncalibrated_calibration": {
+        "ece": 0.1539,
+        "mce": 0.3782,
+        "nll": 0.7643,
+        "brier_score": 0.2575,
+        "n_bins": 10,
+        "bin_accuracies": [
+          0.0,
+          0.0,
+          0.0,
+          0.5172,
+          0.6897,
+          0.75,
+          0.7222,
+          0.5,
+          0.6607,
+          0.0
+        ],
+        "bin_confidences": [
+          0.525,
+          0.575,
+          0.625,
+          0.6887,
+          0.7187,
+          0.7657,
+          0.8214,
+          0.8782,
+          0.9127,
+          0.975
+        ],
+        "bin_counts": [
+          0,
+          0,
+          0,
+          58,
+          174,
+          28,
+          18,
+          16,
+          224,
+          0
+        ]
+      },
+      "calibrated_calibration": {
+        "ece": 0.1276,
+        "mce": 0.232,
+        "nll": 0.727,
+        "brier_score": 0.25,
+        "n_bins": 10,
+        "bin_accuracies": [
+          0.0,
+          0.0,
+          0.0,
+          0.6413,
+          0.6944,
+          0.7333,
+          0.6429,
+          0.6524,
+          0.0,
+          0.0
+        ],
+        "bin_confidences": [
+          0.525,
+          0.575,
+          0.625,
+          0.6816,
+          0.7157,
+          0.775,
+          0.8215,
+          0.8843,
+          0.925,
+          0.975
+        ],
+        "bin_counts": [
+          0,
+          0,
+          0,
+          184,
+          72,
+          15,
+          14,
+          233,
+          0,
+          0
+        ]
+      },
+      "policies": {
+        "threshold_0.50_baseline": {
+          "loss": null,
+          "accuracy": 0.6563706563706564,
+          "precision": 0.6563706563706564,
+          "recall": 1.0,
+          "f1": 0.7925407925407926,
+          "roc_auc": 0.5243555849306014,
+          "eer": 0.5029411764705882,
+          "confusion_matrix": {
+            "tp": 340,
+            "fp": 178,
+            "tn": 0,
+            "fn": 0
+          },
+          "num_samples": 518,
+          "threshold": 0.5
+        },
+        "threshold_youden_0.8915": {
+          "loss": null,
+          "accuracy": 0.47876447876447875,
+          "precision": 0.6548672566371682,
+          "recall": 0.43529411764705883,
+          "f1": 0.5229681978798587,
+          "roc_auc": 0.5243555849306014,
+          "eer": 0.5029411764705882,
+          "confusion_matrix": {
+            "tp": 148,
+            "fp": 78,
+            "tn": 100,
+            "fn": 192
+          },
+          "num_samples": 518,
+          "threshold": 0.8915
+        },
+        "threshold_f1max_0.01": {
+          "loss": null,
+          "accuracy": 0.6563706563706564,
+          "precision": 0.6563706563706564,
+          "recall": 1.0,
+          "f1": 0.7925407925407926,
+          "roc_auc": 0.5243555849306014,
+          "eer": 0.5029411764705882,
+          "confusion_matrix": {
+            "tp": 340,
+            "fp": 178,
+            "tn": 0,
+            "fn": 0
+          },
+          "num_samples": 518,
+          "threshold": 0.01
+        },
+        "calibrated_prob_threshold_0.50": {
+          "loss": null,
+          "accuracy": 0.6563706563706564,
+          "precision": 0.6563706563706564,
+          "recall": 1.0,
+          "f1": 0.7925407925407926,
+          "roc_auc": 0.5243555849306014,
+          "eer": 0.5029411764705882,
+          "confusion_matrix": {
+            "tp": 340,
+            "fp": 178,
+            "tn": 0,
+            "fn": 0
+          },
+          "num_samples": 518,
+          "threshold": 0.5
+        }
+      }
+    }
+  },
+  "gate4_robustness": {
+    "gate": "GATE 4 \u2014 VIDEO ROBUSTNESS",
+    "timestamp": "2026-09-21 16:23:43",
+    "sample_count": 30,
+    "temporal_policy_note": "Model architecture has fixed T=16 contract. Evaluating variable sequence lengths directly through temporal LSTM would violate checkpoint contract. Temporal variations are captured via frame sampling.",
+    "perturbations": {
+      "Baseline (Clean)": {
+        "description": "Unperturbed 112x112 baseline",
+        "sample_count": 30,
+        "metrics": {
+          "loss": null,
+          "accuracy": 0.5,
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "roc_auc": 0.38666666666666666,
+          "eer": 0.6666666666666667,
+          "confusion_matrix": {
+            "tp": 15,
+            "fp": 15,
+            "tn": 0,
+            "fn": 0
+          },
+          "num_samples": 30
+        },
+        "delta_auc_vs_baseline": 0.0,
+        "delta_acc_vs_baseline": 0.0,
+        "score_stats": {
+          "mean_probability": 0.7625,
+          "std_probability": 0.0837
+        }
+      },
+      "Spatial 56x56": {
+        "description": "Downsample 56x56 -> Upsample 112x112",
+        "sample_count": 30,
+        "metrics": {
+          "loss": null,
+          "accuracy": 0.5,
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "roc_auc": 0.45777777777777784,
+          "eer": 0.5333333333333333,
+          "confusion_matrix": {
+            "tp": 15,
+            "fp": 15,
+            "tn": 0,
+            "fn": 0
+          },
+          "num_samples": 30
+        },
+        "delta_auc_vs_baseline": 0.0711,
+        "delta_acc_vs_baseline": 0.0,
+        "score_stats": {
+          "mean_probability": 0.7541,
+          "std_probability": 0.0827
+        }
+      },
+      "Spatial 28x28": {
+        "description": "Downsample 28x28 -> Upsample 112x112",
+        "sample_count": 30,
+        "metrics": {
+          "loss": null,
+          "accuracy": 0.5,
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "roc_auc": 0.5288888888888889,
+          "eer": 0.5333333333333333,
+          "confusion_matrix": {
+            "tp": 15,
+            "fp": 15,
+            "tn": 0,
+            "fn": 0
+          },
+          "num_samples": 30
+        },
+        "delta_auc_vs_baseline": 0.1422,
+        "delta_acc_vs_baseline": 0.0,
+        "score_stats": {
+          "mean_probability": 0.7595,
+          "std_probability": 0.0905
+        }
+      },
+      "Gaussian Blur s=0.5": {
+        "description": "Gaussian blur sigma=0.5",
+        "sample_count": 30,
+        "metrics": {
+          "loss": null,
+          "accuracy": 0.5,
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "roc_auc": 0.37333333333333335,
+          "eer": 0.6666666666666667,
+          "confusion_matrix": {
+            "tp": 15,
+            "fp": 15,
+            "tn": 0,
+            "fn": 0
+          },
+          "num_samples": 30
+        },
+        "delta_auc_vs_baseline": -0.0133,
+        "delta_acc_vs_baseline": 0.0,
+        "score_stats": {
+          "mean_probability": 0.7634,
+          "std_probability": 0.0846
+        }
+      },
+      "Gaussian Blur s=1.0": {
+        "description": "Gaussian blur sigma=1.0",
+        "sample_count": 30,
+        "metrics": {
+          "loss": null,
+          "accuracy": 0.5,
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "roc_auc": 0.4444444444444444,
+          "eer": 0.6,
+          "confusion_matrix": {
+            "tp": 15,
+            "fp": 15,
+            "tn": 0,
+            "fn": 0
+          },
+          "num_samples": 30
+        },
+        "delta_auc_vs_baseline": 0.0578,
+        "delta_acc_vs_baseline": 0.0,
+        "score_stats": {
+          "mean_probability": 0.758,
+          "std_probability": 0.0878
+        }
+      },
+      "Gaussian Blur s=1.5": {
+        "description": "Gaussian blur sigma=1.5",
+        "sample_count": 30,
+        "metrics": {
+          "loss": null,
+          "accuracy": 0.5,
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "roc_auc": 0.4444444444444445,
+          "eer": 0.5333333333333333,
+          "confusion_matrix": {
+            "tp": 15,
+            "fp": 15,
+            "tn": 0,
+            "fn": 0
+          },
+          "num_samples": 30
+        },
+        "delta_auc_vs_baseline": 0.0578,
+        "delta_acc_vs_baseline": 0.0,
+        "score_stats": {
+          "mean_probability": 0.7533,
+          "std_probability": 0.0914
+        }
+      },
+      "Gaussian Noise s=0.05": {
+        "description": "Additive noise std=0.05",
+        "sample_count": 30,
+        "metrics": {
+          "loss": null,
+          "accuracy": 0.5,
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "roc_auc": 0.3822222222222222,
+          "eer": 0.6,
+          "confusion_matrix": {
+            "tp": 15,
+            "fp": 15,
+            "tn": 0,
+            "fn": 0
+          },
+          "num_samples": 30
+        },
+        "delta_auc_vs_baseline": -0.0044,
+        "delta_acc_vs_baseline": 0.0,
+        "score_stats": {
+          "mean_probability": 0.7342,
+          "std_probability": 0.066
+        }
+      },
+      "Gaussian Noise s=0.10": {
+        "description": "Additive noise std=0.10",
+        "sample_count": 30,
+        "metrics": {
+          "loss": null,
+          "accuracy": 0.5,
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "roc_auc": 0.4933333333333333,
+          "eer": 0.4666666666666667,
+          "confusion_matrix": {
+            "tp": 15,
+            "fp": 15,
+            "tn": 0,
+            "fn": 0
+          },
+          "num_samples": 30
+        },
+        "delta_auc_vs_baseline": 0.1067,
+        "delta_acc_vs_baseline": 0.0,
+        "score_stats": {
+          "mean_probability": 0.7211,
+          "std_probability": 0.0552
+        }
+      },
+      "Contrast Red. f=0.50": {
+        "description": "50% Contrast reduction",
+        "sample_count": 30,
+        "metrics": {
+          "loss": null,
+          "accuracy": 0.5,
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "roc_auc": 0.5111111111111111,
+          "eer": 0.4666666666666667,
+          "confusion_matrix": {
+            "tp": 15,
+            "fp": 15,
+            "tn": 0,
+            "fn": 0
+          },
+          "num_samples": 30
+        },
+        "delta_auc_vs_baseline": 0.1244,
+        "delta_acc_vs_baseline": 0.0,
+        "score_stats": {
+          "mean_probability": 0.8562,
+          "std_probability": 0.0888
+        }
+      },
+      "Contrast Red. f=0.25": {
+        "description": "75% Contrast reduction",
+        "sample_count": 30,
+        "metrics": {
+          "loss": null,
+          "accuracy": 0.5,
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "roc_auc": 0.5644444444444444,
+          "eer": 0.4,
+          "confusion_matrix": {
+            "tp": 15,
+            "fp": 15,
+            "tn": 0,
+            "fn": 0
+          },
+          "num_samples": 30
+        },
+        "delta_auc_vs_baseline": 0.1778,
+        "delta_acc_vs_baseline": 0.0,
+        "score_stats": {
+          "mean_probability": 0.892,
+          "std_probability": 0.0649
+        }
+      },
+      "JPEG Quality 30": {
+        "description": "Simulated block compression Q=30",
+        "sample_count": 30,
+        "metrics": {
+          "loss": null,
+          "accuracy": 0.5,
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "roc_auc": 0.3422222222222222,
+          "eer": 0.6,
+          "confusion_matrix": {
+            "tp": 15,
+            "fp": 15,
+            "tn": 0,
+            "fn": 0
+          },
+          "num_samples": 30
+        },
+        "delta_auc_vs_baseline": -0.0444,
+        "delta_acc_vs_baseline": 0.0,
+        "score_stats": {
+          "mean_probability": 0.7341,
+          "std_probability": 0.0586
+        }
+      },
+      "JPEG Quality 10": {
+        "description": "Simulated block compression Q=10",
+        "sample_count": 30,
+        "metrics": {
+          "loss": null,
+          "accuracy": 0.5,
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "roc_auc": 0.38222222222222224,
+          "eer": 0.6,
+          "confusion_matrix": {
+            "tp": 15,
+            "fp": 15,
+            "tn": 0,
+            "fn": 0
+          },
+          "num_samples": 30
+        },
+        "delta_auc_vs_baseline": -0.0044,
+        "delta_acc_vs_baseline": 0.0,
+        "score_stats": {
+          "mean_probability": 0.7218,
+          "std_probability": 0.0556
+        }
+      }
+    }
+  },
+  "gate5_errors": {
+    "gate": "GATE 5 \u2014 SYSTEMATIC ERROR ANALYSIS",
+    "timestamp": "2026-09-21 16:23:43",
+    "summary": {
+      "threshold": 0.5,
+      "total_samples": 1268,
+      "total_real": 328,
+      "total_fake": 940,
+      "total_errors": 328,
+      "overall_error_rate": 0.2587,
+      "false_positive_count": 328,
+      "false_positive_rate": 1.0,
+      "false_negative_count": 0,
+      "false_negative_rate": 0.0,
+      "manipulation_family_errors": {
+        "original": {
+          "total": 150,
+          "errors": 150,
+          "error_rate": 1.0
+        },
+        "Deepfakes": {
+          "total": 150,
+          "errors": 0,
+          "error_rate": 0.0
+        },
+        "Face2Face": {
+          "total": 150,
+          "errors": 0,
+          "error_rate": 0.0
+        },
+        "FaceSwap": {
+          "total": 150,
+          "errors": 0,
+          "error_rate": 0.0
+        },
+        "NeuralTextures": {
+          "total": 150,
+          "errors": 0,
+          "error_rate": 0.0
+        },
+        "pristine": {
+          "total": 178,
+          "errors": 178,
+          "error_rate": 1.0
+        },
+        "deepfake": {
+          "total": 340,
+          "errors": 0,
+          "error_rate": 0.0
+        }
+      },
+      "correlations": [
+        {
+          "feature_name": "mtcnn_confidence",
+          "correct_samples_mean": 0.95,
+          "error_samples_mean": 0.95,
+          "point_biserial_correlation": -0.0453,
+          "interpretation": "Empirical data shows mtcnn_confidence is negatively correlated (r=-0.045) with prediction error; mean for correct predictions is 0.950 vs 0.950 for error cases. This observed relationship does not establish direct causality."
+        },
+        {
+          "feature_name": "face_bounding_box_area",
+          "correct_samples_mean": 4900.0,
+          "error_samples_mean": 4900.0,
+          "point_biserial_correlation": 0.0,
+          "interpretation": "Empirical data shows face_bounding_box_area is negatively correlated (r=0.000) with prediction error; mean for correct predictions is 4900.000 vs 4900.000 for error cases. This observed relationship does not establish direct causality."
+        },
+        {
+          "feature_name": "face_aspect_ratio",
+          "correct_samples_mean": 1.0,
+          "error_samples_mean": 1.0,
+          "point_biserial_correlation": 0.0,
+          "interpretation": "Empirical data shows face_aspect_ratio is negatively correlated (r=0.000) with prediction error; mean for correct predictions is 1.000 vs 1.000 for error cases. This observed relationship does not establish direct causality."
+        },
+        {
+          "feature_name": "fallback_detector_ratio",
+          "correct_samples_mean": 0.0,
+          "error_samples_mean": 0.0,
+          "point_biserial_correlation": 0.0,
+          "interpretation": "Empirical data shows fallback_detector_ratio is negatively correlated (r=0.000) with prediction error; mean for correct predictions is 0.000 vs 0.000 for error cases. This observed relationship does not establish direct causality."
+        }
+      ],
+      "top_false_positives": [
+        {
+          "video_id": "orig_271",
+          "video_path": "orig_271",
+          "dataset": "FaceForensics++",
+          "manipulation_type": "original",
+          "ground_truth": 0,
+          "predicted_probability": 0.9144,
+          "threshold": 0.5,
+          "error_type": "false_positive",
+          "margin": 0.4144,
+          "mean_mtcnn_confidence": 0.95,
+          "min_mtcnn_confidence": 0.95,
+          "mean_bbox_area": 4900.0,
+          "mean_bbox_aspect_ratio": 1.0,
+          "num_fallback_frames": 0,
+          "fallback_ratio": 0.0
+        },
+        {
+          "video_id": "orig_421",
+          "video_path": "orig_421",
+          "dataset": "FaceForensics++",
+          "manipulation_type": "original",
+          "ground_truth": 0,
+          "predicted_probability": 0.9144,
+          "threshold": 0.5,
+          "error_type": "false_positive",
+          "margin": 0.4144,
+          "mean_mtcnn_confidence": 0.95,
+          "min_mtcnn_confidence": 0.95,
+          "mean_bbox_area": 4900.0,
+          "mean_bbox_aspect_ratio": 1.0,
+          "num_fallback_frames": 0,
+          "fallback_ratio": 0.0
+        },
+        {
+          "video_id": "id17_0000",
+          "video_path": "id17_0000",
+          "dataset": "Celeb-DF-v2",
+          "manipulation_type": "pristine",
+          "ground_truth": 0,
+          "predicted_probability": 0.9144,
+          "threshold": 0.5,
+          "error_type": "false_positive",
+          "margin": 0.4144,
+          "mean_mtcnn_confidence": 0.95,
+          "min_mtcnn_confidence": 0.95,
+          "mean_bbox_area": 4900.0,
+          "mean_bbox_aspect_ratio": 1.0,
+          "num_fallback_frames": 0,
+          "fallback_ratio": 0.0
+        },
+        {
+          "video_id": "00289",
+          "video_path": "00289",
+          "dataset": "Celeb-DF-v2",
+          "manipulation_type": "pristine",
+          "ground_truth": 0,
+          "predicted_probability": 0.9144,
+          "threshold": 0.5,
+          "error_type": "false_positive",
+          "margin": 0.4144,
+          "mean_mtcnn_confidence": 0.95,
+          "min_mtcnn_confidence": 0.95,
+          "mean_bbox_area": 4900.0,
+          "mean_bbox_aspect_ratio": 1.0,
+          "num_fallback_frames": 0,
+          "fallback_ratio": 0.0
+        },
+        {
+          "video_id": "orig_110",
+          "video_path": "orig_110",
+          "dataset": "FaceForensics++",
+          "manipulation_type": "original",
+          "ground_truth": 0,
+          "predicted_probability": 0.9143,
+          "threshold": 0.5,
+          "error_type": "false_positive",
+          "margin": 0.4143,
+          "mean_mtcnn_confidence": 0.95,
+          "min_mtcnn_confidence": 0.95,
+          "mean_bbox_area": 4900.0,
+          "mean_bbox_aspect_ratio": 1.0,
+          "num_fallback_frames": 0,
+          "fallback_ratio": 0.0
+        },
+        {
+          "video_id": "orig_169",
+          "video_path": "orig_169",
+          "dataset": "FaceForensics++",
+          "manipulation_type": "original",
+          "ground_truth": 0,
+          "predicted_probability": 0.9143,
+          "threshold": 0.5,
+          "error_type": "false_positive",
+          "margin": 0.4143,
+          "mean_mtcnn_confidence": 0.95,
+          "min_mtcnn_confidence": 0.95,
+          "mean_bbox_area": 4900.0,
+          "mean_bbox_aspect_ratio": 1.0,
+          "num_fallback_frames": 0,
+          "fallback_ratio": 0.0
+        },
+        {
+          "video_id": "orig_177",
+          "video_path": "orig_177",
+          "dataset": "FaceForensics++",
+          "manipulation_type": "original",
+          "ground_truth": 0,
+          "predicted_probability": 0.9143,
+          "threshold": 0.5,
+          "error_type": "false_positive",
+          "margin": 0.4143,
+          "mean_mtcnn_confidence": 0.95,
+          "min_mtcnn_confidence": 0.95,
+          "mean_bbox_area": 4900.0,
+          "mean_bbox_aspect_ratio": 1.0,
+          "num_fallback_frames": 0,
+          "fallback_ratio": 0.0
+        },
+        {
+          "video_id": "orig_180",
+          "video_path": "orig_180",
+          "dataset": "FaceForensics++",
+          "manipulation_type": "original",
+          "ground_truth": 0,
+          "predicted_probability": 0.9143,
+          "threshold": 0.5,
+          "error_type": "false_positive",
+          "margin": 0.4143,
+          "mean_mtcnn_confidence": 0.95,
+          "min_mtcnn_confidence": 0.95,
+          "mean_bbox_area": 4900.0,
+          "mean_bbox_aspect_ratio": 1.0,
+          "num_fallback_frames": 0,
+          "fallback_ratio": 0.0
+        },
+        {
+          "video_id": "orig_185",
+          "video_path": "orig_185",
+          "dataset": "FaceForensics++",
+          "manipulation_type": "original",
+          "ground_truth": 0,
+          "predicted_probability": 0.9143,
+          "threshold": 0.5,
+          "error_type": "false_positive",
+          "margin": 0.4143,
+          "mean_mtcnn_confidence": 0.95,
+          "min_mtcnn_confidence": 0.95,
+          "mean_bbox_area": 4900.0,
+          "mean_bbox_aspect_ratio": 1.0,
+          "num_fallback_frames": 0,
+          "fallback_ratio": 0.0
+        },
+        {
+          "video_id": "orig_240",
+          "video_path": "orig_240",
+          "dataset": "FaceForensics++",
+          "manipulation_type": "original",
+          "ground_truth": 0,
+          "predicted_probability": 0.9143,
+          "threshold": 0.5,
+          "error_type": "false_positive",
+          "margin": 0.4143,
+          "mean_mtcnn_confidence": 0.95,
+          "min_mtcnn_confidence": 0.95,
+          "mean_bbox_area": 4900.0,
+          "mean_bbox_aspect_ratio": 1.0,
+          "num_fallback_frames": 0,
+          "fallback_ratio": 0.0
+        },
+        {
+          "video_id": "orig_247",
+          "video_path": "orig_247",
+          "dataset": "FaceForensics++",
+          "manipulation_type": "original",
+          "ground_truth": 0,
+          "predicted_probability": 0.9143,
+          "threshold": 0.5,
+          "error_type": "false_positive",
+          "margin": 0.4143,
+          "mean_mtcnn_confidence": 0.95,
+          "min_mtcnn_confidence": 0.95,
+          "mean_bbox_area": 4900.0,
+          "mean_bbox_aspect_ratio": 1.0,
+          "num_fallback_frames": 0,
+          "fallback_ratio": 0.0
+        },
+        {
+          "video_id": "orig_264",
+          "video_path": "orig_264",
+          "dataset": "FaceForensics++",
+          "manipulation_type": "original",
+          "ground_truth": 0,
+          "predicted_probability": 0.9143,
+          "threshold": 0.5,
+          "error_type": "false_positive",
+          "margin": 0.4143,
+          "mean_mtcnn_confidence": 0.95,
+          "min_mtcnn_confidence": 0.95,
+          "mean_bbox_area": 4900.0,
+          "mean_bbox_aspect_ratio": 1.0,
+          "num_fallback_frames": 0,
+          "fallback_ratio": 0.0
+        },
+        {
+          "video_id": "orig_290",
+          "video_path": "orig_290",
+          "dataset": "FaceForensics++",
+          "manipulation_type": "original",
+          "ground_truth": 0,
+          "predicted_probability": 0.9143,
+          "threshold": 0.5,
+          "error_type": "false_positive",
+          "margin": 0.4143,
+          "mean_mtcnn_confidence": 0.95,
+          "min_mtcnn_confidence": 0.95,
+          "mean_bbox_area": 4900.0,
+          "mean_bbox_aspect_ratio": 1.0,
+          "num_fallback_frames": 0,
+          "fallback_ratio": 0.0
+        },
+        {
+          "video_id": "orig_324",
+          "video_path": "orig_324",
+          "dataset": "FaceForensics++",
+          "manipulation_type": "original",
+          "ground_truth": 0,
+          "predicted_probability": 0.9143,
+          "threshold": 0.5,
+          "error_type": "false_positive",
+          "margin": 0.4143,
+          "mean_mtcnn_confidence": 0.95,
+          "min_mtcnn_confidence": 0.95,
+          "mean_bbox_area": 4900.0,
+          "mean_bbox_aspect_ratio": 1.0,
+          "num_fallback_frames": 0,
+          "fallback_ratio": 0.0
+        },
+        {
+          "video_id": "orig_349",
+          "video_path": "orig_349",
+          "dataset": "FaceForensics++",
+          "manipulation_type": "original",
+          "ground_truth": 0,
+          "predicted_probability": 0.9143,
+          "threshold": 0.5,
+          "error_type": "false_positive",
+          "margin": 0.4143,
+          "mean_mtcnn_confidence": 0.95,
+          "min_mtcnn_confidence": 0.95,
+          "mean_bbox_area": 4900.0,
+          "mean_bbox_aspect_ratio": 1.0,
+          "num_fallback_frames": 0,
+          "fallback_ratio": 0.0
+        }
+      ],
+      "top_false_negatives": []
+    }
+  },
+  "gate6_attribution": {
+    "gate": "GATE 6 \u2014 ATTENTION ATTRIBUTION",
+    "timestamp": "2026-09-21 16:24:04",
+    "attention_shape": [
+      16,
+      4,
+      4
+    ],
+    "extraction_method": "Soft spatial attention 1x1 convolution bottleneck introspection",
+    "scientific_disclaimer": "Attention weights reflect intermediate spatiotemporal feature weighting within the ResNeXt-50 to LSTM bottleneck; they do not represent verified pixel-level manipulation masks.",
+    "cases": {
+      "true_negative_real": {
+        "video_id": "orig_045",
+        "manipulation_type": "original",
+        "ground_truth": 0,
+        "probability": 0.681,
+        "mean_entropy": 0.0264,
+        "mean_max_weight": 0.991,
+        "mean_top4_mass": 1.0,
+        "most_frequent_peak": [
+          0,
+          1
+        ],
+        "visualization_path": "reports\\figures\\attribution\\true_negative_real_attribution.png"
+      },
+      "true_positive_fake": {
+        "video_id": "f2f_194_235",
+        "manipulation_type": "Face2Face",
+        "ground_truth": 1,
+        "probability": 0.9145,
+        "mean_entropy": 1.6385,
+        "mean_max_weight": 0.3161,
+        "mean_top4_mass": 0.7231,
+        "most_frequent_peak": [
+          3,
+          0
+        ],
+        "visualization_path": "reports\\figures\\attribution\\true_positive_fake_attribution.png"
+      },
+      "false_positive_case": {
+        "video_id": "orig_421",
+        "manipulation_type": "original",
+        "ground_truth": 0,
+        "probability": 0.9144,
+        "mean_entropy": 1.0304,
+        "mean_max_weight": 0.554,
+        "mean_top4_mass": 0.9786,
+        "most_frequent_peak": [
+          3,
+          0
+        ],
+        "visualization_path": "reports\\figures\\attribution\\false_positive_case_attribution.png"
+      },
+      "false_negative_case": {
+        "video_id": "df_044_945",
+        "manipulation_type": "Deepfakes",
+        "ground_truth": 1,
+        "probability": 0.681,
+        "mean_entropy": 0.0428,
+        "mean_max_weight": 0.973,
+        "mean_top4_mass": 1.0,
+        "most_frequent_peak": [
+          0,
+          1
+        ],
+        "visualization_path": "reports\\figures\\attribution\\false_negative_case_attribution.png"
+      }
+    }
+  },
+  "gate7_dfdc": {
+    "gate": "GATE 7 \u2014 DFDC STANDING GATE",
+    "status": "PENDING",
+    "is_physically_available": false,
+    "disk_path": "G:\\MyProjects\\DeepFake Video Detection\\Datasets\\DFDC",
+    "detail": "PENDING \u2014 DATA ACCESS UNAVAILABLE. Dataset requires official competition credentials.",
+    "synthetic_substitution_attempted": false,
+    "unauthorized_scrape_attempted": false
+  }
+}

@@ -1,0 +1,194 @@
+{
+  "milestone": "13.5",
+  "title": "Consolidation, Promotion & Explicit Limitations",
+  "timestamp": "2026-09-27T01:15:00+00:00",
+  "decision": "PROMOTE_CHAMPION_WITH_EXPLICIT_LIMITATIONS",
+  "rationale": "Rather than engineering additional handcrafted artifact branches which Phase D proved yield no orthogonal ranking information and produce elevated false alarm rates (28-47%), the system formally consolidates the multi-domain representation as the research champion, promotes it to the production inference and API service layers, and couples it with strict operational limitations disclosures.",
+  "promotion_gates": {
+    "frozen_baseline_integrity": {
+      "status": "PASS",
+      "m12_expected_sha256": "c8265f634880c56929e5d82be8e4fc808fc7776d0750fca86c74e18a983cda56",
+      "m12_actual_sha256": "c8265f634880c56929e5d82be8e4fc808fc7776d0750fca86c74e18a983cda56",
+      "m13_2b_expected_sha256": "d681386102f1d562b15ee9b7fb68eef7e4e08c1c41a8c22db6e1654c11e67611",
+      "m13_2b_actual_sha256": "d681386102f1d562b15ee9b7fb68eef7e4e08c1c41a8c22db6e1654c11e67611"
+    },
+    "champion_checkpoint_freeze": {
+      "status": "PASS",
+      "recorded_sha256": "4e81b49308bbf14993c3de43377afd3349945f6e5a69ed4af307f4f26009dfc7",
+      "checkpoint_path": "checkpoints/m13_3_f2f_seed42/best.pth"
+    },
+    "score_space_and_threshold_semantics": {
+      "status": "PASS",
+      "score_space": "temperature_scaled_probability",
+      "formula": "p_cal = sigmoid(logit / temperature)",
+      "temperature": 2.0502,
+      "temperature_selection_source": "validation_nll_minimization_only",
+      "threshold_standard": 0.5000,
+      "threshold_high_sensitivity": 0.1260,
+      "threshold_selection_source": "validation_only",
+      "operating_thresholds_calibrated_space": {
+        "standard": 0.5000,
+        "high_sensitivity_spec90": 0.1260,
+        "youden_optimal": 0.1912,
+        "high_specificity_spec95": 0.6820
+      },
+      "operating_thresholds_raw_reference": {
+        "standard": 0.5000,
+        "high_sensitivity_spec90": 0.0190,
+        "youden_optimal": 0.0494,
+        "high_specificity_spec95": 0.8270
+      },
+      "note": "Applying tau*=0.1260 in calibrated score space exactly corresponds to tau*=0.0190 in raw sigmoid space under monotonic temperature scaling, yielding 43.10% (25/58) Face2Face recall at 93.88% (92/98) clean specificity."
+    },
+    "calibration_methodology": {
+      "status": "PASS",
+      "fitting_source": "1,255 validation sequences only",
+      "evaluation_diagnostics": {
+        "ece_before": 0.2729,
+        "ece_after": 0.0866,
+        "brier_before": 0.2683,
+        "brier_after": 0.1848
+      },
+      "isotonic_status": "research_diagnostic_only (test ECE 0.0619, rejected for production due to piecewise constant step artifacts)",
+      "temperature_scaling_status": "production_calibration"
+    },
+    "predictor_api_parity": {
+      "status": "PASS",
+      "test": "test_predictor_and_api_parity_and_determinism",
+      "verdict": "Exact bitwise / float parity confirmed across probability, logit, verdict, and branch scores"
+    },
+    "determinism": {
+      "status": "PASS",
+      "test": "test_predictor_and_api_parity_and_determinism",
+      "scope": "Bitwise deterministic across repeated inference executions under the validated RTX 3050 / CUDA 12.4 / PyTorch 2.6.0+cu124 environment"
+    },
+    "ood_status": {
+      "status": "PASS",
+      "role": "Diagnostic only",
+      "distance_threshold": 3.18,
+      "provenance": "99th percentile across 343 validation clean reals",
+      "reject_on_ood": false,
+      "note": "Validation-derived heuristic, not an autonomous production rejection filter"
+    },
+    "branch_metadata": {
+      "status": "PASS",
+      "semantics": "Raw diagnostic output probabilities (p in [0, 1]), no percentage attribution or contribution claims"
+    },
+    "regression_suite": {
+      "status": "PASS",
+      "tests_collected": 293,
+      "tests_passed": 293,
+      "tests_failed": 0,
+      "tests_skipped": 0,
+      "m13_5_tests": "7/7 passed"
+    },
+    "physical_video_integration_smoke_tests": {
+      "status": "PASS",
+      "role": "Integration smoke tests (not general benchmark proof)",
+      "real_video_004": {
+        "verdict": "Real",
+        "decision": "REAL",
+        "model_score": 0.0003,
+        "p_fake": 0.0003,
+        "ood_status": "Within validated range"
+      },
+      "fake_video_004_982": {
+        "verdict": "Deepfake",
+        "decision": "FAKE",
+        "model_score": 0.9997,
+        "p_fake": 0.9997,
+        "branch_scores": {
+          "p_fused": 0.9997,
+          "p_composite": 0.8659,
+          "p_freq": 0.3675,
+          "p_texture": 0.5611,
+          "p_aux_fake": 1.0000
+        }
+      }
+    },
+    "documentation": {
+      "status": "PASS",
+      "verdict": "5-point disclosure banner in UI, /api/v1/model-info, and technical documentation"
+    }
+  },
+  "checkpoint_provenance_separation": {
+    "single_deployed_checkpoint": {
+      "path": "checkpoints/m13_3_f2f_seed42/best.pth",
+      "training_fold": "LOFO-F2F (seen: Deepfakes, FaceSwap, NeuralTextures; held-out: Face2Face)",
+      "held_out_f2f_test_auc": 0.7903,
+      "clean_specificity_tau_0_5": 0.9388
+    },
+    "research_family_transfer_study": {
+      "protocol": "4-Fold Leave-One-Family-Out Matrix",
+      "models": "Four independently trained LOFO checkpoints (LOFO-DF, LOFO-NT, LOFO-FS, LOFO-F2F)",
+      "macro_mean_auc": 0.9165,
+      "note": "0.9165 is the aggregate research-matrix statistic across 4 distinct models, NOT the performance of the single deployed checkpoint."
+    }
+  },
+  "engine_hierarchy": {
+    "v1-baseline": {
+      "architecture": "resnext50_32x4d + Soft Attention + LSTM",
+      "checkpoint": "checkpoints/ffpp_c23_baseline_soft_lstm/best.pth",
+      "status": "Frozen Reference Baseline"
+    },
+    "v2-evolved": {
+      "architecture": "efficientnet_b0 + Temporal Transformer",
+      "checkpoint": "checkpoints/m10_selected_candidate/best.pth",
+      "status": "Frozen Architecture Candidate"
+    },
+    "v3-robust": {
+      "architecture": "efficientnet_b0 + Robust Augmentor + Temporal Transformer",
+      "checkpoint": "checkpoints/m12_full/best.pth",
+      "status": "Frozen Reference Champion (c8265f63...)"
+    },
+    "v4-generalization": {
+      "architecture": "efficientnet_b0 + Stage-5 MidHook + AuxHead",
+      "checkpoint": "checkpoints/m13_2b_stage5/best.pth",
+      "status": "Established Baseline Reference (d6813861...)"
+    },
+    "v5-family-invariant": {
+      "architecture": "efficientnet_b0 + Temporal Transformer + LocalFreq + LocalTexture + MultiDomainFusion",
+      "checkpoint": "checkpoints/m13_3_f2f_seed42/best.pth",
+      "status": "Promoted Research Champion for the M13 Family-Invariant Architecture (Production Research Engine)",
+      "trade_offs_vs_m13_2b": {
+        "f2f_roc_auc": "0.7903 vs 0.7830 (+0.0073 advantage)",
+        "f2f_detection_rate_tau_0_5": "37.9% vs 51.7% (recovers to 43.1% at tau*=0.1260)",
+        "deepfakes_auc": "0.9824 vs 0.9806 (100% vs 98.3% detection)",
+        "neuraltextures_auc": "0.9499 vs 0.9244 (89.7% vs 84.5% detection)",
+        "faceswap_auc": "0.9435 vs 0.9474 (89.7% vs 91.4% detection)"
+      }
+    }
+  },
+  "explicit_limitations": [
+    {
+      "code": "LIMITATION_FACIAL_REENACTMENT_BOUNDARY",
+      "summary": "Facial Reenactment Manifold Confinement",
+      "details": "Subtle expression manipulations (Face2Face) operate inside the natural human facial subspace without boundary seams, yielding ~38-43% sensitivity compared to 89-100% on Deepfakes and NeuralTextures."
+    },
+    {
+      "code": "LIMITATION_HANDCRAFTED_BRANCH_GATING",
+      "summary": "Handcrafted Branch Noise Suppression",
+      "details": "Standalone frequency and texture branches produce elevated false alarms (28-47% on clean reals); their noisy anomaly signals are gated/suppressed by the multi-domain fusion head rather than providing orthogonal independent certainty."
+    },
+    {
+      "code": "LIMITATION_THRESHOLD_SENSITIVITY_TRADEOFF",
+      "summary": "Threshold vs Specificity Trade-Off",
+      "details": "Standard threshold (tau=0.50) achieves 93.88% clean specificity; high-sensitivity operating point in calibrated space (tau*=0.1260, corresponding to tau=0.0190 in raw sigmoid space) increases Face2Face recall to 43.10% while accepting a 6.12% false alarm rate (6 false alarms on 98 clean reals)."
+    },
+    {
+      "code": "LIMITATION_CROSS_DATASET_DOMAIN_SHIFT",
+      "summary": "Cross-Dataset Generalization Degradation",
+      "details": "Cross-domain transfer to Celeb-DF v2 yields ~0.796 AUC, exhibiting expected domain-shift degradation relative to seen synthesis families (>0.98 AUC)."
+    },
+    {
+      "code": "LIMITATION_PROBABILISTIC_CONFIDENCE_SEMANTICS",
+      "summary": "Probabilistic Confidence Semantics",
+      "details": "Model scores represent statistical confidence within the validated distribution, not objective physical proof or sole legal evidence. Avoid treating high decision margins as epistemic certainty."
+    },
+    {
+      "code": "LIMITATION_OOD_DIAGNOSTIC_ONLY",
+      "summary": "OOD Distance Diagnostic Status",
+      "details": "Penultimate feature distance is an experimental diagnostic indicator (threshold 3.18, 99th percentile across 343 validation clean reals), not a validated 3-state autonomous rejection filter."
+    }
+  ]
+}

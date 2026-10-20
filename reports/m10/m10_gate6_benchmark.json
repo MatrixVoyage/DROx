@@ -1,0 +1,152 @@
+{
+  "timestamp_utc": "2026-09-21T13:39:13.273665+00:00",
+  "candidate": "Run_C_EfficientNet_Transformer",
+  "checkpoint": "G:\\MyProjects\\DeepFake Video Detection\\checkpoints\\m10_selected_candidate\\best.pth",
+  "checkpoint_sha256": "ff2fe00f03739c69bcd050de83e692ccfdc9f9b6ac8d9108dd3397cd3eba44f9",
+  "ffpp_c23": {
+    "dataset": "FaceForensics++ C23",
+    "num_videos": 750,
+    "num_real": 150,
+    "num_fake": 600,
+    "accuracy": 0.76,
+    "precision": 0.8301886792452831,
+    "recall": 0.88,
+    "f1_score": 0.8543689320388349,
+    "roc_auc": 0.6701666666666667,
+    "eer": 0.37333333333333335,
+    "score_distribution": {
+      "mean_real": 0.5649546980857849,
+      "mean_fake": 0.6677758097648621,
+      "ks_statistic": 0.285,
+      "ks_pvalue": 4.665432307998083e-09
+    },
+    "paired_mcnemar_vs_m8": {
+      "comparison": "M8_Baseline vs M10_Candidate",
+      "sample_size": 750,
+      "contingency_table": {
+        "both_correct": 528,
+        "baseline_only_correct": 72,
+        "alternative_only_correct": 42,
+        "both_incorrect": 108
+      },
+      "test_type": "chi_square_continuity_corrected",
+      "statistic": 7.3772,
+      "p_value": 0.006606,
+      "is_significant_at_05": true,
+      "interpretation": "The paired classification difference between M8_Baseline and M10_Candidate is statistically significant (p = 0.0066)."
+    },
+    "bootstrap_ci_95": {
+      "bootstrap_iterations": 1000,
+      "valid_iterations": 1000,
+      "confidence_level": 0.95,
+      "random_seed": 42,
+      "resampling_unit": "video",
+      "sample_size": 750,
+      "metrics": {
+        "accuracy": {
+          "point_estimate": 0.76,
+          "ci_lower": 0.7306,
+          "ci_upper": 0.7933,
+          "std_error": 0.0156
+        },
+        "precision": {
+          "point_estimate": 0.8302,
+          "ci_lower": 0.8006,
+          "ci_upper": 0.8597,
+          "std_error": 0.0151
+        },
+        "recall": {
+          "point_estimate": 0.88,
+          "ci_lower": 0.8555,
+          "ci_upper": 0.9071,
+          "std_error": 0.0134
+        },
+        "f1": {
+          "point_estimate": 0.8544,
+          "ci_lower": 0.8333,
+          "ci_upper": 0.8761,
+          "std_error": 0.0107
+        },
+        "roc_auc": {
+          "point_estimate": 0.6702,
+          "ci_lower": 0.6221,
+          "ci_upper": 0.7153,
+          "std_error": 0.0243
+        }
+      }
+    }
+  },
+  "celebdf_v2": {
+    "dataset": "Celeb-DF v2",
+    "num_videos": 518,
+    "num_real": 178,
+    "num_fake": 340,
+    "accuracy": 0.6467181467181468,
+    "precision": 0.673289183222958,
+    "recall": 0.8970588235294118,
+    "f1_score": 0.7692307692307693,
+    "roc_auc": 0.503552544613351,
+    "eer": 0.4922779922779923,
+    "score_distribution": {
+      "mean_real": 0.6355219483375549,
+      "mean_fake": 0.6596920490264893,
+      "ks_statistic": 0.10786516853932585,
+      "ks_pvalue": 0.12036081366264591
+    },
+    "paired_mcnemar_vs_m8": {
+      "comparison": "M8_Baseline vs M10_Candidate",
+      "sample_size": 518,
+      "contingency_table": {
+        "both_correct": 305,
+        "baseline_only_correct": 35,
+        "alternative_only_correct": 30,
+        "both_incorrect": 148
+      },
+      "test_type": "chi_square_continuity_corrected",
+      "statistic": 0.2462,
+      "p_value": 0.619796,
+      "is_significant_at_05": false,
+      "interpretation": "The paired classification difference between M8_Baseline and M10_Candidate is not statistically significant (p = 0.6198)."
+    },
+    "bootstrap_ci_95": {
+      "bootstrap_iterations": 1000,
+      "valid_iterations": 1000,
+      "confidence_level": 0.95,
+      "random_seed": 42,
+      "resampling_unit": "video",
+      "sample_size": 518,
+      "metrics": {
+        "accuracy": {
+          "point_estimate": 0.6467,
+          "ci_lower": 0.6081,
+          "ci_upper": 0.6873,
+          "std_error": 0.0218
+        },
+        "precision": {
+          "point_estimate": 0.6733,
+          "ci_lower": 0.6283,
+          "ci_upper": 0.7168,
+          "std_error": 0.0225
+        },
+        "recall": {
+          "point_estimate": 0.8971,
+          "ci_lower": 0.8622,
+          "ci_upper": 0.9288,
+          "std_error": 0.0171
+        },
+        "f1": {
+          "point_estimate": 0.7692,
+          "ci_lower": 0.7377,
+          "ci_upper": 0.8015,
+          "std_error": 0.0171
+        },
+        "roc_auc": {
+          "point_estimate": 0.5036,
+          "ci_lower": 0.4508,
+          "ci_upper": 0.5621,
+          "std_error": 0.0284
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "metadata": {
+    "milestone": "M9",
+    "gate": "G2",
+    "timestamp_utc": "2026-09-21T11:56:06.165793+00:00",
+    "checkpoint": "checkpoints\\ffpp_c23_baseline_soft_lstm\\best.pth",
+    "checkpoint_sha256": "9d22df92bdab20a35e1311d627d9fa487c757b7afb32a249ebbf7f95bf3b7e6a",
+    "dataset": "FaceForensics++ C23 & Celeb-DF v2",
+    "split": "test",
+    "num_videos": 1268,
+    "seed": 42,
+    "software": {
+      "python": "3.11.9",
+      "torch": "2.6.0+cu124",
+      "cuda": "12.4"
+    },
+    "parent_artifact": "m9_gate1_reproduction.json",
+    "status": "PASS"
+  },
+  "analysis": {
+    "group_statistics": {
+      "ffpp_real": {
+        "count": 150,
+        "mean": 0.8196,
+        "std": 0.095,
+        "median": 0.8592,
+        "q25": 0.7202,
+        "q75": 0.914,
+        "iqr": 0.1938,
+        "min": 0.681,
+        "max": 0.9144
+      },
+      "ffpp_fake": {
+        "count": 600,
+        "mean": 0.8114,
+        "std": 0.0957,
+        "median": 0.8054,
+        "q25": 0.7146,
+        "q75": 0.9137,
+        "iqr": 0.1991,
+        "min": 0.681,
+        "max": 0.9145
+      },
+      "celeb_real": {
+        "count": 178,
+        "mean": 0.8088,
+        "std": 0.0988,
+        "median": 0.8014,
+        "q25": 0.7116,
+        "q75": 0.9137,
+        "iqr": 0.2021,
+        "min": 0.681,
+        "max": 0.9144
+      },
+      "celeb_fake": {
+        "count": 340,
+        "mean": 0.811,
+        "std": 0.0957,
+        "median": 0.7918,
+        "q25": 0.7148,
+        "q75": 0.914,
+        "iqr": 0.1992,
+        "min": 0.681,
+        "max": 0.9145
+      },
+      "ffpp_family_deepfakes": {
+        "count": 150,
+        "mean": 0.8038,
+        "std": 0.0971,
+        "median": 0.7607,
+        "q25": 0.7103,
+        "q75": 0.9132,
+        "iqr": 0.2029,
+        "min": 0.681,
+        "max": 0.9143
+      },
+      "ffpp_family_face2face": {
+        "count": 150,
+        "mean": 0.8217,
+        "std": 0.0945,
+        "median": 0.8647,
+        "q25": 0.7198,
+        "q75": 0.9139,
+        "iqr": 0.1942,
+        "min": 0.681,
+        "max": 0.9145
+      },
+      "ffpp_family_faceswap": {
+        "count": 150,
+        "mean": 0.8089,
+        "std": 0.0949,
+        "median": 0.7755,
+        "q25": 0.7151,
+        "q75": 0.9136,
+        "iqr": 0.1985,
+        "min": 0.681,
+        "max": 0.9144
+      },
+      "ffpp_family_neuraltextures": {
+        "count": 150,
+        "mean": 0.8113,
+        "std": 0.0965,
+        "median": 0.8107,
+        "q25": 0.7135,
+        "q75": 0.9136,
+        "iqr": 0.2001,
+        "min": 0.681,
+        "max": 0.9144
+      }
+    },
+    "distribution_comparisons": {
+      "ffpp_real_vs_fake": {
+        "ks_statistic": 0.0717,
+        "ks_pvalue": 0.5545320628069828,
+        "wasserstein_distance": 0.0083,
+        "jensen_shannon_distance": 0.0569,
+        "cliffs_delta": 0.0542,
+        "cohens_d": 0.0854,
+        "interpretation": "The observed score distributions differ (Wasserstein=0.0083, KS=0.0717, Cliff's delta=0.0542), consistent with a domain-distribution difference across evaluated groups."
+      },
+      "celeb_real_vs_fake": {
+        "ks_statistic": 0.0768,
+        "ks_pvalue": 0.4662742729488919,
+        "wasserstein_distance": 0.0041,
+        "jensen_shannon_distance": 0.1009,
+        "cliffs_delta": -0.0498,
+        "cohens_d": -0.0233,
+        "interpretation": "The observed score distributions differ (Wasserstein=0.0041, KS=0.0768, Cliff's delta=-0.0498), consistent with a domain-distribution difference across evaluated groups."
+      },
+      "ffpp_real_vs_celeb_real": {
+        "ks_statistic": 0.1058,
+        "ks_pvalue": 0.2939650808154108,
+        "wasserstein_distance": 0.0108,
+        "jensen_shannon_distance": 0.0668,
+        "cliffs_delta": 0.0863,
+        "cohens_d": 0.1113,
+        "interpretation": "The observed score distributions differ (Wasserstein=0.0108, KS=0.1058, Cliff's delta=0.0863), consistent with a domain-distribution difference across evaluated groups."
+      },
+      "ffpp_fake_vs_celeb_fake": {
+        "ks_statistic": 0.0551,
+        "ks_pvalue": 0.5039895066319077,
+        "wasserstein_distance": 0.0024,
+        "jensen_shannon_distance": 0.0554,
+        "cliffs_delta": -0.0166,
+        "cohens_d": 0.004,
+        "interpretation": "The observed score distributions differ (Wasserstein=0.0024, KS=0.0551, Cliff's delta=-0.0166), consistent with a domain-distribution difference across evaluated groups."
+      }
+    }
+  }
+}

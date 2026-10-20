@@ -1,0 +1,169 @@
+{
+  "metadata": {
+    "milestone": "M9",
+    "gate": "G8",
+    "timestamp_utc": "2026-09-21T11:56:08.879188+00:00",
+    "checkpoint": "checkpoints\\ffpp_c23_baseline_soft_lstm\\best.pth",
+    "checkpoint_sha256": "9d22df92bdab20a35e1311d627d9fa487c757b7afb32a249ebbf7f95bf3b7e6a",
+    "dataset": "FaceForensics++ C23 & Celeb-DF v2",
+    "split": "test",
+    "num_videos": 1268,
+    "seed": 42,
+    "software": {
+      "python": "3.11.9",
+      "torch": "2.6.0+cu124",
+      "cuda": "12.4"
+    },
+    "parent_artifact": null,
+    "status": "PASS"
+  },
+  "critical_distinction": "All gates PASS indicates that the scientific evaluation procedure and its required validation gates passed with 100% compliance. The empirical results themselves diagnose substantial discrimination limitations, particularly near-chance ROC-AUC values and theta=0.50 all-fake decision behavior.",
+  "m8_m9_consistency": {
+    "reproduction_match": true,
+    "max_discrepancy": 0.0,
+    "status": "CONSISTENT"
+  },
+  "claim_audit": {
+    "passed": true,
+    "violations": []
+  },
+  "artifact_completeness_audit": {
+    "passed": true,
+    "errors": [],
+    "files": {
+      "reports\\m9_gate1_reproduction.json": {
+        "status": "PRESENT",
+        "size_bytes": 4419
+      },
+      "reports\\m9_baseline_reproduction.md": {
+        "status": "PRESENT",
+        "size_bytes": 1119
+      },
+      "reports\\m9_gate2_score_distribution.json": {
+        "status": "PRESENT",
+        "size_bytes": 4591
+      },
+      "reports\\figures\\m9_score_distributions.png": {
+        "status": "PRESENT",
+        "size_bytes": 140271
+      },
+      "reports\\figures\\m9_roc_comparison.png": {
+        "status": "PRESENT",
+        "size_bytes": 156958
+      },
+      "reports\\figures\\m9_pr_comparison.png": {
+        "status": "PRESENT",
+        "size_bytes": 125486
+      },
+      "reports\\m9_gate3_preprocessing_ablation.json": {
+        "status": "PRESENT",
+        "size_bytes": 130327
+      },
+      "reports\\m9_gate4_temporal_ablation.json": {
+        "status": "PRESENT",
+        "size_bytes": 54278
+      },
+      "reports\\figures\\m9_temporal_comparison.png": {
+        "status": "PRESENT",
+        "size_bytes": 73431
+      },
+      "reports\\m9_gate5_attention_ablation.json": {
+        "status": "PRESENT",
+        "size_bytes": 14770
+      },
+      "reports\\figures\\m9_attention_comparison.png": {
+        "status": "PRESENT",
+        "size_bytes": 133032
+      },
+      "reports\\m9_gate6_error_diagnosis.json": {
+        "status": "PRESENT",
+        "size_bytes": 7980
+      },
+      "reports\\m9_gate7_statistics.json": {
+        "status": "PRESENT",
+        "size_bytes": 6644
+      },
+      "reports\\m9_publication_report.md": {
+        "status": "PRESENT",
+        "size_bytes": 4728
+      },
+      "reports\\m9_publication_report.json": {
+        "status": "PRESENT",
+        "size_bytes": 27
+      },
+      "reports\\m9_final_audit.md": {
+        "status": "PRESENT",
+        "size_bytes": 45
+      },
+      "reports\\m9_final_audit.json": {
+        "status": "PRESENT",
+        "size_bytes": 27
+      },
+      "reports\\tables\\baseline_results.tex": {
+        "status": "PRESENT",
+        "size_bytes": 361
+      },
+      "reports\\tables\\cross_dataset_results.tex": {
+        "status": "PRESENT",
+        "size_bytes": 445
+      },
+      "reports\\tables\\manipulation_results.tex": {
+        "status": "PRESENT",
+        "size_bytes": 516
+      },
+      "reports\\tables\\robustness_results.tex": {
+        "status": "PRESENT",
+        "size_bytes": 646
+      },
+      "reports\\tables\\error_analysis.tex": {
+        "status": "PRESENT",
+        "size_bytes": 468
+      },
+      "reports\\tables\\confidence_intervals.tex": {
+        "status": "PRESENT",
+        "size_bytes": 633
+      },
+      "reports\\figures\\publication\\performance_comparison.png": {
+        "status": "PRESENT",
+        "size_bytes": 56866
+      },
+      "reports\\figures\\publication\\roc_curves.png": {
+        "status": "PRESENT",
+        "size_bytes": 156958
+      },
+      "reports\\figures\\publication\\precision_recall_curves.png": {
+        "status": "PRESENT",
+        "size_bytes": 125486
+      },
+      "reports\\figures\\publication\\calibration.png": {
+        "status": "PRESENT",
+        "size_bytes": 119293
+      },
+      "reports\\figures\\publication\\robustness.png": {
+        "status": "PRESENT",
+        "size_bytes": 138865
+      },
+      "reports\\figures\\publication\\manipulation_breakdown.png": {
+        "status": "PRESENT",
+        "size_bytes": 60956
+      },
+      "reports\\figures\\publication\\error_distribution.png": {
+        "status": "PRESENT",
+        "size_bytes": 140271
+      },
+      "reports\\figures\\publication\\attention_analysis.png": {
+        "status": "PRESENT",
+        "size_bytes": 133032
+      }
+    }
+  },
+  "gate_statuses": {
+    "G1": "PASS",
+    "G2": "PASS",
+    "G3": "PASS",
+    "G4": "PASS",
+    "G5": "PASS",
+    "G6": "PASS",
+    "G7": "PASS"
+  }
+}

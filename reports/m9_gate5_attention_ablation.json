@@ -1,0 +1,554 @@
+{
+  "metadata": {
+    "milestone": "M9",
+    "gate": "G5",
+    "timestamp_utc": "2026-09-21T11:52:07.806238+00:00",
+    "checkpoint": "checkpoints\\ffpp_c23_baseline_soft_lstm\\best.pth",
+    "checkpoint_sha256": "9d22df92bdab20a35e1311d627d9fa487c757b7afb32a249ebbf7f95bf3b7e6a",
+    "dataset": "FaceForensics++ C23 & Celeb-DF v2",
+    "split": "test",
+    "num_videos": 30,
+    "seed": 42,
+    "software": {
+      "python": "3.11.9",
+      "torch": "2.6.0+cu124",
+      "cuda": "12.4"
+    },
+    "parent_artifact": null,
+    "status": "PASS"
+  },
+  "gate_5a_attribution": {
+    "summary": {
+      "real_mean_entropy": 0.5533,
+      "fake_mean_entropy": 0.4822,
+      "real_mean_top4_mass": 0.9355,
+      "fake_mean_top4_mass": 0.9271,
+      "correct_mean_entropy": 0.4822,
+      "error_mean_entropy": 0.5533
+    },
+    "sample_count": 30,
+    "cases": [
+      {
+        "video_id": "orig_004",
+        "label": 0,
+        "probability": 0.7299,
+        "is_correct": false,
+        "mean_entropy": 0.266,
+        "mean_peak_weight": 0.8789,
+        "mean_top4_mass": 1.0
+      },
+      {
+        "video_id": "orig_007",
+        "label": 0,
+        "probability": 0.7338,
+        "is_correct": false,
+        "mean_entropy": 0.4606,
+        "mean_peak_weight": 0.8222,
+        "mean_top4_mass": 0.9303
+      },
+      {
+        "video_id": "orig_008",
+        "label": 0,
+        "probability": 0.9143,
+        "is_correct": false,
+        "mean_entropy": 2.0105,
+        "mean_peak_weight": 0.1663,
+        "mean_top4_mass": 0.6146
+      },
+      {
+        "video_id": "orig_009",
+        "label": 0,
+        "probability": 0.9107,
+        "is_correct": false,
+        "mean_entropy": 0.2753,
+        "mean_peak_weight": 0.8693,
+        "mean_top4_mass": 1.0
+      },
+      {
+        "video_id": "orig_013",
+        "label": 0,
+        "probability": 0.7647,
+        "is_correct": false,
+        "mean_entropy": 0.8878,
+        "mean_peak_weight": 0.6308,
+        "mean_top4_mass": 0.9322
+      },
+      {
+        "video_id": "orig_020",
+        "label": 0,
+        "probability": 0.7096,
+        "is_correct": false,
+        "mean_entropy": 1.0755,
+        "mean_peak_weight": 0.6142,
+        "mean_top4_mass": 0.7674
+      },
+      {
+        "video_id": "orig_027",
+        "label": 0,
+        "probability": 0.7101,
+        "is_correct": false,
+        "mean_entropy": 0.2236,
+        "mean_peak_weight": 0.9216,
+        "mean_top4_mass": 0.9996
+      },
+      {
+        "video_id": "orig_032",
+        "label": 0,
+        "probability": 0.7243,
+        "is_correct": false,
+        "mean_entropy": 0.1095,
+        "mean_peak_weight": 0.9463,
+        "mean_top4_mass": 1.0
+      },
+      {
+        "video_id": "orig_035",
+        "label": 0,
+        "probability": 0.7061,
+        "is_correct": false,
+        "mean_entropy": 0.0054,
+        "mean_peak_weight": 0.999,
+        "mean_top4_mass": 1.0
+      },
+      {
+        "video_id": "orig_036",
+        "label": 0,
+        "probability": 0.7794,
+        "is_correct": false,
+        "mean_entropy": 0.2595,
+        "mean_peak_weight": 0.8793,
+        "mean_top4_mass": 1.0
+      },
+      {
+        "video_id": "orig_043",
+        "label": 0,
+        "probability": 0.7702,
+        "is_correct": false,
+        "mean_entropy": 0.8666,
+        "mean_peak_weight": 0.625,
+        "mean_top4_mass": 0.9877
+      },
+      {
+        "video_id": "orig_044",
+        "label": 0,
+        "probability": 0.7595,
+        "is_correct": false,
+        "mean_entropy": 0.1759,
+        "mean_peak_weight": 0.9187,
+        "mean_top4_mass": 1.0
+      },
+      {
+        "video_id": "orig_045",
+        "label": 0,
+        "probability": 0.681,
+        "is_correct": false,
+        "mean_entropy": 0.0498,
+        "mean_peak_weight": 0.982,
+        "mean_top4_mass": 1.0
+      },
+      {
+        "video_id": "orig_053",
+        "label": 0,
+        "probability": 0.9129,
+        "is_correct": false,
+        "mean_entropy": 1.5911,
+        "mean_peak_weight": 0.312,
+        "mean_top4_mass": 0.8012
+      },
+      {
+        "video_id": "orig_077",
+        "label": 0,
+        "probability": 0.6988,
+        "is_correct": false,
+        "mean_entropy": 0.0422,
+        "mean_peak_weight": 0.9875,
+        "mean_top4_mass": 1.0
+      },
+      {
+        "video_id": "df_004_982",
+        "label": 1,
+        "probability": 0.9118,
+        "is_correct": true,
+        "mean_entropy": 0.3851,
+        "mean_peak_weight": 0.837,
+        "mean_top4_mass": 1.0
+      },
+      {
+        "video_id": "df_007_132",
+        "label": 1,
+        "probability": 0.9129,
+        "is_correct": true,
+        "mean_entropy": 2.1118,
+        "mean_peak_weight": 0.2521,
+        "mean_top4_mass": 0.4901
+      },
+      {
+        "video_id": "df_008_990",
+        "label": 1,
+        "probability": 0.9143,
+        "is_correct": true,
+        "mean_entropy": 1.6958,
+        "mean_peak_weight": 0.2557,
+        "mean_top4_mass": 0.7577
+      },
+      {
+        "video_id": "df_009_027",
+        "label": 1,
+        "probability": 0.6908,
+        "is_correct": true,
+        "mean_entropy": 0.0126,
+        "mean_peak_weight": 0.9968,
+        "mean_top4_mass": 1.0
+      },
+      {
+        "video_id": "df_013_883",
+        "label": 1,
+        "probability": 0.7492,
+        "is_correct": true,
+        "mean_entropy": 0.5383,
+        "mean_peak_weight": 0.7855,
+        "mean_top4_mass": 0.9678
+      },
+      {
+        "video_id": "df_020_344",
+        "label": 1,
+        "probability": 0.682,
+        "is_correct": true,
+        "mean_entropy": 0.0412,
+        "mean_peak_weight": 0.9771,
+        "mean_top4_mass": 1.0
+      },
+      {
+        "video_id": "df_027_009",
+        "label": 1,
+        "probability": 0.7382,
+        "is_correct": true,
+        "mean_entropy": 0.0637,
+        "mean_peak_weight": 0.9837,
+        "mean_top4_mass": 1.0
+      },
+      {
+        "video_id": "df_032_944",
+        "label": 1,
+        "probability": 0.6855,
+        "is_correct": true,
+        "mean_entropy": 0.0,
+        "mean_peak_weight": 1.0,
+        "mean_top4_mass": 1.0
+      },
+      {
+        "video_id": "df_035_036",
+        "label": 1,
+        "probability": 0.6972,
+        "is_correct": true,
+        "mean_entropy": 0.0062,
+        "mean_peak_weight": 0.9988,
+        "mean_top4_mass": 1.0
+      },
+      {
+        "video_id": "df_036_035",
+        "label": 1,
+        "probability": 0.7031,
+        "is_correct": true,
+        "mean_entropy": 0.0,
+        "mean_peak_weight": 1.0,
+        "mean_top4_mass": 1.0
+      },
+      {
+        "video_id": "df_043_110",
+        "label": 1,
+        "probability": 0.8921,
+        "is_correct": true,
+        "mean_entropy": 0.4992,
+        "mean_peak_weight": 0.7992,
+        "mean_top4_mass": 0.9999
+      },
+      {
+        "video_id": "df_044_945",
+        "label": 1,
+        "probability": 0.6858,
+        "is_correct": true,
+        "mean_entropy": 0.0832,
+        "mean_peak_weight": 0.9511,
+        "mean_top4_mass": 1.0
+      },
+      {
+        "video_id": "df_045_889",
+        "label": 1,
+        "probability": 0.7112,
+        "is_correct": true,
+        "mean_entropy": 0.0417,
+        "mean_peak_weight": 0.9908,
+        "mean_top4_mass": 0.9999
+      },
+      {
+        "video_id": "df_053_095",
+        "label": 1,
+        "probability": 0.9138,
+        "is_correct": true,
+        "mean_entropy": 1.5835,
+        "mean_peak_weight": 0.3841,
+        "mean_top4_mass": 0.6917
+      },
+      {
+        "video_id": "df_077_100",
+        "label": 1,
+        "probability": 0.7048,
+        "is_correct": true,
+        "mean_entropy": 0.1706,
+        "mean_peak_weight": 0.9272,
+        "mean_top4_mass": 1.0
+      }
+    ]
+  },
+  "gate_5b_intervention": {
+    "status": "PASS",
+    "reason": "Safe inference-only substitution point verified (spatial_maps -> mean((-2, -1)) -> temporal -> classifier)",
+    "sample_count": 30,
+    "standard_attention_metrics": {
+      "loss": null,
+      "accuracy": 0.5,
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1": 0.6666666666666666,
+      "roc_auc": 0.43555555555555553,
+      "eer": 0.5333333333333333,
+      "confusion_matrix": {
+        "tp": 15,
+        "fp": 15,
+        "tn": 0,
+        "fn": 0
+      },
+      "num_samples": 30
+    },
+    "uniform_attention_metrics": {
+      "loss": null,
+      "accuracy": 0.5,
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1": 0.6666666666666666,
+      "roc_auc": 0.4355555555555556,
+      "eer": 0.6,
+      "confusion_matrix": {
+        "tp": 15,
+        "fp": 15,
+        "tn": 0,
+        "fn": 0
+      },
+      "num_samples": 30
+    },
+    "delta_accuracy": 0.0,
+    "delta_roc_auc": 0.0,
+    "cases": [
+      {
+        "video_id": "orig_004",
+        "label": 0,
+        "standard_attention_prob": 0.7299,
+        "uniform_attention_prob": 0.7254,
+        "prob_delta": -0.0044
+      },
+      {
+        "video_id": "orig_007",
+        "label": 0,
+        "standard_attention_prob": 0.7338,
+        "uniform_attention_prob": 0.7768,
+        "prob_delta": 0.043
+      },
+      {
+        "video_id": "orig_008",
+        "label": 0,
+        "standard_attention_prob": 0.9143,
+        "uniform_attention_prob": 0.9141,
+        "prob_delta": -0.0002
+      },
+      {
+        "video_id": "orig_009",
+        "label": 0,
+        "standard_attention_prob": 0.9107,
+        "uniform_attention_prob": 0.8833,
+        "prob_delta": -0.0274
+      },
+      {
+        "video_id": "orig_013",
+        "label": 0,
+        "standard_attention_prob": 0.7647,
+        "uniform_attention_prob": 0.8036,
+        "prob_delta": 0.0389
+      },
+      {
+        "video_id": "orig_020",
+        "label": 0,
+        "standard_attention_prob": 0.7096,
+        "uniform_attention_prob": 0.723,
+        "prob_delta": 0.0134
+      },
+      {
+        "video_id": "orig_027",
+        "label": 0,
+        "standard_attention_prob": 0.7101,
+        "uniform_attention_prob": 0.7115,
+        "prob_delta": 0.0015
+      },
+      {
+        "video_id": "orig_032",
+        "label": 0,
+        "standard_attention_prob": 0.7243,
+        "uniform_attention_prob": 0.7376,
+        "prob_delta": 0.0133
+      },
+      {
+        "video_id": "orig_035",
+        "label": 0,
+        "standard_attention_prob": 0.7061,
+        "uniform_attention_prob": 0.714,
+        "prob_delta": 0.0079
+      },
+      {
+        "video_id": "orig_036",
+        "label": 0,
+        "standard_attention_prob": 0.7794,
+        "uniform_attention_prob": 0.7337,
+        "prob_delta": -0.0457
+      },
+      {
+        "video_id": "orig_043",
+        "label": 0,
+        "standard_attention_prob": 0.7702,
+        "uniform_attention_prob": 0.755,
+        "prob_delta": -0.0151
+      },
+      {
+        "video_id": "orig_044",
+        "label": 0,
+        "standard_attention_prob": 0.7595,
+        "uniform_attention_prob": 0.7545,
+        "prob_delta": -0.005
+      },
+      {
+        "video_id": "orig_045",
+        "label": 0,
+        "standard_attention_prob": 0.681,
+        "uniform_attention_prob": 0.697,
+        "prob_delta": 0.0159
+      },
+      {
+        "video_id": "orig_053",
+        "label": 0,
+        "standard_attention_prob": 0.9129,
+        "uniform_attention_prob": 0.8616,
+        "prob_delta": -0.0512
+      },
+      {
+        "video_id": "orig_077",
+        "label": 0,
+        "standard_attention_prob": 0.6988,
+        "uniform_attention_prob": 0.7061,
+        "prob_delta": 0.0072
+      },
+      {
+        "video_id": "df_004_982",
+        "label": 1,
+        "standard_attention_prob": 0.9118,
+        "uniform_attention_prob": 0.7756,
+        "prob_delta": -0.1362
+      },
+      {
+        "video_id": "df_007_132",
+        "label": 1,
+        "standard_attention_prob": 0.9129,
+        "uniform_attention_prob": 0.911,
+        "prob_delta": -0.0019
+      },
+      {
+        "video_id": "df_008_990",
+        "label": 1,
+        "standard_attention_prob": 0.9143,
+        "uniform_attention_prob": 0.9129,
+        "prob_delta": -0.0014
+      },
+      {
+        "video_id": "df_009_027",
+        "label": 1,
+        "standard_attention_prob": 0.6908,
+        "uniform_attention_prob": 0.7101,
+        "prob_delta": 0.0193
+      },
+      {
+        "video_id": "df_013_883",
+        "label": 1,
+        "standard_attention_prob": 0.7492,
+        "uniform_attention_prob": 0.7855,
+        "prob_delta": 0.0363
+      },
+      {
+        "video_id": "df_020_344",
+        "label": 1,
+        "standard_attention_prob": 0.682,
+        "uniform_attention_prob": 0.6956,
+        "prob_delta": 0.0135
+      },
+      {
+        "video_id": "df_027_009",
+        "label": 1,
+        "standard_attention_prob": 0.7382,
+        "uniform_attention_prob": 0.7311,
+        "prob_delta": -0.0071
+      },
+      {
+        "video_id": "df_032_944",
+        "label": 1,
+        "standard_attention_prob": 0.6855,
+        "uniform_attention_prob": 0.6966,
+        "prob_delta": 0.0111
+      },
+      {
+        "video_id": "df_035_036",
+        "label": 1,
+        "standard_attention_prob": 0.6972,
+        "uniform_attention_prob": 0.7128,
+        "prob_delta": 0.0157
+      },
+      {
+        "video_id": "df_036_035",
+        "label": 1,
+        "standard_attention_prob": 0.7031,
+        "uniform_attention_prob": 0.7131,
+        "prob_delta": 0.01
+      },
+      {
+        "video_id": "df_043_110",
+        "label": 1,
+        "standard_attention_prob": 0.8921,
+        "uniform_attention_prob": 0.7816,
+        "prob_delta": -0.1105
+      },
+      {
+        "video_id": "df_044_945",
+        "label": 1,
+        "standard_attention_prob": 0.6858,
+        "uniform_attention_prob": 0.6961,
+        "prob_delta": 0.0103
+      },
+      {
+        "video_id": "df_045_889",
+        "label": 1,
+        "standard_attention_prob": 0.7112,
+        "uniform_attention_prob": 0.726,
+        "prob_delta": 0.0147
+      },
+      {
+        "video_id": "df_053_095",
+        "label": 1,
+        "standard_attention_prob": 0.9138,
+        "uniform_attention_prob": 0.8878,
+        "prob_delta": -0.026
+      },
+      {
+        "video_id": "df_077_100",
+        "label": 1,
+        "standard_attention_prob": 0.7048,
+        "uniform_attention_prob": 0.7192,
+        "prob_delta": 0.0144
+      }
+    ]
+  }
+}

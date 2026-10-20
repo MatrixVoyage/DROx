@@ -1,0 +1,63 @@
+{
+  "timestamp": "2026-10-05T07:26:47.394014+00:00",
+  "track": "Track B (Learned Temporal/Facial Dynamics)",
+  "checkpoint": "G:\\MyProjects\\DeepFake Video Detection\\checkpoints\\m17_track_b_seed42\\best.pth",
+  "temperature": 2.760645966815284,
+  "gates": {
+    "gate1_unseen_ood_celebdf": {
+      "metric": "Delta AUC on Celeb-DF v2 vs v5 Champion",
+      "auc_cand": 0.8137670068027211,
+      "auc_v5": 0.7806547619047619,
+      "delta_auc": 0.033112244897959164,
+      "ci_lower": -0.011650451763575268,
+      "ci_upper": 0.07712391809749326,
+      "threshold": "> 0.0",
+      "passed": true
+    },
+    "gate2_clean_real_specificity": {
+      "metric": "Clean Real Specificity",
+      "ffpp_clean_spec": 0.9137931034482759,
+      "celeb_clean_spec": 0.92,
+      "threshold": "FF++ >= 93.0% and Celeb-DF >= 95.0%",
+      "passed": false
+    },
+    "gate3_compression_stress": {
+      "metric": "JPEG Q=50 Stress Test ROC-AUC",
+      "q50_auc": 0.533677386205646,
+      "threshold": ">= 0.6500",
+      "passed": false
+    },
+    "gate4_cross_family": {
+      "metric": "4-Family Evaluation (F2F, NT, FS, DF)",
+      "family_metrics": {
+        "Face2Face": {
+          "auc": 0.7401902497027348,
+          "det_rate": 0.3793103448275862
+        },
+        "NeuralTextures": {
+          "auc": 0.9011593341260403,
+          "det_rate": 0.8103448275862069
+        },
+        "FaceSwap": {
+          "auc": 0.9191438763376932,
+          "det_rate": 0.7068965517241379
+        },
+        "Deepfakes": {
+          "auc": 0.9748810939357908,
+          "det_rate": 0.9827586206896551
+        }
+      },
+      "macro_auc": 0.8838436385255648,
+      "threshold": "Macro AUC >= 0.9000",
+      "passed": false
+    },
+    "gate5_hardware": {
+      "metric": "P50 Latency and Peak VRAM on RTX 3050",
+      "p50_latency_ms": 13.597000001027482,
+      "peak_vram_gb": 0.525538444519043,
+      "threshold": "Latency <= 35.0ms, VRAM <= 5.2GB",
+      "passed": true
+    }
+  },
+  "verdict": "RETAIN_M13_5_CONTROL"
+}

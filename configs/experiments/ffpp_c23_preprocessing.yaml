@@ -1,0 +1,27 @@
+# FaceForensics++ C23 Preprocessing Experiment Configuration
+seed: 42
+device: "cuda"
+
+hardware:
+  max_vram_gb: 6.0
+
+data:
+  sampling:
+    method: "random"
+    num_frames: 16
+    short_video_policy: "reject"
+  detection:
+    selection_strategy: "largest"
+    confidence_threshold: 0.90
+  crop:
+    image_size: 112
+    margin_ratio: 0.20
+    fallback:
+      use_previous_bbox: true
+      allow_center_crop: true
+    min_valid_frames: 12
+    max_fallback_ratio: 0.50
+  normalization: "imagenet"
+
+storage:
+  processed_dir: "processed/ffpp_c23"

@@ -1,0 +1,80 @@
+{
+  "timestamp": "2026-09-27T13:12:41.937343+00:00",
+  "candidate": {
+    "name": "M15-RobustGen",
+    "arm": "Arm C",
+    "checkpoint_path": "G:\\MyProjects\\DeepFake Video Detection\\checkpoints\\m15_arm_c_seed42\\best.pth",
+    "sha256": "eeef507ab9526a475fecca9d515a33283a2b23ab1663303d70c527bb83aeb24a",
+    "calibration_temperature_T": 2.5316,
+    "spec90_threshold_tau_star": 0.084
+  },
+  "reference_control": {
+    "name": "v5-family-invariant",
+    "arm": "Arm A",
+    "checkpoint_path": "G:\\MyProjects\\DeepFake Video Detection\\checkpoints\\m13_3_f2f_seed42\\best.pth",
+    "sha256": "4e81b49308bbf14993c3de43377afd3349945f6e5a69ed4af307f4f26009dfc7",
+    "calibration_temperature_T": 2.0502,
+    "spec90_threshold_tau_star": 0.126
+  },
+  "hypothesis_h_m15_3": {
+    "hypothesis": "Frequency consistency loss reduces Real -> Fake flip rate under JPEG Q=50 by > 20%",
+    "flips_arm_c": 0,
+    "flips_arm_b": 0,
+    "flip_rate_arm_c": 0.0,
+    "flip_rate_arm_b": 0.0,
+    "flip_reduction_ratio": 0.0,
+    "verdict": "UNSUPPORTED"
+  },
+  "gates": {
+    "gate1_face2face_transfer": {
+      "metric": "Delta ROC-AUC on Face2Face",
+      "target": ">= +0.0500 (p < 0.05)",
+      "auc_candidate": 0.7053,
+      "auc_reference": 0.8104,
+      "delta_auc": -0.1052,
+      "bootstrap_p_value": 1.0,
+      "status": "FAIL"
+    },
+    "gate2_external_non_inferiority": {
+      "metric": "Delta ROC-AUC on Celeb-DF v2",
+      "target": ">= -0.0150",
+      "auc_candidate": 0.8723,
+      "auc_reference": 0.7808,
+      "delta_auc": 0.0916,
+      "status": "PASS"
+    },
+    "gate3_clean_ffpp_specificity": {
+      "metric": "Clean Real Specificity (tau=0.50)",
+      "target": ">= 93.00%",
+      "specificity": 0.8155,
+      "false_alarms": 43,
+      "total_clean": 233,
+      "status": "FAIL"
+    },
+    "gate4_clean_celeb_specificity": {
+      "metric": "Clean Celebrity Specificity (tau=0.50)",
+      "target": ">= 96.50%",
+      "specificity": 0.8229,
+      "false_alarms": 31,
+      "total_clean": 175,
+      "status": "FAIL"
+    },
+    "gate5_compression_robustness": {
+      "metric": "ROC-AUC under JPEG Q=50",
+      "target": ">= 0.6500",
+      "auc_q50": 0.59,
+      "status": "FAIL"
+    },
+    "gate6_runtime_and_vram": {
+      "metric": "P50 Latency & Peak VRAM",
+      "target": "P50 <= 35.0ms, VRAM <= 5.20GB",
+      "p50_latency_ms": 21.18,
+      "peak_vram_gb": 0.74,
+      "status": "PASS"
+    }
+  },
+  "verdict": {
+    "all_gates_pass": false,
+    "decision": "RETAIN_M13_5_FROZEN"
+  }
+}

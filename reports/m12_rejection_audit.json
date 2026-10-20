@@ -1,0 +1,84 @@
+{
+  "total_queries_evaluated": 350,
+  "total_accepted": 300,
+  "total_rejected": 50,
+  "overall_coverage": 0.8571,
+  "overall_selective_accuracy": 0.49,
+  "overall_rejection_rate": 0.1429,
+  "clean_false_rejection_rate_frr": 0.0,
+  "ood_true_rejection_rate_trr": 1.0,
+  "ood_auroc": 0.04,
+  "slice_metrics": {
+    "Clean Real (In-Domain & Pristine)": {
+      "total_samples": 50,
+      "accepted_samples": 50,
+      "rejected_samples": 0,
+      "rejection_rate": 0.0,
+      "selective_accuracy": 0.98,
+      "mean_ood_distance": 1.0135,
+      "mean_epistemic_variance": 4e-06
+    },
+    "Cross-Dataset Fake (Celeb-DF)": {
+      "total_samples": 50,
+      "accepted_samples": 50,
+      "rejected_samples": 0,
+      "rejection_rate": 0.0,
+      "selective_accuracy": 0.24,
+      "mean_ood_distance": 0.9483,
+      "mean_epistemic_variance": 3.5e-05
+    },
+    "Degraded Fake (JPEG Robustness)": {
+      "total_samples": 50,
+      "accepted_samples": 50,
+      "rejected_samples": 0,
+      "rejection_rate": 0.0,
+      "selective_accuracy": 0.28,
+      "mean_ood_distance": 1.0112,
+      "mean_epistemic_variance": 0.000232
+    },
+    "Degraded Real (JPEG Robustness)": {
+      "total_samples": 50,
+      "accepted_samples": 50,
+      "rejected_samples": 0,
+      "rejection_rate": 0.0,
+      "selective_accuracy": 0.66,
+      "mean_ood_distance": 1.0165,
+      "mean_epistemic_variance": 0.000225
+    },
+    "In-Domain Seen Fake (FF++)": {
+      "total_samples": 50,
+      "accepted_samples": 50,
+      "rejected_samples": 0,
+      "rejection_rate": 0.0,
+      "selective_accuracy": 0.6,
+      "mean_ood_distance": 0.9907,
+      "mean_epistemic_variance": 0.000121
+    },
+    "Synthetic Non-Face OOD (Extreme Noise)": {
+      "total_samples": 50,
+      "accepted_samples": 0,
+      "rejected_samples": 50,
+      "rejection_rate": 1.0,
+      "selective_accuracy": null,
+      "mean_ood_distance": 0.8336,
+      "mean_epistemic_variance": 1e-06
+    },
+    "Unseen Manipulation Family (Held-out Face2Face)": {
+      "total_samples": 50,
+      "accepted_samples": 50,
+      "rejected_samples": 0,
+      "rejection_rate": 0.0,
+      "selective_accuracy": 0.18,
+      "mean_ood_distance": 0.9606,
+      "mean_epistemic_variance": 0.000103
+    }
+  },
+  "coverage_selective_accuracy_curve": {
+    "95%": 0.4982,
+    "90%": 0.5037,
+    "85%": 0.5098,
+    "80%": 0.5083,
+    "75%": 0.5111,
+    "70%": 0.4857
+  }
+}

@@ -1,0 +1,290 @@
+{
+  "timestamp": "2026-10-06T11:59:33.217218+00:00",
+  "milestone": "M19",
+  "track": "Track A \u2014 Reenactment Signal Attribution",
+  "title": "Empirical Diagnostic Attribution of the Frozen M18 Dual-Stream Reenactment Detector",
+  "checkpoint_analyzed": "G:\\MyProjects\\DeepFake Video Detection\\checkpoints\\m18_dual_stream_seed42\\best.pth",
+  "diagnostic_1_spatial_attention_decomposition": {
+    "Face2Face": {
+      "inner_face_mass_mean": 0.22324345029633622,
+      "inner_face_mass_std": 0.004976386557868359,
+      "outer_face_mass_mean": 0.4133595433728448,
+      "outer_face_mass_std": 0.008642273429727853,
+      "periph_mass_mean": 0.3633107152478448,
+      "periph_mass_std": 0.00918058726391942
+    },
+    "Pristine_Reals": {
+      "inner_face_mass_mean": 0.22532916891163793,
+      "inner_face_mass_std": 0.006073288976132769,
+      "outer_face_mass_mean": 0.41176000134698276,
+      "outer_face_mass_std": 0.008213925831146829,
+      "periph_mass_mean": 0.3628771551724138,
+      "periph_mass_std": 0.010233797218633623
+    },
+    "Contrast_Delta_F2F_minus_Real": {
+      "inner_delta": -0.0020857186153017127,
+      "outer_delta": 0.001599542025862044,
+      "periph_delta": 0.0004335600754309943,
+      "cliffs_delta_inner": -0.2074910820451843
+    }
+  },
+  "diagnostic_2_gate_distributions_and_fdr": {
+    "population_statistics": {
+      "Pristine_Reals": {
+        "n_samples": 58,
+        "mean": 0.11288662614493535,
+        "std": 0.08190982285757176,
+        "median": 0.086181640625,
+        "iqr": 0.032501220703125
+      },
+      "Face2Face": {
+        "n_samples": 58,
+        "mean": 0.2077173693426724,
+        "std": 0.1637446625487861,
+        "median": 0.13433837890625,
+        "iqr": 0.15155029296875
+      },
+      "NeuralTextures": {
+        "n_samples": 58,
+        "mean": 0.4068603515625,
+        "std": 0.22313401057755247,
+        "median": 0.3846435546875,
+        "iqr": 0.434234619140625
+      },
+      "FaceSwap": {
+        "n_samples": 58,
+        "mean": 0.45530437601023704,
+        "std": 0.255049687293341,
+        "median": 0.5068359375,
+        "iqr": 0.50164794921875
+      },
+      "Deepfakes": {
+        "n_samples": 58,
+        "mean": 0.614861850080819,
+        "std": 0.1696832403538932,
+        "median": 0.6943359375,
+        "iqr": 0.26104736328125
+      },
+      "CelebDF_Reals": {
+        "n_samples": 175,
+        "mean": 0.12041451590401786,
+        "std": 0.07196682436380758,
+        "median": 0.10540771484375,
+        "iqr": 0.0264892578125
+      },
+      "CelebDF_Fakes": {
+        "n_samples": 336,
+        "mean": 0.3005705333891369,
+        "std": 0.20112958788686117,
+        "median": 0.216552734375,
+        "iqr": 0.3476104736328125
+      }
+    },
+    "pairwise_comparisons_vs_reals": {
+      "Face2Face_vs_Reals": {
+        "ks_statistic": 0.46551724137931033,
+        "raw_p_value": 4.7703308807872825e-06,
+        "fdr_q_value": 5.724397056944739e-06,
+        "cliffs_delta": 0.5344827586206896,
+        "cliffs_delta_95ci": [
+          0.36021848989298455,
+          0.682832936979786
+        ],
+        "significant_fdr05": true
+      },
+      "NeuralTextures_vs_Reals": {
+        "ks_statistic": 0.6896551724137931,
+        "raw_p_value": 1.8308960596507425e-13,
+        "fdr_q_value": 2.746344089476114e-13,
+        "cliffs_delta": 0.8293697978596909,
+        "cliffs_delta_95ci": [
+          0.7063020214030915,
+          0.9185939357907252
+        ],
+        "significant_fdr05": true
+      },
+      "FaceSwap_vs_Reals": {
+        "ks_statistic": 0.6896551724137931,
+        "raw_p_value": 1.8308960596507425e-13,
+        "fdr_q_value": 2.746344089476114e-13,
+        "cliffs_delta": 0.85820451843044,
+        "cliffs_delta_95ci": [
+          0.7580038644470869,
+          0.9334126040428062
+        ],
+        "significant_fdr05": true
+      },
+      "Deepfakes_vs_Reals": {
+        "ks_statistic": 0.9310344827586207,
+        "raw_p_value": 2.3318643470883466e-27,
+        "fdr_q_value": 1.399118608253008e-26,
+        "cliffs_delta": 0.9780023781212842,
+        "cliffs_delta_95ci": [
+          0.9446938168846611,
+          0.9988109393579072
+        ],
+        "significant_fdr05": true
+      },
+      "CelebDF_Reals_vs_Reals": {
+        "ks_statistic": 0.32945812807881775,
+        "raw_p_value": 0.00010837133840575362,
+        "fdr_q_value": 0.00010837133840575362,
+        "cliffs_delta": 0.3326108374384236,
+        "cliffs_delta_95ci": [
+          0.14519704433497538,
+          0.5051600985221675
+        ],
+        "significant_fdr05": true
+      },
+      "CelebDF_Fakes_vs_Reals": {
+        "ks_statistic": 0.6550697865353038,
+        "raw_p_value": 5.791141062016278e-21,
+        "fdr_q_value": 1.7373423186048835e-20,
+        "cliffs_delta": 0.7716543513957307,
+        "cliffs_delta_95ci": [
+          0.6591710283251231,
+          0.8691040640394088
+        ],
+        "significant_fdr05": true
+      }
+    }
+  },
+  "diagnostic_3_tp_fn_kinematic_profiles": {
+    "sample_counts": {
+      "total_f2f": 58,
+      "tp_count": 57,
+      "fn_count": 1,
+      "recovered_vs_m17": 40,
+      "lost_vs_m17": 0,
+      "unchanged": 18
+    },
+    "kinematic_metrics": {
+      "tp_mean_velocity": 0.2692419434325737,
+      "fn_mean_velocity": 0.2754457890987396,
+      "delta_mean_velocity": -0.006203845666165941,
+      "cliffs_delta_velocity": -0.08771929824561403,
+      "tp_peak_velocity": 3.8262473282061125,
+      "fn_peak_velocity": 2.945457696914673
+    }
+  },
+  "diagnostic_4_neuraltextures_transfer": {
+    "n_samples": 116,
+    "n_reals": 58,
+    "n_nt_fakes": 58,
+    "m18_dual_auc": 0.9170630202140309,
+    "m17_track_a_auc": 0.8715814506539834,
+    "m13_5_control_auc": 0.9401010701545779,
+    "delta_vs_track_a": 0.045882784991872566,
+    "ci_vs_track_a": [
+      0.010095623374798019,
+      0.09121288010624964
+    ],
+    "p_val_vs_track_a": 0.006,
+    "delta_vs_v5": -0.023054931772878373,
+    "ci_vs_v5": [
+      -0.06607432988918847,
+      0.014882285799624455
+    ],
+    "p_val_vs_v5": 0.868,
+    "mean_nt_gate": 0.4068603515625,
+    "median_nt_gate": 0.3846435546875
+  },
+  "diagnostic_5_confound_correlations": {
+    "Bitrate_vs_Score": {
+      "spearman_rho": -0.1535937249592241,
+      "raw_p_value": 0.0004935615344233739,
+      "fdr_q_value": 0.0009871230688467479,
+      "rho_95ci": [
+        -0.23879574924743058,
+        -0.07360550946345028
+      ],
+      "significant_fdr05": true
+    },
+    "Bitrate_vs_Gate": {
+      "spearman_rho": -0.16297346986918163,
+      "raw_p_value": 0.00021576283320229195,
+      "fdr_q_value": 0.0008630513328091678,
+      "rho_95ci": [
+        -0.24523939204387946,
+        -0.07635013524869903
+      ],
+      "significant_fdr05": true
+    },
+    "Width_vs_Score": {
+      "spearman_rho": -0.05423006019819734,
+      "raw_p_value": 0.22103303294048326,
+      "fdr_q_value": 0.283320532807975,
+      "rho_95ci": [
+        -0.14073139230557372,
+        0.030049625242452874
+      ],
+      "significant_fdr05": false
+    },
+    "Height_vs_Score": {
+      "spearman_rho": 0.04755145257284178,
+      "raw_p_value": 0.283320532807975,
+      "fdr_q_value": 0.283320532807975,
+      "rho_95ci": [
+        -0.04439064265809133,
+        0.12701402087616082
+      ],
+      "significant_fdr05": false
+    },
+    "Actor_Group_Clustering_KW": {
+      "n_groups": 40,
+      "kw_statistic": 43.132670952659254,
+      "kw_p_value": 0.29899592727889795,
+      "significant_actor_clustering": false
+    }
+  },
+  "diagnostic_6_seven_hypotheses_evidence_table": [
+    {
+      "hypothesis": "H1: Insufficient Motion Representation",
+      "evaluated_evidence": "Kinematic branch alone yields near-chance AUC (0.5110). Differential velocity contrast between TP and FN is marginal (Cliff's d=-0.088). First-order frame differencing lacks non-rigid optical deformation modeling.",
+      "empirical_strength": "Strong Support",
+      "research_status": "Valid Research Hypothesis (Explanatory Cause)"
+    },
+    {
+      "hypothesis": "H2: Insufficient Spatial Localization",
+      "evaluated_evidence": "Spatial attention concentrates moderately on inner-face (F2F inner mass=0.223 vs Reals 0.225, Cliff's d=-0.207), but 14x14 pooling dilutes boundary cues.",
+      "empirical_strength": "Moderate Support",
+      "research_status": "Secondary Contributing Factor"
+    },
+    {
+      "hypothesis": "H3: Inadequate Temporal Context",
+      "evaluated_evidence": "Uniform 16-frame sampling captures large head rotations but under-samples high-frequency lip/phoneme micro-expression dynamics.",
+      "empirical_strength": "Moderate Support",
+      "research_status": "Secondary Contributing Factor"
+    },
+    {
+      "hypothesis": "H4: Weak Supervision",
+      "evaluated_evidence": "Multi-family auxiliary cross-entropy separated families generally, but lacked an explicit reenactment-specific pairwise metric margin penalty against pristine reals.",
+      "empirical_strength": "Weak Support",
+      "research_status": "Minor Contributing Factor"
+    },
+    {
+      "hypothesis": "H5: Compression Corruption",
+      "evaluated_evidence": "Under uniform H.264 CRF 23 re-encoding, performance collapsed to 0.5947 AUC across all streams. Video bitrate is statistically correlated with score (q = 0.00099) and gate (q = 0.00086).",
+      "empirical_strength": "Moderate Support (Compression Confound Confirmed)",
+      "research_status": "Valid Research Factor"
+    },
+    {
+      "hypothesis": "H6: Poor Gating",
+      "evaluated_evidence": "Alpha gate selectively opens on Face2Face (median 0.134) and NeuralTextures (median 0.385) vs Reals (median 0.086) with KS q=5.7244e-06 and Cliff's d=+0.534.",
+      "empirical_strength": "Refuted / Counter-Evidence",
+      "research_status": "Hypothesis Rejected (Gate functions properly)"
+    },
+    {
+      "hypothesis": "H7: Genuine Pixel Signal Ceiling",
+      "evaluated_evidence": "Face2Face artifacts at C23 quality in 112x112 crops exhibit subtle pixel residuals that may be suppressed by low-resolution resizing. However, M19 did not perform a controlled resolution ablation.",
+      "empirical_strength": "Plausible / Moderate Support",
+      "research_status": "Unresolved Hypothesis (Requires M19.1 Controlled Resolution Ablation)"
+    }
+  ],
+  "frozen_governance": {
+    "m19_track_a_status": "COMPLETED_AND_FROZEN",
+    "active_production_champion": "M13.5 (v5-family-invariant)",
+    "frozen_research_baseline": "M17 Track A (Sensor/Residual)",
+    "frozen_research_candidate": "M18 Dual-Stream (Sensor + Kinematic)"
+  }
+}

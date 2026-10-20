@@ -1,0 +1,137 @@
+{
+  "modality_results": {
+    "motion": {
+      "modality": "motion",
+      "baseline_auc": 0.9563,
+      "candidate_auc": 0.9675,
+      "delta_auc": 0.0112,
+      "baseline_detection_rate": 0.825,
+      "candidate_detection_rate": 0.825,
+      "delta_detection_rate": 0.0,
+      "baseline_specificity": 0.95,
+      "candidate_specificity": 0.95,
+      "delta_specificity": 0.0,
+      "adds_incremental_value": true
+    },
+    "temporal": {
+      "modality": "temporal",
+      "baseline_auc": 0.9563,
+      "candidate_auc": 0.9688,
+      "delta_auc": 0.0125,
+      "baseline_detection_rate": 0.825,
+      "candidate_detection_rate": 0.825,
+      "delta_detection_rate": 0.0,
+      "baseline_specificity": 0.95,
+      "candidate_specificity": 0.95,
+      "delta_specificity": 0.0,
+      "adds_incremental_value": true
+    },
+    "landmarks": {
+      "modality": "landmarks",
+      "baseline_auc": 0.9563,
+      "candidate_auc": 0.9612,
+      "delta_auc": 0.005,
+      "baseline_detection_rate": 0.825,
+      "candidate_detection_rate": 0.825,
+      "delta_detection_rate": 0.0,
+      "baseline_specificity": 0.95,
+      "candidate_specificity": 0.95,
+      "delta_specificity": 0.0,
+      "adds_incremental_value": false
+    },
+    "spatial": {
+      "modality": "spatial",
+      "baseline_auc": 0.9563,
+      "candidate_auc": 0.9563,
+      "delta_auc": 0.0,
+      "baseline_detection_rate": 0.825,
+      "candidate_detection_rate": 0.825,
+      "delta_detection_rate": 0.0,
+      "baseline_specificity": 0.95,
+      "candidate_specificity": 0.95,
+      "delta_specificity": 0.0,
+      "adds_incremental_value": false
+    },
+    "frequency": {
+      "modality": "frequency",
+      "baseline_auc": 0.9563,
+      "candidate_auc": 0.9587,
+      "delta_auc": 0.0025,
+      "baseline_detection_rate": 0.825,
+      "candidate_detection_rate": 0.825,
+      "delta_detection_rate": 0.0,
+      "baseline_specificity": 0.95,
+      "candidate_specificity": 0.95,
+      "delta_specificity": 0.0,
+      "adds_incremental_value": false
+    },
+    "identity": {
+      "modality": "identity",
+      "baseline_auc": 0.9563,
+      "candidate_auc": 0.9537,
+      "delta_auc": -0.0025,
+      "baseline_detection_rate": 0.825,
+      "candidate_detection_rate": 0.825,
+      "delta_detection_rate": 0.0,
+      "baseline_specificity": 0.95,
+      "candidate_specificity": 0.95,
+      "delta_specificity": 0.0,
+      "adds_incremental_value": false
+    },
+    "compression": {
+      "modality": "compression",
+      "baseline_auc": 0.9563,
+      "candidate_auc": 0.9538,
+      "delta_auc": -0.0025,
+      "baseline_detection_rate": 0.825,
+      "candidate_detection_rate": 0.825,
+      "delta_detection_rate": 0.0,
+      "baseline_specificity": 0.95,
+      "candidate_specificity": 0.95,
+      "delta_specificity": 0.0,
+      "adds_incremental_value": false
+    },
+    "lipsync": {
+      "modality": "lipsync",
+      "baseline_auc": 0.9563,
+      "candidate_auc": 0.955,
+      "delta_auc": -0.0013,
+      "baseline_detection_rate": 0.825,
+      "candidate_detection_rate": 0.825,
+      "delta_detection_rate": 0.0,
+      "baseline_specificity": 0.95,
+      "candidate_specificity": 0.95,
+      "delta_specificity": 0.0,
+      "adds_incremental_value": false
+    }
+  },
+  "winning_modalities": [
+    {
+      "modality": "motion",
+      "feature": "motion_divergence",
+      "sign": -1.0,
+      "alpha": 1.2,
+      "delta_auc": 0.0112
+    },
+    {
+      "modality": "temporal",
+      "feature": "forehead_diff",
+      "sign": -1.0,
+      "alpha": 0.8,
+      "delta_auc": 0.0125
+    }
+  ],
+  "combined_summary": {
+    "modality": "M16_EvidenceGatedFusion_Combined",
+    "baseline_auc": 0.9563,
+    "candidate_auc": 0.9675,
+    "delta_auc": 0.0112,
+    "baseline_detection_rate": 0.825,
+    "candidate_detection_rate": 0.825,
+    "delta_detection_rate": 0.0,
+    "baseline_specificity": 0.95,
+    "candidate_specificity": 0.95,
+    "delta_specificity": 0.0,
+    "adds_incremental_value": true
+  }
+}

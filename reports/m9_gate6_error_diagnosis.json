@@ -1,0 +1,263 @@
+{
+  "metadata": {
+    "milestone": "M9",
+    "gate": "G6",
+    "timestamp_utc": "2026-09-21T11:52:09.961118+00:00",
+    "checkpoint": "checkpoints\\ffpp_c23_baseline_soft_lstm\\best.pth",
+    "checkpoint_sha256": "9d22df92bdab20a35e1311d627d9fa487c757b7afb32a249ebbf7f95bf3b7e6a",
+    "dataset": "FaceForensics++ C23 & Celeb-DF v2",
+    "split": "test",
+    "num_videos": 1268,
+    "seed": 42,
+    "software": {
+      "python": "3.11.9",
+      "torch": "2.6.0+cu124",
+      "cuda": "12.4"
+    },
+    "parent_artifact": null,
+    "status": "PASS"
+  },
+  "scientific_rule": "Correlation does not establish causation.",
+  "multithreshold_error_matrices": {
+    "threshold_0.50_baseline": {
+      "threshold_value": 0.5,
+      "ffpp_c23_test": {
+        "threshold": 0.5,
+        "total_samples": 750,
+        "total_real": 150,
+        "total_fake": 600,
+        "tp": 600,
+        "fp": 150,
+        "tn": 0,
+        "fn": 0,
+        "false_positive_rate": 1.0,
+        "false_negative_rate": 0.0
+      },
+      "celebdf_v2_test": {
+        "threshold": 0.5,
+        "total_samples": 518,
+        "total_real": 178,
+        "total_fake": 340,
+        "tp": 340,
+        "fp": 178,
+        "tn": 0,
+        "fn": 0,
+        "false_positive_rate": 1.0,
+        "false_negative_rate": 0.0
+      }
+    },
+    "threshold_youden_0.8915": {
+      "threshold_value": 0.8915,
+      "ffpp_c23_test": {
+        "threshold": 0.8915,
+        "total_samples": 750,
+        "total_real": 150,
+        "total_fake": 600,
+        "tp": 258,
+        "fp": 71,
+        "tn": 79,
+        "fn": 342,
+        "false_positive_rate": 0.4733,
+        "false_negative_rate": 0.57
+      },
+      "celebdf_v2_test": {
+        "threshold": 0.8915,
+        "total_samples": 518,
+        "total_real": 178,
+        "total_fake": 340,
+        "tp": 148,
+        "fp": 78,
+        "tn": 100,
+        "fn": 192,
+        "false_positive_rate": 0.4382,
+        "false_negative_rate": 0.5647
+      }
+    },
+    "threshold_f1max_0.0100": {
+      "threshold_value": 0.01,
+      "ffpp_c23_test": {
+        "threshold": 0.01,
+        "total_samples": 750,
+        "total_real": 150,
+        "total_fake": 600,
+        "tp": 600,
+        "fp": 150,
+        "tn": 0,
+        "fn": 0,
+        "false_positive_rate": 1.0,
+        "false_negative_rate": 0.0
+      },
+      "celebdf_v2_test": {
+        "threshold": 0.01,
+        "total_samples": 518,
+        "total_real": 178,
+        "total_fake": 340,
+        "tp": 340,
+        "fp": 178,
+        "tn": 0,
+        "fn": 0,
+        "false_positive_rate": 1.0,
+        "false_negative_rate": 0.0
+      }
+    }
+  },
+  "family_breakdown_threshold_0.50": {
+    "Deepfakes": {
+      "threshold": 0.5,
+      "total_samples": 150,
+      "total_real": 0,
+      "total_fake": 150,
+      "tp": 150,
+      "fp": 0,
+      "tn": 0,
+      "fn": 0,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    },
+    "Face2Face": {
+      "threshold": 0.5,
+      "total_samples": 150,
+      "total_real": 0,
+      "total_fake": 150,
+      "tp": 150,
+      "fp": 0,
+      "tn": 0,
+      "fn": 0,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    },
+    "FaceSwap": {
+      "threshold": 0.5,
+      "total_samples": 150,
+      "total_real": 0,
+      "total_fake": 150,
+      "tp": 150,
+      "fp": 0,
+      "tn": 0,
+      "fn": 0,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    },
+    "NeuralTextures": {
+      "threshold": 0.5,
+      "total_samples": 150,
+      "total_real": 0,
+      "total_fake": 150,
+      "tp": 150,
+      "fp": 0,
+      "tn": 0,
+      "fn": 0,
+      "false_positive_rate": 0.0,
+      "false_negative_rate": 0.0
+    }
+  },
+  "error_gallery": {
+    "highest_fp": [
+      {
+        "video_id": "orig_271",
+        "prob": 0.9144,
+        "preview": "G:\\MyProjects\\DeepFake Video Detection\\reports\\figures\\errors\\highest_fp\\fp_0_orig_271.jpg"
+      },
+      {
+        "video_id": "orig_421",
+        "prob": 0.9144,
+        "preview": "G:\\MyProjects\\DeepFake Video Detection\\reports\\figures\\errors\\highest_fp\\fp_1_orig_421.jpg"
+      },
+      {
+        "video_id": "id17_0000",
+        "prob": 0.9144,
+        "preview": "G:\\MyProjects\\DeepFake Video Detection\\reports\\figures\\errors\\highest_fp\\fp_2_id17_0000.jpg"
+      },
+      {
+        "video_id": "00289",
+        "prob": 0.9144,
+        "preview": "G:\\MyProjects\\DeepFake Video Detection\\reports\\figures\\errors\\highest_fp\\fp_3_00289.jpg"
+      },
+      {
+        "video_id": "orig_110",
+        "prob": 0.9143,
+        "preview": "G:\\MyProjects\\DeepFake Video Detection\\reports\\figures\\errors\\highest_fp\\fp_4_orig_110.jpg"
+      }
+    ],
+    "highest_fn": [
+      {
+        "video_id": "df_044_945",
+        "prob": 0.681,
+        "preview": "G:\\MyProjects\\DeepFake Video Detection\\reports\\figures\\errors\\highest_fn\\fn_0_df_044_945.jpg"
+      },
+      {
+        "video_id": "df_146_256",
+        "prob": 0.681,
+        "preview": "G:\\MyProjects\\DeepFake Video Detection\\reports\\figures\\errors\\highest_fn\\fn_1_df_146_256.jpg"
+      },
+      {
+        "video_id": "f2f_045_889",
+        "prob": 0.681,
+        "preview": "G:\\MyProjects\\DeepFake Video Detection\\reports\\figures\\errors\\highest_fn\\fn_2_f2f_045_889.jpg"
+      },
+      {
+        "video_id": "f2f_256_146",
+        "prob": 0.681,
+        "preview": "G:\\MyProjects\\DeepFake Video Detection\\reports\\figures\\errors\\highest_fn\\fn_3_f2f_256_146.jpg"
+      },
+      {
+        "video_id": "fs_146_256",
+        "prob": 0.681,
+        "preview": "G:\\MyProjects\\DeepFake Video Detection\\reports\\figures\\errors\\highest_fn\\fn_4_fs_146_256.jpg"
+      }
+    ],
+    "borderline": [
+      {
+        "video_id": "orig_045",
+        "prob": 0.681,
+        "preview": "G:\\MyProjects\\DeepFake Video Detection\\reports\\figures\\errors\\borderline\\border_0_orig_045.jpg"
+      },
+      {
+        "video_id": "orig_256",
+        "prob": 0.681,
+        "preview": "G:\\MyProjects\\DeepFake Video Detection\\reports\\figures\\errors\\borderline\\border_1_orig_256.jpg"
+      },
+      {
+        "video_id": "df_044_945",
+        "prob": 0.681,
+        "preview": "G:\\MyProjects\\DeepFake Video Detection\\reports\\figures\\errors\\borderline\\border_2_df_044_945.jpg"
+      },
+      {
+        "video_id": "df_146_256",
+        "prob": 0.681,
+        "preview": "G:\\MyProjects\\DeepFake Video Detection\\reports\\figures\\errors\\borderline\\border_3_df_146_256.jpg"
+      },
+      {
+        "video_id": "f2f_045_889",
+        "prob": 0.681,
+        "preview": "G:\\MyProjects\\DeepFake Video Detection\\reports\\figures\\errors\\borderline\\border_4_f2f_045_889.jpg"
+      }
+    ],
+    "family_examples": [
+      {
+        "video_id": "df_004_982",
+        "family": "Deepfakes",
+        "prob": 0.7411,
+        "preview": "G:\\MyProjects\\DeepFake Video Detection\\reports\\figures\\errors\\family_examples\\fam_Deepfakes_df_004_982.jpg"
+      },
+      {
+        "video_id": "f2f_004_982",
+        "family": "Face2Face",
+        "prob": 0.9125,
+        "preview": "G:\\MyProjects\\DeepFake Video Detection\\reports\\figures\\errors\\family_examples\\fam_Face2Face_f2f_004_982.jpg"
+      },
+      {
+        "video_id": "fs_004_982",
+        "family": "FaceSwap",
+        "prob": 0.7443,
+        "preview": "G:\\MyProjects\\DeepFake Video Detection\\reports\\figures\\errors\\family_examples\\fam_FaceSwap_fs_004_982.jpg"
+      },
+      {
+        "video_id": "nt_004_982",
+        "family": "NeuralTextures",
+        "prob": 0.7575,
+        "preview": "G:\\MyProjects\\DeepFake Video Detection\\reports\\figures\\errors\\family_examples\\fam_NeuralTextures_nt_004_982.jpg"
+      }
+    ]
+  }
+}

@@ -1,0 +1,246 @@
+{
+  "baseline_identifier": "M12_FINAL_BASELINE",
+  "description": "Permanent frozen baseline for Deepfake Video Detection M12.4 calibrated system",
+  "git_commit": "UNKNOWN_OR_UNTRACKED",
+  "created_at_iso": "2026-09-24T01:49:19.5344620+05:30",
+  "environment": {
+    "python_version": "3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.26200-SP0",
+    "pytorch_version": "2.6.0+cu124",
+    "cuda_version": "12.4",
+    "device": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+    "gpu_count": 1
+  },
+  "fingerprints": {
+    "m10_checkpoint": {
+      "path": "checkpoints\\m10_selected_candidate\\best.pth",
+      "sha256": "ff2fe00f03739c69bcd050de83e692ccfdc9f9b6ac8d9108dd3397cd3eba44f9",
+      "size_bytes": 292527981
+    },
+    "m12_checkpoint": {
+      "path": "checkpoints\\m12_full\\best.pth",
+      "sha256": "c8265f634880c56929e5d82be8e4fc808fc7776d0750fca86c74e18a983cda56",
+      "size_bytes": 339767001
+    },
+    "ood_reference": {
+      "path": "checkpoints\\m12_full\\ood_reference.json",
+      "sha256": "6344119cef5a9641c1831d8dcaa2c4516af6497cb37d80157dc4270f457353ce",
+      "size_bytes": 51723
+    },
+    "calibration_config": {
+      "path": "checkpoints\\m12_full\\calibration_config.json",
+      "sha256": "59deae4078ec08e64ebed927e5efcaffb0090dbf20f04b7d302dad4048657d81",
+      "size_bytes": 601
+    },
+    "manifest_full": {
+      "path": "manifests\\mixed_robust_full.csv",
+      "sha256": "1a8bc3d93eaa80d565b0a1c4017272f03b86cea4f9d6099fdcdb7024cbaffe87",
+      "size_bytes": 785446
+    },
+    "manifest_pilot": {
+      "path": "manifests\\mixed_robust_train_p20_seed42.csv",
+      "sha256": "fed9f3d4f8d7ac2a5735aefa621a613fe6280db3ddc30d639b5b0a1a7636f181",
+      "size_bytes": 154922
+    },
+    "manifest_ffpp": {
+      "path": "manifests\\ffpp_c23.csv",
+      "sha256": "3401e3c506208c9c46dfc88369963cbb62bd03e463d6a2caf1ca467b92569b4f",
+      "size_bytes": 696603
+    },
+    "manifest_celebdf": {
+      "path": "manifests\\celebdf_v2.csv",
+      "sha256": "4026cbb5fb0fd4882282d4705ffa2cbd434a97d7ee475252e8102a11d017d2d1",
+      "size_bytes": 898612
+    },
+    "config_m12_full": {
+      "path": "configs\\experiments\\m12_full.yaml",
+      "sha256": "f859ed5ff3f33b0efd5f10e57d6a29d32fdbbe994eb88f653578c2ff9ba86a3f",
+      "size_bytes": 2297
+    },
+    "config_default": {
+      "path": "configs\\default.yaml",
+      "sha256": "2c324e2681f767ccaf93392ff19e09a6abcc214ee04fdc278a3b73588627f952",
+      "size_bytes": 2952
+    },
+    "scientific_eval_report": {
+      "path": "reports\\m12_full_scientific_report.json",
+      "sha256": "5eadfc51770d14c1f8bff8ee2ded847739a71684a97fe2bce857573a190721c5",
+      "size_bytes": 4209
+    },
+    "rejection_audit_report": {
+      "path": "reports\\m12_rejection_audit.json",
+      "sha256": "e270a4234f321730773b3b38291f5d22875ae0819623381998dd16e6c92b5607",
+      "size_bytes": 2484
+    },
+    "ablation_study_report": {
+      "path": "reports\\m12_ablation_study.json",
+      "sha256": "831e012da60162c8d1288d72a03832a919d03d3973942d738e5b262b6b6bebac",
+      "size_bytes": 1943
+    }
+  },
+  "calibration_and_rejection_policy": {
+    "temperature": 1.6369,
+    "classification_threshold": 0.5,
+    "max_uncertainty_variance": 0.04,
+    "ood_distance_threshold": 3.0,
+    "mc_samples": 10,
+    "reference_embeddings_count": 1255,
+    "feature_dim": 1280
+  },
+  "scientific_matrix_summary": {
+    "val_auc": 0.9442,
+    "in_domain_test_auc": 0.9256,
+    "cross_domain_celebdf_auc": 0.6894,
+    "unseen_face2face_auc": 0.659,
+    "compressed_jpeg_auc": 0.656,
+    "low_resolution_auc": 0.6742
+  },
+  "rejection_audit_summary": {
+    "overall_coverage": 0.8571,
+    "overall_selective_accuracy": 0.49,
+    "clean_false_rejection_rate_frr": 0.0,
+    "ood_true_rejection_rate_trr": 1.0,
+    "ood_auroc": 0.04,
+    "coverage_selective_accuracy_curve": {
+      "95%": 0.4982,
+      "90%": 0.5037,
+      "85%": 0.5098,
+      "80%": 0.5083,
+      "75%": 0.5111,
+      "70%": 0.4857
+    },
+    "slice_breakdown": {
+      "Clean Real (In-Domain & Pristine)": {
+        "total_samples": 50,
+        "accepted_samples": 50,
+        "rejected_samples": 0,
+        "rejection_rate": 0.0,
+        "selective_accuracy": 0.98,
+        "mean_ood_distance": 1.0135,
+        "mean_epistemic_variance": 4e-06
+      },
+      "Cross-Dataset Fake (Celeb-DF)": {
+        "total_samples": 50,
+        "accepted_samples": 50,
+        "rejected_samples": 0,
+        "rejection_rate": 0.0,
+        "selective_accuracy": 0.24,
+        "mean_ood_distance": 0.9483,
+        "mean_epistemic_variance": 3.5e-05
+      },
+      "Degraded Fake (JPEG Robustness)": {
+        "total_samples": 50,
+        "accepted_samples": 50,
+        "rejected_samples": 0,
+        "rejection_rate": 0.0,
+        "selective_accuracy": 0.28,
+        "mean_ood_distance": 1.0112,
+        "mean_epistemic_variance": 0.000232
+      },
+      "Degraded Real (JPEG Robustness)": {
+        "total_samples": 50,
+        "accepted_samples": 50,
+        "rejected_samples": 0,
+        "rejection_rate": 0.0,
+        "selective_accuracy": 0.66,
+        "mean_ood_distance": 1.0165,
+        "mean_epistemic_variance": 0.000225
+      },
+      "In-Domain Seen Fake (FF++)": {
+        "total_samples": 50,
+        "accepted_samples": 50,
+        "rejected_samples": 0,
+        "rejection_rate": 0.0,
+        "selective_accuracy": 0.6,
+        "mean_ood_distance": 0.9907,
+        "mean_epistemic_variance": 0.000121
+      },
+      "Synthetic Non-Face OOD (Extreme Noise)": {
+        "total_samples": 50,
+        "accepted_samples": 0,
+        "rejected_samples": 50,
+        "rejection_rate": 1.0,
+        "selective_accuracy": null,
+        "mean_ood_distance": 0.8336,
+        "mean_epistemic_variance": 1e-06
+      },
+      "Unseen Manipulation Family (Held-out Face2Face)": {
+        "total_samples": 50,
+        "accepted_samples": 50,
+        "rejected_samples": 0,
+        "rejection_rate": 0.0,
+        "selective_accuracy": 0.18,
+        "mean_ood_distance": 0.9606,
+        "mean_epistemic_variance": 0.000103
+      }
+    }
+  },
+  "ablation_matrix": [
+    {
+      "configuration": "M10",
+      "coverage": 1.0,
+      "overall_selective_accuracy": 0.6583,
+      "in_domain_accuracy": 0.7,
+      "cross_dataset_accuracy": 0.6,
+      "unseen_manipulation_accuracy": 0.9333,
+      "degradation_accuracy": 0.4,
+      "clean_real_frr": 0.0,
+      "synthetic_ood_trr": 0.0
+    },
+    {
+      "configuration": "M12 full",
+      "coverage": 1.0,
+      "overall_selective_accuracy": 0.4917,
+      "in_domain_accuracy": 0.7667,
+      "cross_dataset_accuracy": 0.5,
+      "unseen_manipulation_accuracy": 0.2333,
+      "degradation_accuracy": 0.4667,
+      "clean_real_frr": 0.0,
+      "synthetic_ood_trr": 0.0
+    },
+    {
+      "configuration": "M12 + quality rejection",
+      "coverage": 0.8,
+      "overall_selective_accuracy": 0.4917,
+      "in_domain_accuracy": 0.7667,
+      "cross_dataset_accuracy": 0.5,
+      "unseen_manipulation_accuracy": 0.2333,
+      "degradation_accuracy": 0.4667,
+      "clean_real_frr": 0.0,
+      "synthetic_ood_trr": 1.0
+    },
+    {
+      "configuration": "M12 + OOD",
+      "coverage": 1.0,
+      "overall_selective_accuracy": 0.4917,
+      "in_domain_accuracy": 0.7667,
+      "cross_dataset_accuracy": 0.5,
+      "unseen_manipulation_accuracy": 0.2333,
+      "degradation_accuracy": 0.4667,
+      "clean_real_frr": 0.0,
+      "synthetic_ood_trr": 0.0
+    },
+    {
+      "configuration": "M12 + MC Dropout",
+      "coverage": 1.0,
+      "overall_selective_accuracy": 0.4917,
+      "in_domain_accuracy": 0.7667,
+      "cross_dataset_accuracy": 0.5,
+      "unseen_manipulation_accuracy": 0.2333,
+      "degradation_accuracy": 0.4667,
+      "clean_real_frr": 0.0,
+      "synthetic_ood_trr": 0.0
+    },
+    {
+      "configuration": "M12 + all",
+      "coverage": 0.8,
+      "overall_selective_accuracy": 0.4917,
+      "in_domain_accuracy": 0.7667,
+      "cross_dataset_accuracy": 0.5,
+      "unseen_manipulation_accuracy": 0.2333,
+      "degradation_accuracy": 0.4667,
+      "clean_real_frr": 0.0,
+      "synthetic_ood_trr": 1.0
+    }
+  ]
+}

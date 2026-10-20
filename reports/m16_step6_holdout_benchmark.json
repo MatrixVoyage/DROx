@@ -1,0 +1,56 @@
+{
+  "CelebDF_v2_OOD": {
+    "m13_5": {
+      "detection_rate": 0.2838,
+      "specificity": 0.925,
+      "auroc": 0.7819,
+      "ece": 0.4723,
+      "total_samples": 114
+    },
+    "m16": {
+      "detection_rate": 0.2838,
+      "specificity": 0.925,
+      "auroc": 0.7345,
+      "ece": 0.469,
+      "total_samples": 114
+    },
+    "delta_auc": -0.047,
+    "delta_auc_95_ci": [
+      -0.1235,
+      0.0261
+    ],
+    "mcnemar_recoveries_c": 0,
+    "mcnemar_regressions_b": 0,
+    "mcnemar_p_value": 1.0,
+    "passes": false,
+    "status": "[FAIL]"
+  },
+  "FF++_Holdout_Overall": {
+    "m13_5": {
+      "detection_rate": 0.7708,
+      "specificity": 0.9444,
+      "auroc": 0.9404,
+      "ece": 0.1642,
+      "total_samples": 66
+    },
+    "m16": {
+      "detection_rate": 0.7708,
+      "specificity": 0.9444,
+      "auroc": 0.9381,
+      "ece": 0.1641,
+      "total_samples": 66
+    },
+    "delta_auc": -0.0028,
+    "delta_auc_95_ci": [
+      -0.0481,
+      0.0491
+    ],
+    "mcnemar_recoveries_c": 0,
+    "mcnemar_regressions_b": 0,
+    "mcnemar_p_value": 1.0,
+    "passes": true,
+    "status": "[PASS]"
+  },
+  "promotion_verdict": "DO NOT PROMOTE -- return to Step 5",
+  "promoted": false
+}

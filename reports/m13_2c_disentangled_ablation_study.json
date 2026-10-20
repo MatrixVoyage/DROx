@@ -1,0 +1,869 @@
+{
+  "timestamp": "2026-09-24T21:46:40Z",
+  "m12_checkpoint_sha256": "c8265f634880c56929e5d82be8e4fc808fc7776d0750fca86c74e18a983cda56",
+  "paired_bootstrap_against_m13_2b": {
+    "Frozen M12 Baseline": {
+      "delta_roc_auc": {
+        "mean_delta": -0.0008,
+        "ci_95": [
+          -0.0416,
+          0.0435
+        ],
+        "p_value": 0.974,
+        "statistically_significant": false
+      },
+      "delta_pr_auc": {
+        "mean_delta": 0.0012,
+        "ci_95": [
+          -0.0498,
+          0.0545
+        ],
+        "p_value": 0.952,
+        "statistically_significant": false
+      }
+    },
+    "M13.2c-ProjOnly": {
+      "delta_roc_auc": {
+        "mean_delta": 0.0044,
+        "ci_95": [
+          -0.041,
+          0.0516
+        ],
+        "p_value": 0.878,
+        "statistically_significant": false
+      },
+      "delta_pr_auc": {
+        "mean_delta": 0.0181,
+        "ci_95": [
+          -0.0376,
+          0.0744
+        ],
+        "p_value": 0.536,
+        "statistically_significant": false
+      }
+    },
+    "M13.2c-OrthOnly": {
+      "delta_roc_auc": {
+        "mean_delta": -0.0124,
+        "ci_95": [
+          -0.0708,
+          0.0416
+        ],
+        "p_value": 0.692,
+        "statistically_significant": false
+      },
+      "delta_pr_auc": {
+        "mean_delta": 0.0248,
+        "ci_95": [
+          -0.0366,
+          0.0885
+        ],
+        "p_value": 0.47,
+        "statistically_significant": false
+      }
+    },
+    "M13.2c-ContrastOnly": {
+      "delta_roc_auc": {
+        "mean_delta": -0.0062,
+        "ci_95": [
+          -0.0625,
+          0.0484
+        ],
+        "p_value": 0.828,
+        "statistically_significant": false
+      },
+      "delta_pr_auc": {
+        "mean_delta": 0.0363,
+        "ci_95": [
+          -0.025,
+          0.1013
+        ],
+        "p_value": 0.282,
+        "statistically_significant": false
+      }
+    },
+    "M13.2c-TrueGroup": {
+      "delta_roc_auc": {
+        "mean_delta": -0.0074,
+        "ci_95": [
+          -0.0601,
+          0.0417
+        ],
+        "p_value": 0.79,
+        "statistically_significant": false
+      },
+      "delta_pr_auc": {
+        "mean_delta": 0.0218,
+        "ci_95": [
+          -0.0443,
+          0.0939
+        ],
+        "p_value": 0.592,
+        "statistically_significant": false
+      }
+    },
+    "M13.2c-ShuffledGroup": {
+      "delta_roc_auc": {
+        "mean_delta": -0.0,
+        "ci_95": [
+          -0.0514,
+          0.0503
+        ],
+        "p_value": 0.982,
+        "statistically_significant": false
+      },
+      "delta_pr_auc": {
+        "mean_delta": 0.0254,
+        "ci_95": [
+          -0.0386,
+          0.0943
+        ],
+        "p_value": 0.502,
+        "statistically_significant": false
+      }
+    }
+  },
+  "models": {
+    "Frozen M12 Baseline": {
+      "model_name": "Frozen M12 Baseline",
+      "model_type": "frozen_m12",
+      "parameters": 28289150,
+      "latency_p50_ms": 20.7,
+      "latency_p95_ms": 26.32,
+      "peak_vram_mb": 486.79,
+      "slices": {
+        "Clean Real": {
+          "n": 98,
+          "p_mean": 0.0208,
+          "p_median": 0.0005,
+          "p_ci": [
+            0.0006,
+            0.051
+          ],
+          "det_rate_tau_0_5": 0.0204
+        },
+        "In-Domain Seen Fake": {
+          "n": 174,
+          "p_mean": 0.6614,
+          "p_median": 0.9954,
+          "p_ci": [
+            0.5866,
+            0.7281
+          ],
+          "det_rate_tau_0_5": 0.6609
+        },
+        "Celeb-DF Cross-Dataset": {
+          "n": 74,
+          "p_mean": 0.2483,
+          "p_median": 0.0008,
+          "p_ci": [
+            0.1552,
+            0.3509
+          ],
+          "det_rate_tau_0_5": 0.2432
+        },
+        "Held-Out Face2Face": {
+          "n": 58,
+          "p_mean": 0.1534,
+          "p_median": 0.0008,
+          "p_ci": [
+            0.0692,
+            0.2417
+          ],
+          "det_rate_tau_0_5": 0.1552
+        },
+        "Degraded (JPEG)": {
+          "n": 98,
+          "p_mean": 0.352,
+          "p_median": 0.0468,
+          "p_ci": [
+            0.2661,
+            0.4415
+          ],
+          "det_rate_tau_0_5": 0.3367
+        },
+        "Synthetic OOD": {
+          "n": 16,
+          "p_mean": 0.0012,
+          "p_median": 0.0012,
+          "p_ci": [
+            0.0012,
+            0.0012
+          ],
+          "det_rate_tau_0_5": 0.0
+        }
+      },
+      "metrics": {
+        "face2face_roc_auc": 0.778,
+        "face2face_pr_auc": 0.6845,
+        "face2face_detection_rate": 0.1552,
+        "face2face_f1_tau_0_5": 0.2609,
+        "face2face_f1_optimal": 0.6606,
+        "optimal_threshold": 0.0007,
+        "face2face_tpr_at_05_fpr": 0.2759,
+        "face2face_tpr_at_10_fpr": 0.4828,
+        "clean_specificity": 0.9796,
+        "clean_frr": 0.0204,
+        "seen_auc": 0.9519,
+        "seen_prauc": 0.9739,
+        "seen_f1": 0.7904,
+        "seen_tpr_at_05_fpr": 0.7931,
+        "cross_dataset_auc": 0.729,
+        "cross_dataset_prauc": 0.7413,
+        "cross_dataset_f1": 0.383,
+        "cross_tpr_at_05_fpr": 0.3378,
+        "degraded_auc": 0.5044,
+        "ece": 0.3314,
+        "brier_score": 0.3233,
+        "coverage": 0.9851,
+        "selective_acc": 0.593,
+        "clean_uncertain_rate": 0.0,
+        "syn_trr": 1.0
+      },
+      "probe_metrics": {}
+    },
+    "M13.2b-Stage5": {
+      "model_name": "M13.2b-Stage5",
+      "model_type": "multi_head",
+      "parameters": 28963460,
+      "latency_p50_ms": 22.47,
+      "latency_p95_ms": 28.85,
+      "peak_vram_mb": 710.49,
+      "slices": {
+        "Clean Real": {
+          "n": 98,
+          "p_mean": 0.1022,
+          "p_median": 0.0007,
+          "p_ci": [
+            0.0544,
+            0.156
+          ],
+          "det_rate_tau_0_5": 0.0918
+        },
+        "In-Domain Seen Fake": {
+          "n": 174,
+          "p_mean": 0.9165,
+          "p_median": 0.9999,
+          "p_ci": [
+            0.874,
+            0.9513
+          ],
+          "det_rate_tau_0_5": 0.9138
+        },
+        "Celeb-DF Cross-Dataset": {
+          "n": 74,
+          "p_mean": 0.4158,
+          "p_median": 0.2129,
+          "p_ci": [
+            0.3097,
+            0.5186
+          ],
+          "det_rate_tau_0_5": 0.3784
+        },
+        "Held-Out Face2Face": {
+          "n": 58,
+          "p_mean": 0.5097,
+          "p_median": 0.6024,
+          "p_ci": [
+            0.3732,
+            0.6334
+          ],
+          "det_rate_tau_0_5": 0.5
+        },
+        "Degraded (JPEG)": {
+          "n": 98,
+          "p_mean": 0.9482,
+          "p_median": 0.9993,
+          "p_ci": [
+            0.917,
+            0.9739
+          ],
+          "det_rate_tau_0_5": 0.9694
+        },
+        "Synthetic OOD": {
+          "n": 16,
+          "p_mean": 0.7218,
+          "p_median": 0.7242,
+          "p_ci": [
+            0.7165,
+            0.727
+          ],
+          "det_rate_tau_0_5": 1.0
+        }
+      },
+      "metrics": {
+        "face2face_roc_auc": 0.7789,
+        "face2face_pr_auc": 0.6821,
+        "face2face_detection_rate": 0.5,
+        "face2face_f1_tau_0_5": 0.6042,
+        "face2face_f1_optimal": 0.6667,
+        "optimal_threshold": 0.0259,
+        "face2face_tpr_at_05_fpr": 0.2241,
+        "face2face_tpr_at_10_fpr": 0.5345,
+        "clean_specificity": 0.9082,
+        "clean_frr": 0.0918,
+        "seen_auc": 0.9493,
+        "seen_prauc": 0.9605,
+        "seen_f1": 0.9298,
+        "seen_tpr_at_05_fpr": 0.6609,
+        "cross_dataset_auc": 0.7599,
+        "cross_dataset_prauc": 0.7212,
+        "cross_dataset_f1": 0.5045,
+        "cross_tpr_at_05_fpr": 0.2297,
+        "degraded_auc": 0.636,
+        "ece": 0.1825,
+        "brier_score": 0.1753,
+        "coverage": 0.9728,
+        "selective_acc": 0.771,
+        "clean_uncertain_rate": 0.0102,
+        "syn_trr": 0.0
+      },
+      "probe_metrics": {}
+    },
+    "M13.2c-ProjOnly": {
+      "model_name": "M13.2c-ProjOnly",
+      "model_type": "disentangled",
+      "parameters": 29749893,
+      "latency_p50_ms": 21.63,
+      "latency_p95_ms": 23.73,
+      "peak_vram_mb": 939.8,
+      "slices": {
+        "Clean Real": {
+          "n": 98,
+          "p_mean": 0.3408,
+          "p_median": 0.274,
+          "p_ci": [
+            0.314,
+            0.3725
+          ],
+          "det_rate_tau_0_5": 0.102
+        },
+        "In-Domain Seen Fake": {
+          "n": 174,
+          "p_mean": 0.7864,
+          "p_median": 0.8552,
+          "p_ci": [
+            0.7599,
+            0.8078
+          ],
+          "det_rate_tau_0_5": 0.9023
+        },
+        "Celeb-DF Cross-Dataset": {
+          "n": 74,
+          "p_mean": 0.4337,
+          "p_median": 0.3005,
+          "p_ci": [
+            0.3841,
+            0.4845
+          ],
+          "det_rate_tau_0_5": 0.2432
+        },
+        "Held-Out Face2Face": {
+          "n": 58,
+          "p_mean": 0.5666,
+          "p_median": 0.5183,
+          "p_ci": [
+            0.4986,
+            0.6307
+          ],
+          "det_rate_tau_0_5": 0.5172
+        },
+        "Degraded (JPEG)": {
+          "n": 98,
+          "p_mean": 0.6559,
+          "p_median": 0.733,
+          "p_ci": [
+            0.6162,
+            0.6972
+          ],
+          "det_rate_tau_0_5": 0.7041
+        },
+        "Synthetic OOD": {
+          "n": 16,
+          "p_mean": 0.4538,
+          "p_median": 0.4575,
+          "p_ci": [
+            0.4446,
+            0.4626
+          ],
+          "det_rate_tau_0_5": 0.0
+        }
+      },
+      "metrics": {
+        "face2face_roc_auc": 0.7843,
+        "face2face_pr_auc": 0.7051,
+        "face2face_detection_rate": 0.5172,
+        "face2face_f1_tau_0_5": 0.6122,
+        "face2face_f1_optimal": 0.7018,
+        "optimal_threshold": 0.3698,
+        "face2face_tpr_at_05_fpr": 0.3621,
+        "face2face_tpr_at_10_fpr": 0.5172,
+        "clean_specificity": 0.898,
+        "clean_frr": 0.102,
+        "seen_auc": 0.9452,
+        "seen_prauc": 0.9651,
+        "seen_f1": 0.9208,
+        "seen_tpr_at_05_fpr": 0.8161,
+        "cross_dataset_auc": 0.6597,
+        "cross_dataset_prauc": 0.5935,
+        "cross_dataset_f1": 0.3529,
+        "cross_tpr_at_05_fpr": 0.2027,
+        "degraded_auc": 0.6706,
+        "ece": 0.1351,
+        "brier_score": 0.153,
+        "coverage": 0.8886,
+        "selective_acc": 0.7827,
+        "clean_uncertain_rate": 0.102,
+        "syn_trr": 1.0
+      },
+      "probe_metrics": {
+        "id_space_same_group_sim": 0.7612,
+        "id_space_diff_group_sim": 0.6412,
+        "id_space_delta_sim": 0.12,
+        "manip_space_same_group_sim": 0.5374,
+        "manip_space_diff_group_sim": 0.0829,
+        "manip_space_id_leak_delta_sim": 0.4545,
+        "id_space_1nn_id_retrieval_acc": 0.0769,
+        "manip_space_1nn_id_retrieval_acc": 0.0538,
+        "manip_space_manip_probe_auc": 0.783,
+        "id_space_manip_leak_probe_auc": 0.8343
+      }
+    },
+    "M13.2c-OrthOnly": {
+      "model_name": "M13.2c-OrthOnly",
+      "model_type": "disentangled",
+      "parameters": 29749893,
+      "latency_p50_ms": 21.6,
+      "latency_p95_ms": 26.4,
+      "peak_vram_mb": 1170.73,
+      "slices": {
+        "Clean Real": {
+          "n": 98,
+          "p_mean": 0.349,
+          "p_median": 0.2918,
+          "p_ci": [
+            0.3256,
+            0.3781
+          ],
+          "det_rate_tau_0_5": 0.0918
+        },
+        "In-Domain Seen Fake": {
+          "n": 174,
+          "p_mean": 0.7802,
+          "p_median": 0.8488,
+          "p_ci": [
+            0.7557,
+            0.8004
+          ],
+          "det_rate_tau_0_5": 0.9138
+        },
+        "Celeb-DF Cross-Dataset": {
+          "n": 74,
+          "p_mean": 0.4653,
+          "p_median": 0.3239,
+          "p_ci": [
+            0.4148,
+            0.5171
+          ],
+          "det_rate_tau_0_5": 0.3108
+        },
+        "Held-Out Face2Face": {
+          "n": 58,
+          "p_mean": 0.5443,
+          "p_median": 0.4511,
+          "p_ci": [
+            0.4779,
+            0.6058
+          ],
+          "det_rate_tau_0_5": 0.4483
+        },
+        "Degraded (JPEG)": {
+          "n": 98,
+          "p_mean": 0.7355,
+          "p_median": 0.8127,
+          "p_ci": [
+            0.7027,
+            0.7671
+          ],
+          "det_rate_tau_0_5": 0.8571
+        },
+        "Synthetic OOD": {
+          "n": 16,
+          "p_mean": 0.6286,
+          "p_median": 0.635,
+          "p_ci": [
+            0.613,
+            0.6442
+          ],
+          "det_rate_tau_0_5": 1.0
+        }
+      },
+      "metrics": {
+        "face2face_roc_auc": 0.7674,
+        "face2face_pr_auc": 0.7128,
+        "face2face_detection_rate": 0.4483,
+        "face2face_f1_tau_0_5": 0.5591,
+        "face2face_f1_optimal": 0.6842,
+        "optimal_threshold": 0.3629,
+        "face2face_tpr_at_05_fpr": 0.3276,
+        "face2face_tpr_at_10_fpr": 0.4483,
+        "clean_specificity": 0.9082,
+        "clean_frr": 0.0918,
+        "seen_auc": 0.95,
+        "seen_prauc": 0.9714,
+        "seen_f1": 0.9298,
+        "seen_tpr_at_05_fpr": 0.8333,
+        "cross_dataset_auc": 0.6878,
+        "cross_dataset_prauc": 0.6374,
+        "cross_dataset_f1": 0.434,
+        "cross_tpr_at_05_fpr": 0.2432,
+        "degraded_auc": 0.6526,
+        "ece": 0.1261,
+        "brier_score": 0.1457,
+        "coverage": 0.8787,
+        "selective_acc": 0.7887,
+        "clean_uncertain_rate": 0.1122,
+        "syn_trr": 0.8125
+      },
+      "probe_metrics": {
+        "id_space_same_group_sim": 0.7205,
+        "id_space_diff_group_sim": 0.5006,
+        "id_space_delta_sim": 0.2199,
+        "manip_space_same_group_sim": 0.4702,
+        "manip_space_diff_group_sim": 0.0587,
+        "manip_space_id_leak_delta_sim": 0.4115,
+        "id_space_1nn_id_retrieval_acc": 0.0846,
+        "manip_space_1nn_id_retrieval_acc": 0.0744,
+        "manip_space_manip_probe_auc": 0.7942,
+        "id_space_manip_leak_probe_auc": 0.8202
+      }
+    },
+    "M13.2c-ContrastOnly": {
+      "model_name": "M13.2c-ContrastOnly",
+      "model_type": "disentangled",
+      "parameters": 29749893,
+      "latency_p50_ms": 21.67,
+      "latency_p95_ms": 23.72,
+      "peak_vram_mb": 1400.72,
+      "slices": {
+        "Clean Real": {
+          "n": 98,
+          "p_mean": 0.3722,
+          "p_median": 0.3276,
+          "p_ci": [
+            0.3538,
+            0.3942
+          ],
+          "det_rate_tau_0_5": 0.0918
+        },
+        "In-Domain Seen Fake": {
+          "n": 174,
+          "p_mean": 0.757,
+          "p_median": 0.8189,
+          "p_ci": [
+            0.7334,
+            0.7765
+          ],
+          "det_rate_tau_0_5": 0.9195
+        },
+        "Celeb-DF Cross-Dataset": {
+          "n": 74,
+          "p_mean": 0.4716,
+          "p_median": 0.3561,
+          "p_ci": [
+            0.4279,
+            0.515
+          ],
+          "det_rate_tau_0_5": 0.3243
+        },
+        "Held-Out Face2Face": {
+          "n": 58,
+          "p_mean": 0.5532,
+          "p_median": 0.4928,
+          "p_ci": [
+            0.4968,
+            0.6067
+          ],
+          "det_rate_tau_0_5": 0.4828
+        },
+        "Degraded (JPEG)": {
+          "n": 98,
+          "p_mean": 0.6048,
+          "p_median": 0.5806,
+          "p_ci": [
+            0.5697,
+            0.6399
+          ],
+          "det_rate_tau_0_5": 0.7143
+        },
+        "Synthetic OOD": {
+          "n": 16,
+          "p_mean": 0.4228,
+          "p_median": 0.422,
+          "p_ci": [
+            0.4115,
+            0.4346
+          ],
+          "det_rate_tau_0_5": 0.0
+        }
+      },
+      "metrics": {
+        "face2face_roc_auc": 0.7738,
+        "face2face_pr_auc": 0.7244,
+        "face2face_detection_rate": 0.4828,
+        "face2face_f1_tau_0_5": 0.5895,
+        "face2face_f1_optimal": 0.6972,
+        "optimal_threshold": 0.4243,
+        "face2face_tpr_at_05_fpr": 0.431,
+        "face2face_tpr_at_10_fpr": 0.5,
+        "clean_specificity": 0.9082,
+        "clean_frr": 0.0918,
+        "seen_auc": 0.9549,
+        "seen_prauc": 0.9755,
+        "seen_f1": 0.9329,
+        "seen_tpr_at_05_fpr": 0.8851,
+        "cross_dataset_auc": 0.676,
+        "cross_dataset_prauc": 0.6346,
+        "cross_dataset_f1": 0.4486,
+        "cross_tpr_at_05_fpr": 0.2838,
+        "degraded_auc": 0.6443,
+        "ece": 0.1298,
+        "brier_score": 0.1483,
+        "coverage": 0.7847,
+        "selective_acc": 0.8013,
+        "clean_uncertain_rate": 0.2857,
+        "syn_trr": 1.0
+      },
+      "probe_metrics": {
+        "id_space_same_group_sim": 0.7425,
+        "id_space_diff_group_sim": 0.5486,
+        "id_space_delta_sim": 0.194,
+        "manip_space_same_group_sim": 0.5069,
+        "manip_space_diff_group_sim": 0.0895,
+        "manip_space_id_leak_delta_sim": 0.4174,
+        "id_space_1nn_id_retrieval_acc": 0.0692,
+        "manip_space_1nn_id_retrieval_acc": 0.0718,
+        "manip_space_manip_probe_auc": 0.7925,
+        "id_space_manip_leak_probe_auc": 0.757
+      }
+    },
+    "M13.2c-TrueGroup": {
+      "model_name": "M13.2c-TrueGroup",
+      "model_type": "disentangled",
+      "parameters": 29749893,
+      "latency_p50_ms": 21.48,
+      "latency_p95_ms": 25.85,
+      "peak_vram_mb": 1630.72,
+      "slices": {
+        "Clean Real": {
+          "n": 98,
+          "p_mean": 0.3907,
+          "p_median": 0.3277,
+          "p_ci": [
+            0.3682,
+            0.4164
+          ],
+          "det_rate_tau_0_5": 0.1531
+        },
+        "In-Domain Seen Fake": {
+          "n": 174,
+          "p_mean": 0.7758,
+          "p_median": 0.8323,
+          "p_ci": [
+            0.7549,
+            0.7921
+          ],
+          "det_rate_tau_0_5": 0.954
+        },
+        "Celeb-DF Cross-Dataset": {
+          "n": 74,
+          "p_mean": 0.4734,
+          "p_median": 0.3637,
+          "p_ci": [
+            0.4319,
+            0.5151
+          ],
+          "det_rate_tau_0_5": 0.3243
+        },
+        "Held-Out Face2Face": {
+          "n": 58,
+          "p_mean": 0.5745,
+          "p_median": 0.5231,
+          "p_ci": [
+            0.515,
+            0.6288
+          ],
+          "det_rate_tau_0_5": 0.5345
+        },
+        "Degraded (JPEG)": {
+          "n": 98,
+          "p_mean": 0.5908,
+          "p_median": 0.537,
+          "p_ci": [
+            0.5568,
+            0.624
+          ],
+          "det_rate_tau_0_5": 0.7041
+        },
+        "Synthetic OOD": {
+          "n": 16,
+          "p_mean": 0.4828,
+          "p_median": 0.4838,
+          "p_ci": [
+            0.4751,
+            0.4904
+          ],
+          "det_rate_tau_0_5": 0.125
+        }
+      },
+      "metrics": {
+        "face2face_roc_auc": 0.7723,
+        "face2face_pr_auc": 0.7088,
+        "face2face_detection_rate": 0.5345,
+        "face2face_f1_tau_0_5": 0.5962,
+        "face2face_f1_optimal": 0.6724,
+        "optimal_threshold": 0.4131,
+        "face2face_tpr_at_05_fpr": 0.3621,
+        "face2face_tpr_at_10_fpr": 0.4828,
+        "clean_specificity": 0.8469,
+        "clean_frr": 0.1531,
+        "seen_auc": 0.9523,
+        "seen_prauc": 0.9706,
+        "seen_f1": 0.9352,
+        "seen_tpr_at_05_fpr": 0.8103,
+        "cross_dataset_auc": 0.6731,
+        "cross_dataset_prauc": 0.5933,
+        "cross_dataset_f1": 0.4248,
+        "cross_tpr_at_05_fpr": 0.1892,
+        "degraded_auc": 0.6618,
+        "ece": 0.1147,
+        "brier_score": 0.1468,
+        "coverage": 0.8069,
+        "selective_acc": 0.8067,
+        "clean_uncertain_rate": 0.2857,
+        "syn_trr": 1.0
+      },
+      "probe_metrics": {
+        "id_space_same_group_sim": 0.7447,
+        "id_space_diff_group_sim": 0.5627,
+        "id_space_delta_sim": 0.1821,
+        "manip_space_same_group_sim": 0.5663,
+        "manip_space_diff_group_sim": 0.0891,
+        "manip_space_id_leak_delta_sim": 0.4772,
+        "id_space_1nn_id_retrieval_acc": 0.0718,
+        "manip_space_1nn_id_retrieval_acc": 0.059,
+        "manip_space_manip_probe_auc": 0.7445,
+        "id_space_manip_leak_probe_auc": 0.7831
+      }
+    },
+    "M13.2c-ShuffledGroup": {
+      "model_name": "M13.2c-ShuffledGroup",
+      "model_type": "disentangled",
+      "parameters": 29749893,
+      "latency_p50_ms": 21.36,
+      "latency_p95_ms": 25.55,
+      "peak_vram_mb": 1860.71,
+      "slices": {
+        "Clean Real": {
+          "n": 98,
+          "p_mean": 0.3635,
+          "p_median": 0.3012,
+          "p_ci": [
+            0.3399,
+            0.3916
+          ],
+          "det_rate_tau_0_5": 0.102
+        },
+        "In-Domain Seen Fake": {
+          "n": 174,
+          "p_mean": 0.7805,
+          "p_median": 0.8345,
+          "p_ci": [
+            0.758,
+            0.7975
+          ],
+          "det_rate_tau_0_5": 0.9425
+        },
+        "Celeb-DF Cross-Dataset": {
+          "n": 74,
+          "p_mean": 0.4808,
+          "p_median": 0.3553,
+          "p_ci": [
+            0.432,
+            0.5296
+          ],
+          "det_rate_tau_0_5": 0.3514
+        },
+        "Held-Out Face2Face": {
+          "n": 58,
+          "p_mean": 0.5749,
+          "p_median": 0.6247,
+          "p_ci": [
+            0.5111,
+            0.6327
+          ],
+          "det_rate_tau_0_5": 0.5345
+        },
+        "Degraded (JPEG)": {
+          "n": 98,
+          "p_mean": 0.77,
+          "p_median": 0.8315,
+          "p_ci": [
+            0.7444,
+            0.7949
+          ],
+          "det_rate_tau_0_5": 0.9388
+        },
+        "Synthetic OOD": {
+          "n": 16,
+          "p_mean": 0.7331,
+          "p_median": 0.7354,
+          "p_ci": [
+            0.7236,
+            0.7418
+          ],
+          "det_rate_tau_0_5": 1.0
+        }
+      },
+      "metrics": {
+        "face2face_roc_auc": 0.7797,
+        "face2face_pr_auc": 0.7124,
+        "face2face_detection_rate": 0.5345,
+        "face2face_f1_tau_0_5": 0.6263,
+        "face2face_f1_optimal": 0.6903,
+        "optimal_threshold": 0.3945,
+        "face2face_tpr_at_05_fpr": 0.3621,
+        "face2face_tpr_at_10_fpr": 0.5345,
+        "clean_specificity": 0.898,
+        "clean_frr": 0.102,
+        "seen_auc": 0.9483,
+        "seen_prauc": 0.9633,
+        "seen_f1": 0.9425,
+        "seen_tpr_at_05_fpr": 0.7874,
+        "cross_dataset_auc": 0.7005,
+        "cross_dataset_prauc": 0.6169,
+        "cross_dataset_f1": 0.4727,
+        "cross_tpr_at_05_fpr": 0.2162,
+        "degraded_auc": 0.631,
+        "ece": 0.1185,
+        "brier_score": 0.1418,
+        "coverage": 0.8787,
+        "selective_acc": 0.8056,
+        "clean_uncertain_rate": 0.1633,
+        "syn_trr": 0.0
+      },
+      "probe_metrics": {
+        "id_space_same_group_sim": 0.9619,
+        "id_space_diff_group_sim": 0.958,
+        "id_space_delta_sim": 0.0039,
+        "manip_space_same_group_sim": 0.5406,
+        "manip_space_diff_group_sim": 0.0789,
+        "manip_space_id_leak_delta_sim": 0.4617,
+        "id_space_1nn_id_retrieval_acc": 0.0615,
+        "manip_space_1nn_id_retrieval_acc": 0.0487,
+        "manip_space_manip_probe_auc": 0.8073,
+        "id_space_manip_leak_probe_auc": 0.7923
+      }
+    }
+  }
+}

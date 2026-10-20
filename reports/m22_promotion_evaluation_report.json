@@ -1,0 +1,63 @@
+{
+  "timestamp": "2026-10-06T15:43:43.731612+00:00",
+  "milestone": "M22",
+  "title": "Milestone 22 Promotion Evaluation Report",
+  "verdict": "RETAIN_M13_5_CHAMPION",
+  "fusion_strategy": "strategy_2_log_odds_platt",
+  "parameters": {
+    "w1_m13_5": 0.4091516631029491,
+    "w2_m18": 0.3590353037013958,
+    "bias": 1.4219180496765942,
+    "tau_95": 0.9190860766300166,
+    "tau_99": 0.9877620563673172
+  },
+  "gates": {
+    "gate_1": {
+      "name": "Face2Face Holdout AUC",
+      "candidate_auc": 0.8118311533888228,
+      "champion_auc": 0.7947384066587395,
+      "m18_auc": 0.7858204518430439,
+      "delta": 0.01709274673008332,
+      "p_value": 0.274,
+      "ci_95": [
+        -0.03864908788962345,
+        0.07352678571428577
+      ],
+      "passed": true
+    },
+    "gate_2": {
+      "name": "Celeb-DF v2 Holdout AUC",
+      "candidate_auc": 0.8212837837837839,
+      "champion_auc": 0.7819256756756756,
+      "m18_auc": 0.816554054054054,
+      "passed": true
+    },
+    "gate_3": {
+      "name": "JPEG Q50 Compression AUC",
+      "candidate_auc": 0.8944411097772443,
+      "champion_auc": 0.8796351874082966,
+      "m18_auc": 0.8821528611444578,
+      "passed": true
+    },
+    "gate_4": {
+      "name": "H.264 CRF 23 Non-Inferiority",
+      "candidate_auc": 0.7016891891891891,
+      "passed": true
+    },
+    "gate_5": {
+      "name": "Clean Specificity (tau_95*)",
+      "clean_specificity": 0.9387755102040817,
+      "passed": false
+    },
+    "gate_6": {
+      "name": "P50 Latency (ms)",
+      "p50_latency_ms": 72.57915000081994,
+      "passed": false
+    },
+    "gate_7": {
+      "name": "Peak GPU VRAM (GB)",
+      "peak_vram_gb": 0.6810040473937988,
+      "passed": true
+    }
+  }
+}

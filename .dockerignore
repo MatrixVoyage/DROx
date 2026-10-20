@@ -1,0 +1,35 @@
+# Git and IDE
+.git
+.gitignore
+.agents
+.gemini
+.idea
+.vscode
+
+# Python and virtual environments
+.venv
+venv
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache
+.coverage
+htmlcov
+
+# Datasets (Research Integrity: Never commit raw datasets)
+Datasets/
+datasets/
+*.zip
+*.tar
+*.tar.gz
+
+# Checkpoints and runs (mount via volumes instead)
+checkpoints/
+runs/
+logs/
+
+# Reports and temporary files
+reports/
+*.log
+scratch/

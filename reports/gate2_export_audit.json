@@ -1,0 +1,23 @@
+{
+  "gate": "Gate 2 \u2014 Model Export",
+  "status": "PASS",
+  "checkpoint": "G:\\MyProjects\\DeepFake Video Detection\\checkpoints\\ffpp_c23_baseline_soft_lstm\\best.pth",
+  "artifacts": {
+    "torchscript": {
+      "path": "G:\\MyProjects\\DeepFake Video Detection\\checkpoints\\export\\deepfake_detector_baseline.pt",
+      "file_size_bytes": 231032484,
+      "max_abs_diff": 0.0,
+      "parity_verified": true
+    },
+    "onnx": {
+      "path": "G:\\MyProjects\\DeepFake Video Detection\\checkpoints\\export\\deepfake_detector_baseline.onnx",
+      "file_size_bytes": 230312038,
+      "max_abs_diff_b1": 1.1920928955078125e-07,
+      "max_abs_diff_b2": 0.0,
+      "fixed_sequence_length": 16,
+      "dynamic_batch": true,
+      "parity_verified": true
+    }
+  },
+  "parity_verified": true
+}

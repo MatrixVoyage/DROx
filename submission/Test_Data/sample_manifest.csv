@@ -1,0 +1,11 @@
+video_id,group_id,video_path,label,dataset_name,manipulation_type,split
+real_001,subj_001,sample_videos/real_001.mp4,0,FaceForensics++_C23,pristine,test
+real_002,subj_002,sample_videos/real_002.mp4,0,FaceForensics++_C23,pristine,test
+real_003,subj_003,sample_videos/real_003.mp4,0,Celeb-DF-v2,pristine,test
+real_004,subj_004,sample_videos/real_004.mp4,0,Celeb-DF-v2,pristine,test
+fake_001_df,subj_001,sample_videos/fake_001_df.mp4,1,FaceForensics++_C23,Deepfakes,test
+fake_002_f2f,subj_002,sample_videos/fake_002_f2f.mp4,1,FaceForensics++_C23,Face2Face,test
+fake_003_fs,subj_001,sample_videos/fake_003_fs.mp4,1,FaceForensics++_C23,FaceSwap,test
+fake_004_nt,subj_002,sample_videos/fake_004_nt.mp4,1,FaceForensics++_C23,NeuralTextures,test
+fake_005_celeb,subj_003,sample_videos/fake_005_celeb.mp4,1,Celeb-DF-v2,deepfake,test
+fake_006_celeb,subj_004,sample_videos/fake_006_celeb.mp4,1,Celeb-DF-v2,deepfake,test

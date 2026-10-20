@@ -1,0 +1,78 @@
+{
+  "timestamp": "2026-09-27T09:26:53.839243+00:00",
+  "candidate": {
+    "name": "M15-TS-CrossAttn",
+    "arm": "Arm B",
+    "checkpoint_path": "G:\\MyProjects\\DeepFake Video Detection\\checkpoints\\m15_arm_b_seed42\\best.pth",
+    "sha256": "6371ae340795b2067ce7c5abf4d88b0dc15fb7aba682f11d2986e9cfa680fde9",
+    "calibration_temperature_T": 2.8719,
+    "spec90_threshold_tau_star": 0.1024
+  },
+  "reference_control": {
+    "name": "v5-family-invariant",
+    "arm": "Arm A",
+    "checkpoint_path": "G:\\MyProjects\\DeepFake Video Detection\\checkpoints\\m13_3_f2f_seed42\\best.pth",
+    "sha256": "4e81b49308bbf14993c3de43377afd3349945f6e5a69ed4af307f4f26009dfc7",
+    "calibration_temperature_T": 2.0502,
+    "spec90_threshold_tau_star": 0.126
+  },
+  "gates": {
+    "gate1_face2face_transfer": {
+      "metric": "Delta ROC-AUC on Face2Face",
+      "target": ">= +0.0500 (p < 0.05)",
+      "auc_candidate": 0.698,
+      "auc_reference": 0.8104,
+      "delta_auc": -0.1124,
+      "bootstrap_95_ci": [
+        -0.1724,
+        -0.0537
+      ],
+      "bootstrap_p_value": 1.0,
+      "f2f_det_rate_std": 0.3276,
+      "f2f_det_rate_spec90": 0.9655,
+      "status": "FAIL"
+    },
+    "gate2_external_non_inferiority": {
+      "metric": "Delta ROC-AUC on Celeb-DF v2",
+      "target": ">= -0.0150",
+      "auc_candidate": 0.8275,
+      "auc_reference": 0.7808,
+      "delta_auc": 0.0467,
+      "status": "PASS"
+    },
+    "gate3_clean_ffpp_specificity": {
+      "metric": "Clean Real Specificity (tau=0.50)",
+      "target": ">= 93.00%",
+      "specificity": 0.9399,
+      "false_alarms": 14,
+      "total_clean": 233,
+      "status": "PASS"
+    },
+    "gate4_clean_celeb_specificity": {
+      "metric": "Clean Celebrity Specificity (tau=0.50)",
+      "target": ">= 96.50%",
+      "specificity": 0.9486,
+      "false_alarms": 9,
+      "total_clean": 175,
+      "status": "FAIL"
+    },
+    "gate5_compression_robustness": {
+      "metric": "ROC-AUC under JPEG Q=50",
+      "target": ">= 0.6500",
+      "auc_q50": 0.4994,
+      "status": "FAIL"
+    },
+    "gate6_runtime_and_vram": {
+      "metric": "P50 Latency & Peak VRAM",
+      "target": "P50 <= 35.0ms, VRAM <= 5.20GB",
+      "p50_latency_ms": 20.48,
+      "peak_vram_gb": 0.51,
+      "status": "PASS"
+    }
+  },
+  "verdict": {
+    "all_gates_pass": false,
+    "decision": "RETAIN_M13_5_FROZEN",
+    "governing_policy": "Strict preregistration: all 6 gates must pass simultaneously to replace v5-family-invariant."
+  }
+}

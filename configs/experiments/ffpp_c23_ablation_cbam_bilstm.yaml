@@ -1,0 +1,83 @@
+# FaceForensics++ C23 Ablation: CBAM Dual Attention + BiLSTM
+# Backbone: ResNeXt-50 (layer2 freeze) | Attention: CBAM (Channel + Spatial) | Temporal: 1024-dim BiLSTM
+seed: 42
+device: "cuda"
+
+hardware:
+  max_vram_gb: 6.0
+
+data:
+  sampling:
+    method: "random"
+    num_frames: 16
+    short_video_policy: "reject"
+  detection:
+    selection_strategy: "largest"
+    confidence_threshold: 0.90
+  crop:
+    image_size: 112
+    margin_ratio: 0.20
+    fallback:
+      use_previous_bbox: true
+      allow_center_crop: true
+    min_valid_frames: 12
+    max_fallback_ratio: 0.50
+  normalization: "imagenet"
+
+model:
+  backbone:
+    name: "resnext50_32x4d"
+    weights: "IMAGENET1K_V1"
+    freeze_strategy: "layer2"
+    freeze_batchnorm: true
+    input_size: [112, 112]
+    output_dim: 2048
+    spatial_dim: 4
+  attention:
+    type: "cbam"
+    in_channels: 2048
+    reduction_ratio: 16
+    kernel_size: 3
+  temporal:
+    type: "bilstm"
+    input_dim: 2048
+    hidden_dim: 1024
+    num_layers: 1
+    bidirectional: true
+    dropout: 0.5
+    pooling: "last"
+  classifier:
+    in_features: 2048
+    hidden_dim: 512
+    num_classes: 1
+    dropout: 0.5
+
+storage:
+  processed_dir: "processed/ffpp_c23"
+
+training:
+  batch_size: 4
+  num_epochs: 50
+  grad_accum_steps: 2
+  amp: true
+  max_grad_norm: 1.0
+  early_stopping_patience: 10
+  monitor_metric: "val_auc"
+  checkpoint_dir: "checkpoints/ffpp_c23_ablation_cbam_bilstm"
+  num_workers: 0
+  pin_memory: true
+  optimizer:
+    type: "adam"
+    learning_rate: 0.001
+    weight_decay: 0.00001
+    betas: [0.9, 0.999]
+  scheduler:
+    type: "plateau"
+    factor: 0.1
+    patience: 5
+    min_lr: 0.000001
+    mode: "max"
+
+evaluation:
+  batch_size: 4
+  threshold: 0.5

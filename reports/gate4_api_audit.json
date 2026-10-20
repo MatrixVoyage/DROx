@@ -1,0 +1,96 @@
+{
+  "gate": "Gate 4 \u2014 API Service",
+  "status": "PASS",
+  "timestamp": "2026-09-21T02:05:00+05:30",
+  "endpoints_verified": {
+    "/health": {
+      "status": "healthy",
+      "model_loaded": true,
+      "device": "cuda",
+      "checkpoint": "best.pth",
+      "version": "1.0.0"
+    },
+    "/api/v1/model-info": {
+      "architecture": "ResNeXt-50 + Soft Attention + LSTM",
+      "backbone": "resnext50_32x4d",
+      "attention_module": "soft",
+      "temporal_module": "lstm",
+      "input_resolution": [
+        112,
+        112
+      ],
+      "sequence_length": 16,
+      "checkpoint_path": "checkpoints/ffpp_c23_baseline_soft_lstm/best.pth",
+      "training_dataset": "FaceForensics++ C23",
+      "reference_paper": "Lal et al., 2025 (IJCNN) \u2014 Facial Deepfake Detection Using Spatiotemporal Networks",
+      "default_threshold": 0.5,
+      "active_device": "cuda",
+      "research_limitations": [
+        "Inference operates on 16 sampled frames per video clip.",
+        "Face detection uses MTCNN; videos with obstructed faces or no detectable face may produce unconfident or fallback predictions.",
+        "Cross-dataset generalization exhibits domain shift as documented in M6 research reports.",
+        "Model scores are probabilistic estimates and must not be used as sole legal evidence."
+      ]
+    },
+    "/api/v1/predict": {
+      "status_code": 200,
+      "input_video": "Datasets\\FaceForensics++_C23\\original\\004.mp4",
+      "prediction": {
+        "video_path": "C:\\Users\\Wukon\\AppData\\Local\\Temp\\tmpt91qlyna.mp4",
+        "verdict": "Deepfake",
+        "probability": 0.7297,
+        "raw_logit": 0.9932,
+        "confidence": 0.7297,
+        "threshold": 0.5,
+        "frames_analyzed": 16,
+        "faces_detected": 16,
+        "device": "cuda",
+        "model_version": "best.pth",
+        "latency_ms": {
+          "preprocessing_ms": 5496.05,
+          "model_forward_ms": 146.65,
+          "total_ms": 5643.35
+        },
+        "error": null,
+        "metadata": {
+          "video_id": "tmpt91qlyna",
+          "group_id": "tmpt91qlyna",
+          "split": "unassigned",
+          "status": "success",
+          "frame_indices": [
+            17,
+            29,
+            30,
+            46,
+            68,
+            103,
+            107,
+            130,
+            136,
+            149,
+            169,
+            172,
+            251,
+            252,
+            256,
+            279
+          ],
+          "counters": {
+            "detected_frames": 16,
+            "previous_bbox_frames": 0,
+            "center_crop_frames": 0,
+            "failed_frames": 0,
+            "valid_frames": 16
+          },
+          "metrics": {
+            "fallback_ratio": 0.0,
+            "failure_ratio": 0.0
+          },
+          "error_code": null,
+          "error_message": null
+        },
+        "original_filename": "004.mp4"
+      }
+    }
+  }
+}

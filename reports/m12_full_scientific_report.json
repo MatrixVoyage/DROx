@@ -1,0 +1,153 @@
+{
+  "timestamp": 1790190310.8566158,
+  "m10_baseline": {
+    "model_name": "M10_Baseline",
+    "subtests": {
+      "ffpp_in_domain_seen": {
+        "subset": "FF++ Seen Manipulations",
+        "degradation": "clean",
+        "num_evaluated": 100,
+        "duration_seconds": 138.94,
+        "roc_auc": 0.6627,
+        "accuracy": 0.71,
+        "precision": 0.7614,
+        "recall": 0.8933,
+        "f1": 0.8221,
+        "eer": 0.36,
+        "brier_score": 0.1896,
+        "ece": 0.09
+      },
+      "celebdf_seen_dataset": {
+        "subset": "Celeb-DF v2",
+        "degradation": "clean",
+        "num_evaluated": 100,
+        "duration_seconds": 60.73,
+        "roc_auc": 0.5174,
+        "accuracy": 0.64,
+        "precision": 0.6744,
+        "recall": 0.8788,
+        "f1": 0.7632,
+        "eer": 0.4706,
+        "brier_score": 0.2387,
+        "ece": 0.0849
+      },
+      "ffpp_unseen_face2face": {
+        "subset": "FF++ Face2Face (Unseen)",
+        "degradation": "clean",
+        "num_evaluated": 100,
+        "duration_seconds": 127.87,
+        "roc_auc": 0.6526,
+        "accuracy": 0.59,
+        "precision": 0.5529,
+        "recall": 0.94,
+        "f1": 0.6963,
+        "eer": 0.4,
+        "brier_score": 0.2463,
+        "ece": 0.1439
+      },
+      "degraded_compressed": {
+        "subset": "Celeb-DF Compressed",
+        "degradation": "jpeg_compression",
+        "num_evaluated": 100,
+        "duration_seconds": 59.48,
+        "roc_auc": 0.5334,
+        "accuracy": 0.59,
+        "precision": 0.6712,
+        "recall": 0.7424,
+        "f1": 0.705,
+        "eer": 0.4412,
+        "brier_score": 0.2762,
+        "ece": 0.1487
+      },
+      "degraded_lowres": {
+        "subset": "Celeb-DF Low-Resolution",
+        "degradation": "low_resolution",
+        "num_evaluated": 100,
+        "duration_seconds": 58.41,
+        "roc_auc": 0.5388,
+        "accuracy": 0.61,
+        "precision": 0.68,
+        "recall": 0.7727,
+        "f1": 0.7234,
+        "eer": 0.4412,
+        "brier_score": 0.2652,
+        "ece": 0.1309
+      }
+    }
+  },
+  "m12_full": {
+    "model_name": "M12_Full",
+    "subtests": {
+      "ffpp_in_domain_seen": {
+        "subset": "FF++ Seen Manipulations",
+        "degradation": "clean",
+        "num_evaluated": 100,
+        "duration_seconds": 107.51,
+        "roc_auc": 0.9256,
+        "accuracy": 0.79,
+        "precision": 0.9821,
+        "recall": 0.7333,
+        "f1": 0.8397,
+        "eer": 0.1154,
+        "brier_score": 0.1959,
+        "ece": 0.2043
+      },
+      "celebdf_seen_dataset": {
+        "subset": "Celeb-DF v2",
+        "degradation": "clean",
+        "num_evaluated": 100,
+        "duration_seconds": 56.01,
+        "roc_auc": 0.6894,
+        "accuracy": 0.5,
+        "precision": 1.0,
+        "recall": 0.2424,
+        "f1": 0.3902,
+        "eer": 0.3832,
+        "brier_score": 0.4955,
+        "ece": 0.5028
+      },
+      "ffpp_unseen_face2face": {
+        "subset": "FF++ Face2Face (Unseen)",
+        "degradation": "clean",
+        "num_evaluated": 100,
+        "duration_seconds": 139.01,
+        "roc_auc": 0.659,
+        "accuracy": 0.55,
+        "precision": 0.7273,
+        "recall": 0.16,
+        "f1": 0.2623,
+        "eer": 0.3919,
+        "brier_score": 0.4374,
+        "ece": 0.4427
+      },
+      "degraded_compressed": {
+        "subset": "Celeb-DF Compressed",
+        "degradation": "jpeg_compression",
+        "num_evaluated": 100,
+        "duration_seconds": 64.96,
+        "roc_auc": 0.656,
+        "accuracy": 0.45,
+        "precision": 1.0,
+        "recall": 0.1667,
+        "f1": 0.2857,
+        "eer": 0.4072,
+        "brier_score": 0.5461,
+        "ece": 0.5531
+      },
+      "degraded_lowres": {
+        "subset": "Celeb-DF Low-Resolution",
+        "degradation": "low_resolution",
+        "num_evaluated": 100,
+        "duration_seconds": 62.88,
+        "roc_auc": 0.6742,
+        "accuracy": 0.45,
+        "precision": 1.0,
+        "recall": 0.1667,
+        "f1": 0.2857,
+        "eer": 0.3945,
+        "brier_score": 0.5461,
+        "ece": 0.5531
+      }
+    }
+  }
+}

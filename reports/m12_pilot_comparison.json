@@ -1,0 +1,26 @@
+{
+  "m10_baseline": {
+    "model": "M10_Baseline",
+    "videos_evaluated": 404,
+    "duration_seconds": 873.85,
+    "roc_auc": 0.5472,
+    "accuracy": 0.7252,
+    "precision": 0.7701,
+    "recall": 0.9085,
+    "f1": 0.8336,
+    "eer": 0.4608
+  },
+  "m12_pilot": {
+    "model": "M12_Pilot",
+    "videos_evaluated": 404,
+    "duration_seconds": 417.28,
+    "roc_auc": 0.7005,
+    "accuracy": 0.6015,
+    "precision": 0.8836,
+    "recall": 0.5458,
+    "f1": 0.6747,
+    "eer": 0.34
+  },
+  "improvement_auc": 0.1533,
+  "improvement_acc": -0.1237
+}

@@ -1,0 +1,33 @@
+{
+  "gate": "Gate 3 — CLI Interface",
+  "status": "PASS",
+  "timestamp": "2026-09-21T02:03:15+05:30",
+  "tested_subcommands": [
+    "predict",
+    "export",
+    "benchmark-latency",
+    "serve"
+  ],
+  "unit_tests": {
+    "test_file": "tests/test_cli_m7.py",
+    "tests_collected": 6,
+    "tests_passed": 6,
+    "tests_failed": 0
+  },
+  "physical_verification": {
+    "command": "python -m src.cli predict --video Datasets/FaceForensics++_C23/original/004.mp4 --checkpoint checkpoints/ffpp_c23_baseline_soft_lstm/best.pth --output reports/gate3_cli_predict_output.json",
+    "exit_code": 0,
+    "input_video": "Datasets/FaceForensics++_C23/original/004.mp4",
+    "device": "cuda",
+    "verdict": "Deepfake",
+    "probability": 0.7297,
+    "raw_logit": 0.9930,
+    "faces_detected": 16,
+    "frames_analyzed": 16,
+    "latencies_ms": {
+      "preprocessing_ms": 5956.52,
+      "model_forward_ms": 172.03,
+      "total_ms": 6129.05
+    }
+  }
+}

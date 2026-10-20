@@ -1,0 +1,85 @@
+# Default Configuration for Deepfake Video Detection Preprocessing & System Settings
+seed: 42
+device: "cuda"  # Auto-falls back to "cpu" if CUDA is unavailable
+
+hardware:
+  max_vram_gb: 6.0
+
+data:
+  sampling:
+    method: "random"              # "random" (paper-aligned default) or "uniform"
+    num_frames: 16
+    short_video_policy: "reject"  # reject videos with total_frames < num_frames
+  detection:
+    selection_strategy: "largest" # deterministic selection of primary face
+    confidence_threshold: 0.90    # applied to returned detection confidence before accepting bbox
+  crop:
+    image_size: 112
+    margin_ratio: 0.20
+    fallback:
+      use_previous_bbox: true
+      allow_center_crop: true
+    min_valid_frames: 12
+    max_fallback_ratio: 0.50
+  normalization: "imagenet"        # "imagenet" or "none"
+
+model:
+  backbone:
+    name: "resnext50_32x4d"
+    weights: "IMAGENET1K_V1"          # "IMAGENET1K_V1" or null
+    freeze_strategy: "layer2"         # cumulative: "none", "stem", "layer1", "layer2", "layer3", "all"
+    freeze_batchnorm: true            # keep frozen stages' BatchNorm in eval() mode
+    input_size: [112, 112]
+    output_dim: 2048
+    spatial_dim: 4
+  attention:
+    type: "soft"                      # "soft" (paper-aligned default), "cbam", "channel", "spatial", "none"
+    in_channels: 2048
+    reduction_ratio: 16
+    kernel_size: 3
+  temporal:
+    type: "lstm"                      # "lstm" (paper baseline) or "bilstm" (ablation)
+    input_dim: 2048
+    hidden_dim: 2048                  # 2048 for lstm; 1024 for bilstm
+    num_layers: 1                     # strictly 1 for M4 baseline
+    bidirectional: false              # false for lstm; true for bilstm
+    dropout: 0.5                      # explicit post-pooling dropout
+    pooling: "last"                   # "last" or "mean"
+  classifier:
+    in_features: 2048
+    hidden_dim: 512
+    num_classes: 1                    # binary classification raw scalar logit
+    dropout: 0.5
+
+
+
+storage:
+  processed_dir: "processed"
+
+training:
+  batch_size: 4                   # Candidate batch size for RTX 3050 (6 GB VRAM)
+  num_epochs: 50
+  grad_accum_steps: 2             # Effective batch size = 4 * 2 = 8
+  amp: true                       # Native PyTorch AMP (FP16) on CUDA
+  max_grad_norm: 1.0              # Gradient clipping
+  early_stopping_patience: 10
+  monitor_metric: "val_auc"       # "val_auc" (mode: max) or "val_loss" (mode: min)
+  checkpoint_dir: "checkpoints"
+  num_workers: 0                  # Windows multiprocessing safe default
+  pin_memory: true                # Active only when device is CUDA
+  optimizer:
+    type: "adam"
+    learning_rate: 0.001
+    weight_decay: 0.00001
+    betas: [0.9, 0.999]
+  scheduler:
+    type: "plateau"               # "plateau", "cosine", "none"
+    factor: 0.1
+    patience: 5
+    min_lr: 0.000001
+    mode: "max"                   # Matches val_auc monitor
+
+evaluation:
+  batch_size: 4
+  threshold: 0.5
+

@@ -1,0 +1,11 @@
+{
+  "timestamp_utc": "2026-09-21T13:39:25.779239+00:00",
+  "torchscript_path": "G:\\MyProjects\\DeepFake Video Detection\\checkpoints\\m10_selected_candidate\\model.ts",
+  "torchscript_sha256": "843393985c5f7eaf1fd426f5cdb1b526da057d6d7cbdd9a8f9e9a59e39dc30c1",
+  "torchscript_diff": 0.0,
+  "onnx_path": "G:\\MyProjects\\DeepFake Video Detection\\checkpoints\\m10_selected_candidate\\model.onnx",
+  "onnx_sha256": "55cb879cc131746c451ec953015a8a03858e15d1ade39509fe741ba011db38f6",
+  "onnx_diff": 1.0728836059570312e-06,
+  "parity_threshold": 1e-05,
+  "status": "PASS"
+}

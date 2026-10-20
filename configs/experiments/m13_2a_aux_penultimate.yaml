@@ -1,0 +1,105 @@
+# Milestone 13.2a Experiment Configuration
+# Architecture: EfficientNet-B0 + Temporal Transformer + Auxiliary Manipulation Head
+# Dataset: 100% eligible mixed manifest (FF++ [held-out Face2Face] + Celeb-DF v2)
+# Objective: Convert penultimate representation into manipulation-family-aware classification
+
+seed: 42
+device: "cuda"
+
+hardware:
+  max_vram_gb: 6.0
+
+data:
+  sampling:
+    method: "random"
+    num_frames: 16
+    short_video_policy: "reject"
+  detection:
+    selection_strategy: "largest"
+    confidence_threshold: 0.90
+  crop:
+    image_size: 112
+    margin_ratio: 0.20
+    fallback:
+      use_previous_bbox: true
+      allow_center_crop: true
+    min_valid_frames: 12
+    max_fallback_ratio: 0.50
+  augmentation:
+    enabled: true
+    jpeg_p: 0.4
+    blur_p: 0.3
+    noise_p: 0.3
+    resize_p: 0.2
+    reencode_p: 0.15
+    frame_drop_p: 0.1
+    max_drop_frames: 2
+    severity_mild_p: 0.75
+    severity_moderate_p: 0.20
+    severity_severe_p: 0.05
+  normalization: "imagenet"
+
+model:
+  backbone:
+    name: "efficientnet_b0"
+    weights: "IMAGENET1K_V1"
+    freeze_strategy: "early"
+    freeze_batchnorm: true
+    input_size: [112, 112]
+    output_dim: 1280
+    spatial_dim: 4
+  attention:
+    type: "soft"
+    in_channels: 1280
+    reduction_ratio: 16
+    kernel_size: 3
+  temporal:
+    type: "transformer"
+    input_dim: 1280
+    hidden_dim: 1280
+    num_layers: 2
+    nhead: 4
+    dim_feedforward: 2048
+    dropout: 0.5
+    pooling: "cls_token"
+  classifier:
+    in_features: 1280
+    hidden_dim: 512
+    num_classes: 1
+    dropout: 0.5
+  auxiliary:
+    enabled: true
+    num_families: 5
+    hidden_dim: 512
+    dropout: 0.5
+    loss_weight: 0.5
+
+storage:
+  processed_dir: "processed/m12_full"
+
+training:
+  batch_size: 8
+  num_epochs: 15
+  grad_accum_steps: 2
+  amp: true
+  max_grad_norm: 1.0
+  early_stopping_patience: 6
+  monitor_metric: "val_auc"
+  checkpoint_dir: "checkpoints/m13_2a"
+  num_workers: 2
+  pin_memory: true
+  optimizer:
+    type: "adam"
+    learning_rate: 0.0005
+    weight_decay: 0.0001
+    betas: [0.9, 0.999]
+  scheduler:
+    type: "plateau"
+    factor: 0.5
+    patience: 2
+    min_lr: 0.000001
+    mode: "max"
+
+evaluation:
+  batch_size: 8
+  threshold: 0.5

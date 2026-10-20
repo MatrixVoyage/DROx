@@ -1,0 +1,69 @@
+{
+  "evaluation_timestamp": "2026-09-27T14:01:00.930464+00:00",
+  "arm": "Arm_D_Ablation_NoGate",
+  "checkpoint_sha256": "850d9b2dce4eca9e04312a3c75cec5dd178744436ceb139584d2ccb105595ab1",
+  "v5_champion_sha256": "4e81b49308bbf14993c3de43377afd3349945f6e5a69ed4af307f4f26009dfc7",
+  "calibration": {
+    "temperature_T": 3.035,
+    "tau_star_spec90": 0.0756
+  },
+  "gates": {
+    "gate1_face2face_transfer": {
+      "metric": "Delta AUC (F2F)",
+      "passed": false,
+      "arm_d_auc": 0.7284,
+      "v5_champion_auc": 0.8104,
+      "delta": -0.0821,
+      "p_value": 1.0,
+      "ci_95": [
+        -0.1497,
+        -0.022
+      ],
+      "detection_rate_std": 29.31,
+      "detection_rate_spec90": 98.28
+    },
+    "gate2_celebdf_generalization": {
+      "metric": "External Celeb-DF AUC Delta",
+      "passed": true,
+      "arm_d_auc": 0.7902,
+      "v5_champion_auc": 0.7808,
+      "delta": 0.0094,
+      "non_inferiority_margin": -0.015
+    },
+    "gate3_clean_ffpp_specificity": {
+      "metric": "Clean FF++ Specificity",
+      "passed": true,
+      "arm_d_spec": 94.85,
+      "false_alarms": "12/233",
+      "floor": 93.0
+    },
+    "gate4_clean_celeb_specificity": {
+      "metric": "Clean Celeb Specificity",
+      "passed": false,
+      "arm_d_spec": 94.86,
+      "false_alarms": "9/175",
+      "floor": 96.5
+    },
+    "gate5_compression_robustness": {
+      "metric": "JPEG Q=50 ROC-AUC",
+      "passed": false,
+      "arm_d_auc": 0.5625,
+      "floor": 0.65
+    },
+    "gate6_runtime_and_vram": {
+      "metric": "P50 Latency & Peak VRAM",
+      "passed": true,
+      "p50_latency_ms": 25.39,
+      "peak_vram_gb": 0.817
+    }
+  },
+  "promotion_verdict": "RETAIN_M13_5_FROZEN",
+  "ablation_comparison": {
+    "arm_b_f2f_auc": 0.698,
+    "arm_d_f2f_auc": 0.7284,
+    "delta_attn_f2f": -0.0303,
+    "arm_b_celeb_auc": 0.8275,
+    "arm_d_celeb_auc": 0.7902,
+    "delta_attn_celeb": 0.0373
+  }
+}

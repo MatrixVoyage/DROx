@@ -1,0 +1,7 @@
+# Standardized Cross-Dataset Evaluation Configuration
+# Used for evaluating in-domain trained checkpoints against Celeb-DF v2 and DFDC test splits
+batch_size: 4
+threshold: 0.5
+device: "cuda"
+pin_memory: true
+num_workers: 0

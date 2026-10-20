@@ -1,0 +1,170 @@
+{
+  "f2f": {
+    "held_out_family": "Face2Face",
+    "seen_families": [
+      "Deepfakes",
+      "FaceSwap",
+      "NeuralTextures"
+    ],
+    "m12_baseline": {
+      "clean_specificity": 0.9795918367346939,
+      "clean_false_alarms": 2,
+      "clean_total": 98,
+      "held_out_detected": 9,
+      "held_out_total": 58,
+      "held_out_det_rate": 0.15517241379310345,
+      "held_out_roc_auc": 0.7786769880365939,
+      "held_out_pr_auc": 0.6852872366421162,
+      "celeb_df_auc": 0.7925675675675675
+    },
+    "m13_2b_champion": {
+      "clean_specificity": 0.9081632653061225,
+      "clean_false_alarms": 9,
+      "clean_total": 98,
+      "held_out_detected": 30,
+      "held_out_total": 58,
+      "held_out_det_rate": 0.5172413793103449,
+      "held_out_roc_auc": 0.7829873328641802,
+      "held_out_pr_auc": 0.6865404150079873,
+      "celeb_df_auc": 0.7861486486486486
+    },
+    "candidate": {
+      "clean_specificity": 0.9387755102040817,
+      "clean_false_alarms": 6,
+      "clean_total": 98,
+      "held_out_detected": 22,
+      "held_out_total": 58,
+      "held_out_det_rate": 0.3793103448275862,
+      "held_out_roc_auc": 0.7902885292047854,
+      "held_out_pr_auc": 0.6915690102689971,
+      "celeb_df_auc": 0.7820945945945946
+    },
+    "candidate_hash": "4e81b49308bbf14993c3de43377afd3349945f6e5a69ed4af307f4f26009dfc7"
+  },
+  "nt": {
+    "held_out_family": "NeuralTextures",
+    "seen_families": [
+      "Deepfakes",
+      "FaceSwap",
+      "Face2Face"
+    ],
+    "m12_baseline": {
+      "clean_specificity": 0.9795918367346939,
+      "clean_false_alarms": 2,
+      "clean_total": 98,
+      "held_out_detected": 35,
+      "held_out_total": 58,
+      "held_out_det_rate": 0.603448275862069,
+      "held_out_roc_auc": 0.9298029556650247,
+      "held_out_pr_auc": 0.9160833535648443,
+      "celeb_df_auc": 0.7925675675675675
+    },
+    "m13_2b_champion": {
+      "clean_specificity": 0.9081632653061225,
+      "clean_false_alarms": 9,
+      "clean_total": 98,
+      "held_out_detected": 49,
+      "held_out_total": 58,
+      "held_out_det_rate": 0.8448275862068966,
+      "held_out_roc_auc": 0.9244370161857847,
+      "held_out_pr_auc": 0.8497526376344405,
+      "celeb_df_auc": 0.7861486486486486
+    },
+    "candidate": {
+      "clean_specificity": 0.8877551020408163,
+      "clean_false_alarms": 11,
+      "clean_total": 98,
+      "held_out_detected": 52,
+      "held_out_total": 58,
+      "held_out_det_rate": 0.896551724137931,
+      "held_out_roc_auc": 0.9499472202674174,
+      "held_out_pr_auc": 0.922586471839393,
+      "celeb_df_auc": 0.7283783783783784
+    },
+    "candidate_hash": "4595a2bbda07166fba9d68d1f39643c588fad94527a4ab8d9ce79d6b5288888f"
+  },
+  "fs": {
+    "held_out_family": "FaceSwap",
+    "seen_families": [
+      "Deepfakes",
+      "NeuralTextures",
+      "Face2Face"
+    ],
+    "m12_baseline": {
+      "clean_specificity": 0.9795918367346939,
+      "clean_false_alarms": 2,
+      "clean_total": 98,
+      "held_out_detected": 33,
+      "held_out_total": 58,
+      "held_out_det_rate": 0.5689655172413793,
+      "held_out_roc_auc": 0.94018296973962,
+      "held_out_pr_auc": 0.9151305912045679,
+      "celeb_df_auc": 0.7925675675675675
+    },
+    "m13_2b_champion": {
+      "clean_specificity": 0.9081632653061225,
+      "clean_false_alarms": 9,
+      "clean_total": 98,
+      "held_out_detected": 53,
+      "held_out_total": 58,
+      "held_out_det_rate": 0.9137931034482759,
+      "held_out_roc_auc": 0.947396199859254,
+      "held_out_pr_auc": 0.8631512253941602,
+      "celeb_df_auc": 0.7861486486486486
+    },
+    "candidate": {
+      "clean_specificity": 0.8571428571428571,
+      "clean_false_alarms": 14,
+      "clean_total": 98,
+      "held_out_detected": 52,
+      "held_out_total": 58,
+      "held_out_det_rate": 0.896551724137931,
+      "held_out_roc_auc": 0.9435256861365235,
+      "held_out_pr_auc": 0.8988132803768459,
+      "celeb_df_auc": 0.7445945945945946
+    },
+    "candidate_hash": "edcd2edce0647bc6b1f3f8330663ca55311ee611918f46ea226219cbe3699321"
+  },
+  "df": {
+    "held_out_family": "Deepfakes",
+    "seen_families": [
+      "FaceSwap",
+      "NeuralTextures",
+      "Face2Face"
+    ],
+    "m12_baseline": {
+      "clean_specificity": 0.9795918367346939,
+      "clean_false_alarms": 2,
+      "clean_total": 98,
+      "held_out_detected": 47,
+      "held_out_total": 58,
+      "held_out_det_rate": 0.8103448275862069,
+      "held_out_roc_auc": 0.9862772695285011,
+      "held_out_pr_auc": 0.9766674901232038,
+      "celeb_df_auc": 0.7925675675675675
+    },
+    "m13_2b_champion": {
+      "clean_specificity": 0.9081632653061225,
+      "clean_false_alarms": 9,
+      "clean_total": 98,
+      "held_out_detected": 57,
+      "held_out_total": 58,
+      "held_out_det_rate": 0.9827586206896551,
+      "held_out_roc_auc": 0.9806474313863477,
+      "held_out_pr_auc": 0.9600107537039999,
+      "celeb_df_auc": 0.7861486486486486
+    },
+    "candidate": {
+      "clean_specificity": 0.8571428571428571,
+      "clean_false_alarms": 14,
+      "clean_total": 98,
+      "held_out_detected": 58,
+      "held_out_total": 58,
+      "held_out_det_rate": 1.0,
+      "held_out_roc_auc": 0.9824067558057706,
+      "held_out_pr_auc": 0.9326411710009987,
+      "celeb_df_auc": 0.7445945945945946
+    },
+    "candidate_hash": "248f55069a4bb5e4e6fcf0568feb324e82d8bb3195d5592c44fc32449936ca24"
+  }
+}

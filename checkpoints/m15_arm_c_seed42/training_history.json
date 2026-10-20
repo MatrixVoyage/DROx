@@ -1,0 +1,67 @@
+[
+  {
+    "epoch": 1,
+    "elapsed_seconds": 93.4,
+    "loss": 0.7486,
+    "loss_bce": 0.219,
+    "loss_aux": 0.7214,
+    "loss_sparsity": 3.2973,
+    "loss_freq_con": 1.4829,
+    "val_auc": 0.9294,
+    "fused_auc": 0.9278,
+    "val_acc": 0.854,
+    "mean_gate": 0.1231
+  },
+  {
+    "epoch": 2,
+    "elapsed_seconds": 93.0,
+    "loss": 0.425,
+    "loss_bce": 0.087,
+    "loss_aux": 0.385,
+    "loss_sparsity": 1.7977,
+    "loss_freq_con": 1.3263,
+    "val_auc": 0.938,
+    "fused_auc": 0.9343,
+    "val_acc": 0.854,
+    "mean_gate": 0.1267
+  },
+  {
+    "epoch": 3,
+    "elapsed_seconds": 90.7,
+    "loss": 0.3365,
+    "loss_bce": 0.0564,
+    "loss_aux": 0.3239,
+    "loss_sparsity": 1.3316,
+    "loss_freq_con": 1.1638,
+    "val_auc": 0.9335,
+    "fused_auc": 0.9312,
+    "val_acc": 0.8633,
+    "mean_gate": 0.1287
+  },
+  {
+    "epoch": 4,
+    "elapsed_seconds": 86.4,
+    "loss": 0.3068,
+    "loss_bce": 0.0507,
+    "loss_aux": 0.2869,
+    "loss_sparsity": 1.2709,
+    "loss_freq_con": 1.0649,
+    "val_auc": 0.9361,
+    "fused_auc": 0.9298,
+    "val_acc": 0.8599,
+    "mean_gate": 0.1293
+  },
+  {
+    "epoch": 5,
+    "elapsed_seconds": 86.3,
+    "loss": 0.2895,
+    "loss_bce": 0.0548,
+    "loss_aux": 0.2609,
+    "loss_sparsity": 1.1684,
+    "loss_freq_con": 0.9804,
+    "val_auc": 0.9385,
+    "fused_auc": 0.9326,
+    "val_acc": 0.8658,
+    "mean_gate": 0.1296
+  }
+]

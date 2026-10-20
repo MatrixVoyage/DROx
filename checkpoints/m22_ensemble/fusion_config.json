@@ -1,0 +1,69 @@
+{
+  "timestamp": "2026-10-06T15:38:56.349628+00:00",
+  "milestone": "M22",
+  "description": "Validation-Fitted Multi-Model Decision-Level Evidence Fusion Configuration",
+  "models": {
+    "model_1": "Champion M13.5 (FamilyInvariantDeepfakeDetector, T=2.0502)",
+    "model_2": "Baseline M18 (M18ReenactmentDetector Dual-Stream)"
+  },
+  "validation_samples": 1490,
+  "validation_standalone_auc": {
+    "m13_5": 0.8827854038106391,
+    "m18": 0.8744566686185307
+  },
+  "primary_selected_strategy": "strategy_2_log_odds_platt",
+  "strategies": {
+    "strategy_1_constrained_linear": {
+      "name": "Constrained Linear Logit Fusion",
+      "weights": [
+        0.14330807970978307,
+        0.856691920290217
+      ],
+      "bias": 0.7566660631782024,
+      "val_auc": 0.8872770370704022,
+      "policies": {
+        "tau_95": 0.9367492327418583,
+        "tau_99": 0.995946352451271,
+        "tau_youden": 0.7659516406944193,
+        "tau_default": 0.5
+      }
+    },
+    "strategy_2_log_odds_platt": {
+      "name": "Calibrated Log-Odds Platt Fusion",
+      "weights": [
+        0.4091516631029491,
+        0.3590353037013958
+      ],
+      "bias": 1.4219180496765942,
+      "val_auc": 0.8911225845682627,
+      "policies": {
+        "tau_95": 0.9190860766300166,
+        "tau_99": 0.9877620563673172,
+        "tau_youden": 0.809961937559391,
+        "tau_default": 0.5
+      }
+    },
+    "strategy_3_rank_average": {
+      "name": "Non-Parametric Rank Average Fusion",
+      "val_auc": 0.8892350006756451,
+      "policies": {
+        "tau_95": 0.4760906040268453,
+        "tau_99": 0.7453389261744954,
+        "tau_youden": 0.386241610738255,
+        "tau_default": 0.5
+      }
+    },
+    "strategy_4_hierarchical_gated": {
+      "name": "Hierarchical Gated Routing",
+      "tau_high": 0.95,
+      "tau_low": 0.05,
+      "val_auc": 0.8843872460699969,
+      "policies": {
+        "tau_95": 0.9514014474543149,
+        "tau_99": 0.98095703125,
+        "tau_youden": 0.7659516406944193,
+        "tau_default": 0.5
+      }
+    }
+  }
+}

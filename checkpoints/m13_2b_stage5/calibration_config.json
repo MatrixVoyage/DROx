@@ -1,0 +1,10 @@
+{
+  "calibration_version": "m13_2b_stage5_validation",
+  "calibration_dataset": "M13.2b Validation Split (FF++ & Celeb-DF)",
+  "temperature": 2.3222,
+  "classification_threshold": 0.5,
+  "max_uncertainty_variance": 0.04,
+  "ood_distance_threshold": 3.0,
+  "fitted_samples": 1255,
+  "clean_real_samples": 343
+}

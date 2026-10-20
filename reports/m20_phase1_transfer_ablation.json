@@ -1,0 +1,128 @@
+{
+  "timestamp": "2026-10-06T14:07:12.175842+00:00",
+  "milestone": "M20_Phase1",
+  "title": "Frozen-Weight Localized Representation Transfer Ablation",
+  "model_analyzed": "Frozen M18 Dual-Stream Checkpoint (Seed 42)",
+  "dataset_analyzed": "Face2Face Locked Holdout (N=116: 58 Reals, 58 Fakes)",
+  "arm_metrics": {
+    "arm_a": {
+      "auc": 0.7669441141498216,
+      "prauc": 0.7291431899610604,
+      "real_median_logit": 0.22493954002857208,
+      "fake_median_logit": 0.6044566929340363,
+      "logit_margin": 0.3795171529054642,
+      "real_median_gate": 0.08263673260807991,
+      "fake_median_gate": 0.11823864281177521,
+      "spec_at_tau05": 0.034482758620689655,
+      "sens_at_tau05": 1.0,
+      "delta_auc_vs_a": 0.0,
+      "ci_lower_vs_a": 0.0,
+      "ci_upper_vs_a": 0.0,
+      "p_val_vs_a": 0.5,
+      "cliffs_delta_vs_a": 0.0
+    },
+    "arm_b": {
+      "auc": 0.5707491082045184,
+      "prauc": 0.5799291473911166,
+      "real_median_logit": 1.1524725556373596,
+      "fake_median_logit": 1.422806739807129,
+      "logit_margin": 0.2703341841697693,
+      "real_median_gate": 0.22781983017921448,
+      "fake_median_gate": 0.24809575825929642,
+      "spec_at_tau05": 0.0,
+      "sens_at_tau05": 1.0,
+      "delta_auc_vs_a": -0.19619500594530315,
+      "ci_lower_vs_a": -0.32130939315669693,
+      "ci_upper_vs_a": -0.06318085866929446,
+      "p_val_vs_a": 1.0,
+      "cliffs_delta_vs_a": 0.46150416171224734,
+      "delta_vs_control": -0.06837098692033294,
+      "p_val_vs_control": 0.869
+    },
+    "arm_c": {
+      "auc": 0.5124851367419738,
+      "prauc": 0.5067708940170073,
+      "real_median_logit": 1.492954969406128,
+      "fake_median_logit": 1.1969627141952515,
+      "logit_margin": -0.29599225521087646,
+      "real_median_gate": 0.24226544797420502,
+      "fake_median_gate": 0.227453351020813,
+      "spec_at_tau05": 0.0,
+      "sens_at_tau05": 1.0,
+      "delta_auc_vs_a": -0.25445897740784773,
+      "ci_lower_vs_a": -0.3762492016180541,
+      "ci_upper_vs_a": -0.13926671054866652,
+      "p_val_vs_a": 1.0,
+      "cliffs_delta_vs_a": 0.44396551724137934,
+      "delta_vs_control": -0.09244946492271111,
+      "p_val_vs_control": 0.918
+    },
+    "arm_d": {
+      "auc": 0.5862068965517241,
+      "prauc": 0.5805761705100468,
+      "real_median_logit": 0.6723992228507996,
+      "fake_median_logit": 0.931014209985733,
+      "logit_margin": 0.25861498713493347,
+      "real_median_gate": 0.1735471561551094,
+      "fake_median_gate": 0.20271578431129456,
+      "spec_at_tau05": 0.0,
+      "sens_at_tau05": 1.0,
+      "delta_auc_vs_a": -0.18073721759809747,
+      "ci_lower_vs_a": -0.29268093937078277,
+      "ci_upper_vs_a": -0.05959681042228216,
+      "p_val_vs_a": 0.993,
+      "cliffs_delta_vs_a": 0.2517835909631391
+    },
+    "arm_e1": {
+      "auc": 0.6391200951248514,
+      "prauc": 0.6544145708048623,
+      "real_median_logit": 1.2011150121688843,
+      "fake_median_logit": 1.5348933935165405,
+      "logit_margin": 0.33377838134765625,
+      "real_median_gate": 0.2167138308286667,
+      "fake_median_gate": 0.2614152282476425,
+      "spec_at_tau05": 0.0,
+      "sens_at_tau05": 1.0,
+      "delta_auc_vs_a": -0.1278240190249702,
+      "ci_lower_vs_a": -0.2501044736615415,
+      "ci_upper_vs_a": -0.006839080901734301,
+      "p_val_vs_a": 0.981,
+      "cliffs_delta_vs_a": 0.5349286563614745
+    },
+    "arm_e2": {
+      "auc": 0.6049346016646849,
+      "prauc": 0.6128562520092247,
+      "real_median_logit": 1.5172473788261414,
+      "fake_median_logit": 1.8695510029792786,
+      "logit_margin": 0.3523036241531372,
+      "real_median_gate": 0.24773254245519638,
+      "fake_median_gate": 0.3068836182355881,
+      "spec_at_tau05": 0.0,
+      "sens_at_tau05": 1.0,
+      "delta_auc_vs_a": -0.16200951248513662,
+      "ci_lower_vs_a": -0.2811124959270121,
+      "ci_upper_vs_a": -0.041914317886074415,
+      "p_val_vs_a": 0.997,
+      "cliffs_delta_vs_a": 0.5783293697978596
+    }
+  },
+  "pairwise_control_comparisons": {
+    "mouth_b_vs_control_e1": {
+      "delta_auc": -0.06837098692033294,
+      "ci_lower": -0.19206107536447103,
+      "ci_upper": 0.060875976728384434,
+      "p_value": 0.869
+    },
+    "jaw_c_vs_control_e2": {
+      "delta_auc": -0.09244946492271111,
+      "ci_lower": -0.21292152397426348,
+      "ci_upper": 0.03680634697992469,
+      "p_value": 0.918
+    }
+  },
+  "phase1_outcome": {
+    "tier": "NEGATIVE EVIDENCE",
+    "reason": "Localized arms did not improve over Arm A, and matched controls performed equivalently or better. No evidence that localized native-resolution crops provide superior forensic discrimination on this pipeline.",
+    "recommendation": "Archive localized native-resolution hypothesis and pivot research direction."
+  }
+}

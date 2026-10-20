@@ -1,0 +1,18 @@
+\begin{table}[ht]
+\centering\small
+\begin{tabular}{lccc}
+\toprule
+Perturbation & Parameters & ROC-AUC & $\Delta$ AUC \\
+\midrule
+Baseline (Clean) & 112$\times$112 & 0.3867 & +0.0000 \\
+Spatial Downsampling & 56$\times$56 & 0.4578 & +0.0711 \\
+Spatial Downsampling & 28$\times$28 & 0.5289 & +0.1422 \\
+Gaussian Blur & $\sigma=1.0$ & 0.4444 & +0.0578 \\
+Additive Noise & $\sigma=0.10$ & 0.4933 & +0.1067 \\
+Contrast Reduction & $f=0.25$ & 0.5644 & +0.1778 \\
+JPEG Compression & $Q=30$ & 0.3422 & -0.0444 \\
+\bottomrule
+\end{tabular}
+\caption{Controlled perturbation degradation matrix.}
+\label{tab:robustness_results}
+\end{table}

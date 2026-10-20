@@ -1,0 +1,710 @@
+{
+  "title": "Deepfake Detection Benchmark Report - Milestone 6.1",
+  "indomain_runs": [
+    {
+      "name": "ffpp_c23_baseline_soft_lstm",
+      "summary": {
+        "experiment_name": "ffpp_c23_baseline_soft_lstm",
+        "run_dir": "G:\\MyProjects\\DeepFake Video Detection\\runs\\ffpp_c23_baseline_soft_lstm_20260921_003348",
+        "provenance": {
+          "timestamp": "2026-09-21T00:33:50.690216",
+          "git_commit": "unknown",
+          "seed": 42,
+          "python_version": "3.11.9",
+          "torch_version": "2.6.0+cu124",
+          "platform": "win32",
+          "device": "cuda",
+          "gpu": {
+            "name": "NVIDIA GeForce RTX 3050 6GB Laptop GPU",
+            "total_vram_mb": 6143.5,
+            "cuda_version": "12.4"
+          }
+        },
+        "config": {
+          "seed": 42,
+          "device": "cuda",
+          "hardware": {
+            "max_vram_gb": 6.0
+          },
+          "data": {
+            "sampling": {
+              "method": "random",
+              "num_frames": 16,
+              "short_video_policy": "reject"
+            },
+            "detection": {
+              "selection_strategy": "largest",
+              "confidence_threshold": 0.9
+            },
+            "crop": {
+              "image_size": 112,
+              "margin_ratio": 0.2,
+              "fallback": {
+                "use_previous_bbox": true,
+                "allow_center_crop": true
+              },
+              "min_valid_frames": 12,
+              "max_fallback_ratio": 0.5
+            },
+            "normalization": "imagenet"
+          },
+          "model": {
+            "backbone": {
+              "name": "resnext50_32x4d",
+              "weights": "IMAGENET1K_V1",
+              "freeze_strategy": "layer2",
+              "freeze_batchnorm": true,
+              "input_size": [
+                112,
+                112
+              ],
+              "output_dim": 2048,
+              "spatial_dim": 4
+            },
+            "attention": {
+              "type": "soft",
+              "in_channels": 2048,
+              "reduction_ratio": 16,
+              "kernel_size": 3
+            },
+            "temporal": {
+              "type": "lstm",
+              "input_dim": 2048,
+              "hidden_dim": 2048,
+              "num_layers": 1,
+              "bidirectional": false,
+              "dropout": 0.5,
+              "pooling": "last"
+            },
+            "classifier": {
+              "in_features": 2048,
+              "hidden_dim": 512,
+              "num_classes": 1,
+              "dropout": 0.5
+            }
+          },
+          "storage": {
+            "processed_dir": "processed/ffpp_c23"
+          },
+          "training": {
+            "batch_size": 4,
+            "num_epochs": 15,
+            "grad_accum_steps": 2,
+            "amp": true,
+            "max_grad_norm": 1.0,
+            "early_stopping_patience": 5,
+            "monitor_metric": "val_auc",
+            "checkpoint_dir": "runs\\ffpp_c23_baseline_soft_lstm_20260921_003348\\checkpoints",
+            "num_workers": 0,
+            "pin_memory": true,
+            "optimizer": {
+              "type": "adam",
+              "learning_rate": 0.001,
+              "weight_decay": 1e-05,
+              "betas": [
+                0.9,
+                0.999
+              ]
+            },
+            "scheduler": {
+              "type": "plateau",
+              "factor": 0.1,
+              "patience": 5,
+              "min_lr": 1e-06,
+              "mode": "max"
+            }
+          },
+          "evaluation": {
+            "batch_size": 4,
+            "threshold": 0.5
+          }
+        },
+        "best_epoch": 7,
+        "best_metric": 0.6388888888888888,
+        "monitor_metric": "val_auc",
+        "history": [
+          {
+            "epoch": 1,
+            "train_metrics": {
+              "loss": 1.4921977392211556,
+              "accuracy": 0.78,
+              "precision": 0.7959183673469388,
+              "recall": 0.975,
+              "f1": 0.8764044943820225,
+              "roc_auc": 0.25468749999999996,
+              "eer": 0.7041666666666666,
+              "confusion_matrix": {
+                "tp": 78,
+                "fp": 20,
+                "tn": 0,
+                "fn": 2
+              },
+              "num_samples": 100
+            },
+            "val_metrics": {
+              "loss": 0.5699570516745249,
+              "accuracy": 0.8,
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.888888888888889,
+              "roc_auc": 0.3402777777777778,
+              "eer": 0.625,
+              "confusion_matrix": {
+                "tp": 24,
+                "fp": 6,
+                "tn": 0,
+                "fn": 0
+              },
+              "num_samples": 30
+            },
+            "is_best": true
+          },
+          {
+            "epoch": 2,
+            "train_metrics": {
+              "loss": 0.5985979837179184,
+              "accuracy": 0.8,
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.888888888888889,
+              "roc_auc": 0.3121875,
+              "eer": 0.6125,
+              "confusion_matrix": {
+                "tp": 80,
+                "fp": 20,
+                "tn": 0,
+                "fn": 0
+              },
+              "num_samples": 100
+            },
+            "val_metrics": {
+              "loss": 0.5472772305210432,
+              "accuracy": 0.8,
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.888888888888889,
+              "roc_auc": 0.45833333333333326,
+              "eer": 0.45833333333333337,
+              "confusion_matrix": {
+                "tp": 24,
+                "fp": 6,
+                "tn": 0,
+                "fn": 0
+              },
+              "num_samples": 30
+            },
+            "is_best": true
+          },
+          {
+            "epoch": 3,
+            "train_metrics": {
+              "loss": 0.5337044519186019,
+              "accuracy": 0.8,
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.888888888888889,
+              "roc_auc": 0.528125,
+              "eer": 0.4666666666666667,
+              "confusion_matrix": {
+                "tp": 80,
+                "fp": 20,
+                "tn": 0,
+                "fn": 0
+              },
+              "num_samples": 100
+            },
+            "val_metrics": {
+              "loss": 0.5038696587085724,
+              "accuracy": 0.8,
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.888888888888889,
+              "roc_auc": 0.4513888888888889,
+              "eer": 0.625,
+              "confusion_matrix": {
+                "tp": 24,
+                "fp": 6,
+                "tn": 0,
+                "fn": 0
+              },
+              "num_samples": 30
+            },
+            "is_best": false
+          },
+          {
+            "epoch": 4,
+            "train_metrics": {
+              "loss": 0.49926069617271424,
+              "accuracy": 0.8,
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.888888888888889,
+              "roc_auc": 0.5796875000000001,
+              "eer": 0.42500000000000004,
+              "confusion_matrix": {
+                "tp": 80,
+                "fp": 20,
+                "tn": 0,
+                "fn": 0
+              },
+              "num_samples": 100
+            },
+            "val_metrics": {
+              "loss": 0.5061324417591095,
+              "accuracy": 0.8,
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.888888888888889,
+              "roc_auc": 0.40972222222222227,
+              "eer": 0.5,
+              "confusion_matrix": {
+                "tp": 24,
+                "fp": 6,
+                "tn": 0,
+                "fn": 0
+              },
+              "num_samples": 30
+            },
+            "is_best": false
+          },
+          {
+            "epoch": 5,
+            "train_metrics": {
+              "loss": 0.5318470019102096,
+              "accuracy": 0.8,
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.888888888888889,
+              "roc_auc": 0.5578125,
+              "eer": 0.48750000000000004,
+              "confusion_matrix": {
+                "tp": 80,
+                "fp": 20,
+                "tn": 0,
+                "fn": 0
+              },
+              "num_samples": 100
+            },
+            "val_metrics": {
+              "loss": 0.5632669438918432,
+              "accuracy": 0.8,
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.888888888888889,
+              "roc_auc": 0.4375,
+              "eer": 0.5,
+              "confusion_matrix": {
+                "tp": 24,
+                "fp": 6,
+                "tn": 0,
+                "fn": 0
+              },
+              "num_samples": 30
+            },
+            "is_best": false
+          },
+          {
+            "epoch": 6,
+            "train_metrics": {
+              "loss": 0.5046014812588692,
+              "accuracy": 0.8,
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.888888888888889,
+              "roc_auc": 0.6096874999999999,
+              "eer": 0.4,
+              "confusion_matrix": {
+                "tp": 80,
+                "fp": 20,
+                "tn": 0,
+                "fn": 0
+              },
+              "num_samples": 100
+            },
+            "val_metrics": {
+              "loss": 0.5164209961891174,
+              "accuracy": 0.8,
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.888888888888889,
+              "roc_auc": 0.5833333333333333,
+              "eer": 0.375,
+              "confusion_matrix": {
+                "tp": 24,
+                "fp": 6,
+                "tn": 0,
+                "fn": 0
+              },
+              "num_samples": 30
+            },
+            "is_best": true
+          },
+          {
+            "epoch": 7,
+            "train_metrics": {
+              "loss": 0.5391013523936272,
+              "accuracy": 0.8,
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.888888888888889,
+              "roc_auc": 0.5003125,
+              "eer": 0.55,
+              "confusion_matrix": {
+                "tp": 80,
+                "fp": 20,
+                "tn": 0,
+                "fn": 0
+              },
+              "num_samples": 100
+            },
+            "val_metrics": {
+              "loss": 0.503594649831454,
+              "accuracy": 0.8,
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.888888888888889,
+              "roc_auc": 0.6388888888888888,
+              "eer": 0.33333333333333337,
+              "confusion_matrix": {
+                "tp": 24,
+                "fp": 6,
+                "tn": 0,
+                "fn": 0
+              },
+              "num_samples": 30
+            },
+            "is_best": true
+          },
+          {
+            "epoch": 8,
+            "train_metrics": {
+              "loss": 0.5028006479144096,
+              "accuracy": 0.8,
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.888888888888889,
+              "roc_auc": 0.675625,
+              "eer": 0.35,
+              "confusion_matrix": {
+                "tp": 80,
+                "fp": 20,
+                "tn": 0,
+                "fn": 0
+              },
+              "num_samples": 100
+            },
+            "val_metrics": {
+              "loss": 0.5519636293252309,
+              "accuracy": 0.8,
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.888888888888889,
+              "roc_auc": 0.4375,
+              "eer": 0.5333333333333333,
+              "confusion_matrix": {
+                "tp": 24,
+                "fp": 6,
+                "tn": 0,
+                "fn": 0
+              },
+              "num_samples": 30
+            },
+            "is_best": false
+          },
+          {
+            "epoch": 9,
+            "train_metrics": {
+              "loss": 0.4991355699300766,
+              "accuracy": 0.8,
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.888888888888889,
+              "roc_auc": 0.624375,
+              "eer": 0.44999999999999996,
+              "confusion_matrix": {
+                "tp": 80,
+                "fp": 20,
+                "tn": 0,
+                "fn": 0
+              },
+              "num_samples": 100
+            },
+            "val_metrics": {
+              "loss": 0.5468118528525034,
+              "accuracy": 0.8,
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.888888888888889,
+              "roc_auc": 0.5173611111111112,
+              "eer": 0.4878048780487805,
+              "confusion_matrix": {
+                "tp": 24,
+                "fp": 6,
+                "tn": 0,
+                "fn": 0
+              },
+              "num_samples": 30
+            },
+            "is_best": false
+          },
+          {
+            "epoch": 10,
+            "train_metrics": {
+              "loss": 0.4613605624437332,
+              "accuracy": 0.8,
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.888888888888889,
+              "roc_auc": 0.740625,
+              "eer": 0.3375,
+              "confusion_matrix": {
+                "tp": 80,
+                "fp": 20,
+                "tn": 0,
+                "fn": 0
+              },
+              "num_samples": 100
+            },
+            "val_metrics": {
+              "loss": 0.5294879784186681,
+              "accuracy": 0.8,
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.888888888888889,
+              "roc_auc": 0.5381944444444444,
+              "eer": 0.4761904761904762,
+              "confusion_matrix": {
+                "tp": 24,
+                "fp": 6,
+                "tn": 0,
+                "fn": 0
+              },
+              "num_samples": 30
+            },
+            "is_best": false
+          },
+          {
+            "epoch": 11,
+            "train_metrics": {
+              "loss": 0.5053034543991088,
+              "accuracy": 0.79,
+              "precision": 0.797979797979798,
+              "recall": 0.9875,
+              "f1": 0.88268156424581,
+              "roc_auc": 0.5800000000000001,
+              "eer": 0.45,
+              "confusion_matrix": {
+                "tp": 79,
+                "fp": 20,
+                "tn": 0,
+                "fn": 1
+              },
+              "num_samples": 100
+            },
+            "val_metrics": {
+              "loss": 0.5169125616550445,
+              "accuracy": 0.8,
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.888888888888889,
+              "roc_auc": 0.5659722222222222,
+              "eer": 0.4651162790697674,
+              "confusion_matrix": {
+                "tp": 24,
+                "fp": 6,
+                "tn": 0,
+                "fn": 0
+              },
+              "num_samples": 30
+            },
+            "is_best": false
+          },
+          {
+            "epoch": 12,
+            "train_metrics": {
+              "loss": 0.5014348322153092,
+              "accuracy": 0.8,
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.888888888888889,
+              "roc_auc": 0.556875,
+              "eer": 0.45,
+              "confusion_matrix": {
+                "tp": 80,
+                "fp": 20,
+                "tn": 0,
+                "fn": 0
+              },
+              "num_samples": 100
+            },
+            "val_metrics": {
+              "loss": 0.5078571528196335,
+              "accuracy": 0.8,
+              "precision": 0.8,
+              "recall": 1.0,
+              "f1": 0.888888888888889,
+              "roc_auc": 0.5763888888888888,
+              "eer": 0.45634920634920634,
+              "confusion_matrix": {
+                "tp": 24,
+                "fp": 6,
+                "tn": 0,
+                "fn": 0
+              },
+              "num_samples": 30
+            },
+            "is_best": false
+          }
+        ],
+        "test_metrics": {
+          "loss": 0.5585794230302175,
+          "accuracy": 0.8,
+          "precision": 0.8,
+          "recall": 1.0,
+          "f1": 0.888888888888889,
+          "roc_auc": 0.39583333333333337,
+          "eer": 0.6666666666666666,
+          "confusion_matrix": {
+            "tp": 24,
+            "fp": 6,
+            "tn": 0,
+            "fn": 0
+          },
+          "num_samples": 30
+        },
+        "runtime_seconds": 148.69
+      }
+    }
+  ],
+  "ablation_runs": [],
+  "cross_dataset_results": {
+    "checkpoint_path": "G:\\MyProjects\\DeepFake Video Detection\\checkpoints\\ffpp_c23_baseline_soft_lstm\\best.pth",
+    "indomain_metrics": {
+      "loss": 0.503594649831454,
+      "accuracy": 0.8,
+      "precision": 0.8,
+      "recall": 1.0,
+      "f1": 0.888888888888889,
+      "roc_auc": 0.6388888888888888,
+      "eer": 0.33333333333333337,
+      "confusion_matrix": {
+        "tp": 24,
+        "fp": 6,
+        "tn": 0,
+        "fn": 0
+      },
+      "num_samples": 30
+    },
+    "benchmarks": {
+      "Celeb-DF v2": {
+        "manifest_path": "G:\\MyProjects\\DeepFake Video Detection\\manifests\\celebdf_gate3_subset.csv",
+        "num_samples": 8,
+        "metrics": {
+          "loss": 1.0355209112167358,
+          "accuracy": 0.5,
+          "precision": 0.5,
+          "recall": 1.0,
+          "f1": 0.6666666666666666,
+          "roc_auc": 0.4375,
+          "eer": 0.5,
+          "confusion_matrix": {
+            "tp": 4,
+            "fp": 4,
+            "tn": 0,
+            "fn": 0
+          },
+          "num_samples": 8
+        },
+        "auc_drop_vs_indomain": 0.2014,
+        "eer_delta_vs_indomain": 0.1667
+      }
+    }
+  },
+  "literature_references": {
+    "ffpp_c23_models": [
+      {
+        "model": "Lal et al. (2025) Proposed [Ref]",
+        "ac": "0.9288 \u00b1 0.012",
+        "pr": "0.940 \u00b1 0.010",
+        "rc": "0.943 \u00b1 0.009",
+        "f1": "0.944 \u00b1 0.008",
+        "auc": "0.962 \u00b1 0.008",
+        "eer": "4.2 \u00b1 0.5%"
+      },
+      {
+        "model": "ResNeXt-50 alone [Ref]",
+        "ac": "0.8900 \u00b1 0.015",
+        "pr": "0.880 \u00b1 0.020",
+        "rc": "0.870 \u00b1 0.014",
+        "f1": "0.875 \u00b1 0.012",
+        "auc": "0.912 \u00b1 0.010",
+        "eer": "8.5 \u00b1 1.0%"
+      },
+      {
+        "model": "LSTM temporal only [Ref]",
+        "ac": "0.8920 \u00b1 0.014",
+        "pr": "0.890 \u00b1 0.015",
+        "rc": "0.882 \u00b1 0.013",
+        "f1": "0.885 \u00b1 0.011",
+        "auc": "0.920 \u00b1 0.009",
+        "eer": "7.8 \u00b1 0.9%"
+      },
+      {
+        "model": "EfficientNet-B4 [Ref]",
+        "ac": "0.9240 \u00b1 0.013",
+        "pr": "0.940 \u00b1 0.010",
+        "rc": "0.908 \u00b1 0.011",
+        "f1": "0.924 \u00b1 0.009",
+        "auc": "0.950 \u00b1 0.007",
+        "eer": "5.1 \u00b1 0.6%"
+      },
+      {
+        "model": "Vision Transformer (ViT) [Ref]",
+        "ac": "0.9150 \u00b1 0.014",
+        "pr": "0.920 \u00b1 0.012",
+        "rc": "0.910 \u00b1 0.010",
+        "f1": "0.915 \u00b1 0.009",
+        "auc": "0.945 \u00b1 0.008",
+        "eer": "5.5 \u00b1 0.7%"
+      }
+    ],
+    "ablations": [
+      {
+        "variant": "Full Model [Ref]",
+        "ac": "0.9288 \u00b1 0.012",
+        "auc": "0.962 \u00b1 0.008",
+        "eer": "4.2 \u00b1 0.5%"
+      },
+      {
+        "variant": "w/o Dual Attention [Ref]",
+        "ac": "0.8900 \u00b1 0.015",
+        "auc": "0.917 \u00b1 0.010",
+        "eer": "8.7 \u00b1 1.1%"
+      },
+      {
+        "variant": "w/o BiLSTM (CNN only) [Ref]",
+        "ac": "0.9050 \u00b1 0.014",
+        "auc": "0.935 \u00b1 0.009",
+        "eer": "6.5 \u00b1 0.8%"
+      },
+      {
+        "variant": "w/o Self-Attention Gate [Ref]",
+        "ac": "0.9150 \u00b1 0.013",
+        "auc": "0.945 \u00b1 0.008",
+        "eer": "5.3 \u00b1 0.7%"
+      }
+    ],
+    "cross_dataset": [
+      {
+        "target": "Celeb-DF v2 [Ref]",
+        "reference_auc": "0.950 \u00b1 0.009",
+        "baseline_vit_auc": "0.760 \u00b1 0.012"
+      },
+      {
+        "target": "DFDC [Ref]",
+        "reference_auc": "0.920 \u00b1 0.010",
+        "baseline_vit_auc": "0.680 \u00b1 0.015"
+      }
+    ]
+  }
+}
