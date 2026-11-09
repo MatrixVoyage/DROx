@@ -25,9 +25,10 @@ wheels/
 venv/
 ENV/
 env/
+.env
 
 # Datasets and Processed Data
-data/
+/data/
 Datasets/
 manifests/
 processed/
@@ -62,3 +63,4 @@ htmlcov/
 # This is personal too 
 .agents/
 context/
+docs/understanding/
