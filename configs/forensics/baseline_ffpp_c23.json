@@ -1,0 +1,33 @@
+{
+  "schema_version": "2.0",
+  "provenance": {
+    "dataset": "FaceForensics++ C23 Validation Split",
+    "video_count": 1490,
+    "evaluated_split": "val",
+    "generation_date": "2026-10-21T00:00:00Z"
+  },
+  "metrics": {
+    "kinematic_differential_energy": {
+      "feature_version": "2.0",
+      "dataset_name": "FaceForensics++ C23 Validation",
+      "sample_video_count": 1490,
+      "mean": 8.12,
+      "std": 2.45,
+      "median": 7.85,
+      "p05": 4.52,
+      "p95": 12.80,
+      "tail_policy": "UPPER_TAIL"
+    },
+    "spatial_boundary_ratio": {
+      "feature_version": "2.0",
+      "dataset_name": "FaceForensics++ C23 Validation",
+      "sample_video_count": 1490,
+      "mean": 1.05,
+      "std": 0.22,
+      "median": 1.02,
+      "p05": 0.76,
+      "p95": 1.44,
+      "tail_policy": "UPPER_TAIL"
+    }
+  }
+}

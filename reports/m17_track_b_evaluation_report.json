@@ -1,7 +1,7 @@
 {
   "timestamp": "2026-10-05T07:26:47.394014+00:00",
   "track": "Track B (Learned Temporal/Facial Dynamics)",
-  "checkpoint": "G:\\MyProjects\\DeepFake Video Detection\\checkpoints\\m17_track_b_seed42\\best.pth",
+  "checkpoint": "checkpoints\\m17_track_b_seed42\\best.pth",
   "temperature": 2.760645966815284,
   "gates": {
     "gate1_unseen_ood_celebdf": {

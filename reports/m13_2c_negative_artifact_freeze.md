@@ -2,7 +2,7 @@
 
 **Freeze Timestamp**: `2026-09-25T03:32:00Z`  
 **Status**: **REJECTED AS A GENERALIZATION SOLUTION (PERMANENTLY FROZEN NEGATIVE ABLATION BASELINE)**  
-**Frozen Manifest**: [`reports/m13_2c_negative_artifact_freeze.json`](file:///g:/MyProjects/DeepFake%20Video%20Detection/reports/m13_2c_negative_artifact_freeze.json)  
+**Frozen Manifest**: [`reports/m13_2c_negative_artifact_freeze.json`](file:///reports/m13_2c_negative_artifact_freeze.json)  
 **Established Research Champion**: `M13.2b-Stage5` (Stage-5 Spatial Head + Multi-Family Auxiliary Head)  
 **Immutable Reference Baseline**: `v3-robust (M12)` (SHA-256: `c8265f634880c56929e5d82be8e4fc808fc7776d0750fca86c74e18a983cda56`)
 

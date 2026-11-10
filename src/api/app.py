@@ -9,7 +9,8 @@ import cv2
 import numpy as np
 from contextlib import asynccontextmanager
 from pathlib import Path
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, List
+from pydantic import BaseModel
 
 from fastapi import FastAPI, File, Form, HTTPException, UploadFile, status
 from fastapi.middleware.cors import CORSMiddleware
@@ -597,11 +598,30 @@ async def forensic_audit_video(
             frames_per_window=int(frames_per_window or 16),
             confidence_threshold=float(threshold if threshold is not None else 0.50),
         )
-        report = engine.analyze_video(tmp_path, config=cfg, threshold=threshold)
+        report = engine.analyze_video(tmp_path, config=cfg, threshold=threshold, original_filename=filename)
         rep_dict = report.to_dict()
         rep_dict["video_filename"] = filename
+        if rep_dict.get("structured_telemetry") and rep_dict["structured_telemetry"].get("stream"):
+            rep_dict["structured_telemetry"]["stream"]["file_name"] = filename
+            rep_dict["structured_telemetry"]["stream"]["source_file_name"] = filename
         rep_dict["decision_threshold"] = float(threshold if threshold is not None else 0.50)
         rep_dict["saliency_heatmap_base64"] = saliency_to_base64_heatmap(report.overall_spatial_saliency)
+
+        # AI Forensic Analyst synthesis via Groq (Qwen 3.8 27B / GPT-OSS)
+        try:
+            from src.forensics.groq_analyst import generate_human_friendly_forensic_analysis, is_groq_available
+            if is_groq_available():
+                groq_report = generate_human_friendly_forensic_analysis(
+                    audit_data=rep_dict,
+                    threshold=float(threshold if threshold is not None else 0.50),
+                )
+                rep_dict["groq_analyst_report"] = groq_report
+            else:
+                rep_dict["groq_analyst_report"] = None
+        except Exception as groq_err:
+            logger.warning(f"Groq forensic synthesis error during audit: {groq_err}")
+            rep_dict["groq_analyst_report"] = None
+
         return rep_dict
     except HTTPException:
         raise
@@ -617,6 +637,65 @@ async def forensic_audit_video(
                 tmp_path.unlink()
             except Exception:
                 pass
+
+
+class GroqSynthesisRequest(BaseModel):
+    audit_data: Dict[str, Any]
+    prediction_data: Optional[Dict[str, Any]] = None
+    threshold: Optional[float] = None
+    model: Optional[str] = None
+
+
+@app.post("/api/v1/groq-analyst-synthesis", summary="Generate human-friendly forensic analysis via Groq")
+async def groq_analyst_synthesis(req: GroqSynthesisRequest):
+    """Generates an explainable, human-friendly forensic narrative using Groq LLM."""
+    try:
+        from src.forensics.groq_analyst import (
+            generate_human_friendly_forensic_analysis,
+            is_groq_available,
+            build_canonical_evidence,
+            validate_groq_report,
+            get_report_validation_details,
+        )
+        if not is_groq_available():
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="Groq API key is not configured in .env or environment.",
+            )
+        evidence = build_canonical_evidence(
+            audit_data=req.audit_data,
+            pred_data=req.prediction_data,
+            threshold=req.threshold,
+        )
+        report, is_fallback = generate_human_friendly_forensic_analysis(
+            audit_data=req.audit_data,
+            pred_data=req.prediction_data,
+            threshold=req.threshold,
+            preferred_model=req.model,
+            return_fallback_flag=True,
+        )
+        is_valid, validation_level, issues = get_report_validation_details(
+            report, evidence, is_fallback=is_fallback
+        )
+        return {
+            "success": True,
+            "groq_report": report,
+            "model": req.model or "openai/gpt-oss-120b",
+            "validated": is_valid,
+            "validation_level": validation_level,
+            "validation_status": validation_level,
+            "validation_issues": issues,
+            "canonical_evidence": evidence.to_dict(),
+            "is_fallback": is_fallback,
+        }
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error in Groq synthesis: {e}", exc_info=True)
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Groq synthesis failed: {e}",
+        )
 
 
 # Secure Forensic Artifact Serving with Path Containment

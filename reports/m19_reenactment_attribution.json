@@ -3,7 +3,7 @@
   "milestone": "M19",
   "track": "Track A \u2014 Reenactment Signal Attribution",
   "title": "Empirical Diagnostic Attribution of the Frozen M18 Dual-Stream Reenactment Detector",
-  "checkpoint_analyzed": "G:\\MyProjects\\DeepFake Video Detection\\checkpoints\\m18_dual_stream_seed42\\best.pth",
+  "checkpoint_analyzed": "checkpoints\\m18_dual_stream_seed42\\best.pth",
   "diagnostic_1_spatial_attention_decomposition": {
     "Face2Face": {
       "inner_face_mass_mean": 0.22324345029633622,

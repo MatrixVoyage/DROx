@@ -1089,6 +1089,12 @@ input[type="range"]:hover {
   background: rgba(16, 185, 129, 0.08);
 }
 
+.forensic-evidence-box.inconclusive {
+  border-left-color: #fbbf24;
+  border-color: rgba(245, 158, 11, 0.35);
+  background: rgba(245, 158, 11, 0.08);
+}
+
 .evidence-title {
   font-size: 0.82rem;
   font-weight: 700;
@@ -1103,6 +1109,243 @@ input[type="range"]:hover {
   font-size: 0.82rem;
   color: #cbd5e1;
   line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+/* Evidence Tab Navigation */
+.evidence-tab-group {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 2px;
+}
+
+.tab-chip {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.tab-chip:hover {
+  color: #f1f5f9;
+}
+
+.tab-chip.active {
+  background: rgba(56, 189, 248, 0.2);
+  color: #38bdf8;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+}
+
+.refresh-ai-btn {
+  background: rgba(168, 85, 247, 0.15);
+  border: 1px solid rgba(168, 85, 247, 0.35);
+  color: #c084fc;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-weight: 700;
+  border-radius: 4px;
+  padding: 2px 7px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.refresh-ai-btn:hover {
+  background: rgba(168, 85, 247, 0.25);
+  border-color: #c084fc;
+}
+
+/* AI Forensic Analyst Synthesis Presentation */
+.ai-analyst-box {
+  background: rgba(15, 23, 42, 0.7);
+  border: 1px solid rgba(168, 85, 247, 0.25);
+  border-radius: 8px;
+  padding: 0.85rem 1rem;
+  margin-top: 0.4rem;
+  animation: fadeIn 0.25s ease-in-out;
+}
+
+.ai-analyst-content {
+  font-size: 0.82rem;
+  color: #cbd5e1;
+  line-height: 1.6;
+}
+
+.ai-analyst-content h2,
+.ai-analyst-content h3 {
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: #38bdf8;
+  margin-top: 0.8rem;
+  margin-bottom: 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.ai-analyst-content h2:first-child,
+.ai-analyst-content h3:first-child {
+  margin-top: 0;
+}
+
+.ai-analyst-content p {
+  margin-bottom: 0.5rem;
+}
+
+.ai-analyst-content ul {
+  margin-left: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.ai-analyst-content li {
+  margin-bottom: 0.25rem;
+}
+
+.ai-analyst-content strong {
+  color: #f1f5f9;
+  font-weight: 700;
+}
+
+.ai-analyst-content em {
+  color: #cbd5e1;
+  font-style: italic;
+}
+
+.ai-analyst-content code {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 1px 4px;
+  border-radius: 3px;
+  color: #38bdf8;
+}
+
+.ai-threshold-banner {
+  background: rgba(245, 158, 11, 0.12);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-left: 4px solid #f59e0b;
+  border-radius: 6px;
+  padding: 0.6rem 0.8rem;
+  margin: 0.6rem 0;
+  font-size: 0.78rem;
+  color: #fef3c7;
+  line-height: 1.45;
+}
+
+.ai-threshold-banner strong {
+  color: #fbbf24;
+}
+
+/* Structured Forensic Telemetry Layout */
+.telemetry-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-top: 0.35rem;
+}
+
+.telemetry-section {
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 6px;
+  padding: 0.6rem 0.8rem;
+  transition: border-color 0.15s ease;
+}
+
+.telemetry-section:hover {
+  border-color: rgba(56, 189, 248, 0.25);
+}
+
+.telemetry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #38bdf8;
+  margin-bottom: 0.35rem;
+}
+
+.telemetry-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  gap: 0.45rem 0.75rem;
+}
+
+.telemetry-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.telemetry-label {
+  font-size: 0.67rem;
+  color: #94a3b8;
+  margin-bottom: 0.1rem;
+}
+
+.telemetry-val {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: #f1f5f9;
+  word-break: break-word;
+}
+
+.telemetry-desc {
+  font-size: 0.72rem;
+  color: #cbd5e1;
+  margin-top: 0.35rem;
+  line-height: 1.45;
+}
+
+.telemetry-badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+
+.badge-ok {
+  background: rgba(52, 211, 153, 0.15);
+  color: #34d399;
+  border: 1px solid rgba(52, 211, 153, 0.3);
+}
+
+.badge-warn {
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.badge-danger {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.badge-neutral {
+  background: rgba(148, 163, 184, 0.15);
+  color: #94a3b8;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+}
+
+.telemetry-disclaimer {
+  font-size: 0.68rem;
+  color: #64748b;
+  font-style: italic;
+  margin-top: 0.35rem;
+  border-top: 1px dashed rgba(255, 255, 255, 0.08);
+  padding-top: 0.35rem;
+  line-height: 1.4;
 }
 
 .forensic-stat-grid {

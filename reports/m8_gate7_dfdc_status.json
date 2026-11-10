@@ -2,7 +2,7 @@
   "gate": "GATE 7 \u2014 DFDC STANDING GATE",
   "status": "PENDING",
   "is_physically_available": false,
-  "disk_path": "G:\\MyProjects\\DeepFake Video Detection\\Datasets\\DFDC",
+  "disk_path": "Datasets\\DFDC",
   "detail": "PENDING \u2014 DATA ACCESS UNAVAILABLE. Dataset requires official competition credentials.",
   "synthetic_substitution_attempted": false,
   "unauthorized_scrape_attempted": false

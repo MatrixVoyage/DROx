@@ -39,6 +39,19 @@ from src.forensics.context import (
 from src.forensics.loader import ForensicVideoLoader
 from src.forensics.tracking import FaceTracker
 from src.data.pyramidal_preprocessor import PyramidalPreprocessor
+from src.forensics.schema import (
+    BaselineTelemetry,
+    ConfoundCode,
+    ForensicDecisionTelemetry,
+    PeakWindowDetail,
+    QualityAndConfounderTelemetry,
+    SpatialTelemetry,
+    StreamTelemetry,
+    TemporalTelemetry,
+    VideoSpecificTelemetry,
+    format_telemetry_narrative,
+)
+from src.forensics.baseline import EmpiricalBaselineManager
 
 logger = logging.getLogger("spatial_temporal_pipeline")
 if not logger.handlers:
@@ -98,6 +111,7 @@ class SpatialTemporalForensicEngine:
         checkpoint_path: Optional[Union[str, Path]] = None,
         config: Optional[ForensicAnalysisConfig] = None,
         device: Optional[str] = None,
+        baseline_manager: Optional[EmpiricalBaselineManager] = None,
     ) -> None:
         self.config = config or ForensicAnalysisConfig()
         
@@ -120,6 +134,21 @@ class SpatialTemporalForensicEngine:
             target_size=self.config.target_face_size,
             default_alpha=self.config.pyramidal_alpha,
         )
+
+        # Baseline reference distribution manager
+        if baseline_manager is not None:
+            self.baseline_manager: Optional[EmpiricalBaselineManager] = baseline_manager
+        else:
+            default_baseline_path = PROJECT_ROOT / "configs" / "forensics" / "baseline_ffpp_c23.json"
+            if default_baseline_path.is_file():
+                try:
+                    self.baseline_manager = EmpiricalBaselineManager(default_baseline_path)
+                    logger.info(f"Loaded empirical baseline reference from {default_baseline_path}")
+                except Exception as e:
+                    logger.warning(f"Failed to load baseline reference from {default_baseline_path}: {e}")
+                    self.baseline_manager = None
+            else:
+                self.baseline_manager = None
 
         # Model initialization
         self.checkpoint_path = Path(checkpoint_path) if checkpoint_path else None
@@ -292,8 +321,10 @@ class SpatialTemporalForensicEngine:
         else:
             primary_track = tracks[0]
             crops_bgr = primary_track.face_crops
-            face_detected = True
-            face_conf = float(np.mean(primary_track.confidences)) if primary_track.confidences else 0.85
+            confs = getattr(primary_track, "detection_confidences", None) or getattr(primary_track, "confidences", [])
+            mean_conf = float(np.mean(confs)) if confs else 0.0
+            face_detected = bool(mean_conf >= 0.45)
+            face_conf = mean_conf
 
         # Subsample or pad to target sequence length
         T_target = self.config.frames_per_window
@@ -368,6 +399,7 @@ class SpatialTemporalForensicEngine:
         video_path: Union[str, Path],
         config: Optional[ForensicAnalysisConfig] = None,
         threshold: Optional[float] = None,
+        original_filename: Optional[str] = None,
     ) -> ForensicVideoReport:
         """Performs full end-to-end spatiotemporal forensic audit on a video."""
         t_global_start = time.perf_counter()
@@ -460,66 +492,161 @@ class SpatialTemporalForensicEngine:
 
         # Temporal anomaly score sequence
         temporal_series = [wa.calibrated_fake_probability for wa in window_analyses]
-
-        # Construct dynamic, content-aware forensic evidence narrative
-        fake_windows = [wa for wa in window_analyses if wa.calibrated_fake_probability >= decision_threshold]
         peak_wa = max(window_analyses, key=lambda wa: wa.calibrated_fake_probability) if window_analyses else None
 
-        # 1. Kinematic differential characterization
-        if avg_kin > 16.0:
-            kin_desc = f"Elevated 2D frame differential energy ({avg_kin:.2f}) indicates significant pixel-level motion and rapid texture transitions."
-        elif avg_kin >= 6.0:
-            kin_desc = f"Moderate 2D frame differential energy ({avg_kin:.2f}) aligns with natural head rotation and conversational motion."
-        else:
-            kin_desc = f"Low 2D frame differential energy ({avg_kin:.2f}) reflects minimal non-rigid deformation and stable facial positioning."
-
-        # 2. Spatial gradient concentration analysis
+        # 1. Spatial gradient concentration analysis
         h_sal, w_sal = avg_saliency.shape
         inner_sal = float(avg_saliency[h_sal//4:3*h_sal//4, w_sal//4:3*w_sal//4].mean())
         outer_mask = np.ones_like(avg_saliency, dtype=bool)
         outer_mask[h_sal//4:3*h_sal//4, w_sal//4:3*w_sal//4] = False
         outer_sal = float(avg_saliency[outer_mask].mean())
-        if outer_sal > inner_sal * 1.15:
-            sal_desc = "High-frequency Laplacian gradients concentrate along outer face boundaries, characteristic of blending border transitions."
-        else:
-            sal_desc = "High-frequency Laplacian gradients concentrate around inner facial landmarks (eyes, nose, mouth)."
+        boundary_ratio = float(outer_sal / max(inner_sal, 1e-6))
+        overall_sal_mean = float(avg_saliency.mean())
 
-        # 3. Confounder context
-        confound_notes = []
-        if meta.get("bitrate_kbps", 5000.0) < 600.0:
-            confound_notes.append(f"Low container bitrate ({meta.get('bitrate_kbps', 0):.0f} kbps) introduces compression macroblocking.")
-        if meta.get("is_vfr", False):
-            confound_notes.append("Variable frame rate (VFR) container introduces temporal packet jitter.")
-        confound_str = " ".join(confound_notes) if confound_notes else "No dominant video compression or VFR container confounders observed."
-
-        if not face_detected_any:
-            explanation = (
-                "Operating envelope rejection: No unambiguous human facial structure tracked across observation windows. "
-                "Evidence is inadequate for accredited forensic determination (REJECT != FAKE)."
-            )
-        elif verdict == "DEEPFAKE":
-            if len(fake_windows) == len(window_analyses):
-                win_desc = f"Persistent manipulation indicators across all {len(window_analyses)} temporal windows (model score: {video_prob * 100:.1f}%, threshold = {decision_threshold:.2f})."
-            else:
-                peak_info = f"peak of {peak_wa.calibrated_fake_probability * 100:.1f}% in Window #{peak_wa.window_id} ({peak_wa.start_sec:.1f}s-{peak_wa.end_sec:.1f}s)" if peak_wa else ""
-                win_desc = f"Localized manipulation indicators: {len(fake_windows)} of {len(window_analyses)} temporal windows exceed threshold ({peak_info}, overall score: {video_prob * 100:.1f}% vs threshold = {decision_threshold:.2f})."
-            explanation = f"{win_desc} {sal_desc} {kin_desc} {confound_str}"
-        else:
-            explanation = (
-                f"No significant manipulation indicators detected: Evaluated temporal windows remain below active threshold "
-                f"(threshold = {decision_threshold:.2f}, overall score: {video_prob * 100:.1f}%). "
-                f"{sal_desc} {kin_desc} {confound_str} "
-                f"Note: Absence of detectable indicators within the validated scope does not guarantee authenticity against unseen synthesis methods or out-of-distribution recording conditions."
-            )
-
-        # Potential confounding warnings
+        # 2. Confounder context & quality warnings
+        confound_codes = []
         warnings = []
+        if meta.get("bitrate_kbps", 5000.0) < 600.0:
+            confound_codes.append(ConfoundCode.VIDEO_COMPRESSION.value)
+            warnings.append(f"Low container bitrate ({meta.get('bitrate_kbps', 0):.0f} kbps) introduces compression macroblocking.")
         if meta.get("is_vfr", False):
-            warnings.append("Variable frame rate (VFR) container detected; temporal jitter possible.")
-        if meta.get("bitrate_kbps", 5000.0) < 500.0:
-            warnings.append("Low video bitrate (<500 kbps); severe compression blocking artifacts present.")
+            confound_codes.append("variable_frame_rate")
+            warnings.append("Variable frame rate (VFR) container detected; temporal packet jitter possible.")
+        if meta.get("width", 0) > 0 and meta.get("width", 0) < 160:
+            confound_codes.append(ConfoundCode.LOW_RESOLUTION.value)
+            warnings.append(f"Low spatial resolution ({meta.get('width', 0)}x{meta.get('height', 0)}); face sub-crops under-resolved.")
         if not face_detected_any:
-            warnings.append("No unambiguous human face detected; falling back to heuristic spatial tracking.")
+            confound_codes.append(ConfoundCode.TRACKING_INSTABILITY.value)
+            warnings.append("No unambiguous human facial structure tracked across observation windows.")
+
+        sufficient_coverage = face_detected_any and len(window_analyses) > 0
+
+        # 3. Decision state
+        if not sufficient_coverage:
+            verdict = "INCONCLUSIVE"
+            decision_state = "INCONCLUSIVE"
+            confidence_level = "LOW"
+        elif video_prob >= decision_threshold:
+            verdict = "DEEPFAKE"
+            decision_state = "SUPPORTING_MANIPULATION"
+            margin = video_prob - decision_threshold
+            confidence_level = "HIGH" if margin >= 0.15 else "MEDIUM"
+        else:
+            verdict = "REAL"
+            decision_state = "NO_SIGNIFICANT_INDICATORS"
+            margin = decision_threshold - video_prob
+            confidence_level = "HIGH" if margin >= 0.15 else "MEDIUM"
+
+        # 4. Baseline evaluation
+        bl_telemetry = BaselineTelemetry(is_eligible=False, notes="No baseline reference distribution configured")
+        if self.baseline_manager is not None and len(self.baseline_manager.baselines) > 0:
+            kin_eval = self.baseline_manager.evaluate_sample("kinematic_differential_energy", avg_kin)
+            spatial_eval = self.baseline_manager.evaluate_sample("spatial_boundary_ratio", boundary_ratio)
+            if kin_eval.get("is_calibrated") and spatial_eval.get("is_calibrated"):
+                ref_dataset = self.baseline_manager.baselines["kinematic_differential_energy"].dataset_name
+                ref_n = self.baseline_manager.baselines["kinematic_differential_energy"].sample_video_count
+                bl_telemetry = BaselineTelemetry(
+                    is_eligible=True,
+                    reference_dataset=ref_dataset,
+                    sample_video_count=ref_n,
+                    kinematic_z_score=kin_eval.get("z_score"),
+                    kinematic_is_anomaly=kin_eval.get("is_anomaly", False),
+                    spatial_ratio_z_score=spatial_eval.get("z_score"),
+                    spatial_ratio_is_anomaly=spatial_eval.get("is_anomaly", False),
+                    notes="Empirically validated reference from FF++ C23 validation partition",
+                )
+            else:
+                bl_telemetry = BaselineTelemetry(
+                    is_eligible=False,
+                    notes="Requested metrics not found in empirical baseline schema",
+                )
+
+        # 5. Peak window detail
+        peak_detail: Optional[PeakWindowDetail] = None
+        if peak_wa is not None:
+            peak_detail = PeakWindowDetail(
+                window_id=int(peak_wa.window_id),
+                start_sec=float(peak_wa.start_sec),
+                end_sec=float(peak_wa.end_sec),
+                frame_count=int(peak_wa.frame_count),
+                face_confidence=float(peak_wa.face_confidence),
+                calibrated_fake_probability=float(peak_wa.calibrated_fake_probability),
+                selection_method="Highest calibrated manipulation probability among evaluated temporal windows",
+            )
+
+        # 6. Stream file metadata & hash
+        file_name = original_filename or str(meta.get("file_name", path.name))
+        file_size = int(meta.get("file_size_bytes", path.stat().st_size if path.is_file() else 0))
+        file_hash = str(meta.get("file_sha256", ""))
+        if not file_hash and path.is_file():
+            file_hash = ForensicVideoLoader.compute_sha256(path)
+
+        stream_telem = StreamTelemetry(
+            source_file_name=file_name,
+            file_sha256=file_hash,
+            file_size_bytes=file_size,
+            duration_sec=float(total_duration),
+            width=int(meta.get("width", 0)),
+            height=int(meta.get("height", 0)),
+            codec_name=str(meta.get("codec", "unknown")),
+            container_fps=float(meta.get("fps", 25.0)),
+            is_vfr=bool(meta.get("is_vfr", False)),
+            bitrate_kbps=float(meta.get("bitrate_kbps", 5000.0)),
+            decode_status=str(meta.get("decode_status", "SUCCESS")),
+        )
+
+        spatial_telem = SpatialTelemetry(
+            filter_method="Gaussian+Laplacian pyramidal decomposition (G1+L0)",
+            target_face_size=int(cfg.target_face_size),
+            overall_saliency_mean=overall_sal_mean,
+            inner_landmark_energy=inner_sal,
+            outer_boundary_energy=outer_sal,
+            boundary_to_landmark_ratio=boundary_ratio,
+        )
+
+        temporal_telem = TemporalTelemetry(
+            total_windows_evaluated=len(window_analyses),
+            window_duration_sec=float(cfg.window_duration_sec),
+            frames_per_window=int(cfg.frames_per_window),
+            total_frames_analyzed=int(sum(wa.frame_count for wa in window_analyses)),
+            inter_frame_differential_energy=avg_kin,
+            differential_energy_unit="2D Euclidean pixel differential per second",
+            window_score_consistency=float(1.0 - np.std(probs)) if len(probs) > 1 else 1.0,
+            temporal_series=temporal_series,
+            peak_window=peak_detail,
+        )
+
+        quality_telem = QualityAndConfounderTelemetry(
+            face_detected_any=face_detected_any,
+            mean_face_confidence=float(np.mean([wa.face_confidence for wa in window_analyses])) if window_analyses else 0.0,
+            confound_codes=confound_codes,
+            quality_warnings=warnings,
+            sufficient_coverage=sufficient_coverage,
+        )
+
+        decision_telem = ForensicDecisionTelemetry(
+            decision_state=decision_state,
+            confidence_level=confidence_level,
+            calibrated_probability=video_prob,
+            confidence_interval=(ci_low, ci_high),
+            active_threshold=decision_threshold,
+            model_name="M20PyramidalDualStream" if hasattr(self.model, "init_pyramid_alpha") else "DeepfakeDetector",
+            model_version="2.0.0",
+            calibration_method="Platt" if cfg.use_platt_scaling else "Raw",
+            attribution="None" if verdict != "DEEPFAKE" else "Unspecified / Binary Detection Only",
+        )
+
+        telemetry = VideoSpecificTelemetry(
+            schema_version="2.0.0",
+            stream=stream_telem,
+            spatial=spatial_telem,
+            temporal=temporal_telem,
+            baseline=bl_telemetry,
+            quality=quality_telem,
+            decision=decision_telem,
+        )
+
+        explanation = format_telemetry_narrative(telemetry)
 
         total_runtime_ms = (time.perf_counter() - t_global_start) * 1000.0
 
@@ -540,7 +667,7 @@ class SpatialTemporalForensicEngine:
             verdict_confidence=confidence_level,
             video_fake_probability=video_prob,
             confidence_interval=(ci_low, ci_high),
-            detected_manipulation_family="Face2Face" if verdict == "DEEPFAKE" else "None",
+            detected_manipulation_family="None" if verdict != "DEEPFAKE" else "Unspecified / Binary Detection Only",
             temporal_consistency_score=float(1.0 - np.std(probs)) if len(probs) > 1 else 1.0,
             windows_analyzed=window_analyses,
             overall_spatial_saliency=avg_saliency,
@@ -548,6 +675,7 @@ class SpatialTemporalForensicEngine:
             kinematic_residual_energy=avg_kin,
             provenance=provenance,
             forensic_explanation=explanation,
+            structured_telemetry=telemetry.to_dict(),
             warnings=warnings,
         )
 

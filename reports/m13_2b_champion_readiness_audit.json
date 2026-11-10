@@ -48,7 +48,7 @@
   "checkpoint": {
     "m12_frozen_hash": "c8265f634880c56929e5d82be8e4fc808fc7776d0750fca86c74e18a983cda56",
     "m12_integrity_verified": true,
-    "m13_2b_checkpoint_path": "G:\\MyProjects\\DeepFake Video Detection\\checkpoints\\m13_2b_stage5\\best.pth",
+    "m13_2b_checkpoint_path": "checkpoints\\m13_2b_stage5\\best.pth",
     "m13_2b_sha256": "d681386102f1d562b15ee9b7fb68eef7e4e08c1c41a8c22db6e1654c11e67611",
     "training_epoch": 8,
     "best_val_auc": 0.9396098665029922,

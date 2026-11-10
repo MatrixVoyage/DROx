@@ -3,7 +3,7 @@
   "milestone": "M19",
   "track": "Track B \u2014 Calibration & Decision Layer",
   "title": "Decoupled Calibration, Raw Logit Profiling, and Operational Threshold Optimization",
-  "checkpoint": "G:\\MyProjects\\DeepFake Video Detection\\checkpoints\\m18_dual_stream_seed42\\best.pth",
+  "checkpoint": "checkpoints\\m18_dual_stream_seed42\\best.pth",
   "validation_fitting": {
     "parameters": {
       "temperature_T": 1.1397777555545625,

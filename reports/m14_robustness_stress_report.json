@@ -4,7 +4,7 @@
   "title": "Controlled Robustness Stress Testing (One-Factor-At-A-Time)",
   "timestamp": "2026-09-26T20:45:41.327037+00:00",
   "model_under_test": "v5-family-invariant",
-  "frozen_checkpoint": "G:\\MyProjects\\DeepFake Video Detection\\checkpoints\\m13_3_f2f_seed42\\best.pth",
+  "frozen_checkpoint": "checkpoints\\m13_3_f2f_seed42\\best.pth",
   "total_benchmark_queries": 404,
   "authentic_reals": 98,
   "deepfake_swaps": 306,

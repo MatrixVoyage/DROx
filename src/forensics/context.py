@@ -188,6 +188,7 @@ class ForensicVideoReport:
     kinematic_residual_energy: float
     provenance: ForensicProvenanceAudit
     forensic_explanation: str = ""
+    structured_telemetry: Optional[Dict[str, Any]] = None
     warnings: List[str] = field(default_factory=list)
 
     def to_dict(self) -> Dict[str, Any]:

@@ -227,10 +227,28 @@
           <!-- Forensic Evidence & Physical Attribution Box -->
           <div id="forensicEvidenceBox" class="forensic-evidence-box">
             <div class="evidence-title">
-              <span>🧬 Forensic Observations & Telemetry</span>
-              <span id="evidenceStrengthBadge" style="font-size: 0.7rem; font-family: var(--font-mono); background: rgba(255,255,255,0.08); padding: 1px 6px; border-radius: 4px; color: #94a3b8;">Physical Anomaly Analysis</span>
+              <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+                <span>🧬 Forensic Observations & Telemetry</span>
+                <div class="evidence-tab-group" id="evidenceTabGroup">
+                  <button type="button" class="tab-chip active" id="tabAiReport">🤖 AI Analyst Report</button>
+                  <button type="button" class="tab-chip" id="tabRawTelemetry">📊 Structured Telemetry</button>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <button type="button" class="refresh-ai-btn" id="refreshAiBtn" title="Re-synthesize with Groq LLM" style="display: none;">⚡ Re-Ask Groq</button>
+                <span id="evidenceStrengthBadge" style="font-size: 0.7rem; font-family: var(--font-mono); background: rgba(255,255,255,0.08); padding: 1px 6px; border-radius: 4px; color: #94a3b8;">Physical Anomaly Analysis</span>
+              </div>
             </div>
-            <div id="forensicEvidenceText" class="evidence-text">
+
+            <!-- 1. AI Forensic Analyst Synthesis (Human-Friendly) -->
+            <div id="aiAnalystBox" class="ai-analyst-box">
+              <div id="aiAnalystText" class="ai-analyst-content">
+                Awaiting video inference to generate AI Forensic Analyst synthesis...
+              </div>
+            </div>
+
+            <!-- 2. Structured Technical Telemetry (Raw 6-Section Metrics) -->
+            <div id="forensicEvidenceText" class="evidence-text" style="display: none;">
               Awaiting video inference to generate forensic attribution evidence...
             </div>
           </div>

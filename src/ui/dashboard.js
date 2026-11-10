@@ -182,6 +182,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const forensicEvidenceBox = document.getElementById("forensicEvidenceBox");
   const evidenceStrengthBadge = document.getElementById("evidenceStrengthBadge");
   const forensicEvidenceText = document.getElementById("forensicEvidenceText");
+  const tabAiReport = document.getElementById("tabAiReport");
+  const tabRawTelemetry = document.getElementById("tabRawTelemetry");
+  const refreshAiBtn = document.getElementById("refreshAiBtn");
+  const aiAnalystBox = document.getElementById("aiAnalystBox");
+  const aiAnalystText = document.getElementById("aiAnalystText");
   const forensicVerdictBadge = document.getElementById("forensicVerdictBadge");
   const forensicVerdictIcon = document.getElementById("forensicVerdictIcon");
   const forensicVerdictText = document.getElementById("forensicVerdictText");
@@ -494,6 +499,33 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Evidence Tab Switching (AI Analyst Report vs Structured Telemetry)
+  if (tabAiReport && tabRawTelemetry && aiAnalystBox && forensicEvidenceText) {
+    tabAiReport.addEventListener("click", () => {
+      tabAiReport.classList.add("active");
+      tabRawTelemetry.classList.remove("active");
+      aiAnalystBox.style.display = "block";
+      forensicEvidenceText.style.display = "none";
+    });
+
+    tabRawTelemetry.addEventListener("click", () => {
+      tabRawTelemetry.classList.add("active");
+      tabAiReport.classList.remove("active");
+      aiAnalystBox.style.display = "none";
+      forensicEvidenceText.style.display = "block";
+    });
+  }
+
+  if (refreshAiBtn) {
+    refreshAiBtn.addEventListener("click", () => {
+      if (!lastAuditData) return;
+      const effThreshold = parseFloat(thresholdSlider.value || 0.50);
+      fetchGroqSynthesis(lastAuditData, lastPredictionData, effThreshold);
+    });
+  }
+
+  let thresholdDebounceTimer = null;
+
   thresholdSlider.addEventListener("input", (e) => {
     const val = parseFloat(e.target.value);
     thresholdVal.textContent = val.toFixed(2);
@@ -502,6 +534,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     if (lastPredictionData) {
       applyThresholdAndRenderVerdict(lastPredictionData, val);
+    }
+
+    if (lastAuditData) {
+      clearTimeout(thresholdDebounceTimer);
+      thresholdDebounceTimer = setTimeout(() => {
+        fetchGroqSynthesis(lastAuditData, lastPredictionData, val);
+      }, 500);
     }
   });
 
@@ -514,6 +553,8 @@ document.addEventListener("DOMContentLoaded", () => {
       thresholdVal.textContent = defaultVal;
       if (lastAuditData) {
         renderForensicAudit(lastAuditData, defaultNum, lastPredictionData, engineSelect ? engineSelect.value : null);
+        clearTimeout(thresholdDebounceTimer);
+        fetchGroqSynthesis(lastAuditData, lastPredictionData, defaultNum);
       }
       if (lastPredictionData) {
         applyThresholdAndRenderVerdict(lastPredictionData, defaultNum);
@@ -672,6 +713,370 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  function escapeHtml(str) {
+    if (str == null) return "";
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
+  }
+
+  function formatBytes(bytes) {
+    if (!bytes || isNaN(bytes)) return "N/A";
+    const units = ["B", "KB", "MB", "GB"];
+    let i = 0;
+    let b = Number(bytes);
+    while (b >= 1024 && i < units.length - 1) {
+      b /= 1024;
+      i++;
+    }
+    return `${b.toFixed(i === 0 ? 0 : 2)} ${units[i]}`;
+  }
+
+  function renderMarkdownToHtml(md) {
+    if (!md) return "";
+    let html = escapeHtml(md);
+
+    // Headers
+    html = html.replace(/^### (.*$)/gim, '<h3 class="ai-analyst-h3">🔍 $1</h3>');
+    html = html.replace(/^## (.*$)/gim, '<h2 class="ai-analyst-h2">📌 $1</h2>');
+    html = html.replace(/^# (.*$)/gim, '<h1 class="ai-analyst-h1">🧬 $1</h1>');
+
+    // Bold, Italic, Inline Code
+    html = html.replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>');
+    html = html.replace(/\*(.*?)\*/gim, '<em>$1</em>');
+    html = html.replace(/`([^`]+)`/gim, '<code>$1</code>');
+
+    // Horizontal Rule
+    html = html.replace(/^---$/gim, '<hr style="border: 0; border-top: 1px solid rgba(255,255,255,0.08); margin: 0.6rem 0;">');
+
+    // Bullet Lists
+    html = html.replace(/^\s*[\-\*•]\s+(.*$)/gim, '<li>$1</li>');
+    html = html.replace(/(<li>.*<\/li>(\s*<li>.*<\/li>)*)/gim, '<ul>$1</ul>');
+
+    // Blockquotes & Notes
+    html = html.replace(/^>\s*\[!NOTE\]\s*(.*$)/gim, '<div class="ai-threshold-banner" style="border-left-color: #38bdf8; background: rgba(56, 189, 248, 0.08);">$1</div>');
+    html = html.replace(/^>\s*(.*$)/gim, '<blockquote style="border-left: 3px solid rgba(255,255,255,0.2); padding-left: 0.8rem; margin: 0.5rem 0; color: #cbd5e1; font-style: italic;">$1</blockquote>');
+
+    // Paragraph wrapping
+    const paragraphs = html.split(/\n\s*\n/).map((p) => {
+      const trimmed = p.trim();
+      if (!trimmed) return "";
+      if (
+        trimmed.startsWith("<h1") ||
+        trimmed.startsWith("<h2") ||
+        trimmed.startsWith("<h3") ||
+        trimmed.startsWith("<ul") ||
+        trimmed.startsWith("<div") ||
+        trimmed.startsWith("<hr") ||
+        trimmed.startsWith("<blockquote")
+      ) {
+        return trimmed;
+      }
+      return `<p>${trimmed.replace(/\n/g, "<br>")}</p>`;
+    });
+
+    html = paragraphs.filter(Boolean).join("");
+
+    return html;
+  }
+
+  async function fetchGroqSynthesis(data, predData, threshold) {
+    if (!aiAnalystText) return;
+    aiAnalystText.innerHTML = `
+      <div style="display: flex; align-items: center; gap: 0.6rem; padding: 0.8rem 0; color: #38bdf8; font-size: 0.82rem;">
+        <span style="display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(56,189,248,0.25); border-top-color: #38bdf8; border-radius: 50%; animation: spin 0.8s linear infinite;"></span>
+        Synthesizing canonical forensic analysis at threshold τ = ${Number(threshold).toFixed(2)}...
+      </div>
+    `;
+
+    try {
+      const resp = await fetch("/api/v1/groq-analyst-synthesis", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          audit_data: data,
+          prediction_data: predData,
+          threshold: threshold,
+        }),
+      });
+
+      if (!resp.ok) {
+        const errJson = await resp.json().catch(() => ({}));
+        throw new Error(errJson.detail || `HTTP ${resp.status}`);
+      }
+
+      const resData = await resp.json();
+      if (resData.groq_report) {
+        data.groq_analyst_report = resData.groq_report;
+        data._last_analyzed_threshold = threshold;
+        let validBadge = "";
+        if (resData.validation_level === "VERIFIED_CANONICAL") {
+          validBadge = `<div style="display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.25rem 0.6rem; background: rgba(52, 211, 153, 0.12); border: 1px solid rgba(52, 211, 153, 0.3); color: #34d399; border-radius: 4px; font-size: 0.68rem; font-weight: 600; margin-bottom: 0.8rem;" title="All numerical claims, decision rules, and causal boundaries verified against current analysis run.">🛡️ Verified against Canonical Evidence</div>`;
+        } else if (resData.validation_level === "FIELDS_CHECKED") {
+          validBadge = `<div style="display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.25rem 0.6rem; background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.3); color: #38bdf8; border-radius: 4px; font-size: 0.68rem; font-weight: 600; margin-bottom: 0.8rem;" title="Evidence fields checked against canonical pipeline schema.">✓ Evidence fields checked</div>`;
+        } else if (resData.validation_level === "FALLBACK_DETERMINISTIC" || resData.is_fallback) {
+          validBadge = `<div style="display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.25rem 0.6rem; background: rgba(251, 191, 36, 0.12); border: 1px solid rgba(251, 191, 36, 0.3); color: #fbbf24; border-radius: 4px; font-size: 0.68rem; font-weight: 600; margin-bottom: 0.8rem;" title="Deterministic synthesis compiled directly from canonical measurements.">ℹ️ Deterministic Canonical Report</div>`;
+        } else {
+          validBadge = `<div style="display: inline-flex; align-items: center; gap: 0.35rem; padding: 0.25rem 0.6rem; background: rgba(239, 68, 68, 0.12); border: 1px solid rgba(239, 68, 68, 0.3); color: #f87171; border-radius: 4px; font-size: 0.68rem; font-weight: 600; margin-bottom: 0.8rem;" title="Validation issues detected during analysis run.">⚠️ Telemetry Alignment Required</div>`;
+        }
+        aiAnalystText.innerHTML = validBadge + renderMarkdownToHtml(resData.groq_report);
+        if (refreshAiBtn) refreshAiBtn.style.display = "inline-block";
+      } else {
+        throw new Error("No report content received from Groq.");
+      }
+    } catch (err) {
+      aiAnalystText.innerHTML = `
+        <div style="color: #f87171; font-size: 0.78rem; padding: 0.5rem 0;">
+          ⚠️ Groq AI Synthesis Notice: ${escapeHtml(err.message)}
+          <div style="margin-top: 0.5rem;">
+            <button type="button" class="tab-chip" onclick="document.getElementById('tabRawTelemetry').click()">View Structured Telemetry</button>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  function renderStructuredTelemetry(container, st, fallbackText) {
+    if (!container) return;
+    if (!st || typeof st !== "object") {
+      container.textContent = fallbackText || "No telemetry available.";
+      return;
+    }
+
+    const stream = st.stream || {};
+    const spatial = st.spatial || {};
+    const temporal = st.temporal || {};
+    const baseline = st.baseline || {};
+    const quality = st.quality || {};
+    const decision = st.decision || {};
+    const peak = temporal.peak_window || {};
+
+    const shaShort = stream.file_sha256 ? `${stream.file_sha256.substring(0, 16)}...` : "Unavailable";
+    const shaFull = stream.file_sha256 || "N/A";
+    const width = stream.width || stream.frame_width;
+    const height = stream.height || stream.frame_height;
+    const res = (width && height) ? `${width}×${height}` : "Unavailable";
+    const fps = (stream.container_fps != null ? stream.container_fps : stream.fps) ? `${Number(stream.container_fps || stream.fps).toFixed(2)} fps` : "VFR/Unknown";
+    const duration = stream.duration_sec != null ? `${Number(stream.duration_sec).toFixed(2)}s` : "Unknown";
+    const frameCount = (temporal.total_frames_analyzed != null ? `${temporal.total_frames_analyzed} frames` : (stream.frame_count_decoded != null ? `${stream.frame_count_decoded} frames` : "Unknown"));
+    const codec = (stream.codec_name || stream.codec) ? (stream.codec_name || stream.codec).toUpperCase() : "RAW/UNKNOWN";
+    const decodeStatus = stream.decode_status || "SUCCESS";
+    const fileSize = formatBytes(stream.file_size_bytes);
+    const fileName = stream.source_file_name || stream.file_name || "video.mp4";
+
+    const boundaryVarVal = (spatial.outer_boundary_energy != null ? spatial.outer_boundary_energy : spatial.boundary_gradient_variance);
+    const boundaryVar = boundaryVarVal != null ? Number(boundaryVarVal).toFixed(2) : "N/A";
+    const innerVarVal = (spatial.inner_landmark_energy != null ? spatial.inner_landmark_energy : spatial.inner_gradient_variance);
+    const innerVar = innerVarVal != null ? Number(innerVarVal).toFixed(2) : "N/A";
+    const ratioVal = (spatial.boundary_to_landmark_ratio != null ? spatial.boundary_to_landmark_ratio : spatial.outer_inner_boundary_ratio);
+    const ratio = ratioVal != null ? Number(ratioVal).toFixed(2) : "N/A";
+    const spatialAnomaly = Boolean(spatial.spatial_frequency_anomaly_flag || (ratioVal != null && Number(ratioVal) > 1.35));
+
+    const winCount = temporal.total_windows_evaluated != null ? temporal.total_windows_evaluated : (temporal.windows_evaluated != null ? temporal.windows_evaluated : 0);
+    const framesTotal = temporal.total_frames_analyzed != null ? temporal.total_frames_analyzed : (temporal.frames_evaluated_total != null ? temporal.frames_evaluated_total : 0);
+    const diffRateVal = (temporal.inter_frame_differential_energy != null ? temporal.inter_frame_differential_energy : temporal.frame_differential_rate);
+    const diffRate = diffRateVal != null ? Number(diffRateVal).toFixed(2) : "N/A";
+    const diffUnit = temporal.differential_energy_unit || "2D Euclidean pixel differential per second";
+
+    const peakCalScore = peak.calibrated_fake_probability != null ? peak.calibrated_fake_probability : peak.calibrated_score;
+    const peakScore = peakCalScore != null ? `${(Number(peakCalScore) * 100).toFixed(1)}%` : "N/A";
+    const peakStart = peak.start_sec != null ? Number(peak.start_sec).toFixed(1) : "0.0";
+    const peakEnd = peak.end_sec != null ? Number(peak.end_sec).toFixed(1) : "0.0";
+    const peakConf = peak.face_confidence != null ? `${(Number(peak.face_confidence) * 100).toFixed(0)}%` : "N/A";
+    const peakPolicy = peak.selection_method || peak.selection_policy || "Highest calibrated model score across active face tracks";
+    const dispVal = temporal.window_score_consistency != null ? temporal.window_score_consistency : temporal.temporal_score_dispersion;
+    const dispersion = dispVal != null ? `${(Number(dispVal) * 100).toFixed(1)}%` : "N/A";
+
+    const baselineEligible = Boolean(baseline.is_eligible);
+    const refDataset = baseline.reference_dataset || "FaceForensics++ C23";
+    const bSampleN = baseline.sample_video_count || baseline.sample_size_n;
+    const baselineN = bSampleN ? `(N = ${bSampleN})` : "";
+    const kinZ = baseline.kinematic_z_score != null ? `${baseline.kinematic_z_score >= 0 ? '+' : ''}${Number(baseline.kinematic_z_score).toFixed(2)}σ` : "N/A";
+    const spRatioZ = baseline.spatial_ratio_z_score != null ? baseline.spatial_ratio_z_score : baseline.boundary_ratio_z_score;
+    const ratioZ = spRatioZ != null ? `${spRatioZ >= 0 ? '+' : ''}${Number(spRatioZ).toFixed(2)}σ` : "N/A";
+
+    const coverageRatio = quality.face_coverage_ratio != null ? quality.face_coverage_ratio : quality.mean_face_confidence;
+    const coveragePct = coverageRatio != null ? `${(Number(coverageRatio) * 100).toFixed(1)}%` : "N/A";
+    const coverageOk = Boolean(quality.sufficient_coverage);
+    const confList = quality.confound_codes || quality.confounders_flagged || [];
+    const confounders = confList.length > 0 ? confList.join(", ") : "None detected";
+    const modFailures = (quality.quality_warnings && quality.quality_warnings.length > 0) ? quality.quality_warnings.join("; ") : (quality.module_failures && quality.module_failures.length > 0 ? quality.module_failures.join(", ") : "None (All modules nominal)");
+
+    const verdict = decision.decision_state || decision.verdict || "INCONCLUSIVE";
+    const activeThresh = decision.active_threshold != null ? Number(decision.active_threshold).toFixed(2) : "0.50";
+    const probScore = decision.calibrated_probability != null ? decision.calibrated_probability : decision.calibrated_video_score;
+    const calScore = probScore != null ? `${(Number(probScore) * 100).toFixed(1)}%` : "N/A";
+    const modelVer = `${decision.model_name || 'M20PyramidalDualStream'} (${decision.model_version || '2.0.0'})`;
+    const ruleVer = decision.decision_rule_version || "2.0.0";
+    const family = decision.attribution || decision.detected_manipulation_family || "Unspecified / Binary Detection Only";
+    const limitation = decision.limitations || decision.limitation_statement || "Automated analysis within validated operational domain. Not definitive legal proof.";
+
+    container.innerHTML = `
+      <div class="telemetry-container">
+        <!-- Section 1: Stream Telemetry -->
+        <div class="telemetry-section">
+          <div class="telemetry-header">
+            <span>📡 1. Stream Telemetry</span>
+            <span class="telemetry-badge ${decodeStatus === 'SUCCESS' ? 'badge-ok' : 'badge-warn'}">${decodeStatus}</span>
+          </div>
+          <div class="telemetry-grid">
+            <div class="telemetry-item">
+              <span class="telemetry-label">Source File</span>
+              <span class="telemetry-val">${escapeHtml(stream.file_name || 'video.mp4')} (${fileSize})</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">SHA-256 Digest</span>
+              <span class="telemetry-val" title="${escapeHtml(shaFull)}">${escapeHtml(shaShort)}</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">Resolution & FPS</span>
+              <span class="telemetry-val">${res} • ${fps}</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">Duration & Frames</span>
+              <span class="telemetry-val">${duration} (${frameCount})</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">Container Codec</span>
+              <span class="telemetry-val">${codec}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: Spatial Observations -->
+        <div class="telemetry-section">
+          <div class="telemetry-header">
+            <span>🔬 2. Spatial Frequency & Boundary Analysis</span>
+            <span class="telemetry-badge ${spatialAnomaly ? 'badge-warn' : 'badge-ok'}">${spatialAnomaly ? 'Elevated Frequency' : 'Nominal Distribution'}</span>
+          </div>
+          <div class="telemetry-grid">
+            <div class="telemetry-item">
+              <span class="telemetry-label">Spatial Filter</span>
+              <span class="telemetry-val">${escapeHtml(spatial.filter_applied || '112×112 Discrete Laplacian')}</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">Boundary Gradient Var</span>
+              <span class="telemetry-val">${boundaryVar}</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">Inner Landmark Var</span>
+              <span class="telemetry-val">${innerVar}</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">Outer/Inner Ratio</span>
+              <span class="telemetry-val">${ratio}</span>
+            </div>
+          </div>
+          <div class="telemetry-desc">${escapeHtml(spatial.physical_interpretation || 'Physical frequency measurement across facial boundary.')}</div>
+        </div>
+
+        <!-- Section 3: Temporal Observations & Peak Window -->
+        <div class="telemetry-section">
+          <div class="telemetry-header">
+            <span>⏱️ 3. Temporal Observations & Peak Window</span>
+            <span class="telemetry-badge badge-neutral">${winCount} Windows • ${framesTotal} Frames</span>
+          </div>
+          <div class="telemetry-grid">
+            <div class="telemetry-item">
+              <span class="telemetry-label">Frame Differential Rate</span>
+              <span class="telemetry-val">${diffRate} <span style="font-size: 0.65rem; color: #94a3b8;">(${escapeHtml(diffUnit)})</span></span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">Peak Window</span>
+              <span class="telemetry-val">Window #${peak.window_id != null ? peak.window_id : 1} (${peakStart}s – ${peakEnd}s)</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">Peak Window Score</span>
+              <span class="telemetry-val" style="color: ${Number(peak.calibrated_score || 0) >= Number(activeThresh) ? '#f87171' : '#34d399'};">${peakScore} (Face Conf: ${peakConf})</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">Window Score Dispersion</span>
+              <span class="telemetry-val">${dispersion}</span>
+            </div>
+          </div>
+          <div class="telemetry-desc"><strong style="color: #94a3b8;">Peak Selection Policy:</strong> ${escapeHtml(peak.selection_policy || 'Highest calibrated score across active face tracks')}</div>
+        </div>
+
+        <!-- Section 4: Empirical Baseline Comparison -->
+        <div class="telemetry-section">
+          <div class="telemetry-header">
+            <span>📊 4. Empirical Baseline Comparison</span>
+            <span class="telemetry-badge ${baselineEligible ? 'badge-ok' : 'badge-neutral'}">${baselineEligible ? 'Eligible & Calibrated' : 'Ineligible / Uncalibrated'}</span>
+          </div>
+          <div class="telemetry-grid">
+            <div class="telemetry-item">
+              <span class="telemetry-label">Reference Benchmark</span>
+              <span class="telemetry-val">${escapeHtml(refDataset)} ${baselineN}</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">Kinematic Z-Score</span>
+              <span class="telemetry-val">${kinZ}</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">Boundary Ratio Z-Score</span>
+              <span class="telemetry-val">${ratioZ}</span>
+            </div>
+          </div>
+          <div class="telemetry-desc">${escapeHtml(baseline.eligibility_notes || (baselineEligible ? 'Standardized deviations computed against reference population distribution.' : 'Standardized baseline comparison ineligible.'))}</div>
+        </div>
+
+        <!-- Section 5: Quality Diagnostics & Confounder Flags -->
+        <div class="telemetry-section">
+          <div class="telemetry-header">
+            <span>⚠️ 5. Quality Diagnostics & Confounder Flags</span>
+            <span class="telemetry-badge ${coverageOk ? 'badge-ok' : 'badge-danger'}">${coverageOk ? 'Sufficient Coverage' : 'Insufficient Coverage'}</span>
+          </div>
+          <div class="telemetry-grid">
+            <div class="telemetry-item">
+              <span class="telemetry-label">Face Track Coverage</span>
+              <span class="telemetry-val">${coveragePct}</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">Active Confounder Flags</span>
+              <span class="telemetry-val">${escapeHtml(confounders)}</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">Module Failures</span>
+              <span class="telemetry-val">${escapeHtml(modFailures)}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 6: Evidence Assessment & Limitations -->
+        <div class="telemetry-section">
+          <div class="telemetry-header">
+            <span>⚖️ 6. Evidence Assessment & Operational Scope</span>
+            <span class="telemetry-badge badge-neutral">${escapeHtml(ruleVer)}</span>
+          </div>
+          <div class="telemetry-grid">
+            <div class="telemetry-item">
+              <span class="telemetry-label">Forensic Verdict</span>
+              <span class="telemetry-val" style="font-weight: 800; color: ${verdict.includes('MANIPULATION DETECTED') ? '#f87171' : verdict.includes('NO') ? '#34d399' : '#fbbf24'};">${escapeHtml(verdict)}</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">Score vs Active Threshold</span>
+              <span class="telemetry-val">${calScore} <span style="font-size: 0.65rem; color: #94a3b8;">(Thresh: ${activeThresh})</span></span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">Manipulation Attribution</span>
+              <span class="telemetry-val">${escapeHtml(family)}</span>
+            </div>
+            <div class="telemetry-item">
+              <span class="telemetry-label">Audited Model Version</span>
+              <span class="telemetry-val">${escapeHtml(modelVer)}</span>
+            </div>
+          </div>
+          <div class="telemetry-disclaimer">
+            <strong>Operational Scope & Limits:</strong> ${escapeHtml(limitation)}
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
   function renderForensicAudit(data, threshold = null, predData = null, engineName = null) {
     if (!data) return;
 
@@ -689,26 +1094,42 @@ document.addEventListener("DOMContentLoaded", () => {
       videoMetaBox.style.display = "flex";
     }
 
-    // Verdict & CI
+    // Verdict & Window Dispersion (Single-Run Provenance)
     const effThreshold = threshold !== null ? Number(threshold) : parseFloat(thresholdSlider.value || 0.50);
 
-    // If prediction data from selected engine is available, use its authoritative probability and verdict
-    let prob = Number(data.video_fake_probability ?? 0);
-    let isFake = prob >= effThreshold;
-    if (predData && predData.probability !== undefined) {
-      prob = Number(predData.probability);
-      isFake = predData.decision ? (predData.decision === "FAKE") : (prob >= effThreshold);
+    // Maintain single-run provenance:
+    // data.video_fake_probability is the spatiotemporal audit score, and data.confidence_interval is its window dispersion
+    const auditProb = Number(data.video_fake_probability ?? 0);
+    const isFake = auditProb >= effThreshold;
+    const isUnderlyingInconclusive = (data.verdict === "INCONCLUSIVE") || (predData && predData.decision === "INCONCLUSIVE");
+
+    const probPct = (auditProb * 100).toFixed(1);
+    const ci = data.confidence_interval || [auditProb, auditProb];
+    const ciLow = (Number(ci[0] ?? auditProb) * 100).toFixed(1);
+    const ciHigh = (Number(ci[1] ?? auditProb) * 100).toFixed(1);
+
+    // Update target meta box label with comparator engine context if present
+    if (activeEngineLabel) {
+      const engDisplay = engineName || (predData ? predData.engine : null) || "Forensic Multi-Scale Saliency Engine";
+      let compNote = "";
+      if (predData && predData.probability !== undefined) {
+        const pScore = (Number(predData.probability) * 100).toFixed(1);
+        const pDec = predData.decision || (Number(predData.probability) >= effThreshold ? "FAKE" : "REAL");
+        compNote = ` • Selected Engine: ${pScore}% (${pDec})`;
+      }
+      activeEngineLabel.textContent = `${engDisplay} (Forensic Evidence Mode)${compNote}`;
     }
 
-    const probPct = (prob * 100).toFixed(1);
-    const ci = data.confidence_interval || [prob, prob];
-    const ciLow = (Number(ci[0] ?? prob) * 100).toFixed(1);
-    const ciHigh = (Number(ci[1] ?? prob) * 100).toFixed(1);
-
     if (forensicVerdictBadge) {
-      forensicVerdictBadge.className = `forensic-verdict-badge ${isFake ? "fake" : "real"}`;
-      if (forensicVerdictIcon) forensicVerdictIcon.textContent = isFake ? "🚨" : "🛡️";
-      if (forensicVerdictText) forensicVerdictText.textContent = isFake ? "MANIPULATION DETECTED" : "NO MANIPULATION DETECTED";
+      if (isUnderlyingInconclusive) {
+        forensicVerdictBadge.className = "forensic-verdict-badge inconclusive";
+        if (forensicVerdictIcon) forensicVerdictIcon.textContent = "⚠️";
+        if (forensicVerdictText) forensicVerdictText.textContent = "INCONCLUSIVE / INSUFFICIENT DATA";
+      } else {
+        forensicVerdictBadge.className = `forensic-verdict-badge ${isFake ? "fake" : "real"}`;
+        if (forensicVerdictIcon) forensicVerdictIcon.textContent = isFake ? "🚨" : "🛡️";
+        if (forensicVerdictText) forensicVerdictText.textContent = isFake ? "MANIPULATION DETECTED" : "NO MANIPULATION DETECTED";
+      }
     }
 
     if (forensicCiPill) {
@@ -720,26 +1141,58 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (forensicConfidenceLevel) {
-      const conf = data.verdict_confidence || (prob >= 0.85 || prob <= 0.15 ? "High Confidence" : "Moderate Confidence");
-      forensicConfidenceLevel.textContent = conf;
-      if (isFake) {
-        forensicConfidenceLevel.style.color = "#f87171";
+      if (isUnderlyingInconclusive) {
+        forensicConfidenceLevel.textContent = "Uncertain / Inconclusive";
+        forensicConfidenceLevel.style.color = "#fbbf24";
       } else {
-        forensicConfidenceLevel.style.color = "#34d399";
+        const conf = data.verdict_confidence || (prob >= 0.85 || prob <= 0.15 ? "High Confidence" : "Moderate Confidence");
+        forensicConfidenceLevel.textContent = conf;
+        forensicConfidenceLevel.style.color = isFake ? "#f87171" : "#34d399";
       }
     }
 
     // Forensic Evidence Attribution Narrative
     if (forensicEvidenceBox) {
-      forensicEvidenceBox.className = `forensic-evidence-box ${isFake ? "fake" : "real"}`;
+      forensicEvidenceBox.className = `forensic-evidence-box ${isUnderlyingInconclusive ? "inconclusive" : (isFake ? "fake" : "real")}`;
     }
     if (evidenceStrengthBadge) {
-      evidenceStrengthBadge.textContent = isFake ? "🚨 ELEVATED ANOMALY INDICATORS" : "🛡️ NOMINAL BASELINE";
-      evidenceStrengthBadge.style.color = isFake ? "#f87171" : "#34d399";
-      evidenceStrengthBadge.style.background = isFake ? "rgba(239, 68, 68, 0.15)" : "rgba(52, 211, 153, 0.15)";
+      if (isUnderlyingInconclusive) {
+        evidenceStrengthBadge.textContent = "⚠️ INCONCLUSIVE AUDIT";
+        evidenceStrengthBadge.style.color = "#fbbf24";
+        evidenceStrengthBadge.style.background = "rgba(251, 191, 36, 0.15)";
+      } else {
+        evidenceStrengthBadge.textContent = isFake ? "🚨 ELEVATED ANOMALY INDICATORS" : "🛡️ NOMINAL BASELINE";
+        evidenceStrengthBadge.style.color = isFake ? "#f87171" : "#34d399";
+        evidenceStrengthBadge.style.background = isFake ? "rgba(239, 68, 68, 0.15)" : "rgba(52, 211, 153, 0.15)";
+      }
     }
+
+    // 1. Structured Technical Telemetry (Tab 2)
     if (forensicEvidenceText) {
-      forensicEvidenceText.textContent = data.forensic_explanation || (isFake ? "Elevated manipulation indicators observed across temporal windows." : "No significant manipulation indicators detected within validated scope.");
+      if (data.structured_telemetry) {
+        renderStructuredTelemetry(forensicEvidenceText, data.structured_telemetry, data.forensic_explanation);
+      } else {
+        forensicEvidenceText.textContent = data.forensic_explanation || (isFake ? "Elevated manipulation indicators observed across temporal windows." : "No significant manipulation indicators detected within validated scope.");
+      }
+    }
+
+    // 2. AI Forensic Analyst Report (Tab 1 - Human-Friendly Narrative)
+    if (aiAnalystText) {
+      if (data.groq_analyst_report && data._last_analyzed_threshold === effThreshold) {
+        aiAnalystText.innerHTML = renderMarkdownToHtml(data.groq_analyst_report);
+        if (refreshAiBtn) refreshAiBtn.style.display = "inline-block";
+      } else {
+        // Trigger automated Groq synthesis in background for this threshold
+        fetchGroqSynthesis(data, predData, effThreshold);
+      }
+    }
+
+    // Default to AI Analyst tab being active on audit render
+    if (tabAiReport && tabRawTelemetry && aiAnalystBox && forensicEvidenceText) {
+      tabAiReport.classList.add("active");
+      tabRawTelemetry.classList.remove("active");
+      aiAnalystBox.style.display = "block";
+      forensicEvidenceText.style.display = "none";
     }
 
     // Forensic Quality & Biometric Stats
@@ -1072,6 +1525,23 @@ document.addEventListener("DOMContentLoaded", () => {
       }
       if (forensicEvidenceText) {
         forensicEvidenceText.textContent = "Awaiting video inference to generate forensic attribution evidence...";
+      }
+      if (tabAiReport && tabRawTelemetry) {
+        tabAiReport.classList.add("active");
+        tabRawTelemetry.classList.remove("active");
+      }
+      if (aiAnalystBox) {
+        aiAnalystBox.style.display = "block";
+      }
+      if (aiAnalystText) {
+        aiAnalystText.innerHTML = `
+          <div style="color: var(--text-muted); font-size: 0.8rem; padding: 0.5rem 0;">
+            Awaiting video inference to generate AI forensic synthesis...
+          </div>
+        `;
+      }
+      if (refreshAiBtn) {
+        refreshAiBtn.style.display = "none";
       }
       if (forensicEvidenceBox) {
         forensicEvidenceBox.className = "forensic-evidence-box";

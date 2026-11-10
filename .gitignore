@@ -60,7 +60,9 @@ Thumbs.db
 .coverage
 htmlcov/
 
-# This is personal too 
+# Personal, Internal & Non-Public Deliverables
 .agents/
 context/
-docs/understanding/
+docs/
+submission/
+skills-lock.json

@@ -36,7 +36,7 @@
       "status_code": 200,
       "input_video": "Datasets\\FaceForensics++_C23\\original\\004.mp4",
       "prediction": {
-        "video_path": "C:\\Users\\Wukon\\AppData\\Local\\Temp\\tmpt91qlyna.mp4",
+        "video_path": "C:\\Temp\\tmpt91qlyna.mp4",
         "verdict": "Deepfake",
         "probability": 0.7297,
         "raw_logit": 0.9932,

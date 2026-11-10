@@ -1,6 +1,7 @@
 """Forensic Video Loader with container inspection and temporal window frame extraction."""
 from __future__ import annotations
 
+import hashlib
 import json
 from pathlib import Path
 import shutil
@@ -18,11 +19,23 @@ class ForensicVideoLoader:
     def __init__(self) -> None:
         self.ffprobe_path = shutil.which("ffprobe")
 
+    @staticmethod
+    def compute_sha256(path: Path) -> str:
+        """Computes SHA-256 hash of a file efficiently."""
+        h = hashlib.sha256()
+        with open(path, "rb") as f:
+            for chunk in iter(lambda: f.read(65536), b""):
+                h.update(chunk)
+        return f"sha256:{h.hexdigest()}"
+
     def inspect_container(self, video_path: Union[str, Path]) -> Dict[str, Any]:
         """Inspects digital video container properties via FFprobe or OpenCV fallback."""
         p = Path(video_path)
         if not p.is_file():
             raise FileNotFoundError(f"Video file does not exist: {p}")
+
+        file_size_bytes = p.stat().st_size
+        file_sha256 = self.compute_sha256(p)
 
         if self.ffprobe_path:
             try:
@@ -44,7 +57,7 @@ class ForensicVideoLoader:
                 r_fps_str = v_stream.get("r_frame_rate", "25/1")
                 avg_fps_str = v_stream.get("avg_frame_rate", r_fps_str)
                 try:
-                    num, den = map(float, r_fps_str.split("/"))
+                    num, den = map(float, avg_fps_str.split("/"))
                     fps = num / den if den > 0 else 25.0
                 except Exception:
                     fps = 25.0
@@ -57,6 +70,9 @@ class ForensicVideoLoader:
                 is_vfr = r_fps_str != avg_fps_str
 
                 return {
+                    "file_name": p.name,
+                    "file_size_bytes": file_size_bytes,
+                    "file_sha256": file_sha256,
                     "duration_sec": duration,
                     "fps": fps,
                     "total_frames": total_frames,
@@ -66,14 +82,15 @@ class ForensicVideoLoader:
                     "bitrate_kbps": bitrate_kbps,
                     "is_vfr": is_vfr,
                     "has_audio": len(audio_streams) > 0,
+                    "decode_status": "SUCCESS",
                 }
             except Exception:
                 pass
 
         # Fallback to OpenCV
-        return self._inspect_opencv(p)
+        return self._inspect_opencv(p, file_size_bytes, file_sha256)
 
-    def _inspect_opencv(self, video_path: Path) -> Dict[str, Any]:
+    def _inspect_opencv(self, video_path: Path, file_size_bytes: int = 0, file_sha256: str = "") -> Dict[str, Any]:
         cap = cv2.VideoCapture(str(video_path))
         fps = float(cap.get(cv2.CAP_PROP_FPS) or 25.0)
         total_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT) or 0)
@@ -83,6 +100,9 @@ class ForensicVideoLoader:
 
         duration = total_frames / fps if fps > 0 else 0.0
         return {
+            "file_name": video_path.name,
+            "file_size_bytes": file_size_bytes,
+            "file_sha256": file_sha256,
             "duration_sec": duration,
             "fps": fps,
             "total_frames": total_frames,
@@ -92,6 +112,7 @@ class ForensicVideoLoader:
             "bitrate_kbps": 5000.0,
             "is_vfr": False,
             "has_audio": False,
+            "decode_status": "SUCCESS",
         }
 
     def load_temporal_window_frames(
