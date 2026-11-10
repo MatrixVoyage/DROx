@@ -41,9 +41,9 @@ Milestone 15 executed the preregistered evaluation of **Arm D (`M15-Ablation-NoG
 ---
 
 ## 3. Cryptographic Provenance & Audit Trail
-- **Arm D Checkpoint**: `G:\MyProjects\DeepFake Video Detection\checkpoints\m15_arm_d_seed42\best.pth`
+- **Arm D Checkpoint**: `checkpoints/m15_arm_d_seed42/best.pth`
 - **Arm D Checkpoint SHA-256**: `850d9b2dce4eca9e04312a3c75cec5dd178744436ceb139584d2ccb105595ab1`
-- **v5 Champion Checkpoint**: `G:\MyProjects\DeepFake Video Detection\checkpoints\m13_3_f2f_seed42\best.pth`
+- **v5 Champion Checkpoint**: `checkpoints/m13_3_f2f_seed42/best.pth`
 - **v5 Champion SHA-256**: `4e81b49308bbf14993c3de43377afd3349945f6e5a69ed4af307f4f26009dfc7`
 - **Derived Temperature $T_{\text{M15-D}}$**: `3.0350`
 - **Derived Spec90 Threshold $\tau^*_{\text{M15-D}}$**: `0.0756`

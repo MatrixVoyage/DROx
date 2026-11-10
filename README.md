@@ -189,8 +189,8 @@ All models and inference pipelines are validated to operate within commodity GPU
 
 ### 2. Clone the Repository
 ```bash
-git clone https://github.com/your-username/deepfake-video-detection.git
-cd deepfake-video-detection
+git clone https://github.com/MatrixVoyage/DROx.git
+cd DROx
 ```
 
 ### 3. Create and Activate Virtual Environment

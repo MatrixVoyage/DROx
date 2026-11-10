@@ -3,7 +3,7 @@
   "candidate": {
     "name": "M15-RobustGen",
     "arm": "Arm C",
-    "checkpoint_path": "checkpoints\\m15_arm_c_seed42\\best.pth",
+    "checkpoint_path": "checkpoints/m15_arm_c_seed42/best.pth",
     "sha256": "eeef507ab9526a475fecca9d515a33283a2b23ab1663303d70c527bb83aeb24a",
     "calibration_temperature_T": 2.5316,
     "spec90_threshold_tau_star": 0.084
@@ -11,7 +11,7 @@
   "reference_control": {
     "name": "v5-family-invariant",
     "arm": "Arm A",
-    "checkpoint_path": "checkpoints\\m13_3_f2f_seed42\\best.pth",
+    "checkpoint_path": "checkpoints/m13_3_f2f_seed42/best.pth",
     "sha256": "4e81b49308bbf14993c3de43377afd3349945f6e5a69ed4af307f4f26009dfc7",
     "calibration_temperature_T": 2.0502,
     "spec90_threshold_tau_star": 0.126

@@ -3,7 +3,7 @@
     "milestone": "M9",
     "gate": "G1",
     "timestamp_utc": "2026-09-21T11:56:06.143259+00:00",
-    "checkpoint": "checkpoints\\ffpp_c23_baseline_soft_lstm\\best.pth",
+    "checkpoint": "checkpoints/ffpp_c23_baseline_soft_lstm/best.pth",
     "checkpoint_sha256": "9d22df92bdab20a35e1311d627d9fa487c757b7afb32a249ebbf7f95bf3b7e6a",
     "dataset": "FaceForensics++ C23 & Celeb-DF v2",
     "split": "test",
@@ -18,7 +18,7 @@
     "status": "PASS"
   },
   "cache_validation": {
-    "cache_file": "runs\\m8_predictions_cache.jsonl",
+    "cache_file": "runs/m8_predictions_cache.jsonl",
     "ffpp_c23_test_videos": 750,
     "celebdf_v2_test_videos": 518,
     "ffpp_c23_val_videos": 150,
@@ -27,7 +27,7 @@
     "status": "VALID"
   },
   "baseline_evaluation_conditions": {
-    "checkpoint": "checkpoints\\ffpp_c23_baseline_soft_lstm\\best.pth",
+    "checkpoint": "checkpoints/ffpp_c23_baseline_soft_lstm/best.pth",
     "sequence_length_T": 16,
     "frame_sampling": "uniform",
     "face_detector": "MTCNN",

@@ -6,9 +6,9 @@
   "controlled_ablations": [
     {
       "experiment_name": "Run_A_ResNeXt_SoftLSTM",
-      "config_path": "configs\\experiments\\m10_run_a_resnext_soft_lstm.yaml",
+      "config_path": "configs/experiments/m10_run_a_resnext_soft_lstm.yaml",
       "checkpoint_dir": "checkpoints/m10_run_a_resnext_soft_lstm",
-      "best_checkpoint_path": "checkpoints\\m10_run_a_resnext_soft_lstm\\best.pth",
+      "best_checkpoint_path": "checkpoints/m10_run_a_resnext_soft_lstm/best.pth",
       "best_checkpoint_sha256": "af7947cc9989ef7f8aa0c5b80df56db4cb307761090f973dd61241c09acee06d",
       "best_epoch": 6,
       "best_val_metrics": {
@@ -32,9 +32,9 @@
     },
     {
       "experiment_name": "Run_B_ResNeXt_Transformer",
-      "config_path": "configs\\experiments\\m10_run_b_resnext_transformer.yaml",
+      "config_path": "configs/experiments/m10_run_b_resnext_transformer.yaml",
       "checkpoint_dir": "checkpoints/m10_run_b_resnext_transformer",
-      "best_checkpoint_path": "checkpoints\\m10_run_b_resnext_transformer\\best.pth",
+      "best_checkpoint_path": "checkpoints/m10_run_b_resnext_transformer/best.pth",
       "best_checkpoint_sha256": "94f09b92683e6e148ebd4af5ab363f8b2472afcba5145f3c0e53c0b72b6d5ab1",
       "best_epoch": 8,
       "best_val_metrics": {
@@ -58,9 +58,9 @@
     },
     {
       "experiment_name": "Run_C_EfficientNet_Transformer",
-      "config_path": "configs\\experiments\\m10_run_c_efficientnet_transformer.yaml",
+      "config_path": "configs/experiments/m10_run_c_efficientnet_transformer.yaml",
       "checkpoint_dir": "checkpoints/m10_run_c_efficientnet_transformer",
-      "best_checkpoint_path": "checkpoints\\m10_run_c_efficientnet_transformer\\best.pth",
+      "best_checkpoint_path": "checkpoints/m10_run_c_efficientnet_transformer/best.pth",
       "best_checkpoint_sha256": "ff2fe00f03739c69bcd050de83e692ccfdc9f9b6ac8d9108dd3397cd3eba44f9",
       "best_epoch": 15,
       "best_val_metrics": {
@@ -103,7 +103,7 @@
       },
       "num_samples": 30
     },
-    "frozen_checkpoint_path": "checkpoints\\m10_selected_candidate\\best.pth",
+    "frozen_checkpoint_path": "checkpoints/m10_selected_candidate/best.pth",
     "frozen_checkpoint_sha256": "ff2fe00f03739c69bcd050de83e692ccfdc9f9b6ac8d9108dd3397cd3eba44f9",
     "all_candidates": [
       {
@@ -132,7 +132,7 @@
   "gate6_benchmark": {
     "timestamp_utc": "2026-09-21T13:39:13.273665+00:00",
     "candidate": "Run_C_EfficientNet_Transformer",
-    "checkpoint": "checkpoints\\m10_selected_candidate\\best.pth",
+    "checkpoint": "checkpoints/m10_selected_candidate/best.pth",
     "checkpoint_sha256": "ff2fe00f03739c69bcd050de83e692ccfdc9f9b6ac8d9108dd3397cd3eba44f9",
     "ffpp_c23": {
       "dataset": "FaceForensics++ C23",
@@ -283,10 +283,10 @@
   },
   "gate7_export": {
     "timestamp_utc": "2026-09-21T13:39:25.779239+00:00",
-    "torchscript_path": "checkpoints\\m10_selected_candidate\\model.ts",
+    "torchscript_path": "checkpoints/m10_selected_candidate/model.ts",
     "torchscript_sha256": "843393985c5f7eaf1fd426f5cdb1b526da057d6d7cbdd9a8f9e9a59e39dc30c1",
     "torchscript_diff": 0.0,
-    "onnx_path": "checkpoints\\m10_selected_candidate\\model.onnx",
+    "onnx_path": "checkpoints/m10_selected_candidate/model.onnx",
     "onnx_sha256": "55cb879cc131746c451ec953015a8a03858e15d1ade39509fe741ba011db38f6",
     "onnx_diff": 1.0728836059570312e-06,
     "parity_threshold": 1e-05,

@@ -1,7 +1,7 @@
 {
   "timestamp": "2026-10-05T07:25:19.823338+00:00",
   "track": "Track A (Sensor/Residual Representation)",
-  "checkpoint": "checkpoints\\m17_track_a_seed42\\best.pth",
+  "checkpoint": "checkpoints/m17_track_a_seed42/best.pth",
   "temperature": 3.2253900076335094,
   "gates": {
     "gate1_unseen_ood_celebdf": {

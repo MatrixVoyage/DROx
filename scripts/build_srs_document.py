@@ -157,7 +157,7 @@ def build_srs(output_path: Path):
         "Team Members: IIT2024108 | IIT2024109 | IIT2024110 | IIT2024115 | IIT2024119 | IIT2024122\n"
         "Document Release: Version 2.3.0 (Milestone M23 Final Submission)\n"
         "Date of Release: October 2026\n"
-        "Repository Workspace: G:\\MyProjects\\DeepFake Video Detection"
+        "Repository: https://github.com/MatrixVoyage/DROx.git"
     )
     r_team.font.name = "Calibri"
     r_team.font.size = Pt(10.5)

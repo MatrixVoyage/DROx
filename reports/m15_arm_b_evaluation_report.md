@@ -45,9 +45,9 @@ Under the preregistered multi-gate promotion protocol, a candidate architecture 
 ---
 
 ## 3. Cryptographic Provenance & Audit Trail
-- **Arm B Checkpoint**: `G:\MyProjects\DeepFake Video Detection\checkpoints\m15_arm_b_seed42\best.pth`
+- **Arm B Checkpoint**: `checkpoints/m15_arm_b_seed42/best.pth`
 - **Arm B Checkpoint SHA-256**: `6371ae340795b2067ce7c5abf4d88b0dc15fb7aba682f11d2986e9cfa680fde9`
-- **v5 Champion Checkpoint**: `G:\MyProjects\DeepFake Video Detection\checkpoints\m13_3_f2f_seed42\best.pth`
+- **v5 Champion Checkpoint**: `checkpoints/m13_3_f2f_seed42/best.pth`
 - **v5 Champion SHA-256**: `4e81b49308bbf14993c3de43377afd3349945f6e5a69ed4af307f4f26009dfc7`
 - **Derived Temperature $T_{\text{M15}}$**: `2.8719` (Fitted strictly on M15-Val NLL)
 - **Derived Spec90 Threshold $\tau^*_{\text{M15}}$**: `0.1024` (Fitted strictly on M15-Val clean reals)

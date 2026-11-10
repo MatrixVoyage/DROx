@@ -1,11 +1,11 @@
 {
   "gate": "Gate 1 \u2014 Inference Correctness",
   "status": "PASS",
-  "checkpoint": "checkpoints\\ffpp_c23_baseline_soft_lstm\\best.pth",
+  "checkpoint": "checkpoints/ffpp_c23_baseline_soft_lstm/best.pth",
   "device": "cuda",
   "physical_validation": {
     "real_video": {
-      "video_path": "Datasets\\FaceForensics++_C23\\original\\004.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/original/004.mp4",
       "verdict": "Deepfake",
       "probability": 0.7297,
       "raw_logit": 0.993,
@@ -60,7 +60,7 @@
       }
     },
     "fake_video": {
-      "video_path": "Datasets\\FaceForensics++_C23\\Deepfakes\\004_982.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Deepfakes/004_982.mp4",
       "verdict": "Deepfake",
       "probability": 0.7411,
       "raw_logit": 1.0517,
@@ -115,7 +115,7 @@
       }
     },
     "repeated_fake_video": {
-      "video_path": "Datasets\\FaceForensics++_C23\\Deepfakes\\004_982.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Deepfakes/004_982.mp4",
       "verdict": "Deepfake",
       "probability": 0.7411,
       "raw_logit": 1.0517,

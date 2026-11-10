@@ -3,7 +3,7 @@
   "candidate": {
     "name": "M15-TS-CrossAttn",
     "arm": "Arm B",
-    "checkpoint_path": "checkpoints\\m15_arm_b_seed42\\best.pth",
+    "checkpoint_path": "checkpoints/m15_arm_b_seed42/best.pth",
     "sha256": "6371ae340795b2067ce7c5abf4d88b0dc15fb7aba682f11d2986e9cfa680fde9",
     "calibration_temperature_T": 2.8719,
     "spec90_threshold_tau_star": 0.1024
@@ -11,7 +11,7 @@
   "reference_control": {
     "name": "v5-family-invariant",
     "arm": "Arm A",
-    "checkpoint_path": "checkpoints\\m13_3_f2f_seed42\\best.pth",
+    "checkpoint_path": "checkpoints/m13_3_f2f_seed42/best.pth",
     "sha256": "4e81b49308bbf14993c3de43377afd3349945f6e5a69ed4af307f4f26009dfc7",
     "calibration_temperature_T": 2.0502,
     "spec90_threshold_tau_star": 0.126

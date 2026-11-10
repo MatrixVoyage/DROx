@@ -5,7 +5,7 @@
       "name": "ffpp_c23_baseline_soft_lstm",
       "summary": {
         "experiment_name": "ffpp_c23_baseline_soft_lstm",
-        "run_dir": "runs\\ffpp_c23_baseline_soft_lstm_20260921_003348",
+        "run_dir": "runs/ffpp_c23_baseline_soft_lstm_20260921_003348",
         "provenance": {
           "timestamp": "2026-09-21T00:33:50.690216",
           "git_commit": "unknown",
@@ -94,7 +94,7 @@
             "max_grad_norm": 1.0,
             "early_stopping_patience": 5,
             "monitor_metric": "val_auc",
-            "checkpoint_dir": "runs\\ffpp_c23_baseline_soft_lstm_20260921_003348\\checkpoints",
+            "checkpoint_dir": "runs/ffpp_c23_baseline_soft_lstm_20260921_003348/checkpoints",
             "num_workers": 0,
             "pin_memory": true,
             "optimizer": {
@@ -578,7 +578,7 @@
   ],
   "ablation_runs": [],
   "cross_dataset_results": {
-    "checkpoint_path": "checkpoints\\ffpp_c23_baseline_soft_lstm\\best.pth",
+    "checkpoint_path": "checkpoints/ffpp_c23_baseline_soft_lstm/best.pth",
     "indomain_metrics": {
       "loss": 0.503594649831454,
       "accuracy": 0.8,
@@ -597,7 +597,7 @@
     },
     "benchmarks": {
       "Celeb-DF v2": {
-        "manifest_path": "manifests\\celebdf_gate3_subset.csv",
+        "manifest_path": "manifests/celebdf_gate3_subset.csv",
         "num_samples": 8,
         "metrics": {
           "loss": 1.0355209112167358,

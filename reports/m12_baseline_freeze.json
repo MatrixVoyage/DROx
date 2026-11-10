@@ -13,67 +13,67 @@
   },
   "fingerprints": {
     "m10_checkpoint": {
-      "path": "checkpoints\\m10_selected_candidate\\best.pth",
+      "path": "checkpoints/m10_selected_candidate/best.pth",
       "sha256": "ff2fe00f03739c69bcd050de83e692ccfdc9f9b6ac8d9108dd3397cd3eba44f9",
       "size_bytes": 292527981
     },
     "m12_checkpoint": {
-      "path": "checkpoints\\m12_full\\best.pth",
+      "path": "checkpoints/m12_full/best.pth",
       "sha256": "c8265f634880c56929e5d82be8e4fc808fc7776d0750fca86c74e18a983cda56",
       "size_bytes": 339767001
     },
     "ood_reference": {
-      "path": "checkpoints\\m12_full\\ood_reference.json",
+      "path": "checkpoints/m12_full/ood_reference.json",
       "sha256": "6344119cef5a9641c1831d8dcaa2c4516af6497cb37d80157dc4270f457353ce",
       "size_bytes": 51723
     },
     "calibration_config": {
-      "path": "checkpoints\\m12_full\\calibration_config.json",
+      "path": "checkpoints/m12_full/calibration_config.json",
       "sha256": "59deae4078ec08e64ebed927e5efcaffb0090dbf20f04b7d302dad4048657d81",
       "size_bytes": 601
     },
     "manifest_full": {
-      "path": "manifests\\mixed_robust_full.csv",
+      "path": "manifests/mixed_robust_full.csv",
       "sha256": "1a8bc3d93eaa80d565b0a1c4017272f03b86cea4f9d6099fdcdb7024cbaffe87",
       "size_bytes": 785446
     },
     "manifest_pilot": {
-      "path": "manifests\\mixed_robust_train_p20_seed42.csv",
+      "path": "manifests/mixed_robust_train_p20_seed42.csv",
       "sha256": "fed9f3d4f8d7ac2a5735aefa621a613fe6280db3ddc30d639b5b0a1a7636f181",
       "size_bytes": 154922
     },
     "manifest_ffpp": {
-      "path": "manifests\\ffpp_c23.csv",
+      "path": "manifests/ffpp_c23.csv",
       "sha256": "3401e3c506208c9c46dfc88369963cbb62bd03e463d6a2caf1ca467b92569b4f",
       "size_bytes": 696603
     },
     "manifest_celebdf": {
-      "path": "manifests\\celebdf_v2.csv",
+      "path": "manifests/celebdf_v2.csv",
       "sha256": "4026cbb5fb0fd4882282d4705ffa2cbd434a97d7ee475252e8102a11d017d2d1",
       "size_bytes": 898612
     },
     "config_m12_full": {
-      "path": "configs\\experiments\\m12_full.yaml",
+      "path": "configs/experiments/m12_full.yaml",
       "sha256": "f859ed5ff3f33b0efd5f10e57d6a29d32fdbbe994eb88f653578c2ff9ba86a3f",
       "size_bytes": 2297
     },
     "config_default": {
-      "path": "configs\\default.yaml",
+      "path": "configs/default.yaml",
       "sha256": "2c324e2681f767ccaf93392ff19e09a6abcc214ee04fdc278a3b73588627f952",
       "size_bytes": 2952
     },
     "scientific_eval_report": {
-      "path": "reports\\m12_full_scientific_report.json",
+      "path": "reports/m12_full_scientific_report.json",
       "sha256": "5eadfc51770d14c1f8bff8ee2ded847739a71684a97fe2bce857573a190721c5",
       "size_bytes": 4209
     },
     "rejection_audit_report": {
-      "path": "reports\\m12_rejection_audit.json",
+      "path": "reports/m12_rejection_audit.json",
       "sha256": "e270a4234f321730773b3b38291f5d22875ae0819623381998dd16e6c92b5607",
       "size_bytes": 2484
     },
     "ablation_study_report": {
-      "path": "reports\\m12_ablation_study.json",
+      "path": "reports/m12_ablation_study.json",
       "sha256": "831e012da60162c8d1288d72a03832a919d03d3973942d738e5b262b6b6bebac",
       "size_bytes": 1943
     }

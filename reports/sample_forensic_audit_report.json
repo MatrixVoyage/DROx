@@ -1,5 +1,5 @@
 {
-  "video_path": "Datasets\\Celeb-DF-v2\\Celeb-real\\id0_0000.mp4",
+  "video_path": "Datasets/Celeb-DF-v2/Celeb-real/id0_0000.mp4",
   "verdict": "REAL",
   "verdict_confidence": "HIGH",
   "video_fake_probability": 0.6582605133705042,

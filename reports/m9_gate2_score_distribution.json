@@ -3,7 +3,7 @@
     "milestone": "M9",
     "gate": "G2",
     "timestamp_utc": "2026-09-21T11:56:06.165793+00:00",
-    "checkpoint": "checkpoints\\ffpp_c23_baseline_soft_lstm\\best.pth",
+    "checkpoint": "checkpoints/ffpp_c23_baseline_soft_lstm/best.pth",
     "checkpoint_sha256": "9d22df92bdab20a35e1311d627d9fa487c757b7afb32a249ebbf7f95bf3b7e6a",
     "dataset": "FaceForensics++ C23 & Celeb-DF v2",
     "split": "test",

@@ -4,7 +4,7 @@
   "title": "Face2Face Failure Characterization & Candidate Mechanism Analysis",
   "timestamp": "2026-09-26T20:37:21.162624+00:00",
   "model_under_test": "v5-family-invariant",
-  "frozen_checkpoint": "checkpoints\\m13_3_f2f_seed42\\best.pth",
+  "frozen_checkpoint": "checkpoints/m13_3_f2f_seed42/best.pth",
   "total_queries_analyzed": 58,
   "factor_summary": {
     "sample_counts": {
@@ -97,7 +97,7 @@
     {
       "video_id": "f2f_007_132",
       "group_id": "ffpp_7",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\007_132.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/007_132.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.019553478807210922,
       "p_raw": 0.0003266692510806024,
@@ -118,7 +118,7 @@
     {
       "video_id": "f2f_132_007",
       "group_id": "ffpp_7",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\132_007.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/132_007.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.0254383347928524,
       "p_raw": 0.0005670608370564878,
@@ -139,7 +139,7 @@
     {
       "video_id": "f2f_146_256",
       "group_id": "ffpp_146",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\146_256.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/146_256.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.018369918689131737,
       "p_raw": 0.0002867190050892532,
@@ -160,7 +160,7 @@
     {
       "video_id": "f2f_162_330",
       "group_id": "ffpp_162",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\162_330.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/162_330.mp4",
       "category": "DETECTED_STANDARD",
       "p_cal": 0.9387102723121643,
       "p_raw": 0.9962965846061707,
@@ -181,7 +181,7 @@
     {
       "video_id": "f2f_166_167",
       "group_id": "ffpp_166",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\166_167.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/166_167.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.03589409217238426,
       "p_raw": 0.0011736684245988727,
@@ -202,7 +202,7 @@
     {
       "video_id": "f2f_167_166",
       "group_id": "ffpp_166",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\167_166.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/167_166.mp4",
       "category": "DETECTED_STANDARD",
       "p_cal": 0.8182669878005981,
       "p_raw": 0.9562628269195557,
@@ -223,7 +223,7 @@
     {
       "video_id": "f2f_174_964",
       "group_id": "ffpp_174",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\174_964.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/174_964.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.0192306749522686,
       "p_raw": 0.00031549917184747756,
@@ -244,7 +244,7 @@
     {
       "video_id": "f2f_183_253",
       "group_id": "ffpp_183",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\183_253.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/183_253.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.019367437809705734,
       "p_raw": 0.00032020636717788875,
@@ -265,7 +265,7 @@
     {
       "video_id": "f2f_231_663",
       "group_id": "ffpp_231",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\231_663.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/231_663.mp4",
       "category": "DETECTED_STANDARD",
       "p_cal": 0.9761241674423218,
       "p_raw": 0.9995036125183105,
@@ -286,7 +286,7 @@
     {
       "video_id": "f2f_253_183",
       "group_id": "ffpp_183",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\253_183.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/253_183.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.018986450508236885,
       "p_raw": 0.0003071849641855806,
@@ -307,7 +307,7 @@
     {
       "video_id": "f2f_256_146",
       "group_id": "ffpp_146",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\256_146.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/256_146.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.03521981090307236,
       "p_raw": 0.0011273473501205444,
@@ -328,7 +328,7 @@
     {
       "video_id": "f2f_319_352",
       "group_id": "ffpp_319",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\319_352.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/319_352.mp4",
       "category": "DETECTED_STANDARD",
       "p_cal": 0.8873800039291382,
       "p_raw": 0.9856864809989929,
@@ -349,7 +349,7 @@
     {
       "video_id": "f2f_330_162",
       "group_id": "ffpp_162",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\330_162.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/330_162.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.030562831088900566,
       "p_raw": 0.0008348695118911564,
@@ -370,7 +370,7 @@
     {
       "video_id": "f2f_352_319",
       "group_id": "ffpp_319",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\352_319.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/352_319.mp4",
       "category": "DETECTED_STANDARD",
       "p_cal": 0.655474066734314,
       "p_raw": 0.7889597415924072,
@@ -391,7 +391,7 @@
     {
       "video_id": "f2f_364_440",
       "group_id": "ffpp_364",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\364_440.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/364_440.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.019849060103297234,
       "p_raw": 0.0003370785852894187,
@@ -412,7 +412,7 @@
     {
       "video_id": "f2f_418_507",
       "group_id": "ffpp_418",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\418_507.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/418_507.mp4",
       "category": "DETECTED_STANDARD",
       "p_cal": 0.9445324540138245,
       "p_raw": 0.9970177412033081,
@@ -433,7 +433,7 @@
     {
       "video_id": "f2f_440_364",
       "group_id": "ffpp_364",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\440_364.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/440_364.mp4",
       "category": "DETECTED_STANDARD",
       "p_cal": 0.9596778154373169,
       "p_raw": 0.9984965324401855,
@@ -454,7 +454,7 @@
     {
       "video_id": "f2f_499_539",
       "group_id": "ffpp_499",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\499_539.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/499_539.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.018960166722536087,
       "p_raw": 0.00030629709362983704,
@@ -475,7 +475,7 @@
     {
       "video_id": "f2f_507_418",
       "group_id": "ffpp_418",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\507_418.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/507_418.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.11479377001523972,
       "p_raw": 0.014951054006814957,
@@ -496,7 +496,7 @@
     {
       "video_id": "f2f_510_528",
       "group_id": "ffpp_510",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\510_528.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/510_528.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.020325085148215294,
       "p_raw": 0.00035420749918557703,
@@ -517,7 +517,7 @@
     {
       "video_id": "f2f_528_510",
       "group_id": "ffpp_510",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\528_510.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/528_510.mp4",
       "category": "DETECTED_STANDARD",
       "p_cal": 0.764642596244812,
       "p_raw": 0.918021023273468,
@@ -538,7 +538,7 @@
     {
       "video_id": "f2f_530_594",
       "group_id": "ffpp_530",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\530_594.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/530_594.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.028058184310793877,
       "p_raw": 0.0006970256799831986,
@@ -559,7 +559,7 @@
     {
       "video_id": "f2f_535_587",
       "group_id": "ffpp_535",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\535_587.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/535_587.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.021687248721718788,
       "p_raw": 0.0004057259648106992,
@@ -580,7 +580,7 @@
     {
       "video_id": "f2f_539_499",
       "group_id": "ffpp_499",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\539_499.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/539_499.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.03450358286499977,
       "p_raw": 0.0010792557150125504,
@@ -601,7 +601,7 @@
     {
       "video_id": "f2f_543_559",
       "group_id": "ffpp_543",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\543_559.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/543_559.mp4",
       "category": "DETECTED_STANDARD",
       "p_cal": 0.980249285697937,
       "p_raw": 0.9996664524078369,
@@ -622,7 +622,7 @@
     {
       "video_id": "f2f_546_621",
       "group_id": "ffpp_546",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\546_621.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/546_621.mp4",
       "category": "DETECTED_STANDARD",
       "p_cal": 0.5638374090194702,
       "p_raw": 0.6286409497261047,
@@ -643,7 +643,7 @@
     {
       "video_id": "f2f_559_543",
       "group_id": "ffpp_543",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\559_543.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/559_543.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.024592770263552666,
       "p_raw": 0.0005281714256852865,
@@ -664,7 +664,7 @@
     {
       "video_id": "f2f_587_535",
       "group_id": "ffpp_535",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\587_535.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/587_535.mp4",
       "category": "DETECTED_STANDARD",
       "p_cal": 0.974163293838501,
       "p_raw": 0.9994140863418579,
@@ -685,7 +685,7 @@
     {
       "video_id": "f2f_594_530",
       "group_id": "ffpp_530",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\594_530.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/594_530.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.02333785407245159,
       "p_raw": 0.00047317208372987807,
@@ -706,7 +706,7 @@
     {
       "video_id": "f2f_604_703",
       "group_id": "ffpp_604",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\604_703.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/604_703.mp4",
       "category": "DETECTED_STANDARD",
       "p_cal": 0.845769464969635,
       "p_raw": 0.9703739285469055,
@@ -727,7 +727,7 @@
     {
       "video_id": "f2f_608_675",
       "group_id": "ffpp_608",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\608_675.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/608_675.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.019426554441452026,
       "p_raw": 0.0003222527157049626,
@@ -748,7 +748,7 @@
     {
       "video_id": "f2f_615_687",
       "group_id": "ffpp_615",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\615_687.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/615_687.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.07662205398082733,
       "p_raw": 0.006040180567651987,
@@ -769,7 +769,7 @@
     {
       "video_id": "f2f_621_546",
       "group_id": "ffpp_546",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\621_546.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/621_546.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.025257619097828865,
       "p_raw": 0.000558624742552638,
@@ -790,7 +790,7 @@
     {
       "video_id": "f2f_635_642",
       "group_id": "ffpp_635",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\635_642.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/635_642.mp4",
       "category": "DETECTED_STANDARD",
       "p_cal": 0.8873751759529114,
       "p_raw": 0.9856851100921631,
@@ -811,7 +811,7 @@
     {
       "video_id": "f2f_641_662",
       "group_id": "ffpp_641",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\641_662.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/641_662.mp4",
       "category": "DETECTED_STANDARD",
       "p_cal": 0.9812819957733154,
       "p_raw": 0.9997017979621887,
@@ -832,7 +832,7 @@
     {
       "video_id": "f2f_642_635",
       "group_id": "ffpp_635",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\642_635.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/642_635.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.043453991413116455,
       "p_raw": 0.0017639189027249813,
@@ -853,7 +853,7 @@
     {
       "video_id": "f2f_645_688",
       "group_id": "ffpp_645",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\645_688.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/645_688.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.09426634758710861,
       "p_raw": 0.009576452895998955,
@@ -874,7 +874,7 @@
     {
       "video_id": "f2f_652_773",
       "group_id": "ffpp_652",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\652_773.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/652_773.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.021270135417580605,
       "p_raw": 0.0003895546542480588,
@@ -895,7 +895,7 @@
     {
       "video_id": "f2f_662_641",
       "group_id": "ffpp_641",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\662_641.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/662_641.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.028867391869425774,
       "p_raw": 0.0007400950416922569,
@@ -916,7 +916,7 @@
     {
       "video_id": "f2f_663_231",
       "group_id": "ffpp_231",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\663_231.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/663_231.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.09407731890678406,
       "p_raw": 0.009533456526696682,
@@ -937,7 +937,7 @@
     {
       "video_id": "f2f_675_608",
       "group_id": "ffpp_608",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\675_608.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/675_608.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.020112786442041397,
       "p_raw": 0.00034651265013962984,
@@ -958,7 +958,7 @@
     {
       "video_id": "f2f_687_615",
       "group_id": "ffpp_615",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\687_615.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/687_615.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.020143497735261917,
       "p_raw": 0.0003476202837191522,
@@ -979,7 +979,7 @@
     {
       "video_id": "f2f_688_645",
       "group_id": "ffpp_645",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\688_645.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/688_645.mp4",
       "category": "DETECTED_STANDARD",
       "p_cal": 0.6220391392707825,
       "p_raw": 0.7352520227432251,
@@ -1000,7 +1000,7 @@
     {
       "video_id": "f2f_703_604",
       "group_id": "ffpp_604",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\703_604.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/703_604.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.02525806427001953,
       "p_raw": 0.0005586455226875842,
@@ -1021,7 +1021,7 @@
     {
       "video_id": "f2f_773_652",
       "group_id": "ffpp_652",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\773_652.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/773_652.mp4",
       "category": "DETECTED_STANDARD",
       "p_cal": 0.980658769607544,
       "p_raw": 0.999680757522583,
@@ -1042,7 +1042,7 @@
     {
       "video_id": "f2f_782_787",
       "group_id": "ffpp_782",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\782_787.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/782_787.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.019411178305745125,
       "p_raw": 0.0003217198245692998,
@@ -1063,7 +1063,7 @@
     {
       "video_id": "f2f_787_782",
       "group_id": "ffpp_782",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\787_782.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/787_782.mp4",
       "category": "DETECTED_STANDARD",
       "p_cal": 0.9713330268859863,
       "p_raw": 0.9992707371711731,
@@ -1084,7 +1084,7 @@
     {
       "video_id": "f2f_810_838",
       "group_id": "ffpp_810",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\810_838.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/810_838.mp4",
       "category": "DETECTED_STANDARD",
       "p_cal": 0.7692013382911682,
       "p_raw": 0.9218710660934448,
@@ -1105,7 +1105,7 @@
     {
       "video_id": "f2f_812_821",
       "group_id": "ffpp_812",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\812_821.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/812_821.mp4",
       "category": "RECOVERED_SPEC90",
       "p_cal": 0.20804449915885925,
       "p_raw": 0.06061906740069389,
@@ -1126,7 +1126,7 @@
     {
       "video_id": "f2f_818_820",
       "group_id": "ffpp_818",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\818_820.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/818_820.mp4",
       "category": "RECOVERED_SPEC90",
       "p_cal": 0.17149092257022858,
       "p_raw": 0.038079168647527695,
@@ -1147,7 +1147,7 @@
     {
       "video_id": "f2f_820_818",
       "group_id": "ffpp_818",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\820_818.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/820_818.mp4",
       "category": "DETECTED_STANDARD",
       "p_cal": 0.5842975378036499,
       "p_raw": 0.6677379012107849,
@@ -1168,7 +1168,7 @@
     {
       "video_id": "f2f_821_812",
       "group_id": "ffpp_812",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\821_812.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/821_812.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.019143670797348022,
       "p_raw": 0.0003125237417407334,
@@ -1189,7 +1189,7 @@
     {
       "video_id": "f2f_838_810",
       "group_id": "ffpp_810",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\838_810.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/838_810.mp4",
       "category": "DETECTED_STANDARD",
       "p_cal": 0.9763495922088623,
       "p_raw": 0.9995133876800537,
@@ -1210,7 +1210,7 @@
     {
       "video_id": "f2f_843_859",
       "group_id": "ffpp_843",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\843_859.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/843_859.mp4",
       "category": "DETECTED_STANDARD",
       "p_cal": 0.9814852476119995,
       "p_raw": 0.9997084736824036,
@@ -1231,7 +1231,7 @@
     {
       "video_id": "f2f_859_843",
       "group_id": "ffpp_843",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\859_843.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/859_843.mp4",
       "category": "RECOVERED_SPEC90",
       "p_cal": 0.21298916637897491,
       "p_raw": 0.06418712437152863,
@@ -1252,7 +1252,7 @@
     {
       "video_id": "f2f_918_934",
       "group_id": "ffpp_918",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\918_934.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/918_934.mp4",
       "category": "DETECTED_STANDARD",
       "p_cal": 0.9591841101646423,
       "p_raw": 0.9984570741653442,
@@ -1273,7 +1273,7 @@
     {
       "video_id": "f2f_934_918",
       "group_id": "ffpp_918",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\934_918.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/934_918.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.037539392709732056,
       "p_raw": 0.001290984801016748,
@@ -1294,7 +1294,7 @@
     {
       "video_id": "f2f_964_174",
       "group_id": "ffpp_174",
-      "video_path": "Datasets\\FaceForensics++_C23\\Face2Face\\964_174.mp4",
+      "video_path": "Datasets/FaceForensics++_C23/Face2Face/964_174.mp4",
       "category": "MISSED_FALSE_NEGATIVE",
       "p_cal": 0.021296879276633263,
       "p_raw": 0.0003905811463482678,

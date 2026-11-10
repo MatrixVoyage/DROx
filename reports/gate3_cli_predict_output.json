@@ -1,5 +1,5 @@
 {
-  "video_path": "Datasets\\FaceForensics++_C23\\original\\004.mp4",
+  "video_path": "Datasets/FaceForensics++_C23/original/004.mp4",
   "verdict": "Deepfake",
   "probability": 0.7297,
   "raw_logit": 0.993,

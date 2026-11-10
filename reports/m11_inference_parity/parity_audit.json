@@ -2,8 +2,8 @@
   "parity_results": [
     {
       "video_id": "orig_004",
-      "original_path": "Datasets\\FaceForensics++_C23\\original\\004.mp4",
-      "temporary_path": "C:\\Temp\\tmp34knmkib.mp4",
+      "original_path": "Datasets/FaceForensics++_C23/original/004.mp4",
+      "temporary_path": "temp/tmp34knmkib.mp4",
       "exact_sampled_frame_indices_control": [
         12,
         16,
@@ -123,8 +123,8 @@
     },
     {
       "video_id": "orig_007",
-      "original_path": "Datasets\\FaceForensics++_C23\\original\\007.mp4",
-      "temporary_path": "C:\\Temp\\tmpu__novm8.mp4",
+      "original_path": "Datasets/FaceForensics++_C23/original/007.mp4",
+      "temporary_path": "temp/tmpu__novm8.mp4",
       "exact_sampled_frame_indices_control": [
         58,
         74,
@@ -244,8 +244,8 @@
     },
     {
       "video_id": "orig_008",
-      "original_path": "Datasets\\FaceForensics++_C23\\original\\008.mp4",
-      "temporary_path": "C:\\Temp\\tmp8nqqe18e.mp4",
+      "original_path": "Datasets/FaceForensics++_C23/original/008.mp4",
+      "temporary_path": "temp/tmp8nqqe18e.mp4",
       "exact_sampled_frame_indices_control": [
         0,
         31,
@@ -365,8 +365,8 @@
     },
     {
       "video_id": "orig_009",
-      "original_path": "Datasets\\FaceForensics++_C23\\original\\009.mp4",
-      "temporary_path": "C:\\Temp\\tmpl5gvci7f.mp4",
+      "original_path": "Datasets/FaceForensics++_C23/original/009.mp4",
+      "temporary_path": "temp/tmpl5gvci7f.mp4",
       "exact_sampled_frame_indices_control": [
         37,
         46,
@@ -486,8 +486,8 @@
     },
     {
       "video_id": "orig_013",
-      "original_path": "Datasets\\FaceForensics++_C23\\original\\013.mp4",
-      "temporary_path": "C:\\Temp\\tmpifr8x3q0.mp4",
+      "original_path": "Datasets/FaceForensics++_C23/original/013.mp4",
+      "temporary_path": "temp/tmpifr8x3q0.mp4",
       "exact_sampled_frame_indices_control": [
         5,
         33,
@@ -607,8 +607,8 @@
     },
     {
       "video_id": "df_004_982",
-      "original_path": "Datasets\\FaceForensics++_C23\\Deepfakes\\004_982.mp4",
-      "temporary_path": "C:\\Temp\\tmpowdjh2r5.mp4",
+      "original_path": "Datasets/FaceForensics++_C23/Deepfakes/004_982.mp4",
+      "temporary_path": "temp/tmpowdjh2r5.mp4",
       "exact_sampled_frame_indices_control": [
         48,
         51,
@@ -728,8 +728,8 @@
     },
     {
       "video_id": "df_007_132",
-      "original_path": "Datasets\\FaceForensics++_C23\\Deepfakes\\007_132.mp4",
-      "temporary_path": "C:\\Temp\\tmpbp9f66yp.mp4",
+      "original_path": "Datasets/FaceForensics++_C23/Deepfakes/007_132.mp4",
+      "temporary_path": "temp/tmpbp9f66yp.mp4",
       "exact_sampled_frame_indices_control": [
         0,
         33,
@@ -849,8 +849,8 @@
     },
     {
       "video_id": "df_008_990",
-      "original_path": "Datasets\\FaceForensics++_C23\\Deepfakes\\008_990.mp4",
-      "temporary_path": "C:\\Temp\\tmpwlv_hzvo.mp4",
+      "original_path": "Datasets/FaceForensics++_C23/Deepfakes/008_990.mp4",
+      "temporary_path": "temp/tmpwlv_hzvo.mp4",
       "exact_sampled_frame_indices_control": [
         65,
         151,
@@ -970,8 +970,8 @@
     },
     {
       "video_id": "df_009_027",
-      "original_path": "Datasets\\FaceForensics++_C23\\Deepfakes\\009_027.mp4",
-      "temporary_path": "C:\\Temp\\tmpln__tsru.mp4",
+      "original_path": "Datasets/FaceForensics++_C23/Deepfakes/009_027.mp4",
+      "temporary_path": "temp/tmpln__tsru.mp4",
       "exact_sampled_frame_indices_control": [
         31,
         37,
@@ -1091,8 +1091,8 @@
     },
     {
       "video_id": "df_013_883",
-      "original_path": "Datasets\\FaceForensics++_C23\\Deepfakes\\013_883.mp4",
-      "temporary_path": "C:\\Temp\\tmpy0vi8xyf.mp4",
+      "original_path": "Datasets/FaceForensics++_C23/Deepfakes/013_883.mp4",
+      "temporary_path": "temp/tmpy0vi8xyf.mp4",
       "exact_sampled_frame_indices_control": [
         2,
         12,

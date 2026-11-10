@@ -2,7 +2,7 @@
   "timestamp": "2026-10-05T10:35:22.124661+00:00",
   "milestone": "M17.1",
   "title": "Forensic Attribution, Scale Disentanglement, and Codec Matching for M17 Track A",
-  "checkpoint": "checkpoints\\m17_track_a_seed42\\best.pth",
+  "checkpoint": "checkpoints/m17_track_a_seed42/best.pth",
   "temperature": 3.2253900076335094,
   "scale_ablations": {
     "Celeb-DF-v2": {

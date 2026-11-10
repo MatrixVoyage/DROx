@@ -36,9 +36,9 @@ Milestone 15 executed the preregistered evaluation of **Arm C (`M15-RobustGen`)*
 ---
 
 ## 3. Cryptographic Provenance & Audit Trail
-- **Arm C Checkpoint**: `G:\MyProjects\DeepFake Video Detection\checkpoints\m15_arm_c_seed42\best.pth`
+- **Arm C Checkpoint**: `checkpoints/m15_arm_c_seed42/best.pth`
 - **Arm C Checkpoint SHA-256**: `eeef507ab9526a475fecca9d515a33283a2b23ab1663303d70c527bb83aeb24a`
-- **v5 Champion Checkpoint**: `G:\MyProjects\DeepFake Video Detection\checkpoints\m13_3_f2f_seed42\best.pth`
+- **v5 Champion Checkpoint**: `checkpoints/m13_3_f2f_seed42/best.pth`
 - **v5 Champion SHA-256**: `4e81b49308bbf14993c3de43377afd3349945f6e5a69ed4af307f4f26009dfc7`
 - **Derived Temperature $T_{\text{M15-C}}$**: `2.5316`
 - **Derived Spec90 Threshold $\tau^*_{\text{M15-C}}$**: `0.0840`

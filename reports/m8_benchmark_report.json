@@ -1208,7 +1208,7 @@
           0,
           1
         ],
-        "visualization_path": "reports\\figures\\attribution\\true_negative_real_attribution.png"
+        "visualization_path": "reports/figures/attribution/true_negative_real_attribution.png"
       },
       "true_positive_fake": {
         "video_id": "f2f_194_235",
@@ -1222,7 +1222,7 @@
           3,
           0
         ],
-        "visualization_path": "reports\\figures\\attribution\\true_positive_fake_attribution.png"
+        "visualization_path": "reports/figures/attribution/true_positive_fake_attribution.png"
       },
       "false_positive_case": {
         "video_id": "orig_421",
@@ -1236,7 +1236,7 @@
           3,
           0
         ],
-        "visualization_path": "reports\\figures\\attribution\\false_positive_case_attribution.png"
+        "visualization_path": "reports/figures/attribution/false_positive_case_attribution.png"
       },
       "false_negative_case": {
         "video_id": "df_044_945",
@@ -1250,7 +1250,7 @@
           0,
           1
         ],
-        "visualization_path": "reports\\figures\\attribution\\false_negative_case_attribution.png"
+        "visualization_path": "reports/figures/attribution/false_negative_case_attribution.png"
       }
     }
   },
@@ -1258,7 +1258,7 @@
     "gate": "GATE 7 \u2014 DFDC STANDING GATE",
     "status": "PENDING",
     "is_physically_available": false,
-    "disk_path": "Datasets\\DFDC",
+    "disk_path": "Datasets/DFDC",
     "detail": "PENDING \u2014 DATA ACCESS UNAVAILABLE. Dataset requires official competition credentials.",
     "synthetic_substitution_attempted": false,
     "unauthorized_scrape_attempted": false
