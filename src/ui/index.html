@@ -114,6 +114,17 @@
           <span id="activeEngineLabel" style="font-size: 0.75rem; background: #21262d; padding: 2px 8px; border-radius: 12px; color: #8b949e; font-family: var(--font-mono);">v3-robust</span>
         </div>
 
+        <!-- Demo Mode Notice Banner (Shown if running without trained weights) -->
+        <div id="demoAlertBanner" class="reject-alert-banner" style="display: none; background: rgba(210, 153, 34, 0.15); border: 1px solid rgba(210, 153, 34, 0.4); margin-bottom: 1rem;">
+          <div class="reject-alert-icon" style="color: #d29922;">ℹ️</div>
+          <div>
+            <div class="reject-alert-title" id="demoAlertTitle" style="color: #d29922;">DEMO MODE: UNINITIALIZED WEIGHTS</div>
+            <div class="reject-alert-desc" id="demoAlertDesc" style="color: #c9d1d9; font-size: 0.82rem;">
+              No trained checkpoint found on disk. The system is operating in simulation demo mode. To download official trained model weights, run: <code style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px; font-family: var(--font-mono);">python scripts/download_weights.py</code>
+            </div>
+          </div>
+        </div>
+
         <!-- Operating Envelope Rejection Alert Banner (Only shown if REJECT) -->
         <div id="rejectAlertBanner" class="reject-alert-banner" style="display: none;">
           <div class="reject-alert-icon">⚠️</div>

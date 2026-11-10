@@ -70,6 +70,7 @@ class VideoPredictor:
         config: Optional[Union[AppConfig, str, Path]] = None,
         device: Optional[str] = None,
         threshold: float = 0.5,
+        allow_demo_fallback: bool = True,
     ) -> None:
         """Initialize predictor by loading checkpoint and configuring pipeline.
 
@@ -78,13 +79,43 @@ class VideoPredictor:
             config: Optional AppConfig or path to YAML config. If None, restored from checkpoint.
             device: Target device ("cuda" or "cpu"). If None, resolves from config/hardware.
             threshold: Binary decision threshold (default: 0.5).
+            allow_demo_fallback: If True, falls back to initialized model weights if checkpoint is missing.
         """
-        self.checkpoint_path = Path(checkpoint_path)
-        if not self.checkpoint_path.is_file():
-            raise FileNotFoundError(f"Checkpoint file not found: {self.checkpoint_path}")
-
+        self.checkpoint_path = Path(checkpoint_path) if checkpoint_path else Path("checkpoints/default/best.pth")
         self.threshold = float(threshold)
         self.logger = setup_logger("video_predictor")
+        self.is_demo_mode = False
+
+        if not self.checkpoint_path.is_file():
+            if not allow_demo_fallback:
+                raise FileNotFoundError(f"Checkpoint file not found: {self.checkpoint_path}")
+            self.logger.warning(
+                f"Checkpoint file not found at '{self.checkpoint_path}'. "
+                "Operating in DEMO / SIMULATION mode with initialized architecture. "
+                "Run 'python scripts/download_weights.py' to download trained production checkpoints."
+            )
+            self.is_demo_mode = True
+            if config is not None:
+                self.config = load_config(config) if isinstance(config, (str, Path)) else config
+            else:
+                self.config = load_config("configs/default.yaml")
+
+            if device:
+                self.config.device = device
+            effective_device_str = self.config.get_effective_device()
+            self.device = torch.device(effective_device_str)
+
+            self.model = DeepfakeDetector(self.config.model)
+            self.model.to(self.device)
+            self.model.eval()
+
+            self.pipeline = VideoFacePipeline(config=self.config)
+            self.model_version = f"demo-mode-unweighted ({self.checkpoint_path.name})"
+            self._init_calibration()
+            self.logger.info(
+                f"Initialized VideoPredictor in DEMO mode on {self.device} (threshold={self.threshold})"
+            )
+            return
 
         # Load checkpoint payload read-only
         checkpoint_data = torch.load(self.checkpoint_path, map_location="cpu", weights_only=False)
@@ -274,12 +305,19 @@ class VideoPredictor:
         elif name == "m17-sensor-residuals":
             arch_str = "EfficientNet-B0 + SRM + Bayar Multi-Scale Residuals"
 
-        return {
+        res_dict = {
             "name": name,
             "version": version,
             "architecture": arch_str,
             "device": str(self.device),
         }
+        if getattr(self, "is_demo_mode", False):
+            res_dict["demo_mode"] = True
+            res_dict["demo_notice"] = (
+                "Running with initialized backbone weights. Official weights can be downloaded via "
+                "'python scripts/download_weights.py'."
+            )
+        return res_dict
 
     def predict_tensor(
         self,

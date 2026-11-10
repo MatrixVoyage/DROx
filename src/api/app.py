@@ -89,10 +89,9 @@ def get_predictor(engine: str = "v1-baseline") -> Any:
     device = os.environ.get("DEEPFAKE_DEVICE", None)
     logger.info(f"Initializing VideoPredictor [{engine}] from checkpoint: {checkpoint_path} (device={device})")
     if not Path(checkpoint_path).is_file():
-        logger.warning(f"Checkpoint not found at {checkpoint_path}; running in uninitialized mode")
-        raise RuntimeError(f"Checkpoint not found at {checkpoint_path}")
+        logger.warning(f"Checkpoint not found at {checkpoint_path}; initializing in demo fallback mode")
 
-    predictor = VideoPredictor(checkpoint_path=checkpoint_path, device=device)
+    predictor = VideoPredictor(checkpoint_path=checkpoint_path, device=device, allow_demo_fallback=True)
     _predictors[engine] = predictor
     return predictor
 
@@ -423,6 +422,12 @@ async def predict_video(
         res_dict = result.to_dict()
         res_dict["original_filename"] = filename
         res_dict["engine"] = active_engine
+        if getattr(predictor, "is_demo_mode", False):
+            res_dict["demo_mode"] = True
+            res_dict["demo_notice"] = (
+                "Running in Demo Mode (checkpoint not found). Results are simulated/unweighted. "
+                "Run 'python scripts/download_weights.py' to download official weights."
+            )
         if not res_dict.get("decision"):
             res_dict["decision"] = "FAKE" if result.verdict == "Deepfake" else ("REAL" if result.verdict == "Real" else "REJECT")
         return res_dict

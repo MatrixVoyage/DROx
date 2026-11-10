@@ -214,13 +214,36 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
-### 5. Configure Optional Environment Variables
+### 5. Download Model Weights (or Run in Instant Demo Mode)
+```bash
+# Verify or download the verified v5-champion model weights (120 MB):
+python scripts/download_weights.py --model v5-champion
+```
+> **Note on Demo Mode**: If you run without downloading weights, DROx automatically operates in **Demo Simulation Mode** with initialized architecture weights. You can explore the UI, run face extraction, test the API, and inspect telemetry immediately out of the box!
+
+### 6. Hardware Compatibility & Device Selection
+DROx automatically adapts to your hardware at runtime:
+- **CPU-Only (No GPU)**: Fully supported out of the box. No CUDA installation required.
+- **Low-VRAM GPU (2 GB – 6 GB)**: Inference operates on single-clip 16-frame tensors requiring only ~600 MB – 1 GB of VRAM, running comfortably on entry-level GPUs (GTX 1650, RTX 3050).
+- **High-End GPU (8 GB – 24 GB+)**: Full CUDA acceleration executes inference in ~15–25 ms per video.
+
+To explicitly force CPU or GPU execution:
+```bash
+# Force CPU execution:
+python -m src.cli serve --device cpu
+
+# Or set environment variable:
+export DEEPFAKE_DEVICE=cpu   # Linux/macOS
+$env:DEEPFAKE_DEVICE="cpu"   # Windows PowerShell
+```
+
+### 7. Configure Optional Environment Variables
 ```bash
 cp .env.example .env
 ```
 *(Optional: Open `.env` and configure your `GROQ_API_KEY` to enable natural-language AI analyst briefings).*
 
-### 6. Verify Environment and Hardware
+### 8. Verify Environment and Hardware
 ```bash
 python -m src.cli verify-env
 ```
@@ -262,14 +285,16 @@ Open **`http://localhost:8000`** in your browser.
 
 ### Option B: Command-Line Interface (CLI)
 
+> **Input Requirement**: You can analyze any standard video (`.mp4`, `.avi`, `.mov`) containing a clearly visible human face (e.g. webcam recording, interview, or test clip).
+
 #### 1. Full Spatiotemporal Forensic Audit
 ```bash
-python -m src.cli forensic-audit --video path/to/sample.mp4 --windows 4 --frames-per-window 16 --output reports/forensic_report.json
+python -m src.cli forensic-audit --video path/to/face_video.mp4 --windows 4 --frames-per-window 16 --output reports/forensic_report.json
 ```
 
 #### 2. Standalone Neural Model Inference
 ```bash
-python -m src.cli predict --video path/to/sample.mp4 --engine v5-family-invariant --threshold 0.50
+python -m src.cli predict --video path/to/face_video.mp4 --engine v5-family-invariant --threshold 0.50
 ```
 
 #### 3. Benchmark Inference Latency & Hardware Throughput

@@ -225,6 +225,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const resetBtn = document.getElementById("resetBtn");
 
   // Rejection & Diagnostic Elements
+  const demoAlertBanner = document.getElementById("demoAlertBanner");
   const rejectAlertBanner = document.getElementById("rejectAlertBanner");
   const rejectAlertTitle = document.getElementById("rejectAlertTitle");
   const rejectAlertDesc = document.getElementById("rejectAlertDesc");
@@ -383,6 +384,10 @@ document.addEventListener("DOMContentLoaded", () => {
   function applyThresholdAndRenderVerdict(data, threshold) {
     if (!data) return;
 
+    if (demoAlertBanner) {
+      demoAlertBanner.style.display = data.demo_mode ? "flex" : "none";
+    }
+
     const isReject = data.decision === "REJECT" || data.verdict === "Reject";
 
     if (isReject) {
@@ -406,6 +411,7 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       // Hide rejection banner for valid predictions
       if (rejectAlertBanner) rejectAlertBanner.style.display = "none";
+      if (demoAlertBanner) demoAlertBanner.style.display = "none";
 
       const prob = Number(data.probability ?? 0);
       const isFake = prob >= threshold;
@@ -1500,6 +1506,7 @@ document.addEventListener("DOMContentLoaded", () => {
       verdictConfidence.textContent = "Model Score: --";
 
       if (rejectAlertBanner) rejectAlertBanner.style.display = "none";
+      if (demoAlertBanner) demoAlertBanner.style.display = "none";
       if (diagnosticContainer) diagnosticContainer.style.display = "none";
       if (decisionReason) decisionReason.style.display = "none";
       if (techBranchContainer) techBranchContainer.style.display = "none";
