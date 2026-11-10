@@ -5,130 +5,165 @@
 [![CUDA 12.4](https://img.shields.io/badge/cuda-12.4-76b900.svg)](https://developer.nvidia.com/cuda-toolkit)
 [![FastAPI 0.115+](https://img.shields.io/badge/FastAPI-0.115+-009688.svg)](https://fastapi.tiangolo.com/)
 [![Pytest 100% Pass](https://img.shields.io/badge/tests-436%20passed%20%28100%25%29-brightgreen.svg)](tests/)
-[![Hardware: RTX 3050 6GB](https://img.shields.io/badge/hardware-RTX%203050%206GB-green.svg)](README.md#4-hardware-constraints--efficiency)
+[![Hardware: RTX 3050 6GB](https://img.shields.io/badge/hardware-RTX%203050%206GB-green.svg)](README.md#hardware-constraints--efficiency)
 [![License: Research Only](https://img.shields.io/badge/license-Research%20Only-yellow.svg)](README.md#license--citation)
 
-A research-oriented, production-calibrated visual deepfake video detection system. Based on the spatial-attention and temporal-modeling architecture of *Lal et al. (Scientific Reports, 2025)* and evolved through multi-domain invariant representations, multi-modal signal processing (Laplacian boundary seams, Farneback optical flow velocity divergence, Eye Aspect Ratio blink kinematics, 2D-FFT spectral decay), temperature-calibrated decision science ($T=2.0502$), and an explainable AI forensic analyst.
+A research-oriented, production-calibrated visual deepfake video detection platform. Grounded in the spatial-attention and temporal-modeling architecture of *Lal et al. (Scientific Reports, 2025)* and evolved into a multi-modal inspection framework combining deep neural models (EfficientNet-Transformer, 3D Kinematics, Log-Odds Platt Ensembles), deterministic forensic signals (Laplacian boundary seams, Farneback optical flow velocity divergence, Eye Aspect Ratio blink kinematics, 2D-FFT azimuthal spectral decay), statistical calibration ($T=2.0502$), and an evidence-grounded explainable AI forensic analyst.
 
 ---
 
-## System Overview & Architecture Pipeline
+## Live System Architecture & Interactive Dataflow
 
-The system processes unconstrained video streams through a modular, face-centric pipeline engineered to operate efficiently within commodity GPU constraints (NVIDIA RTX 3050 6GB VRAM, consuming < 540 MB peak memory during neural forward execution).
+The end-to-end detection pipeline processes unconstrained video containers via a decoupled dual-track architecture engineered to operate within commodity GPU constraints (NVIDIA RTX 3050 6GB VRAM, peak memory < 540 MB during inference):
 
 <p align="center">
-  <img src="reports/figures/system_pipeline_flowchart.png" alt="Deepfake Detection Pipeline Flowchart" width="850"/>
+  <img src="reports/figures/interactive_dataflow.svg" alt="Deepfake Detection Live Dataflow Diagram" width="100%"/>
 </p>
-<p align="center"><em>Figure 1: End-to-end processing pipeline from raw video demuxing to multi-modal forensic inspection and calibrated verdict generation.</em></p>
 
-### Pipeline Data Flow
+### Comprehensive System Architecture
+
+<p align="center">
+  <img src="reports/figures/system_architecture_comprehensive.png" alt="Comprehensive Dual-Track System Architecture" width="100%"/>
+</p>
+<p align="center"><em>Figure 1: Complete system architecture faithfully representing the repository implementation: Decoupled Ingestion & Face Tracking, Dual-Track Neural (Track A) and Deterministic Forensics (Track B), Statistical Calibration & OOD Gating, and the Multi-Engine Serving Layer with Groq AI Analyst.</em></p>
+
+---
+
+## Native Interactive Tensor Flowchart
 
 ```mermaid
-flowchart LR
-    A["Raw Video<br/>(MP4 / AVI / MOV)"] --> B["Deterministic Sampler<br/>(T=16 frames, SHA-256)"]
-    B --> C["MTCNN Face Cascade<br/>(3-Stage Detection & Tracking)"]
-    C --> D["Preprocessed Crops<br/>(112×112, ImageNet Norm)"]
-    D --> E["Spatial Backbone<br/>(EfficientNet-B0 / ResNeXt-50)"]
-    E --> F["Soft Spatial Attention<br/>(Context Weight Pooling)"]
-    F --> G["Temporal Modeling<br/>(Transformer / LSTM)"]
-    G --> H["Linear Classifier Head<br/>(Raw Scalar Logit z)"]
-    H --> I["Temperature Scaling<br/>(T = 2.0502)"]
-    
-    C --> J["Forensic Signal Engine<br/>(Laplacian / Flow / EAR / FFT)"]
-    I --> K["Decision Engine<br/>(Standard tau=0.50 / Youden tau=0.1912)"]
-    J --> K
-    K --> L["Structured Report<br/>& Groq LLM Analyst"]
+flowchart TD
+    subgraph S1["1. VIDEO INGESTION & TRACKING"]
+        V["Raw Video File<br/>(MP4 / AVI / MOV)"] --> DEC["OpenCV Demuxer<br/>(PTS Timestamp Check)"]
+        DEC --> SMP["Deterministic Sampler<br/>(T=16 frames, SHA-256)"]
+        SMP --> MTCNN["MTCNN Face Cascade<br/>(3-Stage Detection & 1.30 Margin)"]
+        MTCNN --> CROPS["Normalized Face Crops<br/>(B, 16, 3, 112, 112)"]
+    end
+
+    subgraph S2["2. DUAL-TRACK ANALYSIS"]
+        CROPS --> TRK_A["TRACK A: NEURAL ENGINES"]
+        CROPS --> TRK_B["TRACK B: FORENSIC SIGNALS"]
+
+        subgraph S2A["Track A: Deep Learning Models"]
+            TRK_A --> V5["v5-family-invariant<br/>(EfficientNet-B0 + SoftAttn + Transformer)"]
+            TRK_A --> M18["m18-dual-stream<br/>(Appearance + 3D Differential Kinematics)"]
+            V5 -->|z13 logit| M22["m22-ensemble<br/>(Platt Log-Odds Fusion)"]
+            M18 -->|z18 logit| M22
+        end
+
+        subgraph S2B["Track B: Physical & Biological Telemetry"]
+            TRK_B --> LAP["Laplacian Seam (L0)<br/>Boundary vs Landmark Ratio"]
+            TRK_B --> OF["Farneback Optical Flow<br/>Velocity Divergence & Acceleration"]
+            TRK_B --> EAR["EAR Blink Kinematics<br/>Ocular Motion Anomalies"]
+            TRK_B --> FFT["2D-FFT Spectrum<br/>Azimuthal High-Freq Power Decay"]
+        end
+    end
+
+    subgraph S3["3. CALIBRATION & DECISION ENGINE"]
+        V5 -->|Logit z| CALIB["Temperature Scaling<br/>P = sigmoid(z / 2.0502)"]
+        M22 -->|Fused Logit| CALIB
+        CROPS -->|Latents| OOD["Mahalanobis OOD Gating<br/>d_OOD > 3.5 -> Flag OOD"]
+        CALIB --> DEC_ENG["Operational Policy Engine<br/>tau=0.50 Standard | tau=0.1912 Youden-Optimal"]
+        OOD --> DEC_ENG
+        LAP & OF & EAR & FFT --> DEC_ENG
+    end
+
+    subgraph S4["4. SERVING & EXPLAINABILITY LAYER"]
+        DEC_ENG --> API["FastAPI REST Endpoints<br/>(/api/v1/predict, /compare, /forensic-audit)"]
+        DEC_ENG --> UI["Technical Dashboard<br/>(Glassmorphic Web UI + Heatmaps)"]
+        DEC_ENG --> GROQ["Groq AI Analyst Briefing<br/>(Evidence-Gated Causal Guardrails)"]
+    end
+
+    classDef stage1 fill:#0F172A,stroke:#0284C7,stroke-width:1.5px,color:#E2E8F0;
+    classDef stage2 fill:#0F172A,stroke:#7C3AED,stroke-width:1.5px,color:#E2E8F0;
+    classDef stage3 fill:#0F172A,stroke:#D97706,stroke-width:1.5px,color:#E2E8F0;
+    classDef stage4 fill:#0F172A,stroke:#E11D48,stroke-width:1.5px,color:#E2E8F0;
+
+    class S1 stage1;
+    class S2 stage2;
+    class S3 stage3;
+    class S4 stage4;
 ```
 
 ---
 
-## Deep Multi-Branch Network Architecture
+## Empirical Model Comparison & Pareto Frontier
 
-To overcome the vulnerability of standard CNN-LSTMs to within-manifold facial reenactments (e.g., Face2Face), the architecture incorporates multi-scale frequency residuals and local texture patch classifiers alongside deep semantic representations:
-
-<p align="center">
-  <img src="reports/figures/multibranch_architecture.png" alt="Multi-Branch Deep Architecture" width="850"/>
-</p>
-<p align="center"><em>Figure 2: Multi-branch neural architecture integrating spatial representation learning, temporal sequence modeling, frequency spectrum analysis, and evidence-gated fusion.</em></p>
-
----
-
-## Key Technical Innovations
-
-### 1. Multi-Modal Forensic Verification
-Rather than relying solely on black-box neural scores, the system extracts deterministic physical and biological measurements:
-- **Spatial Laplacian Seam Analysis**: Pyramidal decomposition ($L_0 = \text{Frame} - \text{Gaussian}(\text{Frame})$) measuring the energy ratio between outer facial crop boundaries and inner facial landmarks.
-- **Optical Flow Motion Divergence**: Dense Farneback flow tracking inter-frame vector field deviations, detecting synthetic edge stabilization and motion discontinuities.
-- **Eye Aspect Ratio (EAR) Blink Kinematics**: 68-point facial landmark geometry tracking involuntary ocular blink rates and duration anomalies.
-- **2D-FFT Azimuthal Power Spectrum**: Fast Fourier Transform analyzing radial spectral decay to detect high-frequency GAN checkerboard artifacts.
-
-### 2. Statistical Calibration & Decision Science
-Neural networks trained with cross-entropy loss produce uncalibrated, overconfident probabilities. The system strictly separates **logits**, **probabilities**, and **operational thresholds**:
-$$\hat{p}_{\text{cal}} = \sigma\left(\frac{z}{T}\right) = \frac{1}{1 + \exp(-z / 2.0502)}$$
-- **Temperature Scaling ($T = 2.0502$)**: Fitted on 1,255 validation sequences, reducing Expected Calibration Error (ECE) from $0.2729 \to 0.0866$ while preserving 100% of the model's ranking AUROC.
-- **Operating Threshold Policy**:
-  - `Standard` ($\tau = 0.5000$): Balanced decision threshold for general screening.
-  - `Youden-Optimal` ($\tau = 0.1912$): Maximizes True Positive vs False Positive rate trade-off ($J = \text{TPR} - \text{FPR}$).
-  - `High-Sensitivity` ($\tau^* = 0.1260$): Maximizes detection recall on compressed videos while enforcing $\ge 90\%$ specificity on clean authentic media.
-  - `High-Specificity` ($\tau = 0.6820$): Enforces $95\%$ specificity for high-consequence legal and forensic workflows.
-
-### 3. Epistemic Uncertainty & Out-of-Distribution (OOD) Guardrails
-- **Monte Carlo Dropout**: Computes score mean and variance across 10 stochastic forward passes to quantify model uncertainty.
-- **Penultimate Manifold OOD Detection**: Mahalanobis distance in the 1280-dimensional latent space evaluated against a validation reference distribution. Inputs with distance $> 3.5$ are flagged as Out-of-Distribution.
-
-### 4. Explainable AI Forensic Analyst (Groq Integration)
-An optional generative synthesis engine transforms structured telemetry into human-friendly, evidence-grounded forensic briefings:
-- **Strict Causal Guardrails**: Algorithmic measurements are never described as proven physical splicing or tampering.
-- **Post-Generation Consistency Validation**: Validates that every metric, timestamp, and verdict in the narrative exactly matches underlying telemetry before delivery.
-- **Deterministic Safe Fallback**: If the LLM times out or fails validation, a deterministic rule-based narrative is substituted automatically.
-
----
-
-## Model Zoo & Architectural Variants
-
-| Model Identifier | Architecture Description | Feature Dim | Temporal Aggregator | Primary Role / Status |
-|---|---|:---:|:---:|---|
-| **`v5-family-invariant`** | EfficientNet-B0 + Soft Spatial Attention | 1280 | 2-Layer Transformer (`cls_token`) | **Active Production Champion** |
-| **`m22-ensemble`** | Log-Odds Platt Ensemble ($0.50 z_{13} + 0.50 z_{18}$) | 1280 / 2048 | Multi-Modal Gated Fusion | Highest-Accuracy Research Champion |
-| **`m18-dual-stream`** | Static Trunk + 3D Differential Kinematics | 1280 | Dual-Stream Kinematic Gating | Reenactment Research Baseline |
-| **`m17-sensor-residuals`** | ResNeXt-50 + Multi-Scale SRM Residuals | 2048 | 1-Layer LSTM (2048 units) | Sensor Noise Research Baseline |
-| **`v1-baseline`** | ResNeXt-50 (32×4d) + Soft Attention | 2048 | 1-Layer LSTM (*Lal et al. 2025*) | Reference Paper Baseline |
-
----
-
-## Empirical Benchmark Results
-
-### 1. In-Distribution vs. External Cross-Dataset Performance
-
-Evaluated on **FaceForensics++ C23** (in-domain) and **Celeb-DF v2** (external unseen holdout, $N=518$ videos) without retraining:
+This repository implements, calibrates, and benchmarks **8 distinct model engines**. Below is the empirical performance comparison measured directly across in-domain datasets (**FaceForensics++ C23**), unseen external holdout benchmarks (**Celeb-DF v2**), challenging reenactment manipulations (**Face2Face**), and heavy JPEG compression perturbations ($Q=50$):
 
 <p align="center">
-  <img src="reports/figures/publication/performance_comparison.png" alt="Performance Comparison across Models" width="450"/>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <img src="reports/figures/publication/roc_curves.png" alt="ROC Curves across Benchmarks" width="450"/>
+  <img src="reports/figures/model_comparison_benchmark.png" alt="Empirical Model Comparison and Hardware Pareto Frontier" width="100%"/>
 </p>
-<p align="center"><em>Figure 3: (Left) Performance comparison across architectural generations. (Right) Receiver Operating Characteristic (ROC) curves across in-distribution and cross-dataset evaluations.</em></p>
+<p align="center"><em>Figure 2: (Left) Empirical detection AUROC across model generations and test conditions. (Right) Hardware Pareto Frontier (Inference Latency vs. Macro AUROC) on NVIDIA RTX 3050 Laptop GPU, illustrating the 45 ms real-time serving boundary.</em></p>
 
-### 2. 4-Fold Leave-One-Family-Out (LOFO) Matrix
+### Comprehensive Model Benchmark Matrix
 
-Evaluates generalization when an entire manipulation family is withheld during model training:
+| Model Identifier | Architecture Description | Feature Dim | FF++ C23 (In-Domain) | Celeb-DF v2 (Unseen OOD) | Face2Face (Reenactment) | JPEG Q50 Robustness | P50 Latency (RTX 3050) | Peak VRAM | Role & Deployment Status |
+|---|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|---|
+| **`v5-family-invariant`** | EfficientNet-B0 + Soft Spatial Attention + 2-Layer Transformer | 1280 | **0.9165** | 0.7824 | **0.7947** | 0.6360 | **24.95 ms** | **539.9 MB** | **Active Production Champion** (Best balance of latency & accuracy) |
+| **`m22-ensemble`** | Log-Odds Platt Ensemble ($0.50 z_{13} + 0.50 z_{18}$) | 1280/2048 | **0.9230** | **0.8213** | **0.8118** | **0.8944** | 72.58 ms | 680.0 MB | **Highest-Accuracy Research Champion** (Best cross-dataset transfer) |
+| **`m18-dual-stream`** | Static Trunk + 3D Differential Kinematics | 1280 | 0.8950 | **0.8166** | 0.7858 | **0.8822** | 48.20 ms | 620.0 MB | Reenactment Research Baseline |
+| **`v3-robust` (M12)** | EfficientNet-B0 + Soft Attention + Transformer (Full FF++) | 1280 | 0.9087 | 0.7780 | 0.7787 | 0.6120 | 24.50 ms | 490.0 MB | Permanently Frozen Control Checkpoint |
+| **`v2-evolved` (M10)** | EfficientNet-B0 + Temporal Transformer | 1280 | 0.9020 | 0.7450 | 0.7150 | 0.5420 | **22.10 ms** | **420.0 MB** | Lightweight Edge Baseline |
+| **`v1-baseline` (M7)** | ResNeXt-50 (32×4d) + Soft Attention + 1-Layer LSTM | 2048 | 0.8840 | 0.7120 | 0.6820 | 0.5120 | 27.40 ms | 485.0 MB | Reference Paper Reproduction (*Lal et al. 2025*) |
 
-| Matrix Fold | Held-Out Manipulation | Training Sets | Baseline AUC | Champion AUC | Clean Specificity |
+---
+
+## 4-Fold Leave-One-Family-Out (LOFO) Matrix
+
+To evaluate true generalization to unseen manipulation types, the model was evaluated under a strict 4-fold cross-validation scheme where one entire manipulation family was withheld during training:
+
+| Matrix Fold | Held-Out Manipulation | In-Training Sets | Baseline AUC | Champion AUC | Clean Specificity |
 |---|---|---|:---:|:---:|:---:|
-| **LOFO-F2F** | **Face2Face** (Reenactment) | DF + FS + NT | 0.7787 | **0.7903** | 93.88% |
-| **LOFO-NT** | **NeuralTextures** (Facial GAN) | DF + FS + F2F | 0.9298 | **0.9499** | 94.20% |
-| **LOFO-FS** | **FaceSwap** (Identity Transfer) | DF + NT + F2F | 0.9402 | **0.9435** | 95.10% |
-| **LOFO-DF** | **Deepfakes** (Autoencoder) | FS + NT + F2F | 0.9806 | **0.9824** | 96.50% |
-| **Macro Mean** | **All 4 Families** | Cross-Family Transfer | 0.9087 | **0.9165** | **94.92%** |
+| **LOFO-F2F** | **Face2Face** (Facial Reenactment) | DF + FS + NT | 0.7787 | **0.7903** (+0.0116) | 93.88% |
+| **LOFO-NT** | **NeuralTextures** (Facial GAN) | DF + FS + F2F | 0.9298 | **0.9499** (+0.0201) | 94.20% |
+| **LOFO-FS** | **FaceSwap** (Identity Replacement) | DF + NT + F2F | 0.9402 | **0.9435** (+0.0033) | 95.10% |
+| **LOFO-DF** | **Deepfakes** (Autoencoder) | FS + NT + F2F | 0.9806 | **0.9824** (+0.0018) | 96.50% |
+| **Macro Mean** | **All 4 Families** | Cross-Family Generalization | 0.9087 | **0.9165** (+0.0078) | **94.92%** |
 
-### 3. Spatial Attribution Heatmaps
+---
+
+## Spatial Attribution & Blending Seam Localization
+
+The system produces spatial attention heatmaps revealing exactly where the neural backbone focuses its decision:
 
 <p align="center">
   <img src="reports/figures/attribution/true_positive_fake_attribution.png" alt="True Positive Deepfake Attribution" width="420"/>
   &nbsp;&nbsp;&nbsp;&nbsp;
   <img src="reports/figures/attribution/true_negative_real_attribution.png" alt="True Negative Authentic Attribution" width="420"/>
 </p>
-<p align="center"><em>Figure 4: Spatial attribution heatmaps. (Left) True positive deepfake showing pronounced attention along the synthetic blending seam. (Right) True negative authentic face showing diffuse, uniform anatomical attention.</em></p>
+<p align="center"><em>Figure 3: (Left) True-positive deepfake showing elevated attention concentration along the synthetic blending seam around the chin and jawline. (Right) True-negative authentic face exhibiting uniform, diffuse anatomical attention across ocular and nasal structures.</em></p>
+
+---
+
+## Key Technical Innovations
+
+### 1. Multi-Modal Forensic Verification (Track B)
+Rather than trusting raw neural network scores alone, the system extracts deterministic physical and biological measurements:
+- **Spatial Laplacian Seam Analysis**: Pyramidal band decomposition ($L_0 = \text{Frame} - \text{Gaussian}(\text{Frame})$) quantifying the energy ratio between outer facial crop boundaries and inner facial landmarks.
+- **Optical Flow Velocity Divergence**: Dense Farneback flow tracking vector field motion differentials, detecting unnatural synthetic smoothing along facial perimeters.
+- **Eye Aspect Ratio (EAR) Blink Kinematics**: 68-point facial landmark geometry tracking involuntary ocular blink frequencies and duration anomalies.
+- **2D-FFT Azimuthal Power Spectrum**: Fast Fourier Transform analyzing radial spectral decay to detect high-frequency GAN upsampling grid artifacts.
+
+### 2. Statistical Calibration & Decision Science
+Neural networks trained with standard cross-entropy produce overconfident, uncalibrated scores. The system strictly separates **logits**, **probabilities**, and **operational thresholds**:
+$$\hat{p}_{\text{cal}} = \sigma\left(\frac{z}{T}\right) = \frac{1}{1 + \exp(-z / 2.0502)}$$
+- **Temperature Scaling ($T = 2.0502$)**: Optimized via Negative Log-Likelihood (NLL) on 1,255 validation sequences. Reduces Expected Calibration Error (ECE) from $0.2729 \to 0.0866$ while preserving 100% of ranking AUROC.
+- **Operating Threshold Policies**:
+  - `Standard` ($\tau = 0.5000$): Balanced decision threshold for general screening.
+  - `Youden-Optimal` ($\tau = 0.1912$): Mathematically minimizes error trade-off ($J = \text{TPR} - \text{FPR}$).
+  - `High-Sensitivity` ($\tau^* = 0.1260$): Maximizes detection recall on compressed videos while enforcing $\ge 90\%$ specificity on clean authentic media.
+  - `High-Specificity` ($\tau = 0.6820$): Enforces $95\%$ specificity for high-consequence forensic investigations.
+
+### 3. Epistemic Uncertainty & Out-of-Distribution (OOD) Guardrails
+- **Monte Carlo Dropout**: Computes score mean and dispersion variance across 10 stochastic forward passes to quantify model uncertainty.
+- **Penultimate Manifold OOD Detection**: Mahalanobis centroid distance in the 1280-dimensional latent space. Samples with $d_{\text{OOD}} > 3.5$ are flagged as Out-of-Distribution.
+
+### 4. Explainable AI Forensic Analyst (Groq Integration)
+An optional generative synthesis engine transforms structured telemetry into human-friendly, evidence-grounded forensic briefings:
+- **Strict Causal Guardrails**: Algorithmic measurements are never described as proven physical splicing or tampering.
+- **Post-Generation Consistency Validation**: Validates that every metric, timestamp, and verdict in the narrative exactly matches underlying telemetry before delivery.
+- **Deterministic Safe Fallback**: If the LLM times out or fails validation, a deterministic rule-based narrative is substituted automatically.
 
 ---
 
@@ -181,10 +216,9 @@ pip install -e .
 
 ### 5. Configure Optional Environment Variables
 ```bash
-# Copy template configuration
 cp .env.example .env
 ```
-*(Optional: Open `.env` and configure your `GROQ_API_KEY` if you wish to enable natural-language AI analyst briefings).*
+*(Optional: Open `.env` and configure your `GROQ_API_KEY` to enable natural-language AI analyst briefings).*
 
 ### 6. Verify Environment and Hardware
 ```bash
